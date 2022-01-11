@@ -30,3 +30,14 @@
 *.exe
 *.out
 *.app
+
+# Folders
+Release
+Debug
+SDL2.0 Lib
+SDL2.dll
+Json
+SDL2_image-2.0.5
+SDL2-2.0.16
+.vs
+glew*
