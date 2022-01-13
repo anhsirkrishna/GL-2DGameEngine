@@ -10,10 +10,19 @@ private:
 	int level;
 	bool debug_mode;
 public:
+	//Default Constructor
 	GameManager();
+
+	//Sets the run status to false
 	void Quit();
+
+	//Returns the current run status
 	bool Status();
+
+	//Returns the current level
 	unsigned int Level();
+
+	//Sets the current level
 	void SetLevel(int level);
 };
 
