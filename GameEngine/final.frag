@@ -10,10 +10,12 @@ uniform vec2 tex_offset;
 out vec4 out_Color;
 
 void main() {
+	//Mode specified if we are filling with colors or textures.
 	if (mode == 0)
 		out_Color = ex_Color;
 	else{
 		vec4 tex_color = texture2D(texture_map, ex_TextCoord + tex_offset);
+		//If the alpha value is transparent then discard the pixel to achieve transparency.
 		if (tex_color.a < 0.1)
 			discard;
 		out_Color = tex_color; 

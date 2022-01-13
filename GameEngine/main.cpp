@@ -201,6 +201,8 @@ int main(int argc, char* args[])
 	//Create the Shader Program
 	ShaderProgram* p_shader_program = GL_Program_init();
 
+	//Temporary bit of code for demo purposes.
+	//Clean this up as soon as a serializer is in place
 	GameObject* new_game_object = new GameObject("demo_obj");
 	GLQuad* new_quad = new GLQuad();
 	new_quad->CreateDemo();
@@ -217,6 +219,7 @@ int main(int argc, char* args[])
 	{
 		p_game_obj_manager->Update();
 
+		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
