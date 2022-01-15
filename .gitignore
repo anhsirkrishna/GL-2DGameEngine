@@ -41,3 +41,7 @@ SDL2_image-2.0.5
 SDL2-2.0.16
 .vs
 glew*
+
+# vcxproj.user file 
+*.vcxproj.user
+

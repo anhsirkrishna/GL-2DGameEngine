@@ -72,17 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\krish\Workspace\GAM541\SDL2_image-2.0.5\include;C:\Users\krish\Workspace\GAM541\SDL2-2.0.16\include;C:\Users\krish\Workspace\GAM541\Json\single_include;C:\Users\krish\Workspace\GAM541\glew-2.2.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\krish\Workspace\GAM541\SDL2_image-2.0.5\lib\x86;C:\Users\krish\Workspace\GAM541\SDL2-2.0.16\lib\x86;C:\Users\krish\Workspace\GAM541\glew-2.2.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x64;$(SolutionDir)..\SDL2_image-2.0.5\lib\x64;$(SolutionDir)..\glew-2.2.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x64;$(SolutionDir)..\SDL2_image-2.0.5\lib\x64;$(SolutionDir)..\glew-2.2.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -94,7 +100,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,6 +117,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,6 +130,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,6 +147,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -147,6 +156,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GLQuad.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
@@ -159,6 +169,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GLQuad.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Matrix3D.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Transform.h" />

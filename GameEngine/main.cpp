@@ -11,6 +11,7 @@
 #include "GameDefs.h"
 #include "ShaderProgram.h"
 #include "GameObjectManager.h"
+#include "InputManager.h"
 #include "GameManager.h"
 #include "Matrix3D.h"
 #include "GLQuad.h"
@@ -34,6 +35,7 @@ unsigned int DEFAULT_FRAMERATE = 60;
 */
 GameObjectManager* p_game_obj_manager;
 GameManager* p_game_manager;
+InputManager* p_input_manager;
 
 /*
 * Global variables to handle SDL window and Open GL Context
@@ -56,6 +58,7 @@ bool RUN_WITH_EDITOR = true;
 void CreateManagers() {
 	p_game_obj_manager = new GameObjectManager();
 	p_game_manager = new GameManager();
+	p_input_manager = new InputManager();
 }
 
 /*
@@ -65,6 +68,7 @@ void DeleteManagers() {
 	p_game_obj_manager->Cleanup();
 	delete p_game_obj_manager;
 	delete p_game_manager;
+	delete p_input_manager;
 }
 
 
@@ -81,7 +85,7 @@ bool SDL_GL_Init() {
 
 	int error = 0;
 	// Initialize SDL
-	if ((error = SDL_Init(SDL_INIT_VIDEO)) < 0)
+	if ((error = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)) < 0)
 	{
 		SDL_Log("Couldn't initialize SDL, error %i\n", error);
 		return false;
@@ -206,9 +210,6 @@ int main(int argc, char* args[])
 		AllocConsole();
 	#endif // DEBUG
 
-	//Create all the global managers
-	CreateManagers();
-
 	//Init SDL and OpenGL
 	if (SDL_GL_Init())
 		SDL_Log("Initialization Complete");
@@ -219,6 +220,9 @@ int main(int argc, char* args[])
 
 	if (RUN_WITH_EDITOR)
 		ImGuiInit();
+
+	//Create all the global managers
+	CreateManagers();
 
 	//Create the Shader Program
 	ShaderProgram* p_shader_program = GL_Program_init();
@@ -232,7 +236,7 @@ int main(int argc, char* args[])
 	Transform* new_transform = new Transform();
 	new_game_object->AddComponent(new_transform);
 	new_game_object->LinkComponents();
-
+	SDL_Rect new_pos;
 	p_game_obj_manager->AddGameObject(new_game_object);
 
 	//Main Game loop 
@@ -240,6 +244,31 @@ int main(int argc, char* args[])
 	while (p_game_manager->Status())
 	{
 		p_game_obj_manager->Update();
+		p_input_manager->Update();
+
+		if (p_input_manager->isQuit())
+			p_game_manager->Quit();
+
+		//Following lines are test code. Remove ASAP
+		if (p_input_manager->getLeftStickHorizontal() != 0) {
+			new_pos = new_transform->GetPosition();
+			new_pos.x = new_pos.x + (3 * p_input_manager->getLeftStickHorizontal());
+			new_transform->SetPosition(new_pos);
+		}
+		if (p_input_manager->getLeftStickVertical() != 0) {
+			new_pos = new_transform->GetPosition();
+			new_pos.y = new_pos.y + (3 * p_input_manager->getLeftStickVertical());
+			new_transform->SetPosition(new_pos);
+		}
+		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A)) {
+			new_transform->SetRotation(0);
+		}
+		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_B)) {
+			new_transform->SetRotation(new_transform->GetRotation() + 0.3);
+		}
+		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_X)) {
+			new_transform->SetRotation(new_transform->GetRotation() - 0.3);
+		}
 
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
