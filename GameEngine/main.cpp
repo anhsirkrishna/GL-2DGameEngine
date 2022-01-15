@@ -5,6 +5,9 @@
 #include <GL\GLU.h>
 #include <SDL_image.h>
 
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_sdl.h"
+#include "EditorUI.h"
 #include "GameDefs.h"
 #include "ShaderProgram.h"
 #include "GameObjectManager.h"
@@ -37,6 +40,7 @@ GameManager* p_game_manager;
 */
 SDL_Window* gp_sdl_window;
 SDL_GLContext gp_gl_context;
+bool RUN_WITH_EDITOR = true;
 
 /*
 * Macro used to check for OpenGL errors.
@@ -179,6 +183,21 @@ ShaderProgram* GL_Program_init() {
 	return p_shader_program;
 }
 
+void ImGuiInit()
+{
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+	ImGui::StyleColorsDark();
+
+	ImGui_ImplSDL2_InitForOpenGL(gp_sdl_window, gp_gl_context);
+
+	std::string glsl_version = "#version 130";
+
+	ImGui_ImplOpenGL3_Init(glsl_version.c_str());
+
+}
 
 int main(int argc, char* args[])
 {
@@ -197,6 +216,9 @@ int main(int argc, char* args[])
 		SDL_Log("Initialization Failed");
 		return 1;
 	}
+
+	if (RUN_WITH_EDITOR)
+		ImGuiInit();
 
 	//Create the Shader Program
 	ShaderProgram* p_shader_program = GL_Program_init();
@@ -224,6 +246,15 @@ int main(int argc, char* args[])
 		glClearColor(0.0, 0.0, 0.0, 0.0);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		if (RUN_WITH_EDITOR)
+		{
+			//ImGui new frame setup
+			ImGui_ImplOpenGL3_NewFrame();
+			ImGui_ImplSDL2_NewFrame();
+			ImGui::NewFrame();
+		}
+
+		//Rendering demo scene
 		Matrix3D orthoGraphProj = OrthographicProj(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0, 1.0);
 		GLuint loc = glGetUniformLocation(p_shader_program->program_id, "orthoGraphProj");
 		glUniformMatrix4fv(loc, 1, GL_FALSE, orthoGraphProj.GetMatrixP());
@@ -237,8 +268,16 @@ int main(int argc, char* args[])
 		CHECKERROR;
 		p_shader_program->Unuse();
 
+		//ImGui Render
+		if (RUN_WITH_EDITOR)
+			ImGuiRender();
+
+		//Buffer Swapping
 		SDL_GL_SwapWindow(gp_sdl_window);
 	}
+
+	if (RUN_WITH_EDITOR)
+		ImGuiCleanup();
 
 	DeleteManagers();
 	CloseProgram();
