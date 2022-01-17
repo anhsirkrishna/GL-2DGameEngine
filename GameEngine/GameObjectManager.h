@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include <vector>
 
 class GameObjectManager {
 public:
@@ -34,7 +35,7 @@ public:
 	const unsigned int max_objects = 50;
 
 
-	GameObject* game_object_list[50];
+	std::vector<GameObject*> game_object_list;
 };
 
 //Extern global variable defined so it can be accessed throughout the project

@@ -1,6 +1,22 @@
 #pragma once
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_sdl.h"
+typedef struct SDL_Window;
+typedef void* SDL_GLContext;
+class GameObjectManager;
 
-void ImGuiRender();
-void ImGuiCleanup();
+
+class Editor
+{
+	GameObjectManager* obj_manager;
+
+public:
+
+	Editor(GameObjectManager* manager_) : obj_manager(manager_) {};
+
+	void Init(SDL_Window* window, SDL_GLContext context) const;
+	void NewFrame() const;
+	void Render();
+	void Cleanup() const;
+};
+
+extern Editor* p_editor;
+

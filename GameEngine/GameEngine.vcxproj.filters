@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Shaders">
       <UniqueIdentifier>{7528d094-0bb8-41f9-b65a-9544e473c290}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ImGuiSource">
+      <UniqueIdentifier>{57a6a918-60e6-4140-8623-629a51caaefb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ImGuiCustom">
+      <UniqueIdentifier>{09e2799e-5c9c-4321-9193-50e993d1b3ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,6 +75,27 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_opengl3.cpp">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_sdl.cpp">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorUI.cpp">
+      <Filter>Source Files\ImGuiCustom</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -100,6 +127,27 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_opengl3.h">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_opengl3_loader.h">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_sdl.h">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>Source Files\ImGuiSource</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorUI.h">
+      <Filter>Source Files\ImGuiCustom</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

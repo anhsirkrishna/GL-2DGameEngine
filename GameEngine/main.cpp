@@ -36,6 +36,7 @@ unsigned int DEFAULT_FRAMERATE = 60;
 GameObjectManager* p_game_obj_manager;
 GameManager* p_game_manager;
 InputManager* p_input_manager;
+Editor* p_editor;
 
 /*
 * Global variables to handle SDL window and Open GL Context
@@ -59,6 +60,7 @@ void CreateManagers() {
 	p_game_obj_manager = new GameObjectManager();
 	p_game_manager = new GameManager();
 	p_input_manager = new InputManager();
+	p_editor = new Editor(p_game_obj_manager);
 }
 
 /*
@@ -187,22 +189,6 @@ ShaderProgram* GL_Program_init() {
 	return p_shader_program;
 }
 
-void ImGuiInit()
-{
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-
-	ImGui::StyleColorsDark();
-
-	ImGui_ImplSDL2_InitForOpenGL(gp_sdl_window, gp_gl_context);
-
-	std::string glsl_version = "#version 130";
-
-	ImGui_ImplOpenGL3_Init(glsl_version.c_str());
-
-}
-
 int main(int argc, char* args[])
 {
 	#ifdef DEBUG
@@ -218,11 +204,11 @@ int main(int argc, char* args[])
 		return 1;
 	}
 
-	if (RUN_WITH_EDITOR)
-		ImGuiInit();
-
 	//Create all the global managers
 	CreateManagers();
+
+	if (RUN_WITH_EDITOR)
+		p_editor->Init(gp_sdl_window, gp_gl_context);
 
 	//Create the Shader Program
 	ShaderProgram* p_shader_program = GL_Program_init();
@@ -236,8 +222,18 @@ int main(int argc, char* args[])
 	Transform* new_transform = new Transform();
 	new_game_object->AddComponent(new_transform);
 	new_game_object->LinkComponents();
+
+	GameObject* new_game_object_2 = new GameObject("demo_obj_2");
+	GLQuad* new_quad_2 = new GLQuad();
+	new_quad_2->CreateDemo();
+	new_game_object_2->AddComponent(new_quad_2);
+	Transform* new_transform_2 = new Transform();
+	new_game_object_2->AddComponent(new_transform_2);
+	new_game_object_2->LinkComponents();
+
 	SDL_Rect new_pos;
 	p_game_obj_manager->AddGameObject(new_game_object);
+	p_game_obj_manager->AddGameObject(new_game_object_2);
 
 	//Main Game loop 
 	//The status of the game is maintained by the GameManager
@@ -276,12 +272,7 @@ int main(int argc, char* args[])
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		if (RUN_WITH_EDITOR)
-		{
-			//ImGui new frame setup
-			ImGui_ImplOpenGL3_NewFrame();
-			ImGui_ImplSDL2_NewFrame();
-			ImGui::NewFrame();
-		}
+			p_editor->NewFrame();
 
 		//Rendering demo scene
 		Matrix3D orthoGraphProj = OrthographicProj(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0, 1.0);
@@ -299,14 +290,14 @@ int main(int argc, char* args[])
 
 		//ImGui Render
 		if (RUN_WITH_EDITOR)
-			ImGuiRender();
+			p_editor->Render();
 
 		//Buffer Swapping
 		SDL_GL_SwapWindow(gp_sdl_window);
 	}
 
 	if (RUN_WITH_EDITOR)
-		ImGuiCleanup();
+		p_editor->Cleanup();
 
 	DeleteManagers();
 	CloseProgram();
