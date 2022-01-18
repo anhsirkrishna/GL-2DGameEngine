@@ -222,6 +222,7 @@ int main(int argc, char* args[])
 	Transform* new_transform = new Transform();
 	new_game_object->AddComponent(new_transform);
 	new_game_object->LinkComponents();
+	glm::vec4 new_pos;
 
 	GameObject* new_game_object_2 = new GameObject("demo_obj_2");
 	GLQuad* new_quad_2 = new GLQuad();
