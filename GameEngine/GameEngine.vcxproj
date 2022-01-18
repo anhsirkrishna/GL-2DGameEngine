@@ -213,6 +213,9 @@
     <None Include="Levels\Level_0.json" />
     <None Include="Obj_defs\obj1.json" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameEngine.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

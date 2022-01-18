@@ -229,6 +229,10 @@ int main(int argc, char* args[])
 
 	Transform* new_transform = static_cast<Transform*>(p_game_obj_manager->game_object_list[0]->HasComponent("TRANSFORM"));
 	glm::vec4 new_pos;
+	
+
+	//this stuff needs to go into a frame rate controller
+	float start_time = 0.0f, end_time = 0.0f, delta_time = 0.0f;
 
 	//Main Game loop 
 	//The status of the game is maintained by the GameManager
@@ -243,7 +247,7 @@ int main(int argc, char* args[])
 			p_game_manager->Quit();
 
 		//Following lines are test code. Remove ASAP
-		if (p_input_manager->getLeftStickHorizontal() != 0) {
+	/*	if (p_input_manager->getLeftStickHorizontal() != 0) {
 			new_pos = new_transform->GetPosition();
 			new_pos.x = new_pos.x + (3 * p_input_manager->getLeftStickHorizontal());
 			new_transform->SetPosition(new_pos);
@@ -260,7 +264,17 @@ int main(int argc, char* args[])
 			new_transform->SetRotation(new_transform->GetRotation() + 0.3);
 		}
 		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_X)) {
-			new_transform->SetRotation(new_transform->GetRotation() - 0.3);
+			new_transform->SetRotation(new_transform->GetRotation() - 0.3);*/
+		//}
+		//-----------------------------------------------------------------------
+
+		//The following lines of code are only for testing purposes atm
+		//Testing Physics
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
+			
+	/*		new_pos = new_transform->GetPosition();
+				+= (new_force / new_mass) * delta_time;
+			new_pos.x += new_vel_x * delta_time;*/		
 		}
 
 		// test camera movement lines
