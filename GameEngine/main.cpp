@@ -5,8 +5,8 @@
 #include <GL\GLU.h>
 #include <SDL_image.h>
 
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_sdl.h"
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_sdl.h>
 #include "EditorUI.h"
 #include "GameDefs.h"
 #include "ShaderProgram.h"
@@ -232,7 +232,6 @@ int main(int argc, char* args[])
 	new_game_object_2->AddComponent(new_transform_2);
 	new_game_object_2->LinkComponents();
 
-	SDL_Rect new_pos;
 	p_game_obj_manager->AddGameObject(new_game_object);
 	p_game_obj_manager->AddGameObject(new_game_object_2);
 

@@ -5,6 +5,7 @@
 */
 void GameObjectManager::AddGameObject(GameObject* game_object) {
 	game_object_list.push_back(game_object);
+	game_object->index = game_object_list.size();
 }
 
 /*
@@ -12,7 +13,7 @@ void GameObjectManager::AddGameObject(GameObject* game_object) {
 */
 
 void GameObjectManager::Update() {
-	for (int i = 0; i < game_object_list.size(); ++i) {
+	for (unsigned i = 0; i < game_object_list.size(); ++i) {
 		game_object_list[i]->Update();
 	}
 }
@@ -21,7 +22,7 @@ void GameObjectManager::Update() {
 * Calls the Draw() function for each game object
 */
 void GameObjectManager::Draw(ShaderProgram* program) {
-	for (int i = 0; i < game_object_list.size(); ++i) {
+	for (unsigned i = 0; i < game_object_list.size(); ++i) {
 		game_object_list[i]->Draw(program);
 	}
 }
@@ -31,18 +32,16 @@ void GameObjectManager::Draw(ShaderProgram* program) {
 */
 void GameObjectManager::Cleanup() {
 
-	for (int i = 0; i < game_object_list.size(); ++i) {
+	for (unsigned i = 0; i < game_object_list.size(); ++i) {
 		delete game_object_list[i];
 	}
 	
 	game_object_list.clear();
 }
 
-
 /*
 * Deletes the game objects at index i and sets the value to NULL
 */
-
 void GameObjectManager::Delete(unsigned int index) {
 	delete game_object_list[index];
 	game_object_list.erase(game_object_list.begin() + (index - 1));

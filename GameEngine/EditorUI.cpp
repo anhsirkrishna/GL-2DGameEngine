@@ -1,14 +1,14 @@
 #include "EditorUI.h"
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_sdl.h"
 #include <string>
 #include <vector>
 #include <iostream>
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_sdl.h>
 #include "GameObjectManager.h"
 #include "Transform.h"
 
-void Editor::Init(SDL_Window* window, SDL_GLContext context) const
-{
+/* Initializes imgui */
+void Editor::Init(SDL_Window* window, SDL_GLContext context) const {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -21,16 +21,16 @@ void Editor::Init(SDL_Window* window, SDL_GLContext context) const
 	ImGui_ImplOpenGL3_Init(glsl_version.c_str());
 }
 
-void Editor::NewFrame() const
-{
+/* Sets up new imgui frame */
+void Editor::NewFrame() const {
 	//ImGui new frame setup
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
 }
 
-void Editor::Render()
-{
+/* Main imgui loop: GameObjectList Window */
+void Editor::Render() {
 	//ImGui::SetNextWindowSize(ImVec2(500, 440));
 	ImGui::Begin("GameObjectList");
 
@@ -60,6 +60,7 @@ void Editor::Render()
 
 		Component* comp_transform = obj_manager->game_object_list[selected]->HasComponent("TRANSFORM");
 
+		// Component tabs
 		if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
 		{
 			
@@ -85,7 +86,7 @@ void Editor::Render()
 					ImGui::DragFloat("Pos.Y", &posY, 0.2f, 0.0f, 100000.0f, "%.3f");
 
 					// save new values
-					SDL_Rect new_pos{};
+					glm::vec4 new_pos{};
 					new_pos.x = posX;
 					new_pos.y = posY;
 					obj_transform->SetPosition(new_pos);
@@ -151,7 +152,6 @@ void Editor::Render()
 		if (current_index != selected)
 			current_index = selected;
 
-
 		ImGui::EndGroup();
 	}
 	ImGui::End();
@@ -160,8 +160,8 @@ void Editor::Render()
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void Editor::Cleanup() const
-{
+/* Shuts down imgui environment */
+void Editor::Cleanup() const {
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();
