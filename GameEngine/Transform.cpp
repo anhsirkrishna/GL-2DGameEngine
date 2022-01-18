@@ -1,11 +1,14 @@
 #include "Transform.h"
+#include "Util.h"
+
+#include <SDL.h>
 
 const float PI = 3.14159f;
 
 //Default ctor for Transform component
-Transform::Transform() : Component("TRANSFORM"), position(), rotation(0), scale_x(1), scale_y(1), 
-						 translate_matrix(), rotate_matrix(), scale_matrix(), 
-						 pre_rotate_matrix(), post_rotate_matrix() {}
+Transform::Transform() : Component("TRANSFORM"), position(0,0,0,0), rotation(0), scale_x(1), scale_y(1),
+						 translate_matrix(1.0), rotate_matrix(1.0), scale_matrix(1.0),
+						 pre_rotate_matrix(1.0), post_rotate_matrix(1.0) {}
 
 //Returns the SDL_rect that describes the position
 glm::vec4 Transform::GetPosition() {
@@ -50,12 +53,12 @@ void Transform::Serialize(json json_object) {
 //Sets the RotMatrices
 void Transform::SetRotMatrices() {
 	//Translate to origin before rotation
-	pre_rotate_matrix[0][3] = -(position.z / 2.0);
-	pre_rotate_matrix[1][3] = -(position.w / 2.0);
+	pre_rotate_matrix[3].x = -(position.z / 2.0);
+	pre_rotate_matrix[3].y = -(position.w / 2.0);
 
 	//Translate to position after rotation
-	post_rotate_matrix[0][3] = (position.z / 2.0);
-	post_rotate_matrix[1][3] = (position.w / 2.0);
+	post_rotate_matrix[3].x = (position.z / 2.0);
+	post_rotate_matrix[3].y = (position.w / 2.0);
 }
 
 /*
@@ -63,16 +66,15 @@ void Transform::SetRotMatrices() {
 * Sets the matrices up.
 */
 void Transform::Update() {
-	translate_matrix[0][3] = position.x;
-	translate_matrix[1][3] = position.y;
+	translate_matrix[3] = glm::vec4(glm::vec3(position.x, position.y, 0), 1.0f);
 
-	scale_matrix[0][0] = scale_x;
-	scale_matrix[1][1] = scale_y;
+	scale_matrix[0].x = scale_x;
+	scale_matrix[1].y = scale_y;
 
-	rotate_matrix[0][0] = cosf(rotation * PI / 180);
-	rotate_matrix[0][1] = sinf((rotation * PI) / 180);
-	rotate_matrix[1][0] = -sinf((rotation * PI) / 180);
-	rotate_matrix[1][1] = cos((rotation * PI) / 180);
+	rotate_matrix[0].x = cosf(rotation * PI / 180);
+	rotate_matrix[1].x = sinf((rotation * PI) / 180);
+	rotate_matrix[0].y = -sinf((rotation * PI) / 180);
+	rotate_matrix[1].y = cos((rotation * PI) / 180);
 }
 
 //Returns the translation matrix
