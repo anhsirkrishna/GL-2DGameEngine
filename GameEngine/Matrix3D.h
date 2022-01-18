@@ -2,6 +2,8 @@
 
 #include <string>
 
+//THIS FILE IS DEPRECATED. USE FUNCTIONS FROM GLM INSTEAD !!!!!
+
 /*
 * A representation for a 4x4 matrix stored in a 1d float array.
 * The matrix is a column major representation

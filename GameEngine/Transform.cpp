@@ -3,10 +3,12 @@
 const float PI = 3.14159f;
 
 //Default ctor for Transform component
-Transform::Transform() : Component("TRANSFORM"), position(), rotation(0), scale_x(1), scale_y(1) {}
+Transform::Transform() : Component("TRANSFORM"), position(), rotation(0), scale_x(1), scale_y(1), 
+						 translate_matrix(), rotate_matrix(), scale_matrix(), 
+						 pre_rotate_matrix(), post_rotate_matrix() {}
 
 //Returns the SDL_rect that describes the position
-SDL_Rect Transform::GetPosition() {
+glm::vec4 Transform::GetPosition() {
 	return position;
 }
 
@@ -26,7 +28,7 @@ float Transform::GetScaleY() {
 }
 
 //Sets a new SDL_rect as the position
-void Transform::SetPosition(SDL_Rect const& new_position) {
+void Transform::SetPosition(glm::vec4 const& new_position) {
 	position = new_position;
 }
 
@@ -47,11 +49,13 @@ void Transform::Serialize(json json_object) {
 
 //Sets the RotMatrices
 void Transform::SetRotMatrices() {
-	pre_rotate_matrix.SetVal(0, 3, -(position.w / 2.0));
-	pre_rotate_matrix.SetVal(1, 3, -(position.h / 2.0));
+	//Translate to origin before rotation
+	pre_rotate_matrix[0][3] = -(position.z / 2.0);
+	pre_rotate_matrix[1][3] = -(position.w / 2.0);
 
-	post_rotate_matrix.SetVal(0, 3, position.w / 2.0);
-	post_rotate_matrix.SetVal(1, 3, position.h / 2.0);
+	//Translate to position after rotation
+	post_rotate_matrix[0][3] = (position.z / 2.0);
+	post_rotate_matrix[1][3] = (position.w / 2.0);
 }
 
 /*
@@ -59,39 +63,39 @@ void Transform::SetRotMatrices() {
 * Sets the matrices up.
 */
 void Transform::Update() {
-	translate_matrix.SetVal(0, 3, position.x);
-	translate_matrix.SetVal(1, 3, position.y);
+	translate_matrix[0][3] = position.x;
+	translate_matrix[1][3] = position.y;
 
-	scale_matrix.SetVal(0, 0, scale_x);
-	scale_matrix.SetVal(1, 1, scale_y);
+	scale_matrix[0][0] = scale_x;
+	scale_matrix[1][1] = scale_y;
 
-	rotate_matrix.SetVal(0, 0, cosf(rotation * PI / 180));
-	rotate_matrix.SetVal(0, 1, sinf((rotation * PI) / 180));
-	rotate_matrix.SetVal(1, 0, -sinf((rotation * PI) / 180));
-	rotate_matrix.SetVal(1, 1, cos((rotation * PI) / 180));
+	rotate_matrix[0][0] = cosf(rotation * PI / 180);
+	rotate_matrix[0][1] = sinf((rotation * PI) / 180);
+	rotate_matrix[1][0] = -sinf((rotation * PI) / 180);
+	rotate_matrix[1][1] = cos((rotation * PI) / 180);
 }
 
 //Returns the translation matrix
-Matrix3D Transform::GetTranslateMatrix() {
+glm::mat4 Transform::GetTranslateMatrix() {
 	return translate_matrix;
 }
 
 //Returns the rotation matrix
-Matrix3D Transform::GetRotateMatrix() {
+glm::mat4 Transform::GetRotateMatrix() {
 	return rotate_matrix;
 }
 
 //Returns the PreRotateMatrix
-Matrix3D Transform::GetPreRotateMatrix() {
+glm::mat4 Transform::GetPreRotateMatrix() {
 	return pre_rotate_matrix;
 }
 
 //Returns the PostRotateMatrix
-Matrix3D Transform::GetPostRotateMatrix() {
+glm::mat4 Transform::GetPostRotateMatrix() {
 	return post_rotate_matrix;
 }
 
 //Returns the scale matrix
-Matrix3D Transform::GetScaleMatrix() {
+glm::mat4 Transform::GetScaleMatrix() {
 	return scale_matrix;
 }
