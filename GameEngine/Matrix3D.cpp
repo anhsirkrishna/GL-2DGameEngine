@@ -1,5 +1,7 @@
 #include "Matrix3D.h"
 
+//THIS FILE IS DEPRECATED. USE FUNCTIONS FROM GLM INSTEAD !!!!!
+
 /*Constructor sets the identity matrix*/
 Matrix3D::Matrix3D() {
 	matrix[0] = matrix[5] = matrix[10] = matrix[15] = 1;

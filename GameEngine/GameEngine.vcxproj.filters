@@ -69,6 +69,9 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Source Files\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
