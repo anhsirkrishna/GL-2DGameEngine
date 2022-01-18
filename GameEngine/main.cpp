@@ -13,6 +13,7 @@
 #include "Matrix3D.h"
 #include "GLQuad.h"
 #include "Transform.h"
+#include "Rigidbody.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -208,19 +209,33 @@ int main(int argc, char* args[])
 	//Temporary bit of code for demo purposes.
 	//Clean this up as soon as a serializer is in place
 	GameObject* new_game_object = new GameObject("demo_obj");
+	
 	GLQuad* new_quad = new GLQuad();
 	new_quad->CreateDemo();
 	new_game_object->AddComponent(new_quad);
+	
 	Transform* new_transform = new Transform();
 	new_game_object->AddComponent(new_transform);
 	new_game_object->LinkComponents();
 	SDL_Rect new_pos;
+
+	Rigidbody* new_rigidbody = new Rigidbody();
+	new_game_object->AddComponent(new_rigidbody);
+	float new_vel_x, new_vel_y;
+	float new_force, new_mass;
+
 	p_game_obj_manager->AddGameObject(new_game_object);
+	
+
+	//this stuff needs to go into a frame rate controller
+	float start_time = 0.0f, end_time = 0.0f, delta_time = 0.0f;
 
 	//Main Game loop 
 	//The status of the game is maintained by the GameManager
 	while (p_game_manager->Status())
 	{
+		start_time = SDL_GetTicks() / 1000.0f;
+
 		p_game_obj_manager->Update();
 		p_input_manager->Update();
 
@@ -228,7 +243,7 @@ int main(int argc, char* args[])
 			p_game_manager->Quit();
 
 		//Following lines are test code. Remove ASAP
-		if (p_input_manager->getLeftStickHorizontal() != 0) {
+	/*	if (p_input_manager->getLeftStickHorizontal() != 0) {
 			new_pos = new_transform->GetPosition();
 			new_pos.x = new_pos.x + (3 * p_input_manager->getLeftStickHorizontal());
 			new_transform->SetPosition(new_pos);
@@ -245,7 +260,17 @@ int main(int argc, char* args[])
 			new_transform->SetRotation(new_transform->GetRotation() + 0.3);
 		}
 		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_X)) {
-			new_transform->SetRotation(new_transform->GetRotation() - 0.3);
+			new_transform->SetRotation(new_transform->GetRotation() - 0.3);*/
+		//}
+		//-----------------------------------------------------------------------
+
+		//The following lines of code are only for testing purposes atm
+		//Testing Physics
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
+			
+	/*		new_pos = new_transform->GetPosition();
+				+= (new_force / new_mass) * delta_time;
+			new_pos.x += new_vel_x * delta_time;*/		
 		}
 
 		//The following bit of code should be moved into a GameStateManager or and individual game State
@@ -267,6 +292,10 @@ int main(int argc, char* args[])
 		p_shader_program->Unuse();
 
 		SDL_GL_SwapWindow(gp_sdl_window);
+
+		end_time = SDL_GetTicks();
+
+		delta_time = start_time - end_time;
 	}
 
 	DeleteManagers();
