@@ -23,12 +23,12 @@ float Rigidbody::GetVelocityY()
 	return velocity_y;
 }
 
-float Rigidbody::SetVelocityX(float vel_x)
+void Rigidbody::SetVelocityX(float vel_x)
 {
 	velocity_x = vel_x;
 }
 
-float Rigidbody::SetVelocityY(float vel_y)
+void Rigidbody::SetVelocityY(float vel_y)
 {
 	velocity_y = vel_y;
 }

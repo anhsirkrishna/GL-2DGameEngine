@@ -268,13 +268,21 @@ int main(int argc, char* args[])
 		//}
 		//-----------------------------------------------------------------------
 
-		//The following lines of code are only for testing purposes atm
-		//Testing Physics
+		// The following lines of code are only for testing purposes atm
+		// Testing Physics
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
-			
-	/*		new_pos = new_transform->GetPosition();
-				+= (new_force / new_mass) * delta_time;
-			new_pos.x += new_vel_x * delta_time;*/		
+
+			new_pos = new_transform->GetPosition();
+			new_vel_x = new_rigidbody->GetVelocityX();
+			new_vel_y = new_rigidbody->GetVelocityY();
+			new_force = new_rigidbody->GetForce();
+			new_mass = new_rigidbody->GetMass();
+
+			new_vel_x += (new_force / new_mass) * delta_time;
+			new_pos.x += new_vel_x * delta_time;
+
+			new_rigidbody->SetVelocityX(new_vel_x);
+			new_transform->SetPosition(new_pos);
 		}
 
 		// test camera movement lines
