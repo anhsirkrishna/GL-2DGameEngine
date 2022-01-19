@@ -20,14 +20,14 @@ public:
 	//Returns the velocity along the y-axis
 	float GetVelocityY();
 
-	//Sets the velocity along the x-axis
-	float SetVelocityX(float vel_x);
-
-	//Sets the velocity along the y-axis
-	float SetVelocityY(float vel_y);
-
 	//Returns the gravity value
 	float GetGravity();
+
+	//Sets the velocity along the x-axis
+	void SetVelocityX(float vel_x);
+
+	//Sets the velocity along the y-axis
+	void SetVelocityY(float vel_y);
 
 private:
 	float gravity;

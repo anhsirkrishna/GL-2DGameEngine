@@ -264,13 +264,21 @@ int main(int argc, char* args[])
 		//}
 		//-----------------------------------------------------------------------
 
-		//The following lines of code are only for testing purposes atm
-		//Testing Physics
+		// The following lines of code are only for testing purposes atm
+		// Testing Physics
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
-			
-	/*		new_pos = new_transform->GetPosition();
-				+= (new_force / new_mass) * delta_time;
-			new_pos.x += new_vel_x * delta_time;*/		
+
+			new_pos = new_transform->GetPosition();
+			new_vel_x = new_rigidbody->GetVelocityX();
+			new_vel_y = new_rigidbody->GetVelocityY();
+			new_force = new_rigidbody->GetForce();
+			new_mass = new_rigidbody->GetMass();
+
+			new_vel_x += (new_force / new_mass) * delta_time;
+			new_pos.x += new_vel_x * delta_time;
+
+			new_rigidbody->SetVelocityX(new_vel_x);
+			new_transform->SetPosition(new_pos);
 		}
 
 		//The following bit of code should be moved into a GameStateManager or and individual game State
@@ -293,9 +301,9 @@ int main(int argc, char* args[])
 
 		SDL_GL_SwapWindow(gp_sdl_window);
 
-		end_time = SDL_GetTicks();
+		end_time = SDL_GetTicks() / 1000.0f;
 
-		delta_time = start_time - end_time;
+		delta_time = end_time - start_time;
 	}
 
 	DeleteManagers();
