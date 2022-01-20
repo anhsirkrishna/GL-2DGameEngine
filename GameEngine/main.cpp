@@ -266,24 +266,63 @@ int main(int argc, char* args[])
 		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_X)) {
 			new_transform->SetRotation(new_transform->GetRotation() - 0.3);*/
 		//}
+
+
+
+
 		//-----------------------------------------------------------------------
 
+
 		// The following lines of code are only for testing purposes atm
-		// Testing Physics
+		// Testing: Dynamics
+
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
-
-			new_pos = new_transform->GetPosition();
-			new_vel_x = new_rigidbody->GetVelocityX();
-			new_vel_y = new_rigidbody->GetVelocityY();
-			new_force = new_rigidbody->GetForce();
-			new_mass = new_rigidbody->GetMass();
-
-			new_vel_x += (new_force / new_mass) * delta_time;
-			new_pos.x += new_vel_x * delta_time;
-
-			new_rigidbody->SetVelocityX(new_vel_x);
-			new_transform->SetPosition(new_pos);
+			new_vel.x += (new_force / new_mass) * delta_time;
 		}
+
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_A)) {
+			new_vel.x -= (new_force / new_mass) * delta_time;
+		}
+
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_W)) {
+			new_vel.y -= (new_force / new_mass) * delta_time;
+		}
+
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_S)) {
+			new_vel.y += (new_force / new_mass) * delta_time;
+		}
+		
+
+		if (fabsf(new_vel.x) > 0.0
+			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_A)
+			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_D)
+			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_W)
+			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_S)) {
+
+			if (new_vel.x < 0.0f) {
+				new_vel.x += (new_friction / new_mass) * delta_time;
+			}
+			else {
+				new_vel.x -= (new_friction / new_mass) * delta_time;
+			}
+
+			if (new_vel.y < 0.0f) {
+				new_vel.y += (new_friction / new_mass) * delta_time;
+			}
+			else {
+				new_vel.y -= (new_friction / new_mass) * delta_time;
+			}
+		}
+
+		new_pos.x += new_vel.x * delta_time;
+		new_pos.y += new_vel.y * delta_time;
+
+		new_rigidbody->SetVelocity(new_vel);
+		new_transform->SetPosition(new_pos);
+
+
+		//-----------------------------------------------------------------------
+
 
 		// test camera movement lines
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_W))
