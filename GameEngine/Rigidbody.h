@@ -2,6 +2,8 @@
 
 #include "Component.h"
 
+#include <glm.hpp>
+
 class Rigidbody : public Component {
 public:
 
@@ -14,25 +16,23 @@ public:
 	//Returns the mass
 	float GetMass();
 
-	//Returns the velocity along the x-axis
-	float GetVelocityX();
-
-	//Returns the velocity along the y-axis
-	float GetVelocityY();
-
 	//Returns the gravity value
 	float GetGravity();
 
-	//Sets the velocity along the x-axis
-	void SetVelocityX(float vel_x);
+	//Returns the friction value
+	float GetFriction();
 
-	//Sets the velocity along the y-axis
-	void SetVelocityY(float vel_y);
+	//Returns the velocity
+	glm::vec4 GetVelocity();
+
+	//Sets the velocity
+	void SetVelocity(glm::vec4 new_velocity);
 
 private:
 	float gravity;
 	float force;
+	float friction;
 	float mass;
-	float velocity_x, velocity_y;
+	glm::vec4 velocity;
 };
 
