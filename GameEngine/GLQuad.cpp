@@ -2,6 +2,7 @@
 #include "ShaderProgram.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "Util.h"
 
 #include <SDL.h>
 #include <GL\glew.h>
@@ -36,28 +37,28 @@ GLQuad::GLQuad() : Component("GLQuad"), p_texture(NULL), vao_id(0), p_owner_tran
 
 void GLQuad::Draw(ShaderProgram* program) {
 	GLuint loc = glGetUniformLocation(program->program_id, "translateMatrix");
-	Matrix3D translate_matrix = p_owner_transform->GetTranslateMatrix();
-	glUniformMatrix4fv(loc, 1, GL_FALSE, translate_matrix.GetMatrixP());
+	glm::mat4 translate_matrix = p_owner_transform->GetTranslateMatrix();
+	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(translate_matrix));
 	CHECKERROR;
 
 	loc = glGetUniformLocation(program->program_id, "rotateMatrix");
-	Matrix3D rotate_matrix = p_owner_transform->GetRotateMatrix();
-	glUniformMatrix4fv(loc, 1, GL_FALSE, rotate_matrix.GetMatrixP());
+	glm::mat4 rotate_matrix = p_owner_transform->GetRotateMatrix();
+	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(rotate_matrix));
 	CHECKERROR;
 
 	loc = glGetUniformLocation(program->program_id, "scaleMatrix");
-	Matrix3D scale_matrix = p_owner_transform->GetScaleMatrix();
-	glUniformMatrix4fv(loc, 1, GL_FALSE, scale_matrix.GetMatrixP());
+	glm::mat4 scale_matrix = p_owner_transform->GetScaleMatrix();
+	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(scale_matrix));
 	CHECKERROR;
 
 	loc = glGetUniformLocation(program->program_id, "preRotateMatrix");
-	Matrix3D pre_rotate_matrix = p_owner_transform->GetPreRotateMatrix();
-	glUniformMatrix4fv(loc, 1, GL_FALSE, pre_rotate_matrix.GetMatrixP());
+	glm::mat4 pre_rotate_matrix = p_owner_transform->GetPreRotateMatrix();
+	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(pre_rotate_matrix));
 	CHECKERROR;
 
 	loc = glGetUniformLocation(program->program_id, "postRotateMatrix");
-	Matrix3D post_rotate_matrix = p_owner_transform->GetPostRotateMatrix();
-	glUniformMatrix4fv(loc, 1, GL_FALSE, post_rotate_matrix.GetMatrixP());
+	glm::mat4 post_rotate_matrix = p_owner_transform->GetPostRotateMatrix();
+	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(post_rotate_matrix));
 	CHECKERROR;
 
 	loc = glGetUniformLocation(program->program_id, "tex_offset");

@@ -217,13 +217,7 @@ int main(int argc, char* args[])
 	Transform* new_transform = new Transform();
 	new_game_object->AddComponent(new_transform);
 	new_game_object->LinkComponents();
-	SDL_Rect new_pos;
-
-	Rigidbody* new_rigidbody = new Rigidbody();
-	new_game_object->AddComponent(new_rigidbody);
-	float new_vel_x, new_vel_y;
-	float new_force, new_mass;
-
+	glm::vec4 new_pos;
 	p_game_obj_manager->AddGameObject(new_game_object);
 	
 

@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Component.h"
-#include "SDL_rect.h"
-#include "Matrix3D.h"
+
+#include <glm.hpp>
 
 class Transform : public Component {
 public:
@@ -10,7 +10,7 @@ public:
 	Transform();
 
 	//Returns the SDL_rect that describes the position
-	SDL_Rect GetPosition();
+	glm::vec4 GetPosition();
 
 	//Returns the Rotation angle in radians
 	float GetRotation();
@@ -22,7 +22,7 @@ public:
 	float GetScaleY();
 
 	//Sets a new SDL_rect as the position
-	void SetPosition(SDL_Rect const& new_position);
+	void SetPosition(glm::vec4 const& new_position);
 
 	//Sets a new rotation angle in radians
 	void SetRotation(float const& new_rotation);
@@ -37,19 +37,19 @@ public:
 	void Update();
 
 	//Returns the translation matrix
-	Matrix3D GetTranslateMatrix();
+	glm::mat4 GetTranslateMatrix();
 
 	//Returns the rotation matrix
-	Matrix3D GetRotateMatrix();
+	glm::mat4 GetRotateMatrix();
 
 	//Returns the scale matrix
-	Matrix3D GetScaleMatrix();
+	glm::mat4 GetScaleMatrix();
 
 	//Returns the PreRotateMatrix
-	Matrix3D GetPreRotateMatrix();
+	glm::mat4 GetPreRotateMatrix();
 
 	//Returns the PostRotateMatrix
-	Matrix3D GetPostRotateMatrix();
+	glm::mat4 GetPostRotateMatrix();
 
 	//Sets the RotMatrices
 	void SetRotMatrices();
@@ -57,12 +57,12 @@ public:
 	//TO-DO : Implement this when the Serializer is added
 	//void Serialize(json json_object);
 private:
-	SDL_Rect position;
-	Matrix3D translate_matrix;
-	Matrix3D rotate_matrix;
-	Matrix3D scale_matrix;
-	Matrix3D pre_rotate_matrix;
-	Matrix3D post_rotate_matrix;
+	glm::vec4 position;
+	glm::mat4 translate_matrix;
+	glm::mat4 rotate_matrix;
+	glm::mat4 scale_matrix;
+	glm::mat4 pre_rotate_matrix;
+	glm::mat4 post_rotate_matrix;
 	float rotation;
 	float scale_x, scale_y;
 };
