@@ -75,6 +75,9 @@
     <ClCompile Include="Util.cpp">
       <Filter>Source Files\Util</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files\Components\GeneralComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -115,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Source Files\Components\GeneralComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

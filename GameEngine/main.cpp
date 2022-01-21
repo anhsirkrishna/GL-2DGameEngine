@@ -14,6 +14,7 @@
 #include "GLQuad.h"
 #include "Transform.h"
 #include "Rigidbody.h"
+#include "Controller.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -216,10 +217,9 @@ int main(int argc, char* args[])
 
 	Rigidbody* new_rigidbody = new Rigidbody();
 	new_game_object->AddComponent(new_rigidbody);
-	glm::vec4 new_vel = new_rigidbody->GetVelocity();
-	float new_force = new_rigidbody->GetForce();
-	float new_mass = new_rigidbody->GetMass();
-	float new_friction = new_rigidbody->GetFriction();
+
+	Controller* new_controller = new Controller();
+	new_game_object->AddComponent(new_controller);
 
 	Transform* new_transform = new Transform();
 	new_game_object->AddComponent(new_transform);
@@ -235,6 +235,7 @@ int main(int argc, char* args[])
 	//The status of the game is maintained by the GameManager
 	while (p_game_manager->Status())
 	{
+		//Shall be calculated using a frame rate conroller 
 		start_time = SDL_GetTicks() / 1000.0f;
 
 		p_game_obj_manager->Update();
@@ -265,62 +266,9 @@ int main(int argc, char* args[])
 		//}
 
 
-
-
-		//-----------------------------------------------------------------------
-
-
-		// The following lines of code are only for testing purposes atm
-		// Testing: Dynamics
-
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
-			new_vel.x += (new_force / new_mass) * delta_time;
-		}
-
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_A)) {
-			new_vel.x -= (new_force / new_mass) * delta_time;
-		}
-
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_W)) {
-			new_vel.y -= (new_force / new_mass) * delta_time;
-		}
-
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_S)) {
-			new_vel.y += (new_force / new_mass) * delta_time;
-		}
+		// Updating the controller
+		new_controller->Update(delta_time);
 		
-
-		if (fabsf(new_vel.x) > 0.0
-			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_A)
-			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_D)
-			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_W)
-			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_S)) {
-
-			if (new_vel.x < 0.0f) {
-				new_vel.x += (new_friction / new_mass) * delta_time;
-			}
-			else {
-				new_vel.x -= (new_friction / new_mass) * delta_time;
-			}
-
-			if (new_vel.y < 0.0f) {
-				new_vel.y += (new_friction / new_mass) * delta_time;
-			}
-			else {
-				new_vel.y -= (new_friction / new_mass) * delta_time;
-			}
-		}
-
-		new_pos.x += new_vel.x * delta_time;
-		new_pos.y += new_vel.y * delta_time;
-
-		new_rigidbody->SetVelocity(new_vel);
-		new_transform->SetPosition(new_pos);
-
-
-		//-----------------------------------------------------------------------
-
-
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
 		glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -341,8 +289,10 @@ int main(int argc, char* args[])
 
 		SDL_GL_SwapWindow(gp_sdl_window);
 
+		//Shall be calculated using a frame rate conroller 
 		end_time = SDL_GetTicks() / 1000.0f;
 
+		//Shall be calculated using a frame rate conroller 
 		delta_time = end_time - start_time;
 	}
 
