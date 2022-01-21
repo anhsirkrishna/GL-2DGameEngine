@@ -6,9 +6,6 @@
 #include <SDL.h>
 #include <glm.hpp>
 
-
-extern InputManager* p_input_manager;
-
 Rigidbody::Rigidbody() : Component("RIGIDBODY"), gravity(100), friction(250), force(500), mass(5), velocity(glm::vec4(0)) {}
 
 //Returns the force value
@@ -60,7 +57,6 @@ void Rigidbody::Update(int coord_axis_index, int add_or_sub,
 	else {
 		velocity[coord_axis_index] += add_or_sub * (friction / mass) * delta_time;
 	}
-
 }
 
 
