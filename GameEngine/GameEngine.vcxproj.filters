@@ -126,6 +126,9 @@
     <ClCompile Include="ComponentCreator.cpp">
       <Filter>Source Files\Factories</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files\Components\GeneralComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Source Files\Components\GeneralComponents</Filter>
     </ClInclude>
     <ClInclude Include="ComponentCreator.h">
       <Filter>Source Files\Factories</Filter>

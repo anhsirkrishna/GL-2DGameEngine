@@ -227,8 +227,11 @@ int main(int argc, char* args[])
 	GameObjectFactory go_factory;
 	go_factory.CreateLevel(0);
 
-	Transform* new_transform = static_cast<Transform*>(p_game_obj_manager->game_object_list[0]->HasComponent("TRANSFORM"));
-	glm::vec4 new_pos;
+	Transform* new_transform = new Transform();
+	new_game_object->AddComponent(new_transform);
+	new_game_object->LinkComponents();
+	glm::vec4 new_pos(0);
+	p_game_obj_manager->AddGameObject(new_game_object);
 	
 
 	//this stuff needs to go into a frame rate controller
@@ -268,29 +271,8 @@ int main(int argc, char* args[])
 		//}
 
 
-
-
-		//-----------------------------------------------------------------------
-
-
-		// The following lines of code are only for testing purposes atm
-		// Testing: Dynamics
-
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
-			new_vel.x += (new_force / new_mass) * delta_time;
-		}
-
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_A)) {
-			new_vel.x -= (new_force / new_mass) * delta_time;
-		}
-
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_W)) {
-			new_vel.y -= (new_force / new_mass) * delta_time;
-		}
-
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_S)) {
-			new_vel.y += (new_force / new_mass) * delta_time;
-		}
+		// Updating the controller
+		new_controller->Update(delta_time);
 		
 
 		if (fabsf(new_vel.x) > 0.0

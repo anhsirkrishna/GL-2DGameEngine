@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\krish\Workspace\GAM541\Json\single_include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath);$(SolutionDir)..\GameEngine\External\imgui</IncludePath>
+    <IncludePath>$(SolutionDir)..\glm\glm;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
