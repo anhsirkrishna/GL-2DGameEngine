@@ -21,6 +21,14 @@ class Transform;
 */
 
 class GLQuad : public Component {
+private:
+	Texture* p_texture;
+	Texture* p_texure_list[5];
+	unsigned int texure_list_size;
+	GLuint vao_id = 0;
+	Transform* p_owner_transform;
+	GLfloat tex_offset[2];
+	unsigned int texture_mode;
 public:
 	//Default ctor to create a GLQuad
 	GLQuad();
@@ -43,15 +51,11 @@ public:
 	//Function to Link with other dependant components like the Transform component
 	virtual void Link();
 
+	//Function to set render mode to texture or color
+	void SetTextureMode(int mode_);
+
 	//This method should ONLY be used for first commit in the minimum viable engine
 	//Replace it with Serialize() ASAP
 	void CreateDemo();
 	//void Serialize(json json_object);
-private:
-	Texture* p_texture;
-	Texture* p_texure_list[5];
-	unsigned int texure_list_size;
-	GLuint vao_id = 0;
-	Transform* p_owner_transform;
-	GLfloat tex_offset[2];
 };
