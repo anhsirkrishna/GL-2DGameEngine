@@ -10,6 +10,7 @@
 #include "GameObjectManager.h"
 #include "InputManager.h"
 #include "FrameRateController.h"
+#include "ResourceManager.h"
 #include "GameManager.h"
 #include "Matrix3D.h"
 #include "GLQuad.h"
@@ -35,6 +36,7 @@ GameObjectManager* p_game_obj_manager;
 GameManager* p_game_manager;
 InputManager* p_input_manager;
 FrameRateController* p_framerate_controller;
+ResourceManager* p_resource_manager;
 
 /*
 * Global variables to handle SDL window and Open GL Context
@@ -58,6 +60,7 @@ void CreateManagers() {
 	p_game_manager = new GameManager();
 	p_input_manager = new InputManager();
 	p_framerate_controller = new FrameRateController(DEFAULT_FRAMERATE);
+	p_resource_manager = new ResourceManager();
 }
 
 /*

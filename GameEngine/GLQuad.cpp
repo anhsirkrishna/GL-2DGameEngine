@@ -2,6 +2,7 @@
 #include "ShaderProgram.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "ResourceManager.h"
 #include "Util.h"
 
 #include <SDL.h>
@@ -29,9 +30,11 @@ void ConvertTextureCoords(std::vector<float>& tex_coords, float tex_width, float
 	}
 }
 
-GLQuad::GLQuad() : Component("GLQuad"), p_texture(NULL), vao_id(0), p_owner_transform(NULL), texure_list_size(0) {
+GLQuad::GLQuad() : Component("GLQuad"), p_texture(NULL), vao_id(0), p_owner_transform(NULL),
+					texure_list_size(0), texture_mode(0) {
 	tex_offset[0] = tex_offset[1] = 0;
-	p_texure_list[0] = p_texure_list[1] = p_texure_list[2] = p_texure_list[3] = p_texure_list[4] = NULL;
+	p_texure_list[0] = p_texure_list[1] = p_texure_list[2] =
+		p_texure_list[3] = p_texure_list[4] = NULL;
 }
 
 
@@ -61,8 +64,23 @@ void GLQuad::Draw(ShaderProgram* program) {
 	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(post_rotate_matrix));
 	CHECKERROR;
 
+	glActiveTexture(GL_TEXTURE2); // Activate texture unit 2
+	glBindTexture(GL_TEXTURE_2D, p_texture->texture_id); // Load texture into it
+	loc = glGetUniformLocation(program->program_id, "texture_map");
+	glUniform1i(loc, 2); // Tell shader texture is in unit 2
+	CHECKERROR;
+
+	GLfloat converted_tex_offset[2];
+	converted_tex_offset[0] = tex_offset[0] / p_texture->width;
+	converted_tex_offset[1] = tex_offset[1] / p_texture->height;
+
+
 	loc = glGetUniformLocation(program->program_id, "tex_offset");
-	glUniform2fv(loc, 1, &(tex_offset[0]));
+	glUniform2fv(loc, 1, &(converted_tex_offset[0]));
+	CHECKERROR;
+
+	loc = glGetUniformLocation(program->program_id, "mode");
+	glUniform1i(loc, texture_mode);
 	CHECKERROR;
 
 	glBindVertexArray(vao_id);
@@ -73,7 +91,11 @@ void GLQuad::Draw(ShaderProgram* program) {
 }
 
 void GLQuad::CreateDemo() {
-	
+	p_resource_manager->add_texture("Player");
+	AddTexture(p_resource_manager->get_texture("Player"));
+	SetTexture(0);
+
+
 	//Create a VAO and put the ID in vao_id
 	glGenVertexArrays(1, &vao_id);
 	//Use the same VAO for all the following operations
@@ -119,10 +141,13 @@ void GLQuad::CreateDemo() {
 	//Put a texture coordinate cosisting of 2 uv float values 
 	std::vector<float> coord = {
 		 0,  0,
-		 0, 32,
-		 15, 32,
-		 15,  0
+		 0, 30,
+		 24, 30,
+		 24,  0
 	};
+	//Convert tex coords from pixel space to 0-1 range
+	ConvertTextureCoords(coord, p_texture->width, p_texture->height);
+
 	//Create another continguous buffer for all the textures for each vertex
 	GLuint tex_coord_buffer;
 	glGenBuffers(1, &tex_coord_buffer);
@@ -141,6 +166,8 @@ void GLQuad::CreateDemo() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), indexData, GL_STATIC_DRAW);
 	CHECKERROR;
 	glBindVertexArray(0);
+
+	SetTextureMode(1);
 }
 
 void GLQuad::Link() {
@@ -150,4 +177,21 @@ void GLQuad::Link() {
 void GLQuad::SetTexOffset(GLfloat tex_offset_x, GLfloat tex_offset_y) {
 	tex_offset[0] = tex_offset_x;
 	tex_offset[1] = tex_offset_y;
+}
+
+void GLQuad::SetTextureMode(int _mode) {
+	texture_mode = _mode;
+}
+
+Texture* GLQuad::GetTexture() {
+	return p_texture;
+}
+
+void GLQuad::AddTexture(Texture* _p_texture) {
+	p_texure_list[texure_list_size] = _p_texture;
+	texure_list_size++;
+}
+
+void GLQuad::SetTexture(unsigned int index) {
+	p_texture = p_texure_list[index];
 }
