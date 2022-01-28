@@ -38,6 +38,8 @@ public:
 	void UpdateVelocity(int coord_axis_index, int add_or_sub, 
 				std::string forceType, float delta_time);
 
+	void UpdateTransform(float delta_time);
+
 	void Link();
 
 private:

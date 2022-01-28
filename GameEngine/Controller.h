@@ -8,7 +8,7 @@ class Controller : public Component {
 public:
 
 	//Default ctor
-	Controller() : Component("RIGIDBODY") {}
+	Controller() : Component("CONTROLLER") {}
 
 	//Updates the controller
 	void Update(float delta_time);

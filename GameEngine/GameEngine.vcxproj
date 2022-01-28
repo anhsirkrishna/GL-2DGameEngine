@@ -185,9 +185,6 @@
     <None Include="final.frag" />
     <None Include="final.vert" />
   </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="GameEngine.rc" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
