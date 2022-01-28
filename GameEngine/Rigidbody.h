@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.h"
+#include "Transform.h"
 
 #include <glm.hpp>
 
@@ -34,8 +35,10 @@ public:
 	* arg 3: use force or friction
 	* arg 4:dt that should be calculated using the frame rate controller
 	*/
-	void Update(int coord_axis_index, int add_or_sub, 
+	void UpdateVelocity(int coord_axis_index, int add_or_sub, 
 				std::string forceType, float delta_time);
+
+	void Link();
 
 private:
 	float gravity;
@@ -43,5 +46,6 @@ private:
 	float friction;
 	float mass;
 	glm::vec4 velocity;
+	Transform* p_owner_transform;
 };
 

@@ -1,7 +1,6 @@
 #include "Rigidbody.h"
 #include "InputManager.h"
 #include "GameObject.h"
-#include "Transform.h"
 
 #include <SDL.h>
 #include <glm.hpp>
@@ -48,7 +47,7 @@ void Rigidbody::SetVelocity(glm::vec4 new_velocity)
 * arg 3: use force or friction
 * arg 4:dt that should be calculated using the frame rate controller
 */
-void Rigidbody::Update(int coord_axis_index, int add_or_sub,
+void Rigidbody::UpdateVelocity(int coord_axis_index, int add_or_sub,
 					   std::string forceType, float delta_time)
 {
 	if (forceType == "FORCE") {
@@ -57,6 +56,20 @@ void Rigidbody::Update(int coord_axis_index, int add_or_sub,
 	else {
 		velocity[coord_axis_index] += add_or_sub * (friction / mass) * delta_time;
 	}
+	
+	glm::vec4 pos = p_owner_transform->GetPosition();
+
+	pos.x += velocity.x * delta_time;
+	pos.y += velocity.y * delta_time;
+
+	p_owner_transform->SetPosition(pos);
+	/*new_position.x += velocity.x * delta_time;
+	new_position.y += velocity.y * delta_time;*/
+}
+
+void Rigidbody::Link()
+{
+	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
 }
 
 
