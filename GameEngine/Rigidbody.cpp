@@ -56,15 +56,16 @@ void Rigidbody::UpdateVelocity(int coord_axis_index, int add_or_sub,
 	else {
 		velocity[coord_axis_index] += add_or_sub * (friction / mass) * delta_time;
 	}
-	
+}
+
+void Rigidbody::UpdateTransform(float delta_time)
+{
 	glm::vec4 pos = p_owner_transform->GetPosition();
 
 	pos.x += velocity.x * delta_time;
 	pos.y += velocity.y * delta_time;
 
 	p_owner_transform->SetPosition(pos);
-	/*new_position.x += velocity.x * delta_time;
-	new_position.y += velocity.y * delta_time;*/
 }
 
 void Rigidbody::Link()
