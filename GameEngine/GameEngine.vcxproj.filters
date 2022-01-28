@@ -40,6 +40,15 @@
     <Filter Include="Source Files\ImGuiCustom">
       <UniqueIdentifier>{80bc5c84-1020-435e-a7be-a1545131f28d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Factories">
+      <UniqueIdentifier>{5823a33f-119f-4a2a-b7d7-7ebdbc9d0ee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Levels">
+      <UniqueIdentifier>{9e32eace-d96b-4f23-99f2-e028e01a51da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Obj_defs">
+      <UniqueIdentifier>{68238f06-c6c6-401f-8186-2676f3bfe14b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -107,6 +116,15 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentFactory.cpp">
+      <Filter>Source Files\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectFactory.cpp">
+      <Filter>Source Files\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCreator.cpp">
+      <Filter>Source Files\Factories</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +203,15 @@
     <ClInclude Include="Camera.h">
       <Filter>Source Files\Util</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentCreator.h">
+      <Filter>Source Files\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentFactory.h">
+      <Filter>Source Files\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectFactory.h">
+      <Filter>Source Files\Factories</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -192,6 +219,12 @@
     </None>
     <None Include="final.frag">
       <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="Levels\Level_0.json">
+      <Filter>Source Files\Levels</Filter>
+    </None>
+    <None Include="Obj_defs\obj1.json">
+      <Filter>Source Files\Obj_defs</Filter>
     </None>
   </ItemGroup>
 </Project>

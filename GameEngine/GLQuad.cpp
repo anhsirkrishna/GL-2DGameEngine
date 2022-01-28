@@ -91,25 +91,63 @@ void GLQuad::Draw(ShaderProgram* program) {
 	glBindVertexArray(0);
 }
 
-void GLQuad::CreateDemo() {
-	p_resource_manager->add_texture("Player");
-	AddTexture(p_resource_manager->get_texture("Player"));
+/*Links the GLQuad component with it's related components
+* Related components : Transform
+* Returns : void
+*/
+void GLQuad::Link() {
+	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
+}
+
+void GLQuad::SetTexOffset(GLfloat tex_offset_x, GLfloat tex_offset_y) {
+	tex_offset[0] = tex_offset_x;
+	tex_offset[1] = tex_offset_y;
+}
+
+//Sets the render mode to color (int=0) or texture (int=1)
+void GLQuad::SetTextureMode(int _mode) {
+	texture_mode = _mode;
+}
+
+Texture* GLQuad::GetTexture() {
+	return p_texture;
+}
+
+void GLQuad::AddTexture(Texture* _p_texture) {
+	p_texure_list[texure_list_size] = _p_texture;
+	texure_list_size++;
+}
+
+void GLQuad::SetTexture(unsigned int index) {
+	p_texture = p_texure_list[index];
+}
+
+/*Serialize the GLquad object from a json input
+* Expects a json dict with the following keys:
+* texture_names : list of texture file names present in the resources folder
+* vertex_list: A 1D list of 3*4 floats. Usually 4 Vertices.
+			   Each group of 3 floats represents 1 vertexs x, y,and z values.
+* color_list: A 1D list of 4*4 floats. Each group of 4 floats 
+			  represents 1 vertexs r, g, b, and a color values.
+* texture_list: A 1D list of 2*4 floats. Each group of 2 floats represents 
+				the texture coordinates for each vertex.
+* Returns : void
+*/
+void GLQuad::Serialize(json json_object) {
+	auto texture_names = json_object["texture_names"].get<std::vector<std::string>>();
+	for (auto texture_name : texture_names) {
+		p_resource_manager->add_texture(texture_name);
+		AddTexture(p_resource_manager->get_texture(texture_name));
+	}
 	SetTexture(0);
-
-
 	//Create a VAO and put the ID in vao_id
 	glGenVertexArrays(1, &vao_id);
 	//Use the same VAO for all the following operations
 	glBindVertexArray(vao_id);
 
 	//Put a vertex consisting of 3 float coordinates x,y,z into the list of all vertices
-	std::vector<float> vertices = {
-		0,  0, 0,
-		0, 48, 0,
-		24, 48, 0,
-		24,  0, 0
-	};
-
+	auto vertices = json_object["vertex_list"].get<std::vector<float>>();
+	vertex_count = vertices.size() / 3;
 
 	//Create a continguous buffer for all the vertices/points
 	GLuint point_buffer;
@@ -120,14 +158,8 @@ void GLQuad::CreateDemo() {
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	CHECKERROR;
-
 	//Put a color consisting of 4 float values rgba into the list of all colors 
-	std::vector<float> colors = {
-		  0, 255,  0, 255,
-		 50, 255, 50, 255,
-		  0,   0,  0, 255,
-		 50, 255, 50, 255
-	};
+	auto colors = json_object["color_list"].get<std::vector<float>>();
 	//Convert colors from 0-255 range to 0-1 range
 	ConvertColor(colors);
 	//Create another continuguous buffer for all the colors for each vertex
@@ -140,15 +172,9 @@ void GLQuad::CreateDemo() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	CHECKERROR;
 	//Put a texture coordinate cosisting of 2 uv float values 
-	std::vector<float> coord = {
-		 0,  0,
-		 0, 30,
-		 24, 30,
-		 24,  0
-	};
-	//Convert tex coords from pixel space to 0-1 range
+	auto coord = json_object["tex_coord_list"].get<std::vector<float>>();
+	//Convert coords from image space to 0..1
 	ConvertTextureCoords(coord, p_texture->width, p_texture->height);
-
 	//Create another continguous buffer for all the textures for each vertex
 	GLuint tex_coord_buffer;
 	glGenBuffers(1, &tex_coord_buffer);
@@ -169,30 +195,4 @@ void GLQuad::CreateDemo() {
 	glBindVertexArray(0);
 
 	SetTextureMode(1);
-}
-
-void GLQuad::Link() {
-	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
-}
-
-void GLQuad::SetTexOffset(GLfloat tex_offset_x, GLfloat tex_offset_y) {
-	tex_offset[0] = tex_offset_x;
-	tex_offset[1] = tex_offset_y;
-}
-
-void GLQuad::SetTextureMode(int _mode) {
-	texture_mode = _mode;
-}
-
-Texture* GLQuad::GetTexture() {
-	return p_texture;
-}
-
-void GLQuad::AddTexture(Texture* _p_texture) {
-	p_texure_list[texure_list_size] = _p_texture;
-	texure_list_size++;
-}
-
-void GLQuad::SetTexture(unsigned int index) {
-	p_texture = p_texure_list[index];
 }
