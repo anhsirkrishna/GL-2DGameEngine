@@ -234,7 +234,7 @@ int main(int argc, char* args[])
 	p_game_obj_manager->AddGameObject(new_game_object);
 	
 
-	//this stuff needs to go into a frame rate controller
+	//This stuff needs to go into a frame rate controller
 	float start_time = 0.0f, end_time = 0.0f, delta_time = 0.0f;
 
 	//Main Game loop 
