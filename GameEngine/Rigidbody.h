@@ -1,3 +1,13 @@
+/******************************************************************************/
+/*!
+/*File   Rigidbody.h
+/*Author Sreyash Raychaudhuri
+/*Email: srey.raychaudhuri@digipen.edu
+/*Date   01/27/2022
+/*  Rigidbody Component class encapsulation header file
+/* DigiPen Institute of Technology © 2022
+/******************************************************************************/
+
 #pragma once
 
 #include "Component.h"
@@ -33,12 +43,12 @@ public:
 	* arg 1: index 0 or 1 corresponding to x or y axis for glm vec
 	* arg 2: add (1) or subtract (-1)
 	* arg 3: use force or friction
-	* arg 4:dt that should be calculated using the frame rate controller
 	*/
 	void UpdateVelocity(int coord_axis_index, int add_or_sub, 
-				std::string forceType, float delta_time);
+				std::string forceType);
 
-	void UpdateTransform(float delta_time);
+	// Update the transform componenent of the owner game object
+	void UpdateTransform();
 
 	void Link();
 

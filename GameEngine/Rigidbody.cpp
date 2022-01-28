@@ -1,11 +1,14 @@
 #include "Rigidbody.h"
 #include "InputManager.h"
+#include "FrameRateController.h"
 #include "GameObject.h"
 
 #include <SDL.h>
 #include <glm.hpp>
 
-Rigidbody::Rigidbody() : Component("RIGIDBODY"), gravity(100), friction(250), force(500), mass(5), velocity(glm::vec4(0)) {}
+extern FrameRateController* p_framerate_controller;
+
+Rigidbody::Rigidbody() : Component("RIGIDBODY"),p_owner_transform(nullptr), gravity(100), friction(250), force(500), mass(5), velocity(glm::vec4(0)) {}
 
 //Returns the force value
 float Rigidbody::GetForce(){
@@ -45,25 +48,24 @@ void Rigidbody::SetVelocity(glm::vec4 new_velocity)
 * arg 1: index 0 or 1 corresponding to x or y axis for glm vec
 * arg 2: add (1) or subtract (-1)
 * arg 3: use force or friction
-* arg 4:dt that should be calculated using the frame rate controller
 */
-void Rigidbody::UpdateVelocity(int coord_axis_index, int add_or_sub,
-					   std::string forceType, float delta_time)
+void Rigidbody::UpdateVelocity(int coord_axis_index, int add_or_sub, std::string forceType)
 {
 	if (forceType == "FORCE") {
-		velocity[coord_axis_index] += add_or_sub * (force / mass) * delta_time;
+		velocity[coord_axis_index] += add_or_sub * (force / mass) * p_framerate_controller->GetPrevLoopDeltaTime() / 1000.0f;
 	}
 	else {
-		velocity[coord_axis_index] += add_or_sub * (friction / mass) * delta_time;
+		velocity[coord_axis_index] += add_or_sub * (friction / mass) * p_framerate_controller->GetPrevLoopDeltaTime() / 1000.0f;
 	}
 }
 
-void Rigidbody::UpdateTransform(float delta_time)
+// Update the transform componenent of the owner game object
+void Rigidbody::UpdateTransform()
 {
 	glm::vec4 pos = p_owner_transform->GetPosition();
 
-	pos.x += velocity.x * delta_time;
-	pos.y += velocity.y * delta_time;
+	pos.x += velocity.x * p_framerate_controller->GetPrevLoopDeltaTime() / 1000.0f;
+	pos.y += velocity.y * p_framerate_controller->GetPrevLoopDeltaTime() / 1000.0f;
 
 	p_owner_transform->SetPosition(pos);
 }

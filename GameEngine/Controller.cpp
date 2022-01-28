@@ -1,5 +1,6 @@
 #include "Controller.h"
 #include "InputManager.h"
+#include "FrameRateController.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "Rigidbody.h"
@@ -8,26 +9,26 @@
 
 extern InputManager* p_input_manager;
 
-void Controller::Update(float delta_time)
+void Controller::Update()
 {
 	//Accelerate right
 	if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
-		p_owner_rigidbody->UpdateVelocity(0, 1, "FORCE", delta_time);
+		p_owner_rigidbody->UpdateVelocity(0, 1, "FORCE");
 	}
 
 	//Accelerate left
 	if (p_input_manager->isKeyPressed(SDL_SCANCODE_A)) {
-		p_owner_rigidbody->UpdateVelocity(0, -1, "FORCE", delta_time);
+		p_owner_rigidbody->UpdateVelocity(0, -1, "FORCE");
 	}
 
 	//Accelerate upward
 	if (p_input_manager->isKeyPressed(SDL_SCANCODE_W)) {
-		p_owner_rigidbody->UpdateVelocity(1, -1, "FORCE", delta_time);
+		p_owner_rigidbody->UpdateVelocity(1, -1, "FORCE");
 	}
 
 	//Accelerate downward
 	if (p_input_manager->isKeyPressed(SDL_SCANCODE_S)) {
-		p_owner_rigidbody->UpdateVelocity(1, 1, "FORCE", delta_time);
+		p_owner_rigidbody->UpdateVelocity(1, 1, "FORCE");
 	}
 
 	glm::vec4 velocity = p_owner_rigidbody->GetVelocity();
@@ -42,24 +43,24 @@ void Controller::Update(float delta_time)
 
 		// if moving leftward, friction is applied rightward
 		if (velocity.x < 0.0f) {				
-			p_owner_rigidbody->UpdateVelocity(0, 1, "FRICTION", delta_time);
+			p_owner_rigidbody->UpdateVelocity(0, 1, "FRICTION");
 		}
 		// if moving rightward, friction is applied rightward
-		else {
-			p_owner_rigidbody->UpdateVelocity(0, -1, "FRICTION", delta_time);
+		else if (velocity.x >= 0.0f) {
+			p_owner_rigidbody->UpdateVelocity(0, -1, "FRICTION");
 		}
 
 		// if moving upward, friction is applied downward
 		if (velocity.y < 0.0f) {
-			p_owner_rigidbody->UpdateVelocity(1, 1, "FRICTION", delta_time);
+			p_owner_rigidbody->UpdateVelocity(1, 1, "FRICTION");
 		}
 		// if moving downward, friction is applied upward
-		else {
-			p_owner_rigidbody->UpdateVelocity(1, -1, "FRICTION", delta_time);
+		else if (velocity.y >= 0.0f) {
+ 			p_owner_rigidbody->UpdateVelocity(1, -1, "FRICTION");
 		}
 	}
 
-	p_owner_rigidbody->UpdateTransform(delta_time);
+	p_owner_rigidbody->UpdateTransform();
 }
 
 void Controller::Link()

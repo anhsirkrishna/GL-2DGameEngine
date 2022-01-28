@@ -207,7 +207,7 @@
       <Filter>Source Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
-      <Filter>Source Files\Components\GeneralComponents</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ComponentCreator.h">
       <Filter>Source Files\Factories</Filter>
