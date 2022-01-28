@@ -75,6 +75,15 @@
     <ClCompile Include="Util.cpp">
       <Filter>Source Files\Util</Filter>
     </ClCompile>
+    <ClCompile Include="FrameRateController.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Source Files\Components\GeneralComponents</Filter>
     </ClCompile>
@@ -118,6 +127,15 @@
     </ClInclude>
     <ClInclude Include="Util.h">
       <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameRateController.h">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Source Files\Components\GeneralComponents</Filter>

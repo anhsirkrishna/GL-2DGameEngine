@@ -9,6 +9,8 @@
 #include "ShaderProgram.h"
 #include "GameObjectManager.h"
 #include "InputManager.h"
+#include "FrameRateController.h"
+#include "ResourceManager.h"
 #include "GameManager.h"
 #include "Matrix3D.h"
 #include "GLQuad.h"
@@ -35,6 +37,8 @@ unsigned int DEFAULT_FRAMERATE = 60;
 GameObjectManager* p_game_obj_manager;
 GameManager* p_game_manager;
 InputManager* p_input_manager;
+FrameRateController* p_framerate_controller;
+ResourceManager* p_resource_manager;
 
 /*
 * Global variables to handle SDL window and Open GL Context
@@ -57,6 +61,8 @@ void CreateManagers() {
 	p_game_obj_manager = new GameObjectManager();
 	p_game_manager = new GameManager();
 	p_input_manager = new InputManager();
+	p_framerate_controller = new FrameRateController(DEFAULT_FRAMERATE);
+	p_resource_manager = new ResourceManager();
 }
 
 /*
@@ -235,8 +241,7 @@ int main(int argc, char* args[])
 	//The status of the game is maintained by the GameManager
 	while (p_game_manager->Status())
 	{
-		//Shall be calculated using a frame rate conroller 
-		start_time = SDL_GetTicks() / 1000.0f;
+		p_framerate_controller->start_game_loop();
 
 		p_game_obj_manager->Update();
 		p_input_manager->Update();
@@ -289,11 +294,7 @@ int main(int argc, char* args[])
 
 		SDL_GL_SwapWindow(gp_sdl_window);
 
-		//Shall be calculated using a frame rate conroller 
-		end_time = SDL_GetTicks() / 1000.0f;
-
-		//Shall be calculated using a frame rate conroller 
-		delta_time = end_time - start_time;
+		p_framerate_controller->end_game_loop();
 	}
 
 	DeleteManagers();
