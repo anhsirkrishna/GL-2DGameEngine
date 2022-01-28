@@ -11,7 +11,7 @@ public:
 	Controller() : Component("CONTROLLER") {}
 
 	//Updates the controller
-	void Update(float delta_time);
+	void Update();
 
 	void Link();
 

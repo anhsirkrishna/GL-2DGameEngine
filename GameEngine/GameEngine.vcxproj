@@ -170,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="GameDefs.h" />
     <ClInclude Include="GameManager.h" />

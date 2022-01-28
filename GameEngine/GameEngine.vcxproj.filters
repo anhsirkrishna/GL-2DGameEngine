@@ -138,7 +138,7 @@
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
-      <Filter>Source Files\Components\GeneralComponents</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

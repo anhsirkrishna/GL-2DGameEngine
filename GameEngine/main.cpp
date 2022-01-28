@@ -230,12 +230,8 @@ int main(int argc, char* args[])
 	Transform* new_transform = new Transform();
 	new_game_object->AddComponent(new_transform);
 	new_game_object->LinkComponents();
-	glm::vec4 new_pos(0);
-	p_game_obj_manager->AddGameObject(new_game_object);
-	
 
-	//This stuff needs to go into a frame rate controller
-	float start_time = 0.0f, end_time = 0.0f, delta_time = 0.0f;
+	p_game_obj_manager->AddGameObject(new_game_object);
 
 	//Main Game loop 
 	//The status of the game is maintained by the GameManager
@@ -271,8 +267,8 @@ int main(int argc, char* args[])
 		//}
 
 
-		// Updating the controller
-		new_controller->Update(delta_time);
+		//// Updating the controller
+		//new_controller->Update();
 		
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
