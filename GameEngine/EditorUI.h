@@ -11,7 +11,6 @@
 #pragma once
 typedef struct SDL_Window;
 typedef void* SDL_GLContext;
-class GameObjectManager;
 
 /*
 Custom ImGui Editor class
