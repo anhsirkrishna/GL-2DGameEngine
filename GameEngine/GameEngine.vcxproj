@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="EditorUI.cpp" />
     <ClCompile Include="External\imgui\imgui.cpp" />
     <ClCompile Include="External\imgui\imgui_draw.cpp" />
@@ -166,12 +167,15 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
+    <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="EditorUI.h" />
     <ClInclude Include="External\imgui\imconfig.h" />
     <ClInclude Include="External\imgui\imgui.h" />
@@ -189,7 +193,9 @@
     <ClInclude Include="GLQuad.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Matrix3D.h" />
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>

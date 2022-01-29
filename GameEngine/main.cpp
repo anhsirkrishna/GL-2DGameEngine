@@ -12,6 +12,8 @@
 #include "ShaderProgram.h"
 #include "GameObjectManager.h"
 #include "InputManager.h"
+#include "FrameRateController.h"
+#include "ResourceManager.h"
 #include "GameManager.h"
 #include "Matrix3D.h"
 #include "GLQuad.h"
@@ -37,6 +39,8 @@ GameObjectManager* p_game_obj_manager;
 GameManager* p_game_manager;
 InputManager* p_input_manager;
 Editor* p_editor;
+FrameRateController* p_framerate_controller;
+ResourceManager* p_resource_manager;
 
 /*
 * Global variables to handle SDL window and Open GL Context
@@ -60,6 +64,8 @@ void CreateManagers() {
 	p_game_obj_manager = new GameObjectManager();
 	p_game_manager = new GameManager();
 	p_input_manager = new InputManager();
+	p_framerate_controller = new FrameRateController(DEFAULT_FRAMERATE);
+	p_resource_manager = new ResourceManager();
 	p_editor = new Editor(p_game_obj_manager);
 }
 
@@ -239,6 +245,8 @@ int main(int argc, char* args[])
 	//The status of the game is maintained by the GameManager
 	while (p_game_manager->Status())
 	{
+		p_framerate_controller->start_game_loop();
+
 		p_game_obj_manager->Update();
 		p_input_manager->Update();
 
@@ -294,6 +302,8 @@ int main(int argc, char* args[])
 
 		//Buffer Swapping
 		SDL_GL_SwapWindow(gp_sdl_window);
+
+		p_framerate_controller->end_game_loop();
 	}
 
 	if (RUN_WITH_EDITOR)
