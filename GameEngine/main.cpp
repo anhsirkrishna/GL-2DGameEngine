@@ -18,6 +18,7 @@
 #include "Matrix3D.h"
 #include "GLQuad.h"
 #include "Transform.h"
+#include "Camera.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -41,6 +42,7 @@ InputManager* p_input_manager;
 Editor* p_editor;
 FrameRateController* p_framerate_controller;
 ResourceManager* p_resource_manager;
+Camera* p_camera;
 
 /*
 * Global variables to handle SDL window and Open GL Context
@@ -67,6 +69,7 @@ void CreateManagers() {
 	p_framerate_controller = new FrameRateController(DEFAULT_FRAMERATE);
 	p_resource_manager = new ResourceManager();
 	p_editor = new Editor(p_game_obj_manager);
+	p_camera = new Camera(glm::vec3(0.0f, 0.0f, -262.0f));
 }
 
 /*
@@ -195,6 +198,7 @@ ShaderProgram* GL_Program_init() {
 	return p_shader_program;
 }
 
+
 int main(int argc, char* args[])
 {
 	#ifdef DEBUG
@@ -274,6 +278,26 @@ int main(int argc, char* args[])
 			new_transform->SetRotation(new_transform->GetRotation() - 0.3);
 		}
 
+		// test camera movement lines
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_W))
+			p_camera->ProcessKeyboardInput(CameraMovement::CAM_UP, p_framerate_controller->GetPrevLoopDeltaTime());
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_A))
+			p_camera->ProcessKeyboardInput(CameraMovement::CAM_LEFT, p_framerate_controller->GetPrevLoopDeltaTime());
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_S))
+			p_camera->ProcessKeyboardInput(CameraMovement::CAM_DOWN, p_framerate_controller->GetPrevLoopDeltaTime());
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_D))
+			p_camera->ProcessKeyboardInput(CameraMovement::CAM_RIGHT, p_framerate_controller->GetPrevLoopDeltaTime());
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_UP))
+			p_camera->ProcessKeyboardInput(CameraMovement::CAM_FORWARD, p_framerate_controller->GetPrevLoopDeltaTime());
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_DOWN))
+			p_camera->ProcessKeyboardInput(CameraMovement::CAM_BACKWARD, p_framerate_controller->GetPrevLoopDeltaTime());
+
+		std::string pos_string = std::to_string(p_camera->position.x) + " " + std::to_string(p_camera->position.y) + " " + std::to_string(p_camera->position.z);
+
+		// camera pos debug string log
+		// SDL_Log(pos_string.c_str());
+
+
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
 		glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -291,6 +315,16 @@ int main(int argc, char* args[])
 		glUniform1i(loc, 0);
 
 		CHECKERROR;
+
+		// set up projection and view matrices for the camera
+		glm::mat4 projection = glm::perspective(glm::radians(p_camera->zoom), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 10000.0f);
+		loc = glGetUniformLocation(p_shader_program->program_id, "projection");
+		glUniformMatrix4fv(loc, 1, GL_FALSE, &(projection[0][0]));
+
+		glm::mat4 view = p_camera->GetViewMatrix();
+		loc = glGetUniformLocation(p_shader_program->program_id, "view");
+		glUniformMatrix4fv(loc, 1, GL_FALSE, &(view[0][0]));
+
 		//Redraw the scene every frame
 		p_game_obj_manager->Draw(p_shader_program);
 		CHECKERROR;

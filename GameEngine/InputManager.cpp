@@ -1,6 +1,6 @@
 #include "InputManager.h"
 #include "memory.h"
-
+#include "Camera.h"
 #include <SDL.h>
 
 /*
@@ -44,7 +44,20 @@ void InputManager::Update() {
 	SDL_Event e;
 
 	while (SDL_PollEvent(&e) != 0)
-	{
+	{ 
+		// Scroll wheel controls (put in a function?)
+		if (e.type == SDL_MOUSEWHEEL)
+		{
+			if (e.wheel.y > 0) // scroll up
+			{
+				p_camera->ProcessZoom(CameraMovement::CAM_ZOOMIN);
+			}
+			else if (e.wheel.y < 0) // scroll down
+			{
+				p_camera->ProcessZoom(CameraMovement::CAM_ZOOMOUT);
+			}
+		}
+
 		//User requests quit from application window
 		if (e.type == SDL_QUIT)
 		{

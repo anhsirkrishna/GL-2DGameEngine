@@ -1,3 +1,13 @@
+/******************************************************************************/
+/*!
+/*File: Editor.cpp
+/*Author: Brady Menendez
+/*Email: brady.m@digipen.edu
+/*Date   1/12/2022
+/*  Implementation of the Editor Class
+*
+/* DigiPen Institute of Technology © 2022
+/******************************************************************************/
 #include "EditorUI.h"
 #include <string>
 #include <vector>
@@ -6,6 +16,8 @@
 #include <imgui_impl_sdl.h>
 #include "GameObjectManager.h"
 #include "Transform.h"
+#include "GLQuad.h"
+#include "Texture.h"
 
 /* Initializes imgui */
 void Editor::Init(SDL_Window* window, SDL_GLContext context) const {
@@ -59,11 +71,12 @@ void Editor::Render() {
 		ImGui::Separator();
 
 		Component* comp_transform = obj_manager->game_object_list[selected]->HasComponent("TRANSFORM");
+		Component* comp_glquad = obj_manager->game_object_list[selected]->HasComponent("GLQuad");
 
 		// Component tabs
 		if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
 		{
-			
+			// transform component tab
 			if (comp_transform)
 			{
 				Transform* obj_transform = static_cast<Transform*>(comp_transform);
@@ -81,9 +94,9 @@ void Editor::Render() {
 						posY = obj_transform->GetPosition().y;
 					}
 
-					ImGui::DragFloat("Pos.X", &posX, 0.2f, 0.0f, 100000.0f, "%.3f");
+					ImGui::DragFloat("Pos.X", &posX, 0.2f, -100000.0f, 100000.0f, "%.3f");
 					ImGui::SameLine;
-					ImGui::DragFloat("Pos.Y", &posY, 0.2f, 0.0f, 100000.0f, "%.3f");
+					ImGui::DragFloat("Pos.Y", &posY, 0.2f, -100000.0f, 100000.0f, "%.3f");
 
 					// save new values
 					glm::vec4 new_pos{};
@@ -140,6 +153,21 @@ void Editor::Render() {
 					ImGui::EndTabItem();
 				}	
 			}
+
+			// GLQuad Component Tab
+			if (comp_glquad) 
+			{
+				GLQuad* obj_glquad = static_cast<GLQuad*>(comp_glquad);
+				if (ImGui::BeginTabItem("Rendering"))
+				{
+					ImGui::Text(("Texture Name: " + obj_glquad->GetTexture()->name).c_str());
+
+					ImGui::EndTabItem();
+				}
+
+			}
+
+			// Sample Details Tab
 			if (ImGui::BeginTabItem("Details"))
 			{
 				ImGui::Text("ID: 0123456789");

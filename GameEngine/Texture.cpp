@@ -24,6 +24,7 @@
 Texture::Texture(const std::string& filename) {
 	SDL_Surface* loadedSurface = IMG_Load(filename.c_str());
 
+	name = filename;
 	width = loadedSurface->w;
 	height = loadedSurface->h;
 

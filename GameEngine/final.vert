@@ -5,6 +5,8 @@ in vec3 in_position;
 in vec4 in_Color;
 in vec2 in_TexCoords;
 uniform mat4 orthoGraphProj;
+uniform mat4 projection;
+uniform mat4 view;
 uniform mat4 translateMatrix;
 uniform mat4 scaleMatrix;
 uniform mat4 rotateMatrix, preRotateMatrix, postRotateMatrix;
@@ -13,7 +15,7 @@ out vec2 ex_TextCoord;
 
 void main() {
 
-	gl_Position = orthoGraphProj*translateMatrix*
+	gl_Position = projection*view*translateMatrix*
 	/*The preRotateMatrix is required to move the 
 	 *centre of the quad being drawn, to origin.
 	 *All scales and rotates have to be done at origin.

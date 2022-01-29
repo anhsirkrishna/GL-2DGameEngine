@@ -1,9 +1,21 @@
+/******************************************************************************/
+/*!
+/*File: Editor.h
+/*Author: Brady Menendez
+/*Email: brady.m@digipen.edu
+/*Date   1/12/2022
+/*  Definition of the Editor Class
+*
+/* DigiPen Institute of Technology © 2022
+/******************************************************************************/
 #pragma once
 typedef struct SDL_Window;
 typedef void* SDL_GLContext;
 class GameObjectManager;
 
-
+/*
+Custom ImGui Editor class
+*/
 class Editor
 {
 	GameObjectManager* obj_manager;
