@@ -47,10 +47,10 @@ void Editor::Render() {
 	ImGui::Begin("GameObjectList");
 
 	std::vector<const char*> obj_names;
-	int objlist_size = obj_manager->game_object_list.size();
+	int objlist_size = p_game_obj_manager->game_object_list.size();
 
 	for (int i = 0; i < objlist_size; ++i)
-		obj_names.push_back(obj_manager->game_object_list[i]->GetNameRef().c_str());
+		obj_names.push_back(p_game_obj_manager->game_object_list[i]->GetNameRef().c_str());
 
 	static int selected = 0;
 	static int current_index = 0;
@@ -70,8 +70,8 @@ void Editor::Render() {
 		ImGui::Text("Selected Object: %s", obj_names[selected]);
 		ImGui::Separator();
 
-		Component* comp_transform = obj_manager->game_object_list[selected]->HasComponent("TRANSFORM");
-		Component* comp_glquad = obj_manager->game_object_list[selected]->HasComponent("GLQuad");
+		Component* comp_transform = p_game_obj_manager->game_object_list[selected]->HasComponent("TRANSFORM");
+		Component* comp_glquad = p_game_obj_manager->game_object_list[selected]->HasComponent("GLQuad");
 
 		// Component tabs
 		if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))

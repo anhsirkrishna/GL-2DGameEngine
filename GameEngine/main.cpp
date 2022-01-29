@@ -68,7 +68,7 @@ void CreateManagers() {
 	p_input_manager = new InputManager();
 	p_framerate_controller = new FrameRateController(DEFAULT_FRAMERATE);
 	p_resource_manager = new ResourceManager();
-	p_editor = new Editor(p_game_obj_manager);
+	p_editor = new Editor();
 	p_camera = new Camera(glm::vec3(0.0f, 0.0f, -262.0f));
 }
 
