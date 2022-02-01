@@ -21,6 +21,7 @@ Can bind/unbind a texture with a shader program
 class Texture {
 public:
     unsigned int texture_id = 0;
+    std::string name;
     int width, height;
 
     Texture(const std::string& filename);

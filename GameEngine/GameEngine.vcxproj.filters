@@ -37,6 +37,9 @@
     <Filter Include="Source Files\Shaders">
       <UniqueIdentifier>{7528d094-0bb8-41f9-b65a-9544e473c290}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ImGuiCustom">
+      <UniqueIdentifier>{80bc5c84-1020-435e-a7be-a1545131f28d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -70,7 +73,28 @@
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
     <ClCompile Include="Util.cpp">
-      <Filter>Source Files\Util</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorUI.cpp">
+      <Filter>Source Files\ImGuiCustom</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imgui\imgui.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imgui\imgui_draw.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imgui\imgui_impl_opengl3.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imgui\imgui_impl_sdl.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imgui\imgui_tables.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="External\imgui\imgui_widgets.cpp">
+      <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="FrameRateController.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
@@ -80,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +141,37 @@
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
     <ClInclude Include="Util.h">
-      <Filter>Source Files\Util</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorUI.h">
+      <Filter>Source Files\ImGuiCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imgui\imgui.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imgui\imgui_impl_opengl3.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imgui\imgui_impl_opengl3_loader.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imgui\imgui_impl_sdl.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imgui\imgui_internal.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imgui\imstb_rectpack.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imgui\imstb_textedit.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imgui\imstb_truetype.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="External\imgui\imconfig.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="FrameRateController.h">
       <Filter>Source Files\GlobalManagers</Filter>
@@ -124,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Source Files\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

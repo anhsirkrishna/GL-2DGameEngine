@@ -21,6 +21,8 @@ public:
 	//Returns the name of the Game object
 	std::string GetName();
 
+	const std::string& GetNameRef() const;
+
 	//Checks if the game object has a particular component. Returns it if present
 	Component* HasComponent(std::string component_name) const;
 

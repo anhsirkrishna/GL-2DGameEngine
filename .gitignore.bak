@@ -42,7 +42,7 @@ SDL2-2.0.16
 .vs
 glew*
 glm
-GameEngine/External
+GameEngine\External
 
 # vcxproj.user file 
 *.vcxproj.user
