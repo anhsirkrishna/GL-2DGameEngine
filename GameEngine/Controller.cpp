@@ -7,8 +7,6 @@
 
 #include <SDL.h>
 
-extern InputManager* p_input_manager;
-
 void Controller::Update()
 {
 	//Accelerate right
