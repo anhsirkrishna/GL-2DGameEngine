@@ -129,6 +129,9 @@
     <ClCompile Include="Controller.cpp">
       <Filter>Source Files\Components\GeneralComponents</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">

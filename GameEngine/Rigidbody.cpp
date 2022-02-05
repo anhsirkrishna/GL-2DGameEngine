@@ -8,7 +8,7 @@
 
 extern FrameRateController* p_framerate_controller;
 
-Rigidbody::Rigidbody() : Component("RIGIDBODY"),p_owner_transform(nullptr), gravity(100), friction(250), force(500), mass(5), velocity(glm::vec4(0)) {}
+Rigidbody::Rigidbody() : Component("RIGIDBODY"), p_owner_transform(nullptr), gravity(100), friction(250), force(500), mass(5), velocity(glm::vec4(0)) {}
 
 //Returns the force value
 float Rigidbody::GetForce(){

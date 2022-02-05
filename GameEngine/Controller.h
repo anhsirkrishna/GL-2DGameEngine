@@ -8,7 +8,7 @@ class Controller : public Component {
 public:
 
 	//Default ctor
-	Controller() : Component("CONTROLLER") {}
+	Controller() : Component("CONTROLLER"), p_owner_rigidbody(nullptr) {}
 
 	//Updates the controller
 	void Update();

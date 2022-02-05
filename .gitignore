@@ -44,6 +44,6 @@ glew*
 glm
 GameEngine/External
 
-# vcxproj.user file 
+# Other files 
 *.vcxproj.user
 

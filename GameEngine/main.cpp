@@ -11,6 +11,7 @@
 #include "GameDefs.h"
 #include "ShaderProgram.h"
 #include "GameObjectManager.h"
+#include "CollisionManager.h"
 #include "InputManager.h"
 #include "FrameRateController.h"
 #include "ResourceManager.h"
@@ -228,10 +229,28 @@ int main(int argc, char* args[])
 	go_factory.CreateLevel(0);
 
 	Transform* new_transform = new Transform();
+	new_transform->SetPosition(glm::vec4(20, 20, 20, 45));
 	new_game_object->AddComponent(new_transform);
 	new_game_object->LinkComponents();
 
 	p_game_obj_manager->AddGameObject(new_game_object);
+
+	//Same with this shit. Clean this up after serialization is implemented
+	GameObject* new_game_object_2 = new GameObject("demo_obj_2");
+
+	GLQuad* new_quad_2 = new GLQuad();
+	new_quad_2->CreateDemo();
+	new_game_object_2->AddComponent(new_quad_2);
+
+	Rigidbody* new_rigidbody_2 = new Rigidbody();
+	new_game_object_2->AddComponent(new_rigidbody_2);
+
+	Transform* new_transform_2 = new Transform();
+	new_game_object_2->AddComponent(new_transform_2);
+	new_game_object_2->LinkComponents();
+	new_transform_2->SetPosition(glm::vec4(200, 200, 20, 45));
+
+	p_game_obj_manager->AddGameObject(new_game_object_2);
 
 	//Main Game loop 
 	//The status of the game is maintained by the GameManager
@@ -244,6 +263,8 @@ int main(int argc, char* args[])
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
+
+
 
 		//Following lines are test code. Remove ASAP
 	/*	if (p_input_manager->getLeftStickHorizontal() != 0) {
@@ -265,7 +286,6 @@ int main(int argc, char* args[])
 		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_X)) {
 			new_transform->SetRotation(new_transform->GetRotation() - 0.3);*/
 		//}
-
 
 		//// Updating the controller
 		//new_controller->Update();
