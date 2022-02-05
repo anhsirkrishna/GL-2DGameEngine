@@ -43,6 +43,6 @@ SDL2-2.0.16
 glew*
 glm
 
-# vcxproj.user file 
+# Other files 
 *.vcxproj.user
 

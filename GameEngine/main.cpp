@@ -8,6 +8,7 @@
 #include "GameDefs.h"
 #include "ShaderProgram.h"
 #include "GameObjectManager.h"
+#include "CollisionManager.h"
 #include "InputManager.h"
 #include "FrameRateController.h"
 #include "ResourceManager.h"
@@ -39,6 +40,7 @@ GameManager* p_game_manager;
 InputManager* p_input_manager;
 FrameRateController* p_framerate_controller;
 ResourceManager* p_resource_manager;
+CollisionManager* p_collision_manager;
 
 /*
 * Global variables to handle SDL window and Open GL Context
@@ -63,6 +65,7 @@ void CreateManagers() {
 	p_input_manager = new InputManager();
 	p_framerate_controller = new FrameRateController(DEFAULT_FRAMERATE);
 	p_resource_manager = new ResourceManager();
+	p_collision_manager = new CollisionManager();
 }
 
 /*
@@ -216,6 +219,7 @@ int main(int argc, char* args[])
 	//Temporary bit of code for demo purposes.
 	//Clean this up as soon as a serializer is in place
 	GameObject* new_game_object = new GameObject("demo_obj");
+
 	
 	GLQuad* new_quad = new GLQuad();
 	new_quad->CreateDemo();
@@ -228,10 +232,28 @@ int main(int argc, char* args[])
 	new_game_object->AddComponent(new_controller);
 
 	Transform* new_transform = new Transform();
+	new_transform->SetPosition(glm::vec4(20, 20, 20, 45));
 	new_game_object->AddComponent(new_transform);
 	new_game_object->LinkComponents();
 
 	p_game_obj_manager->AddGameObject(new_game_object);
+
+	//Same with this shit. Clean this up after serialization is implemented
+	GameObject* new_game_object_2 = new GameObject("demo_obj_2");
+
+	GLQuad* new_quad_2 = new GLQuad();
+	new_quad_2->CreateDemo();
+	new_game_object_2->AddComponent(new_quad_2);
+
+	Rigidbody* new_rigidbody_2 = new Rigidbody();
+	new_game_object_2->AddComponent(new_rigidbody_2);
+
+	Transform* new_transform_2 = new Transform();
+	new_game_object_2->AddComponent(new_transform_2);
+	new_game_object_2->LinkComponents();
+	new_transform_2->SetPosition(glm::vec4(200, 200, 20, 45));
+
+	p_game_obj_manager->AddGameObject(new_game_object_2);
 
 	//Main Game loop 
 	//The status of the game is maintained by the GameManager
@@ -244,6 +266,8 @@ int main(int argc, char* args[])
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
+
+
 
 		//Following lines are test code. Remove ASAP
 	/*	if (p_input_manager->getLeftStickHorizontal() != 0) {
@@ -266,9 +290,12 @@ int main(int argc, char* args[])
 			new_transform->SetRotation(new_transform->GetRotation() - 0.3);*/
 		//}
 
-
 		//// Updating the controller
 		//new_controller->Update();
+
+
+		// Check for all possible colliisons
+		p_collision_manager->Update();
 		
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
