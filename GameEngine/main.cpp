@@ -8,7 +8,6 @@
 #include "GameDefs.h"
 #include "ShaderProgram.h"
 #include "GameObjectManager.h"
-#include "CollisionManager.h"
 #include "InputManager.h"
 #include "FrameRateController.h"
 #include "ResourceManager.h"
@@ -18,6 +17,7 @@
 #include "Transform.h"
 #include "Rigidbody.h"
 #include "Controller.h"
+#include "Collider.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -40,7 +40,6 @@ GameManager* p_game_manager;
 InputManager* p_input_manager;
 FrameRateController* p_framerate_controller;
 ResourceManager* p_resource_manager;
-CollisionManager* p_collision_manager;
 
 /*
 * Global variables to handle SDL window and Open GL Context
@@ -65,7 +64,6 @@ void CreateManagers() {
 	p_input_manager = new InputManager();
 	p_framerate_controller = new FrameRateController(DEFAULT_FRAMERATE);
 	p_resource_manager = new ResourceManager();
-	p_collision_manager = new CollisionManager();
 }
 
 /*
@@ -231,8 +229,11 @@ int main(int argc, char* args[])
 	Controller* new_controller = new Controller();
 	new_game_object->AddComponent(new_controller);
 
+	Collider* new_collider = new Collider();
+	new_game_object->AddComponent(new_collider);
+
 	Transform* new_transform = new Transform();
-	new_transform->SetPosition(glm::vec4(20, 20, 20, 45));
+	new_transform->SetPosition(glm::vec4(100, 20, 20, 45));
 	new_game_object->AddComponent(new_transform);
 	new_game_object->LinkComponents();
 
@@ -248,10 +249,13 @@ int main(int argc, char* args[])
 	Rigidbody* new_rigidbody_2 = new Rigidbody();
 	new_game_object_2->AddComponent(new_rigidbody_2);
 
+	Collider* new_collider_2 = new Collider();
+	new_game_object_2->AddComponent(new_collider_2);
+
 	Transform* new_transform_2 = new Transform();
 	new_game_object_2->AddComponent(new_transform_2);
 	new_game_object_2->LinkComponents();
-	new_transform_2->SetPosition(glm::vec4(200, 200, 20, 45));
+	new_transform_2->SetPosition(glm::vec4(100, 100, 20, 45));
 
 	p_game_obj_manager->AddGameObject(new_game_object_2);
 
@@ -266,8 +270,6 @@ int main(int argc, char* args[])
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
-
-
 
 		//Following lines are test code. Remove ASAP
 	/*	if (p_input_manager->getLeftStickHorizontal() != 0) {
@@ -290,13 +292,7 @@ int main(int argc, char* args[])
 			new_transform->SetRotation(new_transform->GetRotation() - 0.3);*/
 		//}
 
-		//// Updating the controller
-		//new_controller->Update();
 
-
-		// Check for all possible colliisons
-		p_collision_manager->Update();
-		
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
 		glClearColor(0.0, 0.0, 0.0, 0.0);
