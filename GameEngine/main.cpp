@@ -11,7 +11,6 @@
 #include "GameDefs.h"
 #include "ShaderProgram.h"
 #include "GameObjectManager.h"
-#include "CollisionManager.h"
 #include "InputManager.h"
 #include "FrameRateController.h"
 #include "ResourceManager.h"
@@ -21,6 +20,9 @@
 #include "GLQuad.h"
 #include "Transform.h"
 #include "Camera.h"
+#include "Rigidbody.h"
+#include "Controller.h"
+#include "Collider.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -229,7 +231,7 @@ int main(int argc, char* args[])
 	go_factory.CreateLevel(0);
 
 	Transform* new_transform = new Transform();
-	new_transform->SetPosition(glm::vec4(20, 20, 20, 45));
+	new_transform->SetPosition(glm::vec4(100, 20, 20, 45));
 	new_game_object->AddComponent(new_transform);
 	new_game_object->LinkComponents();
 
@@ -263,8 +265,6 @@ int main(int argc, char* args[])
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
-
-
 
 		//Following lines are test code. Remove ASAP
 	/*	if (p_input_manager->getLeftStickHorizontal() != 0) {

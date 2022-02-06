@@ -129,7 +129,7 @@
     <ClCompile Include="Controller.cpp">
       <Filter>Source Files\Components\GeneralComponents</Filter>
     </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
+    <ClCompile Include="Collider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -220,6 +220,11 @@
     </ClInclude>
     <ClInclude Include="GameObjectFactory.h">
       <Filter>Source Files\Factories</Filter>
+    <ClInclude Include="Collider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionChecker.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

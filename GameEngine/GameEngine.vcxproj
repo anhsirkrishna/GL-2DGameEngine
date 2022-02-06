@@ -179,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentCreator.h" />
     <ClInclude Include="ComponentFactory.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Util.h" />
+    <ClInclude Include="CollisionChecker.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="final.frag" />

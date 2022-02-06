@@ -9,56 +9,36 @@
 
 void Controller::Update()
 {
-	//Accelerate right
-	if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
-		p_owner_rigidbody->UpdateVelocity(0, 1, "FORCE");
-	}
-
-	//Accelerate left
-	if (p_input_manager->isKeyPressed(SDL_SCANCODE_A)) {
-		p_owner_rigidbody->UpdateVelocity(0, -1, "FORCE");
-	}
-
-	//Accelerate upward
-	if (p_input_manager->isKeyPressed(SDL_SCANCODE_W)) {
-		p_owner_rigidbody->UpdateVelocity(1, -1, "FORCE");
-	}
-
-	//Accelerate downward
-	if (p_input_manager->isKeyPressed(SDL_SCANCODE_S)) {
-		p_owner_rigidbody->UpdateVelocity(1, 1, "FORCE");
-	}
-
 	glm::vec4 velocity = p_owner_rigidbody->GetVelocity();
+	float mass = p_owner_rigidbody->GetMass();
+	float dt = p_framerate_controller->GetPrevLoopDeltaTime()/1000.0f;
 
-	// if no key is pressed - decelarate
-	// && check if absolute val of velocity > 0
-	if ( (fabsf(velocity.x) > 0.0 || fabsf(velocity.y) > 0.0)
-		&& !p_input_manager->isKeyPressed(SDL_SCANCODE_A)
-		&& !p_input_manager->isKeyPressed(SDL_SCANCODE_D)
-		&& !p_input_manager->isKeyPressed(SDL_SCANCODE_W)
-		&& !p_input_manager->isKeyPressed(SDL_SCANCODE_S)) {
-
-		// if moving leftward, friction is applied rightward
-		if (velocity.x < 0.0f) {				
-			p_owner_rigidbody->UpdateVelocity(0, 1, "FRICTION");
-		}
-		// if moving rightward, friction is applied rightward
-		else if (velocity.x >= 0.0f) {
-			p_owner_rigidbody->UpdateVelocity(0, -1, "FRICTION");
-		}
-
-		// if moving upward, friction is applied downward
-		if (velocity.y < 0.0f) {
-			p_owner_rigidbody->UpdateVelocity(1, 1, "FRICTION");
-		}
-		// if moving downward, friction is applied upward
-		else if (velocity.y >= 0.0f) {
- 			p_owner_rigidbody->UpdateVelocity(1, -1, "FRICTION");
-		}
+	// Move right
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
+		velocity.x = 50.0f;
 	}
 
-	p_owner_rigidbody->UpdateTransform();
+	// Move left
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_A)) {
+		velocity.x = -50.0f;
+	}
+
+	// Jump
+	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_W)) {
+		p_owner_rigidbody->SetGravityUsage(true);
+		velocity.y = -100.0f;
+	}
+
+
+	// Stop horizontal movement
+	if (p_input_manager->isKeyReleased(SDL_SCANCODE_D) || 
+	    p_input_manager->isKeyReleased(SDL_SCANCODE_A)) {
+		velocity.x = 0.0f;
+	}
+
+	p_owner_rigidbody->SetVelocity(velocity);
+
+	//p_owner_rigidbody->Update();
 }
 
 void Controller::Link()
