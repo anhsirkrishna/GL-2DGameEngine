@@ -8,6 +8,7 @@
 *
 /* DigiPen Institute of Technology © 2022
 /******************************************************************************/
+
 #pragma once
 typedef struct SDL_Window;
 typedef void* SDL_GLContext;

@@ -19,8 +19,8 @@
 #include "Matrix3D.h"
 #include "GLQuad.h"
 #include "Transform.h"
+#include "Movement.h"
 #include "Camera.h"
-#include "Rigidbody.h"
 #include "Controller.h"
 #include "Collider.h"
 
@@ -53,7 +53,7 @@ Camera* p_camera;
 */
 SDL_Window* gp_sdl_window;
 SDL_GLContext gp_gl_context;
-bool RUN_WITH_EDITOR = true;
+bool RUN_WITH_EDITOR = false;
 
 /*
 * Macro used to check for OpenGL errors.
@@ -230,32 +230,21 @@ int main(int argc, char* args[])
 	GameObjectFactory go_factory;
 	go_factory.CreateLevel(0);
 
-	Transform* new_transform = new Transform();
-	new_transform->SetPosition(glm::vec4(100, 20, 20, 45));
-	new_game_object->AddComponent(new_transform);
-	new_game_object->LinkComponents();
 
-	p_game_obj_manager->AddGameObject(new_game_object);
+	/* Hardcoding pos vals for the two game objects in code for now.
+	 * To be chucked soon
+	 */
+	Transform* transform_0 = static_cast<Transform*>(p_game_obj_manager->game_object_list[0]->HasComponent("TRANSFORM"));
+	Transform* transform_1 = static_cast<Transform*>(p_game_obj_manager->game_object_list[1]->HasComponent("TRANSFORM"));
 
-	//Same with this shit. Clean this up after serialization is implemented
-	GameObject* new_game_object_2 = new GameObject("demo_obj_2");
+	Movement* movement_0 = static_cast<Movement*>(p_game_obj_manager->game_object_list[0]->HasComponent("MOVEMENT"));
 
-	GLQuad* new_quad_2 = new GLQuad();
-	new_quad_2->CreateDemo();
-	new_game_object_2->AddComponent(new_quad_2);
+	transform_0->SetPosition(glm::vec4(20, 100, 25, 45));
+	transform_1->SetPosition(glm::vec4(20, 200, 25, 45));
 
-	Rigidbody* new_rigidbody_2 = new Rigidbody();
-	new_game_object_2->AddComponent(new_rigidbody_2);
+	movement_0->SetGravityUsage(true);
 
-	Transform* new_transform_2 = new Transform();
-	new_game_object_2->AddComponent(new_transform_2);
-	new_game_object_2->LinkComponents();
-	new_transform_2->SetPosition(glm::vec4(200, 200, 20, 45));
 
-	p_game_obj_manager->AddGameObject(new_game_object_2);
-
-	//Main Game loop 
-	//The status of the game is maintained by the GameManager
 	while (p_game_manager->Status())
 	{
 		p_framerate_controller->start_game_loop();
@@ -265,58 +254,6 @@ int main(int argc, char* args[])
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
-
-		//Following lines are test code. Remove ASAP
-	/*	if (p_input_manager->getLeftStickHorizontal() != 0) {
-			new_pos = new_transform->GetPosition();
-			new_pos.x = new_pos.x + (3 * p_input_manager->getLeftStickHorizontal());
-			new_transform->SetPosition(new_pos);
-		}
-		if (p_input_manager->getLeftStickVertical() != 0) {
-			new_pos = new_transform->GetPosition();
-			new_pos.y = new_pos.y + (3 * p_input_manager->getLeftStickVertical());
-			new_transform->SetPosition(new_pos);
-		}
-		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A)) {
-			new_transform->SetRotation(0);
-		}
-		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_B)) {
-			new_transform->SetRotation(new_transform->GetRotation() + 0.3);
-		}
-		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_X)) {
-			new_transform->SetRotation(new_transform->GetRotation() - 0.3);*/
-		//}
-
-		//// Updating the controller
-		//new_controller->Update();
-		
-
-		if (fabsf(new_vel.x) > 0.0
-			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_A)
-			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_D)
-			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_W)
-			&& !p_input_manager->isKeyPressed(SDL_SCANCODE_S)) {
-
-			if (new_vel.x < 0.0f) {
-				new_vel.x += (new_friction / new_mass) * delta_time;
-			}
-			else {
-				new_vel.x -= (new_friction / new_mass) * delta_time;
-			}
-
-			if (new_vel.y < 0.0f) {
-				new_vel.y += (new_friction / new_mass) * delta_time;
-			}
-			else {
-				new_vel.y -= (new_friction / new_mass) * delta_time;
-			}
-		}
-
-		new_pos.x += new_vel.x * delta_time;
-		new_pos.y += new_vel.y * delta_time;
-
-		new_rigidbody->SetVelocity(new_vel);
-		new_transform->SetPosition(new_pos);
 
 
 		//-----------------------------------------------------------------------

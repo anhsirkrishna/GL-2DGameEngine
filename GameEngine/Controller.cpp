@@ -3,45 +3,39 @@
 #include "FrameRateController.h"
 #include "GameObject.h"
 #include "Transform.h"
-#include "Rigidbody.h"
+#include "Movement.h"
 
 #include <SDL.h>
 
-void Controller::Update()
-{
-	glm::vec4 velocity = p_owner_rigidbody->GetVelocity();
-	float mass = p_owner_rigidbody->GetMass();
-	float dt = p_framerate_controller->GetPrevLoopDeltaTime()/1000.0f;
+void Controller::Update() {
 
 	// Move right
-	if (p_input_manager->isKeyPressed(SDL_SCANCODE_D)) {
-		velocity.x = 50.0f;
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_L)) {
+		p_owner_movement->MoveHorizontally(50.0f);
 	}
 
 	// Move left
-	if (p_input_manager->isKeyPressed(SDL_SCANCODE_A)) {
-		velocity.x = -50.0f;
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_J)) {
+		p_owner_movement->MoveHorizontally(-50.0f);
 	}
 
 	// Jump
-	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_W)) {
-		p_owner_rigidbody->SetGravityUsage(true);
-		velocity.y = -100.0f;
+	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_I)) {
+		p_owner_movement->SetGravityUsage(true);
+		p_owner_movement->Jump(-100.0f);
 	}
 
 
 	// Stop horizontal movement
-	if (p_input_manager->isKeyReleased(SDL_SCANCODE_D) || 
-	    p_input_manager->isKeyReleased(SDL_SCANCODE_A)) {
-		velocity.x = 0.0f;
+	if (p_input_manager->isKeyReleased(SDL_SCANCODE_L) ||
+	    p_input_manager->isKeyReleased(SDL_SCANCODE_J)) {
+		p_owner_movement->MoveHorizontally(0);
 	}
-
-	p_owner_rigidbody->SetVelocity(velocity);
-
-	//p_owner_rigidbody->Update();
 }
 
-void Controller::Link()
-{
-	p_owner_rigidbody = static_cast<Rigidbody*>(GetOwner()->HasComponent("RIGIDBODY"));
+void Controller::Serialize(json json_object) {
+}
+
+void Controller::Link() {
+	p_owner_movement = static_cast<Movement*>(GetOwner()->HasComponent("MOVEMENT"));
 }

@@ -72,8 +72,10 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\glm\glm;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\glm\glm;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)\External\imgui;$(SolutionDir)..\Json\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</ExternalIncludePath>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -152,9 +154,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentCreator.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="EditorUI.cpp" />
     <ClCompile Include="External\imgui\imgui.cpp" />
@@ -171,6 +175,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
+    <ClCompile Include="Movement.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -183,6 +188,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentCreator.h" />
     <ClInclude Include="ComponentFactory.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="EditorUI.h" />
     <ClInclude Include="External\imgui\imconfig.h" />
@@ -202,18 +208,21 @@
     <ClInclude Include="GLQuad.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Matrix3D.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Movement.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Util.h" />
-    <ClInclude Include="CollisionChecker.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="final.frag" />
     <None Include="final.vert" />
+    <None Include="imgui.ini" />
     <None Include="Levels\Level_0.json" />
     <None Include="Obj_defs\obj1.json" />
+    <None Include="Obj_defs\obj2.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

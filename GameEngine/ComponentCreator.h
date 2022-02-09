@@ -34,3 +34,21 @@ class TransformCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
+
+// Creates instance of Movement component
+class MovementCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
+
+// Creates instance of Collider component
+class ColliderCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
+
+//Creates instance of Controller component
+class ControllerCreator: public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};

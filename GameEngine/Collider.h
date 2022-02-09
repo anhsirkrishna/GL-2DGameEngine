@@ -11,13 +11,21 @@
 #pragma once
 
 #include "Component.h"
-#include "Transform.h"
-#include "Rigidbody.h"
+#include <nlohmann/json.hpp>
+
+// Forward Declaration
+class Transform;
+class Movement;
+
+using json = nlohmann::json;
 
 class Collider : public Component {
 public:
 	// Default ctor
 	Collider();
+
+	// Serialize method. Nothing to do for the collider component
+	void Serialize(json json_object);
 
 	/*
 	* Update called once every game loop for the collider component
@@ -26,10 +34,10 @@ public:
 	void Update();
 
 	// Link other components
-	void Link();
+void Link();
 
 private:
 	Transform* p_owner_transform;
-	Rigidbody* p_owner_rigidbody;
+	Movement* p_owner_movement;
 };
 

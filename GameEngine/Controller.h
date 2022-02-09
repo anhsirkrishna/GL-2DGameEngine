@@ -11,22 +11,29 @@
 /******************************************************************************/
 
 #include "Component.h"
-#include "Rigidbody.h"
+#include "Movement.h"
+
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 class Controller : public Component {
 
 public:
 
 	// Default ctor
-	Controller() : Component("CONTROLLER"), p_owner_rigidbody(nullptr) {}
+	Controller() : Component("CONTROLLER"), p_owner_movement(nullptr) {}
 
 	// Updates the controller
 	void Update();
+
+	// Serializer. Does nothing for this component
+	void Serialize(json json_object);
 
 	// Stores references to other components
 	void Link();
 
 private:
-	Rigidbody* p_owner_rigidbody;
+	Movement* p_owner_movement;
 };
 

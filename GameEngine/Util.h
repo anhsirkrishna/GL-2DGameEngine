@@ -10,3 +10,9 @@ float* getMat4Pointer(glm::mat4& matrix);
 * Returns std::string : The matrix in readable format
 */
 std::string Mat4PrintableStr(glm::mat4 const &matrix);
+
+/*
+* Uses the AABB collision technique to check for collision
+* between two bodies
+*/ 
+bool AABB(glm::vec4 pos_0, glm::vec4 pos_1);
