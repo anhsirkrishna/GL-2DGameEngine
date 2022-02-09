@@ -2,9 +2,12 @@
 
 
 #include <vector>
-
 #include <GL\glew.h>
+#include "nlohmann/json.hpp"
+
 #include "Component.h"
+
+using json = nlohmann::json;
 
 //Forward Declaration
 class Texture;
@@ -29,6 +32,7 @@ private:
 	Transform* p_owner_transform;
 	GLfloat tex_offset[2];
 	unsigned int texture_mode;
+	unsigned int vertex_count;
 public:
 	//Default ctor to create a GLQuad
 	GLQuad();
@@ -51,11 +55,9 @@ public:
 	//Function to Link with other dependant components like the Transform component
 	virtual void Link();
 
-	//Function to set render mode to texture or color
+	//Sets the render mode to color (int=0) or texture (int=1)
 	void SetTextureMode(int mode_);
 
-	//This method should ONLY be used for first commit in the minimum viable engine
-	//Replace it with Serialize() ASAP
-	void CreateDemo();
-	//void Serialize(json json_object);
+	//Serialize a component based on the json input
+	void Serialize(json json_object);
 };

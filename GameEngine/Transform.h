@@ -1,8 +1,11 @@
 #pragma once
 
+#include <glm.hpp>
+#include "nlohmann/json.hpp"
+
 #include "Component.h"
 
-#include <glm.hpp>
+using json = nlohmann::json;
 
 class Transform : public Component {
 public:
@@ -53,9 +56,9 @@ public:
 
 	//Sets the RotMatrices
 	void SetRotMatrices();
-
-	//TO-DO : Implement this when the Serializer is added
-	//void Serialize(json json_object);
+	
+	//Serialize method. Nothing to do for Transform component.
+	void Serialize(json json_object);
 private:
 	glm::vec4 position;
 	glm::mat4 translate_matrix;

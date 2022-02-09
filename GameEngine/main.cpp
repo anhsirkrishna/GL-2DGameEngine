@@ -15,6 +15,7 @@
 #include "FrameRateController.h"
 #include "ResourceManager.h"
 #include "GameManager.h"
+#include "GameObjectFactory.h"
 #include "Matrix3D.h"
 #include "GLQuad.h"
 #include "Transform.h"
@@ -223,27 +224,11 @@ int main(int argc, char* args[])
 	//Create the Shader Program
 	ShaderProgram* p_shader_program = GL_Program_init();
 
-	//Temporary bit of code for demo purposes.
-	//Clean this up as soon as a serializer is in place
-	GameObject* new_game_object = new GameObject("demo_obj");
-	GLQuad* new_quad = new GLQuad();
-	new_quad->CreateDemo();
-	new_game_object->AddComponent(new_quad);
-	Transform* new_transform = new Transform();
-	new_game_object->AddComponent(new_transform);
-	new_game_object->LinkComponents();
+	GameObjectFactory go_factory;
+	go_factory.CreateLevel(0);
+
+	Transform* new_transform = static_cast<Transform*>(p_game_obj_manager->game_object_list[0]->HasComponent("TRANSFORM"));
 	glm::vec4 new_pos;
-
-	GameObject* new_game_object_2 = new GameObject("demo_obj_2");
-	GLQuad* new_quad_2 = new GLQuad();
-	new_quad_2->CreateDemo();
-	new_game_object_2->AddComponent(new_quad_2);
-	Transform* new_transform_2 = new Transform();
-	new_game_object_2->AddComponent(new_transform_2);
-	new_game_object_2->LinkComponents();
-
-	p_game_obj_manager->AddGameObject(new_game_object);
-	p_game_obj_manager->AddGameObject(new_game_object_2);
 
 	//Main Game loop 
 	//The status of the game is maintained by the GameManager

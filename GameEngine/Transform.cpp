@@ -46,9 +46,9 @@ void Transform::SetScale(float const&  _scale_x, float const&  _scale_y) {
 	scale_y = _scale_y;
 }
 
-/*
+//Nothing to do for Transform component
 void Transform::Serialize(json json_object) {
-}*/
+}
 
 //Sets the RotMatrices
 void Transform::SetRotMatrices() {
