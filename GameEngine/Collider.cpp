@@ -1,4 +1,5 @@
 #include "Collider.h"
+#include "CollisionChecker.h"
 #include "GameObjectManager.h"
 #include "Transform.h"
 #include "Movement.h"
@@ -43,28 +44,28 @@ void Collider::Update()
 
 				glm::vec4 vel_0 = p_owner_movement->GetVelocity();
 
-				// Player touches the bottom of a platform
-				if (pos_0.y < (pos_1.y + pos_1.w) && ((pos_1.y + pos_1.w) - pos_0.y) < 2) {
-					pos_0.y = pos_1.y + pos_0.w + 1; vel_0.y = 0;
-				}
+					// Player touches the bottom of a platform
+					if (pos_0.y < (pos_1.y + pos_1.w) && ((pos_1.y + pos_1.w) - pos_0.y) < 2) {
+						pos_0.y = pos_1.y + pos_0.w + 1; vel_0.y = 0;
+					}
 
-				// Player touches the top of a platform
-				if ((pos_0.y + pos_0.w) > pos_1.y && ((pos_0.y + pos_0.w) - pos_1.y) < 2) {
-					pos_0.y = pos_1.y - pos_0.w - 1; vel_0.y = 0;
+					// Player touches the top of a platform
+					if ((pos_0.y + pos_0.w) > pos_1.y && ((pos_0.y + pos_0.w) - pos_1.y) < 2) {
+						pos_0.y = pos_1.y - pos_0.w - 1; vel_0.y = 0;
 					p_owner_movement->SetGravityUsage(false);
-				}
+					}
 
-				// Player touches the left of the other object
-				if ((pos_0.x + pos_0.z) > pos_1.x && ((pos_0.x + pos_0.z) - pos_1.x) < 2) {
-					pos_0.x = pos_1.x - pos_0.z - 1; vel_0.x = 0;
-				}
+					// Player touches the left of the other object
+					if ((pos_0.x + pos_0.z) > pos_1.x && ((pos_0.x + pos_0.z) - pos_1.x) < 2) {
+						pos_0.x = pos_1.x - pos_0.z - 1; vel_0.x = 0;
+					}
 
-				// Player touches the right of the other object
-				if (pos_0.x < (pos_1.x + pos_1.z) && ((pos_1.x + pos_1.z) - pos_0.x) < 2) {
-					pos_0.x = pos_1.x + pos_0.z + 1; vel_0.x = 0;
-				}
+					// Player touches the right of the other object
+					if (pos_0.x < (pos_1.x + pos_1.z) && ((pos_1.x + pos_1.z) - pos_0.x) < 2) {
+						pos_0.x = pos_1.x + pos_0.z + 1; vel_0.x = 0;
+					}
 
-				p_owner_transform->SetPosition(pos_0);
+					p_owner_transform->SetPosition(pos_0);
 				p_owner_movement->SetVelocity(vel_0);
 
 			}

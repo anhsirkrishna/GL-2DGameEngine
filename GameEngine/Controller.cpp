@@ -31,7 +31,7 @@ void Controller::Update() {
 	    p_input_manager->isKeyReleased(SDL_SCANCODE_J)) {
 		p_owner_movement->MoveHorizontally(0);
 	}
-}
+	}
 
 void Controller::Serialize(json json_object) {
 }

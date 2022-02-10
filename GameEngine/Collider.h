@@ -34,7 +34,7 @@ public:
 	void Update();
 
 	// Link other components
-void Link();
+	void Link();
 
 private:
 	Transform* p_owner_transform;
