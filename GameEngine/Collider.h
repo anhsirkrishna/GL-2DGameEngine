@@ -29,6 +29,12 @@ public:
 	// Serialize method. Nothing to do for the collider component
 	void Serialize(json json_object);
 
+	// Updates the collider position
+	void UpdateColliderPosition();
+
+	// Getter to get Collider Box Position
+	glm::vec4 GetColliderPosition();
+
 	/*
 	* Update called once every game loop for the collider component
 	* Checks for collisions with every other game object.
@@ -43,6 +49,16 @@ private:
 	Transform* p_owner_transform;
 	Movement* p_owner_movement;
 
+
+	/* Stores the position of the collider.
+	 * This position = center of the collider box 
+	 * x : x-coordinate of pos
+	 * y : y-coordinate of pos
+	 * z : half-width of collider box
+	 * w : half-height of collider box
+	 */
+	glm::vec4 col_pos;
+	
 	// Check for AABB collisions
 	bool AABB(glm::vec4 pos_0, glm::vec4 pos_1);
 };
