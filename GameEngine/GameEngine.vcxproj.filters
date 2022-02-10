@@ -126,6 +126,15 @@
     <ClCompile Include="ComponentCreator.cpp">
       <Filter>Source Files\Factories</Filter>
     </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Movement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -212,6 +221,15 @@
     <ClInclude Include="GameObjectFactory.h">
       <Filter>Source Files\Factories</Filter>
     </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Movement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -226,5 +244,6 @@
     <None Include="Obj_defs\obj1.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
+    <None Include="Obj_defs\obj2.json" />
   </ItemGroup>
 </Project>

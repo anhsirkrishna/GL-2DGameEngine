@@ -13,6 +13,9 @@
 ComponentFactory::ComponentFactory() {
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("TRANSFORM", new TransformCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("GLQUAD", new GLQuadCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("COLLIDER", new ColliderCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("MOVEMENT", new MovementCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("CONTROLLER", new ControllerCreator));
 }
 
 ComponentFactory::~ComponentFactory() {
