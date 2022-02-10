@@ -34,3 +34,9 @@ class TransformCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
+
+//Creates instance of Animation component
+class AnimationCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
