@@ -117,7 +117,7 @@ void Collider::Update()
 					if ((col_pos_other.y + col_pos_other.w) > (col_pos.y - col_pos.w) &&
 						(col_pos_other.y + col_pos_other.w) - (col_pos.y - col_pos.w) <= 5) {
 
-						pos_this.y = pos_other.y + pos_other.w + 1.0f;
+						pos_this.y = pos_other.y + pos_other.w + 0.5f;
 						vel_this.y = 0;
 					}
 
@@ -130,7 +130,7 @@ void Collider::Update()
 					if ((col_pos.y + col_pos.w) > (col_pos_other.y - col_pos_other.w) &&
 						(col_pos.y + col_pos.w) - (col_pos_other.y - col_pos_other.w) <= 5) {
 
-						pos_this.y = pos_other.y - pos_this.w - 1.0f;
+						pos_this.y = pos_other.y - pos_this.w - 0.5f;
 						vel_this.y = 0;
 
 						p_owner_movement->SetGravityUsage(false);
@@ -140,7 +140,7 @@ void Collider::Update()
 					if ((col_pos.x + col_pos.z) > (col_pos_other.x - col_pos_other.z) &&
 						(col_pos.x + col_pos.z) - (col_pos_other.x - col_pos_other.z) <= 5) {
 
-						pos_this.x = pos_other.x - pos_this.z - 1.0f;
+						pos_this.x = pos_other.x - pos_this.z - 0.5f;
 						vel_this.x = 0;
 					}
 					
@@ -148,7 +148,7 @@ void Collider::Update()
 					if ((col_pos_other.x + col_pos_other.z) > (col_pos.x - col_pos.z) &&
 						(col_pos_other.x + col_pos_other.z) - (col_pos.x - col_pos.z) <= 5) {
 
-						pos_this.x = pos_other.x + pos_other.z + 1.0f;
+						pos_this.x = pos_other.x + pos_other.z + 0.5f;
 						vel_this.x = 0;
 					}
 
