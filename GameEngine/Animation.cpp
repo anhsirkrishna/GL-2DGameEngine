@@ -18,25 +18,34 @@
 Animation::Animation() : Component("ANIMATION"), p_owner_glquad(NULL), current_frame(0),
 looping(true), interval(0), timer(0), times_played(0) {}
 
-/*Default dtor for */
+//Default dtor for Animations
 Animation::~Animation() {
 	for (auto frame : frames) {
 		delete frame;
 	}
 }
 
+// Refreshes the animation to the start
 void Animation::Refresh() {
 	current_frame = 0;
 	times_played = 0;
 	timer = 0;
 }
 
+/*Function to check if one complete cycle of animation has finished
+* Returns: bool - True if one cycle is complete
+*/
 bool Animation::Completed() {
 	if (times_played > 0)
 		return true;
 	return false;
 }
 
+/*Animation component Update call
+* Modifies the parent game object's GLQuad component
+* by setting the texture offset to the value that 
+* corresponds to the current frame of animation
+*/
 void Animation::Update() {
 	timer += 1;
 
@@ -57,6 +66,13 @@ void Animation::Update() {
 		frames[current_frame][0], frames[current_frame][1]);
 }
 
+/*Creates the animation component from the json object
+* Expects three keys :
+* frames - List of (x,y) values that specify the texture offset for each
+		   frame of animation
+* loop - Boolean that determines if the animation loops 
+* interval - The number of frames each frame of animation will last for.
+*/
 void Animation::Serialize(json json_object) {
 	auto tex_offset_list = json_object["frames"].get<std::vector<int>>();
 	GLfloat* temp_offset;
@@ -71,6 +87,7 @@ void Animation::Serialize(json json_object) {
 	interval = json_object["interval"].get<int>();
 }
 
+//Links other related components
 void Animation::Link() {
 	p_owner_glquad =
 		static_cast<GLQuad*>(GetOwner()->HasComponent("GLQUAD"));
@@ -78,5 +95,5 @@ void Animation::Link() {
 
 //Returns the total duration of the animation in number of frames
 int Animation::Duration() {
-	return frames.size() * interval;
+	return (frames.size()/2) * interval;
 }
