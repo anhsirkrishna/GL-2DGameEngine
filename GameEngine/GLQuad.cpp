@@ -31,8 +31,8 @@ void ConvertTextureCoords(std::vector<float>& tex_coords, float tex_width, float
 	}
 }
 
-GLQuad::GLQuad() : Component("GLQuad"), p_texture(NULL), vao_id(0), p_owner_transform(NULL),
-					texure_list_size(0), texture_mode(0) {
+GLQuad::GLQuad() : Component("GLQUAD"), p_texture(NULL), vao_id(0), p_owner_transform(NULL),
+					texure_list_size(0), texture_mode(0), vertex_count(0) {
 	tex_offset[0] = tex_offset[1] = 0;
 	p_texure_list[0] = p_texure_list[1] = p_texure_list[2] =
 		p_texure_list[3] = p_texure_list[4] = NULL;

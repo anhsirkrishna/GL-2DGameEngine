@@ -11,6 +11,7 @@
 #include "ComponentCreator.h"
 #include "GLQuad.h"
 #include "Transform.h"
+#include "Animation.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.
@@ -34,4 +35,10 @@ Component* TransformCreator::Create(json json_object) {
 	Transform* new_transform = new Transform;
 	new_transform->Serialize(json_object);
 	return static_cast<Component*>(new_transform);
+}
+
+Component* AnimationCreator::Create(json json_object) {
+	Animation* new_animation = new Animation;
+	new_animation->Serialize(json_object);
+	return static_cast<Component*>(new_animation);
 }
