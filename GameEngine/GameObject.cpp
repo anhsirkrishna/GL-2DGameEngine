@@ -2,7 +2,9 @@
 #include "Component.h"
 
 //Creates a named game object
-GameObject::GameObject(std::string object_name) : name(object_name), index(0) {}
+GameObject::GameObject(std::string object_name) : name(object_name), index(0) {
+	state_manager.SetOwner(this);
+}
 
 //Returns the name of the Game object
 std::string GameObject::GetName() {

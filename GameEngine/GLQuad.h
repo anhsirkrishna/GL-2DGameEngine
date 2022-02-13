@@ -3,11 +3,7 @@
 
 #include <vector>
 #include <GL\glew.h>
-#include "nlohmann/json.hpp"
-
 #include "Component.h"
-
-using json = nlohmann::json;
 
 //Forward Declaration
 class Texture;
@@ -26,8 +22,7 @@ class Transform;
 class GLQuad : public Component {
 private:
 	Texture* p_texture;
-	Texture* p_texure_list[5];
-	unsigned int texure_list_size;
+	std::vector<Texture*> p_texure_list;
 	GLuint vao_id = 0;
 	Transform* p_owner_transform;
 	GLfloat tex_offset[2];
@@ -45,6 +40,9 @@ public:
 
 	//Adds a texture
 	void AddTexture(Texture* _p_texture);
+
+	//Clear all textures
+	void ClearTextures();
 	
 	//Draw the quad by using the OpenGL Draw call
 	void Draw(ShaderProgram* program);
@@ -58,6 +56,22 @@ public:
 	//Sets the render mode to color (int=0) or texture (int=1)
 	void SetTextureMode(int mode_);
 
-	//Serialize a component based on the json input
+	/*Serialize the GLquad object from a json input
+	* Expects a json dict with the following keys:
+	* texture_names : list of texture file names present in the resources folder
+	* vertex_list: A 1D list of 3*4 floats. Usually 4 Vertices.
+				   Each group of 3 floats represents 1 vertexs x, y,and z values.
+	* color_list: A 1D list of 4*4 floats. Each group of 4 floats
+				  represents 1 vertexs r, g, b, and a color values.
+	* texture_list: A 1D list of 2*4 floats. Each group of 2 floats represents
+					the texture coordinates for each vertex.
+	* Returns : void
+	*/
 	void Serialize(json json_object);
+
+	/*Change the state of the GLQuad component
+	* Involves changing the texture that this quad is pointing to.
+	* Returns : void
+	*/
+	virtual void ChangeState(json json_object);
 };

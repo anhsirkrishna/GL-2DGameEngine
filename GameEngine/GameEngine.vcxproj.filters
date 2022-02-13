@@ -129,6 +129,9 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files\Components\GraphicsComponents</Filter>
     </ClCompile>
+    <ClCompile Include="StateManager.cpp">
+      <Filter>Source Files\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -217,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Source Files\Components\GraphicsComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="StateManager.h">
+      <Filter>Source Files\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
