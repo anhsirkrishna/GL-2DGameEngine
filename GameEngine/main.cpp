@@ -277,6 +277,17 @@ int main(int argc, char* args[])
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_DOWN))
 			p_camera->ProcessKeyboardInput(CameraMovement::CAM_BACKWARD, p_framerate_controller->GetPrevLoopDeltaTime());
 
+
+		//Test code for game object state management
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_X)) {
+			for (auto game_object : p_game_obj_manager->game_object_list)
+				game_object->state_manager.ChangeState("WALK");
+		}
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_Z)) {
+			for (auto game_object : p_game_obj_manager->game_object_list)
+				game_object->state_manager.ChangeState("IDLE");
+		}
+
 		std::string pos_string = std::to_string(p_camera->position.x) + " " + std::to_string(p_camera->position.y) + " " + std::to_string(p_camera->position.z);
 
 		// camera pos debug string log

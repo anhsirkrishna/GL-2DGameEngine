@@ -1,9 +1,12 @@
 #pragma once
 #include <string>
+#include <nlohmann/json.hpp>
 
 //Forward declaration
 class GameObject;
 class ShaderProgram;
+
+using json = nlohmann::json;
 
 /*
 * Base component class that serves as the generic component
@@ -30,6 +33,8 @@ public:
 
 	//Base Draw method. Does nothing.
 	virtual void Draw(ShaderProgram* p_program);
+
+	virtual void ChangeState(json json_object);
 
 	//Returns the name of the component
 	std::string GetName();
