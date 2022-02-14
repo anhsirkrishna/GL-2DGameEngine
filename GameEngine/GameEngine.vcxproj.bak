@@ -72,23 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\glm\glm;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath);C:\Users\brady\Documents\FALL22\GAM541\GameEngine\External\imgui;$(SolutionDir)..\GameEngine\External\imgui</IncludePath>
-    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath);C:\Users\brady\Documents\FALL22\GAM541\GameEngine\External\imgui;$(SolutionDir)..\GameEngine\External\imgui</IncludePath>
     <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath);C:\Users\brady\Documents\FALL22\GAM541\GameEngine\External\imgui;$(SolutionDir)..\GameEngine\External\imgui</IncludePath>
     <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x64;$(SolutionDir)..\SDL2_image-2.0.5\lib\x64;$(SolutionDir)..\glew-2.2.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\SDL2-2.0.16\include;$(IncludePath);C:\Users\brady\Documents\FALL22\GAM541\GameEngine\External\imgui;$(SolutionDir)..\GameEngine\External\imgui</IncludePath>
     <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x64;$(SolutionDir)..\SDL2_image-2.0.5\lib\x64;$(SolutionDir)..\glew-2.2.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -151,8 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentCreator.cpp" />
+    <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="EditorUI.cpp" />
     <ClCompile Include="External\imgui\imgui.cpp" />
@@ -163,6 +166,7 @@
     <ClCompile Include="External\imgui\imgui_widgets.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GLQuad.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -170,13 +174,17 @@
     <ClCompile Include="Matrix3D.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentCreator.h" />
+    <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="EditorUI.h" />
     <ClInclude Include="External\imgui\imconfig.h" />
@@ -191,12 +199,14 @@
     <ClInclude Include="GameDefs.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GLQuad.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Matrix3D.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="StateManager.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Util.h" />
@@ -204,6 +214,8 @@
   <ItemGroup>
     <None Include="final.frag" />
     <None Include="final.vert" />
+    <None Include="Levels\Level_0.json" />
+    <None Include="Obj_defs\obj1.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

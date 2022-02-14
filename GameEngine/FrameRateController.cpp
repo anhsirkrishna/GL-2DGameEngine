@@ -1,4 +1,5 @@
 #include "FrameRateController.h"
+#include "EditorUI.h"
 #include "Util.h"
 #include <string>
 
@@ -20,6 +21,8 @@ void FrameRateController::end_game_loop() {
 	prev_loop_delta_time = SDL_GetTicks() - loop_start_time;
 	float avg_fps = frame_counter / (SDL_GetTicks() / 1000.0f);
 	std::string log_msg = "FPS : " + std::to_string(avg_fps);
+
+	p_editor->last_frame_fps = avg_fps;
 }
 
 void FrameRateController::limit_frame_rate() {

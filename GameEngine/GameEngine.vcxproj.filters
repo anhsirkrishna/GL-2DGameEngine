@@ -132,6 +132,9 @@
     <ClCompile Include="StateManager.cpp">
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -223,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="StateManager.h">
       <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

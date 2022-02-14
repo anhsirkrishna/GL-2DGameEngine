@@ -33,7 +33,7 @@ void ConvertTextureCoords(std::vector<float>& tex_coords, float tex_width,
 }
 
 GLQuad::GLQuad() : Component("GLQUAD"), p_texture(NULL), vao_id(0),
-					p_owner_transform(NULL), texture_mode(0), vertex_count(0), p_texure_list() {
+					p_owner_transform(NULL), texture_mode(0), vertex_count(0), p_texure_list(), debug_draw(false) {
 	tex_offset[0] = tex_offset[1] = 0;
 }
 
@@ -78,6 +78,12 @@ void GLQuad::Draw(ShaderProgram* program) {
 	loc = glGetUniformLocation(program->program_id, "tex_offset");
 	glUniform2fv(loc, 1, &(converted_tex_offset[0]));
 	CHECKERROR;
+
+	if (debug_draw)
+		SetTextureMode(0);
+	else
+		SetTextureMode(1);
+
 
 	loc = glGetUniformLocation(program->program_id, "mode");
 	glUniform1i(loc, texture_mode);
