@@ -5,7 +5,7 @@
 /*Email: krishna.pillai@digipen.edu
 /*Date   01/27/2022
 /*  Component creator header file
-/* DigiPen Institute of Technology © 2022
+/* DigiPen Institute of Technology Â© 2022
 /******************************************************************************/
 
 #pragma once
@@ -49,6 +49,12 @@ public:
 
 //Creates instance of Controller component
 class ControllerCreator: public ComponentCreator {
+  public:
+	virtual Component* Create(json json_object);
+};
+
+//Creates instance of Animation component
+class AnimationCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };

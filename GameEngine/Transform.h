@@ -1,11 +1,8 @@
 #pragma once
 
 #include <glm.hpp>
-#include "nlohmann/json.hpp"
 
 #include "Component.h"
-
-using json = nlohmann::json;
 
 class Transform : public Component {
 public:

@@ -23,7 +23,8 @@ void ConvertColor(std::vector<float>& colors) {
 
 //Helper fuction to convert textures from pixel coords to 0-1 range
 //Also swaps the coordinates for use
-void ConvertTextureCoords(std::vector<float>& tex_coords, float tex_width, float tex_height) {
+void ConvertTextureCoords(std::vector<float>& tex_coords, float tex_width,
+						  float tex_height) {
 	unsigned int size = tex_coords.size();
 	for (unsigned int i = 0; i < size; i += 2) {
 		tex_coords[i] = tex_coords[i] / tex_width;
@@ -31,11 +32,9 @@ void ConvertTextureCoords(std::vector<float>& tex_coords, float tex_width, float
 	}
 }
 
-GLQuad::GLQuad() : Component("GLQuad"), p_texture(NULL), vao_id(0), p_owner_transform(NULL),
-					texure_list_size(0), texture_mode(0) {
+GLQuad::GLQuad() : Component("GLQUAD"), p_texture(NULL), vao_id(0),
+					p_owner_transform(NULL), texture_mode(0), vertex_count(0), p_texure_list() {
 	tex_offset[0] = tex_offset[1] = 0;
-	p_texure_list[0] = p_texure_list[1] = p_texure_list[2] =
-		p_texure_list[3] = p_texure_list[4] = NULL;
 }
 
 
@@ -114,12 +113,15 @@ Texture* GLQuad::GetTexture() {
 }
 
 void GLQuad::AddTexture(Texture* _p_texture) {
-	p_texure_list[texure_list_size] = _p_texture;
-	texure_list_size++;
+	p_texure_list.push_back(_p_texture);
 }
 
 void GLQuad::SetTexture(unsigned int index) {
 	p_texture = p_texure_list[index];
+}
+
+void GLQuad::ClearTextures() {
+	p_texure_list.clear();
 }
 
 /*Serialize the GLquad object from a json input
@@ -195,4 +197,19 @@ void GLQuad::Serialize(json json_object) {
 	glBindVertexArray(0);
 
 	SetTextureMode(0);
+}
+
+
+/*Change the state of the GLQuad component
+* Involves changing the texture that this quad is pointing to.
+* Returns : void
+*/
+void GLQuad::ChangeState(json json_object) {
+	ClearTextures();
+	auto texture_names = json_object["texture_names"].get<std::vector<std::string>>();
+	for (auto texture_name : texture_names) {
+		p_resource_manager->add_texture(texture_name);
+		AddTexture(p_resource_manager->get_texture(texture_name));
+	}
+	SetTexture(0);
 }

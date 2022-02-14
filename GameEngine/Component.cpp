@@ -28,6 +28,11 @@ void Component::Draw(ShaderProgram* p_program) {
 
 }
 
+//Base ChangeStateMethod. Does nothing.
+void Component::ChangeState(json json_object) {
+
+}
+
 //Base Link method. Does nothing.
 //Individual components will have logic that links itself with other dependant components
 void Component::Link() {

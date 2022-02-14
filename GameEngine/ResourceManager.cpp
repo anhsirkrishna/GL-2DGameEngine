@@ -35,6 +35,9 @@ void ResourceManager::add_resource(std::string file_name) {
 void ResourceManager::free_resources() {
 	for (auto resource : resource_map)
 		SDL_FreeSurface(resource.second);
+
+	for (auto texture : textures_map)
+		delete texture.second;
 }
 
 SDL_Surface* ResourceManager::get_resource(std::string file_name) {

@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include "StateManager.h"
 
 //Forward declaration
 class Component;
@@ -43,6 +44,7 @@ public:
 
 	//Index keeps track of the index with respect to the list of game objects
 	unsigned int index;
+	StateManager state_manager;
 private:
 	std::string name;
 	std::vector<Component*> component_list;

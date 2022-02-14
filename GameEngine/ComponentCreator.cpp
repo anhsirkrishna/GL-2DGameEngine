@@ -5,7 +5,7 @@
 /*Email: krishna.pillai@digipen.edu
 /*Date   01/27/2022
 /*  Component creator implementation file
-/* DigiPen Institute of Technology © 2022
+/* DigiPen Institute of Technology Â© 2022
 /******************************************************************************/
 
 #include "ComponentCreator.h"
@@ -14,6 +14,7 @@
 #include "Movement.h"
 #include "Collider.h"
 #include "Controller.h"
+#include "Animation.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.
@@ -57,4 +58,10 @@ Component* ControllerCreator::Create(json json_object)
 	Controller* new_controller = new Controller;
 	new_controller->Serialize(json_object);
 	return static_cast<Component*>(new_controller);
+}
+
+Component* AnimationCreator::Create(json json_object) {
+	Animation* new_animation = new Animation;
+	new_animation->Serialize(json_object);
+	return static_cast<Component*>(new_animation);
 }

@@ -14,7 +14,9 @@
 
 /*Create a game object based on the object definition
 * Object definition is in a json format found in .\\Obj_defs\\<file_name>
-* Obj defs is a dict with the component names as keys.
+* Obj defs is a dict with "COMPONENT" and "STATES" as keys.
+* "COMPONENT" is another dict with the component names as keys
+* "STATES" is another dict with the state names as keys
 * Returns  *GameObject
 */
 GameObject* GameObjectFactory::CreateGameObject(std::string object_name, std::string obj_def) {
@@ -25,11 +27,12 @@ GameObject* GameObjectFactory::CreateGameObject(std::string object_name, std::st
 
 	json json_object;
 	obj_def_data >> json_object;
-	auto component_map = json_object.get<std::unordered_map<std::string, json>>();
+	auto object_map = json_object.get<std::unordered_map<std::string, json>>();
 
+	json component_json = object_map.at("COMPONENTS");
+	auto component_map = component_json.get<std::unordered_map<std::string, json>>();
 	json component_data;
 	std::string component_name;
-	std::string state_name;
 	for (auto component : component_map) {
 		component_name = component.first;
 		component_data = component.second;
@@ -37,6 +40,20 @@ GameObject* GameObjectFactory::CreateGameObject(std::string object_name, std::st
 			component_factory.Create(component_name, component_data)
 		);
 	}
+
+	auto state_json = object_map.at("STATES");
+	auto states_map = state_json.get<std::unordered_map<std::string, json>>();
+	json state_data;
+	std::string state_name;
+	for (auto state : states_map) {
+		state_name = state.first;
+		state_data = state.second;
+		new_object->state_manager.AddState(state_name, state_data);
+	}
+
+	std::string default_state = object_map.at("DEFAULT_STATE").get<std::string>();
+	new_object->state_manager.ChangeState(default_state);
+
 	return new_object;
 }
 
