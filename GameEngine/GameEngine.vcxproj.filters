@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Obj_defs">
       <UniqueIdentifier>{68238f06-c6c6-401f-8186-2676f3bfe14b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\PhysicsComponents">
+      <UniqueIdentifier>{bdbcaf89-c8d0-4a82-af67-f2b39c2d24eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\PlayerComponents">
+      <UniqueIdentifier>{731a87e8-93a9-45e5-8b57-755a7f0f8b45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,9 +86,6 @@
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
-    </ClCompile>
-    <ClCompile Include="Util.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorUI.cpp">
       <Filter>Source Files\ImGuiCustom</Filter>
@@ -126,15 +129,6 @@
     <ClCompile Include="ComponentCreator.cpp">
       <Filter>Source Files\Factories</Filter>
     </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Movement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller.cpp">
-      <Filter>Source Files</Filter>
-	</ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files\Components\GraphicsComponents</Filter>
     </ClCompile>
@@ -143,6 +137,18 @@
     </ClCompile>
     <ClCompile Include="AudioManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Components\PhysicsComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Movement.cpp">
+      <Filter>Source Files\Components\PhysicsComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Source Files\Components\PlayerComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>Source Files\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,9 +181,6 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
-    </ClInclude>
-    <ClInclude Include="Util.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EditorUI.h">
       <Filter>Source Files\ImGuiCustom</Filter>
@@ -230,15 +233,6 @@
     <ClInclude Include="GameObjectFactory.h">
       <Filter>Source Files\Factories</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Movement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Header Files</Filter>
-	</ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Source Files\Components\GraphicsComponents</Filter>
     </ClInclude>
@@ -247,6 +241,18 @@
     </ClInclude>
     <ClInclude Include="AudioManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Source Files\Components\PhysicsComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Movement.h">
+      <Filter>Source Files\Components\PhysicsComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Source Files\Components\PlayerComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>Source Files\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -262,6 +268,8 @@
     <None Include="Obj_defs\obj1.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
-    <None Include="Obj_defs\obj2.json" />
+    <None Include="Obj_defs\obj2.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
   </ItemGroup>
 </Project>

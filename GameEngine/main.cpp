@@ -55,7 +55,7 @@ Camera* p_camera;
 */
 SDL_Window* gp_sdl_window;
 SDL_GLContext gp_gl_context;
-bool RUN_WITH_EDITOR = true;
+bool RUN_WITH_EDITOR = false;
 
 /*
 * Macro used to check for OpenGL errors.
@@ -249,7 +249,7 @@ int main(int argc, char* args[])
 	transform_0->SetPosition(glm::vec4(0, 0, 24, 48));
 	transform_1->SetPosition(glm::vec4(0, 150, 24, 48));
 
-	movement_0->SetGravityUsage(false);
+	movement_0->SetGravityUsage(true);
 
 
 	while (p_game_manager->Status())
@@ -289,12 +289,16 @@ int main(int argc, char* args[])
 
 		//Test code for game object state management
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_X)) {
-			for (auto game_object : p_game_obj_manager->game_object_list)
-				game_object->state_manager.ChangeState("WALK");
+			for (auto game_object : p_game_obj_manager->game_object_list) {
+				if (game_object->HasComponent("CONTROLLER"))
+					game_object->state_manager.ChangeState("WALK");
+			}
 		}
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_Z)) {
-			for (auto game_object : p_game_obj_manager->game_object_list)
-				game_object->state_manager.ChangeState("IDLE");
+			for (auto game_object : p_game_obj_manager->game_object_list) {
+				if (game_object->HasComponent("CONTROLLER"))
+					game_object->state_manager.ChangeState("IDLE");
+			}
 		}
 
 		std::string pos_string = std::to_string(p_camera->position.x) + " " + std::to_string(p_camera->position.y) + " " + std::to_string(p_camera->position.z);

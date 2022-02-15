@@ -21,8 +21,6 @@
             15,  0
         ]
     },
-    "TRANSFORM": {},
-	"MOVEMENT": {},
     "ANIMATION": {
         "frames": [
           0, 0,
@@ -32,7 +30,11 @@
         ],
         "looping": true,
         "interval": 8
-    }
+    },
+    "TRANSFORM": {},
+    "CONTROLLER": {},
+    "COLLIDER": {},
+    "MOVEMENT": {}
    },
   "STATES": {
     "IDLE": {
@@ -46,14 +48,5 @@
       }
     }
   },
-
-  "TRANSFORM": {},
-
-  "CONTROLLER": {},
-
-  "COLLIDER": {},
-
-  "MOVEMENT": {},
-
   "DEFAULT_STATE": "IDLE"
 }
