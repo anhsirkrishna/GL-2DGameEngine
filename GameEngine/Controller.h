@@ -12,10 +12,6 @@
 
 #include "Component.h"
 
-#include <nlohmann/json.hpp>
-
-using json = nlohmann::json;
-
 class Movement;
 
 class Controller : public Component {

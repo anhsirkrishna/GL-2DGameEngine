@@ -35,6 +35,12 @@ void Movement::SetGravityUsage(bool gravity_on_or_off)
 	gravity_on = gravity_on_or_off;
 }
 
+// Get the value of the gravity switch 
+bool Movement::GetGravityUsage()
+{
+	return gravity_on;
+}
+
 // Update the transform componenent of the owner game object
 void Movement::Update()
 {

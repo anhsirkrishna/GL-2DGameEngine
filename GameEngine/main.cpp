@@ -238,19 +238,87 @@ int main(int argc, char* args[])
 	go_factory.CreateLevel(0);
 
 
-	/* Hardcoding pos vals for the two game objects in code for now.
-	 * To be chucked soon
+	/* Hardcoding transformer pos vals and collider offset vals 
+	 * for all the game objects in code for now.
+	 * ALL THIS TO BE CHUCKED OUT ASAP
+	 * 
+	 * ------------------------- DELETE FORM HERE ---------------------------------------- */
+
+	std::vector<GameObject*> go_list, temp_go_list(6);
+
+	go_list = p_game_obj_manager->game_object_list;
+
+	for (int i = 0; i < go_list.size(); i++) {
+		if (go_list[i]->GetName() == "demo_obj") {
+			temp_go_list[0] = go_list[i];
+		}
+		if (go_list[i]->GetName() == "demo_obj_1") {
+			temp_go_list[1] = go_list[i];
+		}
+		if (go_list[i]->GetName() == "demo_obj_2") {
+			temp_go_list[2] = go_list[i];
+		}
+		if (go_list[i]->GetName() == "demo_obj_3") {
+			temp_go_list[3] = go_list[i];
+		}
+		if (go_list[i]->GetName() == "demo_obj_4") {
+			temp_go_list[4] = go_list[i];
+		}
+		if (go_list[i]->GetName() == "demo_obj_5") {
+			temp_go_list[5] = go_list[i];
+		}
+	}
+
+	std::vector<Transform*> transforms(6);
+	std::vector<Collider*> colliders(6);
+
+
+	// Getting references to all transforms
+	for (int i = 0; i < transforms.size(); i++) {
+		transforms[i] = static_cast<Transform*>(temp_go_list[i]->HasComponent("TRANSFORM"));
+	}
+
+	// Getting references to all colliders
+	for (int i = 0; i < colliders.size(); i++) {
+		colliders[i] = static_cast<Collider*>(temp_go_list[i]->HasComponent("COLLIDER"));
+	}
+
+	
+	// Setting transform pos
+	transforms[0]->SetPosition(glm::vec4(0, 0, 24, 48));
+	transforms[1]->SetPosition(glm::vec4(0, 150, 400, 130));
+
+	transforms[2]->SetPosition(glm::vec4(200, -300, 24, 48));
+	transforms[3]->SetPosition(glm::vec4(200, -150, 400, 130));
+
+	transforms[4]->SetPosition(glm::vec4(-200, 400, 24, 48));
+	transforms[5]->SetPosition(glm::vec4(-200, 500, 400, 130));
+
+
+	// Setting collider offsets
+	colliders[0]->SetColliderOffsets(glm::vec4(0, 0, 24, 48));
+	colliders[1]->SetColliderOffsets(glm::vec4(0, 0, 400, 130));
+
+	colliders[2]->SetColliderOffsets(glm::vec4(0, 0, 24, 48));
+	colliders[3]->SetColliderOffsets(glm::vec4(0, 0, 400, 130));
+
+	colliders[4]->SetColliderOffsets(glm::vec4(0, 0, 24, 48));
+	colliders[5]->SetColliderOffsets(glm::vec4(0, 0, 400, 130));
+
+
+	/* Getting references to movement components of the
+	 * Objects that have movement comps
 	 */
-	Transform* transform_0 = static_cast<Transform*>(p_game_obj_manager->game_object_list[0]->HasComponent("TRANSFORM"));
-	Transform* transform_1 = static_cast<Transform*>(p_game_obj_manager->game_object_list[1]->HasComponent("TRANSFORM"));
+	Movement* movement_0 = static_cast<Movement*>(temp_go_list[0]->HasComponent("MOVEMENT"));
+	Movement* movement_1 = static_cast<Movement*>(temp_go_list[2]->HasComponent("MOVEMENT"));
+	Movement* movement_2 = static_cast<Movement*>(temp_go_list[4]->HasComponent("MOVEMENT"));
 
-	Movement* movement_0 = static_cast<Movement*>(p_game_obj_manager->game_object_list[0]->HasComponent("MOVEMENT"));
-
-	transform_0->SetPosition(glm::vec4(0, 0, 24, 48));
-	transform_1->SetPosition(glm::vec4(0, 150, 24, 48));
-
+	// Enabling gravity for these GOs
 	movement_0->SetGravityUsage(true);
+	movement_1->SetGravityUsage(true);
+	movement_2->SetGravityUsage(true);
 
+	// -------------------------- DELETE TILL HERE ----------------------------------------
 
 	while (p_game_manager->Status())
 	{

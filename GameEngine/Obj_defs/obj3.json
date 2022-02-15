@@ -1,0 +1,51 @@
+{
+   "COMPONENTS": {
+     "GLQUAD": {
+        "texture_names": [ "Player_idle" ],
+        "vertex_list": [
+            0,  0, 0,
+            0, 48, 0,
+            24, 48, 0,
+            24,  0, 0
+        ],
+        "color_list": [
+            0, 255,  0, 255,
+            50, 255, 50, 255,
+            0,   0,  0, 255,
+            50, 255, 50, 255
+        ],
+        "tex_coord_list": [
+            0,  0,
+            0, 32,
+            15, 32,
+            15,  0
+        ]
+    },
+    "ANIMATION": {
+        "frames": [
+          0, 0,
+          16, 0,
+          32, 0,
+          48, 0
+        ],
+        "looping": true,
+        "interval": 8
+    },
+    "TRANSFORM": {},
+    "COLLIDER": {},
+    "MOVEMENT": {}
+   },
+  "STATES": {
+    "IDLE": {
+      "GLQUAD": {
+        "texture_names": [ "Player_idle" ]
+      }
+    },
+    "WALK": {
+      "GLQUAD": {
+        "texture_names": [ "Player_walk" ]
+      }
+    }
+  },
+  "DEFAULT_STATE": "IDLE"
+}

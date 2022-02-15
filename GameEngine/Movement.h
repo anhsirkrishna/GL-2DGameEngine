@@ -12,7 +12,6 @@
 
 #include "Component.h"
 
-#include <nlohmann/json.hpp>
 #include <glm.hpp>
 
 // Forward declaration
@@ -37,6 +36,9 @@ public:
 
 	// Decide whether to use gravity or not for owner object
 	void SetGravityUsage(bool gravity_on_or_off);
+
+	// Get the value of the gravity switch 
+	bool GetGravityUsage();
 
 	// Update the transform component of the owner game object
 	void Update();

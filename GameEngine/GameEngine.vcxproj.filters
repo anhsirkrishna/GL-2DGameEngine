@@ -271,5 +271,6 @@
     <None Include="Obj_defs\obj2.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
+    <None Include="Obj_defs\obj3.json" />
   </ItemGroup>
 </Project>
