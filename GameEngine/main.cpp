@@ -226,7 +226,7 @@ int main(int argc, char* args[])
 
 	// audio test - delete if needed
 	p_audio_manager->CreateSound("bass.wav");
-	p_audio_manager->Play("bass.wav");
+	
 
 	if (RUN_WITH_EDITOR)
 		p_editor->Init(gp_sdl_window, gp_gl_context);
@@ -280,6 +280,12 @@ int main(int argc, char* args[])
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_DOWN))
 			p_camera->ProcessKeyboardInput(CameraMovement::CAM_BACKWARD, p_framerate_controller->GetPrevLoopDeltaTime());
 
+		// audio play test
+		if (p_input_manager->isKeyReleased(SDL_SCANCODE_P))
+		{
+			p_audio_manager->CreateSound("bass.wav");
+			p_audio_manager->Play("bass.wav");
+		}
 
 		//Test code for game object state management
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_X)) {

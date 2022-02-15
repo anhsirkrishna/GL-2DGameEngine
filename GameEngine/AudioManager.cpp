@@ -17,20 +17,28 @@ AudioManager::AudioManager() {
 
 	result = FMOD::System_Create(&system);
 
+#if DEBUG
 	if (result != FMOD_OK)
 		printf("FMOD error! (%d) \n", result);
-	
+#endif
+
 	result = system->init(512, FMOD_INIT_NORMAL, 0);
 
+#if DEBUG
 	if (result != FMOD_OK)
 		printf("FMOD error! (%d) \n", result);
+#endif
 
 	result = system->getMasterChannelGroup(&master_channel);
 
+#if DEBUG
 	if (result != FMOD_OK)
 		printf("FMOD error! (%d) \n", result);
+#endif
 
 	SetMasterVolume(0.1f);
+
+	CreateSound("bass.wav");
 }
 
 // creates a sounds from a .wav file
@@ -44,8 +52,12 @@ void AudioManager::CreateSound(std::string filename) {
 
 	result = system->createSound(file_path.c_str(), FMOD_DEFAULT, 0, &sample);
 
+#if DEBUG
+
 	if (result != FMOD_OK)
 		printf("FMOD error! (%d) \n", result);
+
+#endif
 
 	// puts the sound pointer in the map, with the filename as a key
 	sound_map[filename] = sample;
@@ -64,12 +76,14 @@ void AudioManager::Play(std::string sound_name) const {
 	}
 	else
 	{
+#if DEBUG
 		printf("%s not in the sound map!", sound_name);
+#endif
 	}
 }
 
 // sets master volume in [0,1] range
-void AudioManager::SetMasterVolume(float volume) const {
+void AudioManager::SetMasterVolume(float volume) {
 
 	master_channel->setVolume(volume);
 }
