@@ -45,5 +45,14 @@
       }
     }
   },
+
+  "TRANSFORM": {},
+
+  "CONTROLLER": {},
+
+  "COLLIDER": {},
+
+  "MOVEMENT": {}
+
   "DEFAULT_STATE": "IDLE"
 }

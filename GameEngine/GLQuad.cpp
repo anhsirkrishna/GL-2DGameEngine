@@ -202,7 +202,7 @@ void GLQuad::Serialize(json json_object) {
 	CHECKERROR;
 	glBindVertexArray(0);
 
-	SetTextureMode(1);
+	SetTextureMode(0);
 }
 
 
