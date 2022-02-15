@@ -58,3 +58,9 @@ class AnimationCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
+
+//Creates instance of ParticleEffect component
+class ParticleEffectCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
