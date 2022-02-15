@@ -238,7 +238,6 @@
     </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Header Files</Filter>
-	</ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Source Files\Components\GraphicsComponents</Filter>
     </ClInclude>
