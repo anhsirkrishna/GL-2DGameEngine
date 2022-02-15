@@ -5,7 +5,7 @@
 /*Email: krishna.pillai@digipen.edu
 /*Date   01/27/2022
 /*  Component Factory implementation file
-/* DigiPen Institute of Technology © 2022
+/* DigiPen Institute of Technology Â© 2022
 /******************************************************************************/
 
 #include "ComponentFactory.h"
@@ -13,6 +13,9 @@
 ComponentFactory::ComponentFactory() {
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("TRANSFORM", new TransformCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("GLQUAD", new GLQuadCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("COLLIDER", new ColliderCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("MOVEMENT", new MovementCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("CONTROLLER", new ControllerCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("ANIMATION", new AnimationCreator));
 }
 

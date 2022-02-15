@@ -19,7 +19,10 @@
 #include "Matrix3D.h"
 #include "GLQuad.h"
 #include "Transform.h"
+#include "Movement.h"
 #include "Camera.h"
+#include "Controller.h"
+#include "Collider.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -50,7 +53,7 @@ Camera* p_camera;
 */
 SDL_Window* gp_sdl_window;
 SDL_GLContext gp_gl_context;
-bool RUN_WITH_EDITOR = true;
+bool RUN_WITH_EDITOR = false;
 
 /*
 * Macro used to check for OpenGL errors.
@@ -227,11 +230,21 @@ int main(int argc, char* args[])
 	GameObjectFactory go_factory;
 	go_factory.CreateLevel(0);
 
-	Transform* new_transform = static_cast<Transform*>(p_game_obj_manager->game_object_list[0]->HasComponent("TRANSFORM"));
-	glm::vec4 new_pos;
 
-	//Main Game loop 
-	//The status of the game is maintained by the GameManager
+	/* Hardcoding pos vals for the two game objects in code for now.
+	 * To be chucked soon
+	 */
+	Transform* transform_0 = static_cast<Transform*>(p_game_obj_manager->game_object_list[0]->HasComponent("TRANSFORM"));
+	Transform* transform_1 = static_cast<Transform*>(p_game_obj_manager->game_object_list[1]->HasComponent("TRANSFORM"));
+
+	Movement* movement_0 = static_cast<Movement*>(p_game_obj_manager->game_object_list[0]->HasComponent("MOVEMENT"));
+
+	transform_0->SetPosition(glm::vec4(0, 0, 24, 48));
+	transform_1->SetPosition(glm::vec4(0, 150, 100, 10));
+
+	movement_0->SetGravityUsage(true);
+
+
 	while (p_game_manager->Status())
 	{
 		p_framerate_controller->start_game_loop();
@@ -242,26 +255,9 @@ int main(int argc, char* args[])
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
 
-		//Following lines are test code. Remove ASAP
-		if (p_input_manager->getLeftStickHorizontal() != 0) {
-			new_pos = new_transform->GetPosition();
-			new_pos.x = new_pos.x + (3 * p_input_manager->getLeftStickHorizontal());
-			new_transform->SetPosition(new_pos);
-		}
-		if (p_input_manager->getLeftStickVertical() != 0) {
-			new_pos = new_transform->GetPosition();
-			new_pos.y = new_pos.y + (3 * p_input_manager->getLeftStickVertical());
-			new_transform->SetPosition(new_pos);
-		}
-		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_A)) {
-			new_transform->SetRotation(0);
-		}
-		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_B)) {
-			new_transform->SetRotation(new_transform->GetRotation() + 0.3);
-		}
-		if (p_input_manager->isControllerButtonPressed(SDL_CONTROLLER_BUTTON_X)) {
-			new_transform->SetRotation(new_transform->GetRotation() - 0.3);
-		}
+
+		//-----------------------------------------------------------------------
+
 
 		// test camera movement lines
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_W))
