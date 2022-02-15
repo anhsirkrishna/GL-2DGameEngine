@@ -18,8 +18,13 @@ Custom ImGui Editor class
 class Editor
 {
 public:
+
+	float last_frame_fps;
+
 	void Init(SDL_Window* window, SDL_GLContext context) const;
 	void NewFrame() const;
+	void DebuggerWindow();
+	void GameObjectWindow();
 	void Render();
 	void Cleanup() const;
 };

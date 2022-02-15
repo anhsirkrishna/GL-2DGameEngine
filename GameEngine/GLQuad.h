@@ -28,7 +28,11 @@ private:
 	GLfloat tex_offset[2];
 	unsigned int texture_mode;
 	unsigned int vertex_count;
+
 public:
+
+	bool debug_draw;
+
 	//Default ctor to create a GLQuad
 	GLQuad();
 	

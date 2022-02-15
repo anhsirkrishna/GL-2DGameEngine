@@ -14,6 +14,7 @@
 #include "InputManager.h"
 #include "FrameRateController.h"
 #include "ResourceManager.h"
+#include "AudioManager.h"
 #include "GameManager.h"
 #include "GameObjectFactory.h"
 #include "Matrix3D.h"
@@ -46,6 +47,7 @@ InputManager* p_input_manager;
 Editor* p_editor;
 FrameRateController* p_framerate_controller;
 ResourceManager* p_resource_manager;
+AudioManager* p_audio_manager;
 Camera* p_camera;
 
 /*
@@ -72,6 +74,7 @@ void CreateManagers() {
 	p_input_manager = new InputManager();
 	p_framerate_controller = new FrameRateController(DEFAULT_FRAMERATE);
 	p_resource_manager = new ResourceManager();
+	p_audio_manager = new AudioManager();
 	p_editor = new Editor();
 	p_camera = new Camera(glm::vec3(0.0f, 0.0f, -262.0f));
 }
@@ -221,6 +224,10 @@ int main(int argc, char* args[])
 	//Create all the global managers
 	CreateManagers();
 
+	// audio test - delete if needed
+	p_audio_manager->CreateSound("bass.wav");
+	
+
 	if (RUN_WITH_EDITOR)
 		p_editor->Init(gp_sdl_window, gp_gl_context);
 
@@ -273,6 +280,12 @@ int main(int argc, char* args[])
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_DOWN))
 			p_camera->ProcessKeyboardInput(CameraMovement::CAM_BACKWARD, p_framerate_controller->GetPrevLoopDeltaTime());
 
+		// audio play test
+		if (p_input_manager->isKeyReleased(SDL_SCANCODE_P))
+		{
+			p_audio_manager->CreateSound("bass.wav");
+			p_audio_manager->Play("bass.wav");
+		}
 
 		//Test code for game object state management
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_X)) {

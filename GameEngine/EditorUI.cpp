@@ -19,6 +19,7 @@
 #include "GLQuad.h"
 #include "Texture.h"
 
+
 /* Initializes imgui */
 void Editor::Init(SDL_Window* window, SDL_GLContext context) const {
 	IMGUI_CHECKVERSION();
@@ -41,8 +42,16 @@ void Editor::NewFrame() const {
 	ImGui::NewFrame();
 }
 
-/* Main imgui loop: GameObjectList Window */
-void Editor::Render() {
+/* Debugging window implementation */
+void Editor::DebuggerWindow() {
+	ImGui::Begin("Debug Info");
+
+	ImGui::Text("FPS: %s", std::to_string(last_frame_fps).c_str());
+	ImGui::End();
+}
+
+/* GameObjectList window implementation */
+void Editor::GameObjectWindow() {
 	//ImGui::SetNextWindowSize(ImVec2(500, 440));
 	ImGui::Begin("GameObjectList");
 
@@ -62,7 +71,7 @@ void Editor::Render() {
 		ImGui::EndChild();
 	}
 	ImGui::SameLine();
-	
+
 	// Right Item
 	{
 		ImGui::BeginGroup();
@@ -71,7 +80,7 @@ void Editor::Render() {
 		ImGui::Separator();
 
 		Component* comp_transform = p_game_obj_manager->game_object_list[selected]->HasComponent("TRANSFORM");
-		Component* comp_glquad = p_game_obj_manager->game_object_list[selected]->HasComponent("GLQuad");
+		Component* comp_glquad = p_game_obj_manager->game_object_list[selected]->HasComponent("GLQUAD");
 
 		// Component tabs
 		if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
@@ -151,16 +160,18 @@ void Editor::Render() {
 					}
 
 					ImGui::EndTabItem();
-				}	
+				}
 			}
 
 			// GLQuad Component Tab
-			if (comp_glquad) 
+			if (comp_glquad)
 			{
 				GLQuad* obj_glquad = static_cast<GLQuad*>(comp_glquad);
 				if (ImGui::BeginTabItem("Rendering"))
 				{
 					ImGui::Text(("Texture Name: " + obj_glquad->GetTexture()->name).c_str());
+
+					ImGui::Checkbox("Debug Draw", &obj_glquad->debug_draw);
 
 					ImGui::EndTabItem();
 				}
@@ -173,16 +184,23 @@ void Editor::Render() {
 				ImGui::Text("ID: 0123456789");
 				ImGui::EndTabItem();
 			}
-		ImGui::EndTabBar();
+			ImGui::EndTabBar();
 		}
 		ImGui::EndChild();
-		
+
 		if (current_index != selected)
 			current_index = selected;
 
 		ImGui::EndGroup();
 	}
 	ImGui::End();
+}
+
+/* Main imgui loop: GameObjectList Window */
+void Editor::Render() {
+	
+	DebuggerWindow();
+	GameObjectWindow();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
