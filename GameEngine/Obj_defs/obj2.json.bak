@@ -22,7 +22,17 @@
         ]
     },
     "TRANSFORM": {},
-	"COLLIDER": {}
+	"COLLIDER": {},
+    "ANIMATION": {
+        "frames": [
+          0, 0,
+          16, 0,
+          32, 0,
+          48, 0
+        ],
+        "looping": true,
+        "interval": 8
+    }
    },
    
   "STATES": {

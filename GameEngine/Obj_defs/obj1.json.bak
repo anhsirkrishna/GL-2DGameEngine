@@ -50,7 +50,9 @@
 
   "CONTROLLER": {},
 
-  "MOVEMENT": {}
+  "COLLIDER": {},
+
+  "MOVEMENT": {},
 
   "DEFAULT_STATE": "IDLE"
 }

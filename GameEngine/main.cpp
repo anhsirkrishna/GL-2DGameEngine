@@ -55,7 +55,7 @@ Camera* p_camera;
 */
 SDL_Window* gp_sdl_window;
 SDL_GLContext gp_gl_context;
-bool RUN_WITH_EDITOR = false;
+bool RUN_WITH_EDITOR = true;
 
 /*
 * Macro used to check for OpenGL errors.
@@ -247,9 +247,9 @@ int main(int argc, char* args[])
 	Movement* movement_0 = static_cast<Movement*>(p_game_obj_manager->game_object_list[0]->HasComponent("MOVEMENT"));
 
 	transform_0->SetPosition(glm::vec4(0, 0, 24, 48));
-	transform_1->SetPosition(glm::vec4(0, 150, 100, 10));
+	transform_1->SetPosition(glm::vec4(0, 150, 24, 48));
 
-	movement_0->SetGravityUsage(true);
+	movement_0->SetGravityUsage(false);
 
 
 	while (p_game_manager->Status())
