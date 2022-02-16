@@ -236,7 +236,7 @@ int main(int argc, char* args[])
 	GameObjectFactory go_factory;
 	go_factory.CreateLevel(0);
 
-
+  
 	while (p_game_manager->Status())
 	{
 		p_framerate_controller->start_game_loop();
