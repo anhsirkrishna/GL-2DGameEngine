@@ -10,6 +10,7 @@
 
 #include "GameObjectManager.h"
 #include "GameObjectFactory.h"
+#include "Transform.h"
 #include <iostream>
 
 /*Create a game object based on the object definition
@@ -77,6 +78,11 @@ void GameObjectFactory::CreateLevel(unsigned int level) {
 		obj_def = element.second["obj_def"].get<std::string>();
 		new_object = CreateGameObject(element.first, obj_def);
 		p_game_obj_manager->AddGameObject(new_object);
+		if (element.second.contains("starting_position")) {
+			auto start_pos = element.second["starting_position"].get<std::vector<float>>();
+			glm::vec4 new_position(start_pos[0], start_pos[1], start_pos[2], start_pos[3]);
+			static_cast<Transform*>(new_object->HasComponent("TRANSFORM"))->SetPosition(new_position);
+		}
 	}
 
 	for (auto game_obj : p_game_obj_manager->game_object_list)

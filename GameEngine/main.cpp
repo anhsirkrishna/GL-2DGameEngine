@@ -245,9 +245,6 @@ int main(int argc, char* args[])
 
 	Movement* movement_0 = static_cast<Movement*>(p_game_obj_manager->game_object_list[0]->HasComponent("MOVEMENT"));
 
-	transform_0->SetPosition(glm::vec4(0, 0, 24, 48));
-	transform_1->SetPosition(glm::vec4(0, 150, 760, 90));
-
 	movement_0->SetGravityUsage(true);
 
 
