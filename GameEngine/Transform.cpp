@@ -66,7 +66,7 @@ void Transform::SetRotMatrices() {
 * Sets the matrices up.
 */
 void Transform::Update() {
-	translate_matrix[3] = glm::vec4(glm::vec3(position.x, position.y, 0), 1.0f);
+	translate_matrix[3] = glm::vec4(glm::vec3(position.x, position.y, 0.0f), 1.0f);
 
 	scale_matrix[0].x = scale_x;
 	scale_matrix[1].y = scale_y;

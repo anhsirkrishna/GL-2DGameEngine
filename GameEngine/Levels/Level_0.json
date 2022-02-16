@@ -1,20 +1,16 @@
 {
   "demo_obj": {
-    "obj_def": "obj1"
+    "obj_def": "obj1",
+    "starting_position": [ 0, 0, 24, 48 ]
   },
   "demo_obj_1": {
     "obj_def": "obj2"
   },
   "demo_obj_2": {
-    "obj_def": "obj3"
+    "obj_def": "obj2",
+    "starting_position": [ 0, 150, 760, 90 ]
   },
   "demo_obj_3": {
-    "obj_def": "obj2"
-  },
-  "demo_obj_4": {
-    "obj_def": "obj3"
-  },
-  "demo_obj_5": {
     "obj_def": "obj2"
   }
 }
