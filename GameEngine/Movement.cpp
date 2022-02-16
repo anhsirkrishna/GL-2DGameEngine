@@ -35,6 +35,12 @@ void Movement::SetGravityUsage(bool gravity_on_or_off)
 	gravity_on = gravity_on_or_off;
 }
 
+// Get the value of the gravity switch 
+bool Movement::GetGravityUsage()
+{
+	return gravity_on;
+}
+
 // Update the transform componenent of the owner game object
 void Movement::Update()
 {
@@ -78,6 +84,7 @@ void Movement::Jump(float vel_y)
 // Serialize method. Nothing to do for the movement component
 void Movement::Serialize(json json_object)
 {
+	gravity_on = json_object["gravity_on"].get<bool>();
 }
 
 // Stores references to other components

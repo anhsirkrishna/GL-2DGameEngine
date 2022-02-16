@@ -32,37 +32,11 @@
         "interval": 8
     },
     "TRANSFORM": {},
-    "CONTROLLER": {},
     "COLLIDER": {
-      "collider_offset_params" :  [0, 0, 24, 48]
+      "collider_offset_params": [ 0, 0, 24, 48 ]
     },
     "MOVEMENT": {
-      "gravity_on" : true
-    },
-    "PARTICLE_EFFECT": {
-      "texture_name": "flame_particle",
-        "vertex_list": [
-            0, 0, 0,
-            0, 5, 0,
-            5, 5, 0,
-            5, 0, 0
-        ],
-        "color_list": [
-            220, 100, 30, 255,
-            220, 100, 30, 255,
-            220, 100, 30, 255,
-            220, 100, 30, 255
-        ],
-        "tex_coord_list": [
-             0,   0,
-             0, 512,
-           512, 512,
-           512,  0
-        ],
-      "max_particle_count": 300,
-      "particle_lifetime": 1000,
-      "maximum_particle_velocity": [ 0.2, 0.0, 0.5 ],
-      "minimum_particle_velocity": [ -0.2, -0.5, 0.5 ]
+      "gravity_on": true
     }
    },
   "STATES": {

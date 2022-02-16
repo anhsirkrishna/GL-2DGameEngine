@@ -236,18 +236,7 @@ int main(int argc, char* args[])
 	GameObjectFactory go_factory;
 	go_factory.CreateLevel(0);
 
-
-	/* Hardcoding pos vals for the two game objects in code for now.
-	 * To be chucked soon
-	 */
-	Transform* transform_0 = static_cast<Transform*>(p_game_obj_manager->game_object_list[0]->HasComponent("TRANSFORM"));
-	Transform* transform_1 = static_cast<Transform*>(p_game_obj_manager->game_object_list[1]->HasComponent("TRANSFORM"));
-
-	Movement* movement_0 = static_cast<Movement*>(p_game_obj_manager->game_object_list[0]->HasComponent("MOVEMENT"));
-
-	movement_0->SetGravityUsage(true);
-
-
+  
 	while (p_game_manager->Status())
 	{
 		p_framerate_controller->start_game_loop();

@@ -22,7 +22,9 @@
         ]
     },
     "TRANSFORM": {},
-	  "COLLIDER": {}
+    "COLLIDER": {
+      "collider_offset_params": [ 0, 0, 400, 130 ]
+    }
    },
   "STATES": {
     "DEFAULT": {

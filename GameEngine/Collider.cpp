@@ -8,7 +8,9 @@
 
 Collider::Collider() : Component("COLLIDER"), 
 					   p_owner_transform(nullptr), 
-					   p_owner_movement(nullptr), 
+					   p_owner_movement(nullptr),
+					   collider_touching(nullptr),
+					   pos_offset(glm::vec4(0)),
 					   col_pos(glm::vec4(0)) 
 {}
 
@@ -37,8 +39,32 @@ bool Collider::AABB(glm::vec4 pos_0, glm::vec4 pos_1) {
 }
 
 
-// Nothing to do for the Collider component
+// Serializing Pos offset from JSON
 void Collider::Serialize(json json_object) {
+	auto col_offset_params = json_object["collider_offset_params"].get<std::vector<int>>();
+	pos_offset = glm::vec4(col_offset_params[0],
+		col_offset_params[1],
+		col_offset_params[2],
+		col_offset_params[3]);
+}
+
+// Set collider offset values
+void Collider::SetColliderOffsets(glm::vec4 offsets)
+{
+	pos_offset = offsets;
+}
+
+/* Update transform position after 
+ * updating collider positions
+ */
+void Collider::UpdateTransformPosition()
+{
+	glm::vec4 new_pos = p_owner_transform->GetPosition();
+
+	new_pos.x = col_pos.x - pos_offset.x - pos_offset.z / 2.0f;
+	new_pos.y = col_pos.y - pos_offset.y - pos_offset.w / 2.0f;
+
+	p_owner_transform->SetPosition(new_pos);
 }
 
 
@@ -49,13 +75,10 @@ void Collider::UpdateColliderPosition()
 {
 	glm::vec4 pos = p_owner_transform->GetPosition();
 	
-	/* Set this for now. 
-	 * Collider pos can be relative to transform in any way you want
-	*/
-	col_pos.x = pos.x + (pos.z / 2.0f);
-	col_pos.y = pos.y + (pos.w / 2.0f);
-	col_pos.z = pos.z / 2.0f;
-	col_pos.w = pos.w / 2.0f;
+	col_pos.x = pos.x + pos_offset.x + pos_offset.z / 2.0f;
+	col_pos.y = pos.y + pos_offset.y + pos_offset.w / 2.0f;
+	col_pos.z = pos_offset.z / 2.0f;
+	col_pos.w = pos_offset.w / 2.0f;
 }
 
 
@@ -68,56 +91,52 @@ glm::vec4 Collider::GetColliderPosition()
 // Update function for Collider
 void Collider::Update()
 {
-	// Update collider pos
 	UpdateColliderPosition();
 
+	// Get the list of game objects
 	std::vector<GameObject*> game_object_list = p_game_obj_manager->game_object_list;
 
-	// Iterate over all other game objects
-	for (auto i = game_object_list.begin(); i < game_object_list.end(); i++) {
+	// We want to do collision checks and response only if the owner object has a Movement component
+	if (GetOwner()->HasComponent("MOVEMENT")) {
 
-		GameObject* game_object_other = *i;
+		// Iterate over all other game objects
+		for (auto i = game_object_list.begin(); i < game_object_list.end(); i++) {
 
-		/* 1. Make sure a game object exists at index i
-		   2. The two game objects being compared for collision are not the same
-		*/
-		if (GetOwner() != game_object_other && game_object_other->HasComponent("COLLIDER")) {
+			GameObject* game_object_other = *i;
 
-			//glm::vec4 pos_1 = static_cast<Transform*>(other_game_object->HasComponent("TRANSFORM"))->GetPosition();
-			glm::vec4 col_pos_other = static_cast<Collider*>(game_object_other->HasComponent("COLLIDER"))->GetColliderPosition();
+			/* 1. Make sure a game object exists at index i
+			   2. The two game objects being compared for collision are not the same
+			*/
+			if (GetOwner() != game_object_other && game_object_other->HasComponent("COLLIDER")) {
 
-			/* If the two game objects collide.
-			 * The statements in this block will be executed only if
-			 * 1) A collision occurs
-			 * 2) The body collided with has a Movement Component and
-			 * 3) The pos of collider of other object has been initialized
-			 */
 
-			if (AABB(col_pos, col_pos_other) && 
-				GetOwner()->HasComponent("MOVEMENT") && 
-				col_pos_other != glm::vec4(0)) {
+				Collider* collider_other = static_cast<Collider*>(game_object_other->HasComponent("COLLIDER"));
+				glm::vec4 col_pos_other = collider_other->GetColliderPosition();
 
-				/* Get the velocity and position of this game object
-				 * Have to modify them
+				/* If the two game objects collide.
+				 * The statements in this block will be executed only if
+				 * 1) A collision occurs
+				 * 2) The pos of collider of other object has been initialized
 				 */
-				glm::vec4 vel_this = p_owner_movement->GetVelocity();
-				glm::vec4 pos_this = p_owner_transform->GetPosition();
 
-				// Need the position of the game object collided with
-				Transform* other_transform = static_cast<Transform*>(game_object_other->HasComponent("TRANSFORM"));
+				if (AABB(col_pos, col_pos_other)) {
 
-				glm::vec4 pos_other = other_transform->GetPosition();
+;					/* Get the velocity and position of this game object
+					 * Have to modify them
+					 */
+					glm::vec4 vel_this = p_owner_movement->GetVelocity();
+
 
 					/* If the player touches the BOTTOM of a platform:
-					* If the distance of overlap between the top of the first object and 
-					* bottom of the second object is less than a certain distance (here 5) - 
+					* If the distance of overlap between the top of the first object and
+					* bottom of the second object is less than a certain distance (here 5) -
 					* then move the first object a bit below the other object by a small offset
 					*/
 
 					if ((col_pos_other.y + col_pos_other.w) > (col_pos.y - col_pos.w) &&
-						(col_pos_other.y + col_pos_other.w) - (col_pos.y - col_pos.w) <= 5) {
+						(col_pos_other.y + col_pos_other.w) - (col_pos.y - col_pos.w) <= 10) {
 
-						pos_this.y = pos_other.y + pos_other.w + 0.5f;
+						col_pos.y = col_pos_other.y + col_pos_other.w + col_pos.w + 0.5f;
 						vel_this.y = 0;
 					}
 
@@ -128,42 +147,60 @@ void Collider::Update()
 					 */
 
 					if ((col_pos.y + col_pos.w) > (col_pos_other.y - col_pos_other.w) &&
-						(col_pos.y + col_pos.w) - (col_pos_other.y - col_pos_other.w) <= 5) {
+						(col_pos.y + col_pos.w) - (col_pos_other.y - col_pos_other.w) <= 10) {
 
-						pos_this.y = pos_other.y - pos_this.w - 0.5f;
+						col_pos.y = col_pos_other.y - col_pos_other.w - col_pos.w - 0.5f;
 						vel_this.y = 0;
 
 						p_owner_movement->SetGravityUsage(false);
+						
+						/* Store a reference to the collider of
+						 * the object being touched (conceptually)
+						 */
+						collider_touching = collider_other;
 					}
 
 					// Player touches the LEFT of the other object. Similar logic to prev.
 					if ((col_pos.x + col_pos.z) > (col_pos_other.x - col_pos_other.z) &&
-						(col_pos.x + col_pos.z) - (col_pos_other.x - col_pos_other.z) <= 5) {
+						(col_pos.x + col_pos.z) - (col_pos_other.x - col_pos_other.z) <= 10) {
 
-						pos_this.x = pos_other.x - pos_this.z - 0.5f;
+						col_pos.x = col_pos_other.x - col_pos_other.z - col_pos.z - 0.5f;
 						vel_this.x = 0;
 					}
-					
+
 					// Player touches the RIGHT of the other object. Similar logic to prev.
 					if ((col_pos_other.x + col_pos_other.z) > (col_pos.x - col_pos.z) &&
-						(col_pos_other.x + col_pos_other.z) - (col_pos.x - col_pos.z) <= 5) {
+						(col_pos_other.x + col_pos_other.z) - (col_pos.x - col_pos.z) <= 10) {
 
-						pos_this.x = pos_other.x + pos_other.z + 0.5f;
+						col_pos.x = col_pos_other.x + col_pos_other.z + col_pos.z + 0.5f;
 						vel_this.x = 0;
 					}
 
-					p_owner_transform->SetPosition(pos_this);
+					UpdateTransformPosition();
 					p_owner_movement->SetVelocity(vel_this);
 
-			}
-			else {
-				// If this object is left or right of the other object, activate gravity
-				if (((col_pos.x + col_pos.z) < (col_pos_other.x - col_pos_other.z) ||
-					(col_pos.x - col_pos.z) > (col_pos_other.x + col_pos_other.z)) &&
-					GetOwner()->HasComponent("MOVEMENT")) {
-
-					p_owner_movement->SetGravityUsage(true);
 				}
+			}
+		}
+
+		/* If gravity is being used. No need for a ref
+		 * to the collider being touched. E.g. case when jump is pressed,
+		 * not touching the collider anymore */
+		if (p_owner_movement->GetGravityUsage()) {
+			collider_touching = nullptr;
+		}
+
+		// If standing on another object
+		if (collider_touching != nullptr) {
+
+			glm::vec4 col_pos_other = collider_touching->GetColliderPosition();
+
+			//If left or right of that touching object -  and hence not touching anymore
+			if (((col_pos.x + col_pos.z) < (col_pos_other.x - col_pos_other.z) ||
+				(col_pos.x - col_pos.z) > (col_pos_other.x + col_pos_other.z))) {
+
+				p_owner_movement->SetGravityUsage(true);
+				collider_touching = nullptr;
 			}
 		}
 	}

@@ -225,6 +225,7 @@
     <None Include="final.frag" />
     <None Include="final.vert" />
     <None Include="Levels\Level_0.json" />
+    <None Include="Obj_defs\obj3.json" />
     <None Include="Obj_defs\obj1.json" />
     <None Include="Obj_defs\obj2.json" />
   </ItemGroup>
