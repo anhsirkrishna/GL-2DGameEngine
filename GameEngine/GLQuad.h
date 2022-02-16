@@ -31,8 +31,6 @@ private:
 
 public:
 
-	bool debug_draw;
-
 	//Default ctor to create a GLQuad
 	GLQuad();
 	

@@ -5,6 +5,8 @@
 #include "ResourceManager.h"
 #include "Util.h"
 #include "Camera.h"
+#include "Texture.h"
+#include "GameManager.h"
 
 #include <SDL.h>
 #include <GL\glew.h>
@@ -13,27 +15,8 @@
 
 #define CHECKERROR {GLenum err = glGetError(); if (err != GL_NO_ERROR) { SDL_Log("OpenGL error (at line GLQuad.cpp:%d): %s\n", __LINE__, glewGetErrorString(err)); exit(-1);} }
 
-/*Helper function to convert colors from 0-255 range to 0-1 range*/
-void ConvertColor(std::vector<float>& colors) {
-	unsigned int size = colors.size();
-	for (unsigned int i = 0; i < size; i++) {
-		colors[i] = colors[i] / 255.0;
-	}
-}
-
-//Helper fuction to convert textures from pixel coords to 0-1 range
-//Also swaps the coordinates for use
-void ConvertTextureCoords(std::vector<float>& tex_coords, float tex_width,
-						  float tex_height) {
-	unsigned int size = tex_coords.size();
-	for (unsigned int i = 0; i < size; i += 2) {
-		tex_coords[i] = tex_coords[i] / tex_width;
-		tex_coords[i + 1] = tex_coords[i + 1] / tex_height;
-	}
-}
-
 GLQuad::GLQuad() : Component("GLQUAD"), p_texture(NULL), vao_id(0),
-					p_owner_transform(NULL), texture_mode(0), vertex_count(0), p_texure_list(), debug_draw(false) {
+					p_owner_transform(NULL), texture_mode(0), vertex_count(0), p_texure_list() {
 	tex_offset[0] = tex_offset[1] = 0;
 }
 
@@ -79,7 +62,7 @@ void GLQuad::Draw(ShaderProgram* program) {
 	glUniform2fv(loc, 1, &(converted_tex_offset[0]));
 	CHECKERROR;
 
-	if (debug_draw)
+	if (p_game_manager->GetDegugMode())
 		SetTextureMode(0);
 	else
 		SetTextureMode(1);
@@ -87,6 +70,10 @@ void GLQuad::Draw(ShaderProgram* program) {
 
 	loc = glGetUniformLocation(program->program_id, "mode");
 	glUniform1i(loc, texture_mode);
+	CHECKERROR;
+
+	loc = glGetUniformLocation(program->program_id, "particle");
+	glUniform1i(loc, 0);
 	CHECKERROR;
 
 	glBindVertexArray(vao_id);

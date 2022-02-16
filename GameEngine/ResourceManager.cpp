@@ -9,7 +9,11 @@
 /******************************************************************************/
 
 #include "ResourceManager.h"
+#include "ShaderProgram.h"
+#include "Texture.h"
+
 #include "SDL_image.h"
+#include <GL/glew.h>
 
 ResourceManager::ResourceManager() {
 
@@ -38,6 +42,9 @@ void ResourceManager::free_resources() {
 
 	for (auto texture : textures_map)
 		delete texture.second;
+
+	for (auto shader : shader_map)
+		delete shader.second;
 }
 
 SDL_Surface* ResourceManager::get_resource(std::string file_name) {
@@ -73,4 +80,31 @@ Texture* ResourceManager::get_texture(std::string name) {
 	catch (const std::out_of_range& oor) {
 		return NULL;
 	};
+}
+
+//Returns pointer to the shader program with the name specified
+ShaderProgram* ResourceManager::get_shader(std::string name) {
+	try {
+		return shader_map.at(name);
+	}
+	catch (const std::out_of_range& oor) {
+		return NULL;
+	}
+}
+
+/*Adds a shader program to the resource map.
+* Adding a shader creates a ShaderProgram instance.
+* This reads, loads and compiles the shader program.
+* Requires the .vert and .frag files to have the same starting prefix filename
+* Returns: void
+*/
+void ResourceManager::add_shader(std::string file_name) {
+	if (get_shader(file_name) == NULL) {
+		std::string vertex_shader_name = file_name + ".vert";
+		std::string frag_shader_name = file_name + ".frag";
+		ShaderProgram* p_shader_program = new ShaderProgram();
+		p_shader_program->AddShader(vertex_shader_name.c_str(), GL_VERTEX_SHADER);
+		p_shader_program->AddShader(frag_shader_name.c_str(), GL_FRAGMENT_SHADER);
+		shader_map.insert({ file_name, p_shader_program });
+	}
 }

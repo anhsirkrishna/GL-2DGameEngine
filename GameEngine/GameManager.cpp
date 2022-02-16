@@ -23,3 +23,13 @@ unsigned int GameManager::Level() {
 void GameManager::SetLevel(int next_level) {
 	level = next_level;
 }
+
+//Sets the debug mode
+void GameManager::SetDebugMode(bool mode_) {
+	debug_mode = mode_;
+}
+
+//Gets the debug mode
+bool GameManager::GetDegugMode() {
+	return debug_mode;
+}

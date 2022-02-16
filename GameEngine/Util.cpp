@@ -15,3 +15,22 @@ std::string Mat4PrintableStr(glm::mat4 const& matrix) {
 	}
 	return ret_string;
 }
+
+/*Helper function to convert colors from 0-255 range to 0-1 range*/
+void ConvertColor(std::vector<float>& colors) {
+	unsigned int size = colors.size();
+	for (unsigned int i = 0; i < size; i++) {
+		colors[i] = colors[i] / 255.0;
+	}
+}
+
+//Helper fuction to convert textures from pixel coords to 0-1 range
+//Also swaps the coordinates for use
+void ConvertTextureCoords(std::vector<float>& tex_coords, float tex_width,
+	float tex_height) {
+	unsigned int size = tex_coords.size();
+	for (unsigned int i = 0; i < size; i += 2) {
+		tex_coords[i] = tex_coords[i] / tex_width;
+		tex_coords[i + 1] = tex_coords[i + 1] / tex_height;
+	}
+}

@@ -192,9 +192,8 @@ void CloseProgram() {
 */
 ShaderProgram* GL_Program_init() {
 	//ShaderProgram is a util class to encapsulate common methods and attributes for ShaderPrograms
-	ShaderProgram* p_shader_program = new ShaderProgram();
-	p_shader_program->AddShader("final.vert", GL_VERTEX_SHADER);
-	p_shader_program->AddShader("final.frag", GL_FRAGMENT_SHADER);
+	p_resource_manager->add_shader("final");
+	ShaderProgram* p_shader_program = p_resource_manager->get_shader("final");
 
 	glBindAttribLocation(p_shader_program->program_id, 0, "in_position"); //Attrib location 0 will always be used for position coordinates
 	glBindAttribLocation(p_shader_program->program_id, 1, "in_color"); //Attrib location 1 will always be used for colors
@@ -247,7 +246,7 @@ int main(int argc, char* args[])
 	Movement* movement_0 = static_cast<Movement*>(p_game_obj_manager->game_object_list[0]->HasComponent("MOVEMENT"));
 
 	transform_0->SetPosition(glm::vec4(0, 0, 24, 48));
-	transform_1->SetPosition(glm::vec4(0, 150, 24, 48));
+	transform_1->SetPosition(glm::vec4(0, 150, 760, 90));
 
 	movement_0->SetGravityUsage(true);
 
