@@ -18,6 +18,7 @@
 #include "Transform.h"
 #include "GLQuad.h"
 #include "Texture.h"
+#include "GameManager.h"
 
 
 /* Initializes imgui */
@@ -171,7 +172,7 @@ void Editor::GameObjectWindow() {
 				{
 					ImGui::Text(("Texture Name: " + obj_glquad->GetTexture()->name).c_str());
 
-					ImGui::Checkbox("Debug Draw", &obj_glquad->debug_draw);
+					ImGui::Checkbox("Debug Draw", &p_game_manager->debug_mode);
 
 					ImGui::EndTabItem();
 				}

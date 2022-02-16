@@ -15,6 +15,7 @@
 #include "Collider.h"
 #include "Controller.h"
 #include "Animation.h"
+#include "ParticleEffect.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.
@@ -64,4 +65,10 @@ Component* AnimationCreator::Create(json json_object) {
 	Animation* new_animation = new Animation;
 	new_animation->Serialize(json_object);
 	return static_cast<Component*>(new_animation);
+}
+
+Component* ParticleEffectCreator::Create(json json_object) {
+	ParticleEffect* new_particle_effect = new ParticleEffect;
+	new_particle_effect->Serialize(json_object);
+	return static_cast<Component*>(new_particle_effect);
 }

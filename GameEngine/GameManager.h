@@ -8,8 +8,8 @@ class GameManager {
 private:
 	bool is_running;
 	int level;
-	bool debug_mode;
 public:
+	bool debug_mode;
 	//Default Constructor
 	GameManager();
 
@@ -24,7 +24,13 @@ public:
 
 	//Sets the current level
 	void SetLevel(int level);
+
+	//Sets the debug mode
+	void SetDebugMode(bool mode_);
+
+	//Gets the debug mode
+	bool GetDegugMode();
 };
 
-//Decaled as an extern variable so it can be accessed throughout the project
+//Declared as an extern variable so it can be accessed throughout the project
 extern GameManager * p_game_manager;
