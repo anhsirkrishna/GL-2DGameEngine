@@ -84,6 +84,7 @@ void Movement::Jump(float vel_y)
 // Serialize method. Nothing to do for the movement component
 void Movement::Serialize(json json_object)
 {
+	gravity_on = json_object["gravity_on"].get<bool>();
 }
 
 // Stores references to other components

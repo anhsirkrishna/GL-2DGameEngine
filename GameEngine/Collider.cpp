@@ -39,8 +39,13 @@ bool Collider::AABB(glm::vec4 pos_0, glm::vec4 pos_1) {
 }
 
 
-// Nothing to do for the Collider component
+// Serializing Pos offset from JSON
 void Collider::Serialize(json json_object) {
+	auto col_offset_params = json_object["collider_offset_params"].get<std::vector<int>>();
+	pos_offset = glm::vec4(col_offset_params[0],
+		col_offset_params[1],
+		col_offset_params[2],
+		col_offset_params[3]);
 }
 
 // Set collider offset values
@@ -104,6 +109,7 @@ void Collider::Update()
 			*/
 			if (GetOwner() != game_object_other && game_object_other->HasComponent("COLLIDER")) {
 
+
 				Collider* collider_other = static_cast<Collider*>(game_object_other->HasComponent("COLLIDER"));
 				glm::vec4 col_pos_other = collider_other->GetColliderPosition();
 
@@ -113,18 +119,13 @@ void Collider::Update()
 				 * 2) The pos of collider of other object has been initialized
 				 */
 
-				if (AABB(col_pos, col_pos_other) && 
-					col_pos_other != glm::vec4(0)) {
+				if (AABB(col_pos, col_pos_other)) {
 
 ;					/* Get the velocity and position of this game object
 					 * Have to modify them
 					 */
 					glm::vec4 vel_this = p_owner_movement->GetVelocity();
 
-
-					// Need the position of the game object collided with
-					Transform* other_transform = static_cast<Transform*>(game_object_other->HasComponent("TRANSFORM"));
-					glm::vec4 pos_other = other_transform->GetPosition();
 
 					/* If the player touches the BOTTOM of a platform:
 					* If the distance of overlap between the top of the first object and
@@ -152,6 +153,11 @@ void Collider::Update()
 						vel_this.y = 0;
 
 						p_owner_movement->SetGravityUsage(false);
+						
+						/* Store a reference to the collider of
+						 * the object being touched (conceptually)
+						 */
+						collider_touching = collider_other;
 					}
 
 					// Player touches the LEFT of the other object. Similar logic to prev.
@@ -169,11 +175,6 @@ void Collider::Update()
 						col_pos.x = col_pos_other.x + col_pos_other.z + col_pos.z + 0.5f;
 						vel_this.x = 0;
 					}
-
-					/* Store a reference to the collider of 
-					 * the object being touched (conceptually)
-					 */
-					collider_touching = collider_other;
 
 					UpdateTransformPosition();
 					p_owner_movement->SetVelocity(vel_this);

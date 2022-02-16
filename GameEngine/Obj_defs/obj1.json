@@ -33,8 +33,12 @@
     },
     "TRANSFORM": {},
     "CONTROLLER": {},
-    "COLLIDER": {},
-    "MOVEMENT": {},
+    "COLLIDER": {
+      "collider_offset_params" :  [0, 0, 24, 48]
+    },
+    "MOVEMENT": {
+      "gravity_on" : true
+    },
     "PARTICLE_EFFECT": {
       "texture_name": "flame_particle",
         "vertex_list": [

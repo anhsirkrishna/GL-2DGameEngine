@@ -32,8 +32,12 @@
         "interval": 8
     },
     "TRANSFORM": {},
-    "COLLIDER": {},
-    "MOVEMENT": {}
+    "COLLIDER": {
+      "collider_offset_params": [ 0, 0, 24, 48 ]
+    },
+    "MOVEMENT": {
+      "gravity_on": true
+    }
    },
   "STATES": {
     "IDLE": {
