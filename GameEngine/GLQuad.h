@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <GL\glew.h>
+#include <glm.hpp>
 #include "Component.h"
 
 //Forward Declaration
@@ -28,6 +29,7 @@ private:
 	GLfloat tex_offset[2];
 	unsigned int texture_mode;
 	unsigned int vertex_count;
+	glm::vec2 dimensions;
 
 public:
 
@@ -76,4 +78,7 @@ public:
 	* Returns : void
 	*/
 	virtual void ChangeState(json json_object);
+
+	//Get the quad width and height
+	glm::vec2 GetDimensions();
 };

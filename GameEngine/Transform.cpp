@@ -1,5 +1,7 @@
 #include "Transform.h"
 #include "Util.h"
+#include "GLQuad.h"
+#include "GameObject.h"
 
 #include <SDL.h>
 
@@ -44,6 +46,7 @@ void Transform::SetRotation(float const& new_rotation) {
 void Transform::SetScale(float const&  _scale_x, float const&  _scale_y) {
 	scale_x = _scale_x;
 	scale_y = _scale_y;
+	SetRotMatrices();
 }
 
 //Nothing to do for Transform component
@@ -53,12 +56,14 @@ void Transform::Serialize(json json_object) {
 //Sets the RotMatrices
 void Transform::SetRotMatrices() {
 	//Translate to origin before rotation
-	pre_rotate_matrix[3].x = -(position.z / 2.0);
-	pre_rotate_matrix[3].y = -(position.w / 2.0);
+	float quad_width = p_owner_glquad->GetDimensions().x * scale_x;
+	float quad_height = p_owner_glquad->GetDimensions().y * scale_y;
+	pre_rotate_matrix[3].x = -(quad_width / 2.0);
+	pre_rotate_matrix[3].y = -(quad_height / 2.0);
 
 	//Translate to position after rotation
-	post_rotate_matrix[3].x = (position.z / 2.0);
-	post_rotate_matrix[3].y = (position.w / 2.0);
+	post_rotate_matrix[3].x = (quad_width / 2.0);
+	post_rotate_matrix[3].y = (quad_height / 2.0);
 }
 
 /*
@@ -66,7 +71,7 @@ void Transform::SetRotMatrices() {
 * Sets the matrices up.
 */
 void Transform::Update() {
-	translate_matrix[3] = glm::vec4(glm::vec3(position.x, position.y, 0.0f), 1.0f);
+	translate_matrix[3] = glm::vec4(glm::vec3(position.x, position.y, position.z), 1.0f);
 
 	scale_matrix[0].x = scale_x;
 	scale_matrix[1].y = scale_y;
@@ -100,4 +105,10 @@ glm::mat4 Transform::GetPostRotateMatrix() {
 //Returns the scale matrix
 glm::mat4 Transform::GetScaleMatrix() {
 	return scale_matrix;
+}
+
+//Links transform component with GLQuad component
+void Transform::Link() {
+	p_owner_glquad = static_cast<GLQuad*>(GetOwner()->HasComponent("GLQUAD"));
+	SetRotMatrices();
 }

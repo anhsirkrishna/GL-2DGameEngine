@@ -15,7 +15,7 @@ void main() {
 	if (mode == 0)
 		out_Color = ex_Color;
 	else{
-		vec4 tex_color = texture2D(texture_map, ex_TextCoord + tex_offset);
+		vec4 tex_color = texture(texture_map, ex_TextCoord + tex_offset);
 		//If the alpha value is transparent then discard the pixel to achieve transparency.
 		if (tex_color.a < 0.1)
 			discard;

@@ -181,6 +181,7 @@
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
@@ -218,6 +219,7 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
@@ -228,6 +230,8 @@
     <None Include="Obj_defs\obj3.json" />
     <None Include="Obj_defs\obj1.json" />
     <None Include="Obj_defs\obj2.json" />
+    <None Include="Obj_defs\Tilemap.json" />
+    <None Include="Obj_defs\Tilemap1.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -23,8 +23,8 @@ struct Particle
 {
 	glm::vec4 position, velocity;
 	int life_time;
-	Particle(glm::vec4 velocity_, int life_time_) :
-		position(0.0f), velocity(velocity_), life_time(life_time_) {}
+	Particle(glm::vec4 position_, glm::vec4 velocity_, int life_time_) :
+		position(position_), velocity(velocity_), life_time(life_time_) {}
 };
 
 class ParticleEffect : public Component {
@@ -36,6 +36,7 @@ private:
 	unsigned int max_particle_count;
 	unsigned int texture_mode;
 	unsigned int particle_lifetime;
+	glm::vec2 origin_offset;
 	glm::vec4 maximum_velocity, minimum_velocity;
 	
 	//Returns a pointer to the texture used for the particles.

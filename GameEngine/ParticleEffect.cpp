@@ -71,7 +71,8 @@ glm::vec4 ParticleEffect::GetRandomParticleVelocity() {
 */
 void ParticleEffect::Serialize(json json_object) {
 
-	auto particle_velocity = json_object["maximum_particle_velocity"].get<std::vector<float>>();
+	auto particle_velocity = 
+		json_object["maximum_particle_velocity"].get<std::vector<float>>();
 	maximum_velocity = glm::vec4(particle_velocity[0], particle_velocity[1],
 								 particle_velocity[2], 0.0f);
 
@@ -81,8 +82,14 @@ void ParticleEffect::Serialize(json json_object) {
 
 	particle_lifetime = json_object["particle_lifetime"].get<int>();
 	max_particle_count = json_object["max_particle_count"].get<int>();
+
+	auto offset = json_object["particle_offset"].get<std::vector<int>>();
+	origin_offset.x = offset[0];
+	origin_offset.y = offset[1];
+
 	for (int i = 0; i < max_particle_count; i++) {
-		particles.push_back(Particle(GetRandomParticleVelocity(), particle_lifetime));
+		particles.push_back(Particle(glm::vec4(origin_offset, glm::vec2(0.0f)),
+									 GetRandomParticleVelocity(), particle_lifetime));
 	}
 
 	auto texture_name = json_object["texture_name"].get<std::string>();
@@ -204,7 +211,7 @@ int ParticleEffect::FirstUnusedParticle() {
 //Get a random particle velocity
 void ParticleEffect::RespawnParticle(int particle_index) {
 	particles[particle_index].life_time = particle_lifetime;
-	particles[particle_index].position = glm::vec4(0.0f);
+	particles[particle_index].position = glm::vec4(origin_offset, 0.0f, 0.0f);
 	particles[particle_index].velocity = GetRandomParticleVelocity();
 }
 
@@ -216,9 +223,6 @@ void ParticleEffect::Draw(ShaderProgram* program) {
 	glm::mat4 final_translate_matrix;
 	GLuint loc;
 	glm::mat4 translate_matrix = p_owner_transform->GetTranslateMatrix();
-	glm::vec4 owner_position = p_owner_transform->GetPosition();
-	translate_matrix[3][0] += owner_position.z/2; //z is the width
-	translate_matrix[3][1] += owner_position.w/2; //w is the height
 
 	loc = glGetUniformLocation(program->program_id, "rotateMatrix");
 	glm::mat4 rotate_matrix = p_owner_transform->GetRotateMatrix();

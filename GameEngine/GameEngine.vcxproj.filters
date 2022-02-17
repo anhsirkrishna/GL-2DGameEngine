@@ -153,6 +153,9 @@
     <ClCompile Include="ParticleEffect.cpp">
       <Filter>Source Files\Components\GraphicsComponents</Filter>
     </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Source Files\Components\GraphicsComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -260,6 +263,9 @@
     <ClInclude Include="ParticleEffect.h">
       <Filter>Source Files\Components\GraphicsComponents</Filter>
     </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Source Files\Components\GraphicsComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -277,6 +283,14 @@
     <None Include="Obj_defs\obj2.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
-    <None Include="Obj_defs\obj3.json" />
+    <None Include="Obj_defs\obj3.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\Tilemap.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\Tilemap1.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -161,7 +161,7 @@ bool SDL_GL_Init() {
 			return false;
 		}
 	}
-
+	glEnable(GL_DEPTH_TEST);
 	return true;
 }
 
