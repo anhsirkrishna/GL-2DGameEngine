@@ -29,7 +29,7 @@ void Tilemap::Link() {
 
 void Tilemap::Draw(ShaderProgram* p_program) {
 	int tex_offset_x, tex_offset_y;
-	glm::ivec4 grid(0, 0, p_owner_transform->GetPosition().z, 1);
+	glm::vec4 grid(0, 0, p_owner_transform->GetPosition().z, 1);
 	for (auto row : tile_index_map) {
 		for (auto tile : row) {
 			p_owner_transform->SetPosition(grid);
