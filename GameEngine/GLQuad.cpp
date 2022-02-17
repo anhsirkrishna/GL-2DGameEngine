@@ -144,6 +144,10 @@ void GLQuad::Serialize(json json_object) {
 	auto vertices = json_object["vertex_list"].get<std::vector<float>>();
 	vertex_count = vertices.size() / 3;
 
+	//Get the dimensions of the Quad
+	dimensions.x = vertices[6] - vertices[0];
+	dimensions.y = vertices[4] - vertices[1];
+
 	//Create a continguous buffer for all the vertices/points
 	GLuint point_buffer;
 	glGenBuffers(1, &point_buffer);
@@ -205,4 +209,9 @@ void GLQuad::ChangeState(json json_object) {
 		AddTexture(p_resource_manager->get_texture(texture_name));
 	}
 	SetTexture(0);
+}
+
+//Get the quad width and height
+glm::vec2 GLQuad::GetDimensions() {
+	return dimensions;
 }

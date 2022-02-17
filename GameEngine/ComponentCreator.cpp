@@ -16,6 +16,7 @@
 #include "Controller.h"
 #include "Animation.h"
 #include "ParticleEffect.h"
+#include "Tilemap.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.
@@ -71,4 +72,10 @@ Component* ParticleEffectCreator::Create(json json_object) {
 	ParticleEffect* new_particle_effect = new ParticleEffect;
 	new_particle_effect->Serialize(json_object);
 	return static_cast<Component*>(new_particle_effect);
+}
+
+Component* TilemapCreator::Create(json json_object) {
+	Tilemap* new_tilemap = new Tilemap;
+	new_tilemap->Serialize(json_object);
+	return static_cast<Component*>(new_tilemap);
 }

@@ -1,10 +1,10 @@
 /******************************************************************************/
 /*!
-/*File   GameObjectFactory.cpp
+/*File   Animation.cpp
 /*Author Krishna Pillai
 /*Email: krishna.pillai@digipen.edu
 /*Date   01/27/2022
-/*  GameObjectFactory implementation file
+/*  Animation component implementation file
 /* DigiPen Institute of Technology © 2022
 /******************************************************************************/
 

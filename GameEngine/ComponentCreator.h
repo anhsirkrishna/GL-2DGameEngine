@@ -64,3 +64,9 @@ class ParticleEffectCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
+
+//Creates instance of Tilemap component
+class TilemapCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};

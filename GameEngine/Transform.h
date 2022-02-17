@@ -4,6 +4,8 @@
 
 #include "Component.h"
 
+class GLQuad;
+
 class Transform : public Component {
 public:
 	//Default ctor for Transform component
@@ -56,6 +58,9 @@ public:
 	
 	//Serialize method. Nothing to do for Transform component.
 	void Serialize(json json_object);
+
+	//Links the transform component with other related components
+	virtual void Link();
 private:
 	glm::vec4 position;
 	glm::mat4 translate_matrix;
@@ -65,4 +70,5 @@ private:
 	glm::mat4 post_rotate_matrix;
 	float rotation;
 	float scale_x, scale_y;
+	GLQuad* p_owner_glquad;
 };
