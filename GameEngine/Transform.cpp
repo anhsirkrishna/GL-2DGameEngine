@@ -8,9 +8,11 @@
 const float PI = 3.14159f;
 
 //Default ctor for Transform component
-Transform::Transform() : Component("TRANSFORM"), position(0,0,0,0), rotation(0), scale_x(1), scale_y(1),
-						 translate_matrix(1.0), rotate_matrix(1.0), scale_matrix(1.0),
-						 pre_rotate_matrix(1.0), post_rotate_matrix(1.0) {}
+Transform::Transform() : Component("TRANSFORM"), position(0,0,0,0), rotation(0),
+						 scale_x(1), scale_y(1), translate_matrix(1.0),
+						 rotate_matrix(1.0), scale_matrix(1.0),
+						 pre_rotate_matrix(1.0), post_rotate_matrix(1.0),
+						 p_owner_glquad(nullptr) {}
 
 //Returns the SDL_rect that describes the position
 glm::vec4 Transform::GetPosition() {
