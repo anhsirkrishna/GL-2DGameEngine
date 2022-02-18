@@ -114,6 +114,14 @@ bool SDL_GL_Init() {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
+	if (SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24) != 0)
+	{
+		// In case the required Depth buffer couldn't be acquired
+		SDL_Log("Could not allocated required depth buffer: %s\n",
+				SDL_GetError());
+		return false;
+	}
+
 	gp_sdl_window = SDL_CreateWindow("GameEngine",		// window title
 		SDL_WINDOWPOS_UNDEFINED,					// initial x position
 		SDL_WINDOWPOS_UNDEFINED,					// initial y position
@@ -161,6 +169,9 @@ bool SDL_GL_Init() {
 			return false;
 		}
 	}
+
+	int depth_size;
+	SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &depth_size);
 	glEnable(GL_DEPTH_TEST);
 	return true;
 }
@@ -290,7 +301,6 @@ int main(int argc, char* args[])
 
 		// camera pos debug string log
 		// SDL_Log(pos_string.c_str());
-
 
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
