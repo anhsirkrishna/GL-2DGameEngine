@@ -22,6 +22,10 @@ using json = nlohmann::json;
 class Movement : public Component {
 public:
 
+	bool gravity_on;
+
+	glm::vec4 velocity;
+
 	// Default ctor for Rigidbody
 	Movement();
 
@@ -56,9 +60,9 @@ public:
 	void Link();
 
 private:
-	bool gravity_on;
+	
 	float mass;
-	glm::vec4 velocity;
+	
 	Transform* p_owner_transform;
 };
 

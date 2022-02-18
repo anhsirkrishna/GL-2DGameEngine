@@ -97,3 +97,8 @@ void Animation::Link() {
 int Animation::Duration() {
 	return (frames.size()/2) * interval;
 }
+
+int Animation::GetCurrentFrame()
+{
+	return current_frame;
+}

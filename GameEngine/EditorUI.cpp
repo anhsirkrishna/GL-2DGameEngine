@@ -18,6 +18,9 @@
 #include "Transform.h"
 #include "GLQuad.h"
 #include "Texture.h"
+#include "Animation.h"
+#include "Tilemap.h"
+#include "Movement.h"
 #include "GameManager.h"
 
 
@@ -48,6 +51,9 @@ void Editor::DebuggerWindow() {
 	ImGui::Begin("Debug Info");
 
 	ImGui::Text("FPS: %s", std::to_string(last_frame_fps).c_str());
+
+	ImGui::Checkbox("Debug Draw", &p_game_manager->debug_mode);
+
 	ImGui::End();
 }
 
@@ -82,6 +88,9 @@ void Editor::GameObjectWindow() {
 
 		Component* comp_transform = p_game_obj_manager->game_object_list[selected]->HasComponent("TRANSFORM");
 		Component* comp_glquad = p_game_obj_manager->game_object_list[selected]->HasComponent("GLQUAD");
+		Component* comp_anim = p_game_obj_manager->game_object_list[selected]->HasComponent("ANIMATION");
+		Component* comp_tile = p_game_obj_manager->game_object_list[selected]->HasComponent("TILEMAP");
+		Component* comp_move = p_game_obj_manager->game_object_list[selected]->HasComponent("MOVEMENT");
 
 		// Component tabs
 		if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
@@ -97,21 +106,26 @@ void Editor::GameObjectWindow() {
 
 					static float posX = obj_transform->GetPosition().x;
 					static float posY = obj_transform->GetPosition().y;
+					static float posZ = obj_transform->GetPosition().z;
 
 					if (current_index != selected)
 					{
 						posX = obj_transform->GetPosition().x;
 						posY = obj_transform->GetPosition().y;
+						posZ = obj_transform->GetPosition().z;
 					}
 
 					ImGui::DragFloat("Pos.X", &posX, 0.2f, -100000.0f, 100000.0f, "%.3f");
 					ImGui::SameLine;
 					ImGui::DragFloat("Pos.Y", &posY, 0.2f, -100000.0f, 100000.0f, "%.3f");
+					ImGui::SameLine;
+					ImGui::DragFloat("Pos.Z", &posZ, 0.2f, -100000.0f, 100000.0f, "%.3f");
 
 					// save new values
 					glm::vec4 new_pos{};
 					new_pos.x = posX;
 					new_pos.y = posY;
+					new_pos.z = posZ;
 					obj_transform->SetPosition(new_pos);
 
 					ImGui::Separator();
@@ -172,12 +186,88 @@ void Editor::GameObjectWindow() {
 				{
 					ImGui::Text(("Texture Name: " + obj_glquad->GetTexture()->name).c_str());
 
-					ImGui::Checkbox("Debug Draw", &p_game_manager->debug_mode);
+					
 
 					ImGui::EndTabItem();
 				}
 
 			}
+
+			// Animation Component Tab
+			if (comp_anim)
+			{
+				Animation* obj_anim = static_cast<Animation*>(comp_anim);
+				if (ImGui::BeginTabItem("Animation"))
+				{
+					ImGui::Text(("Current Frame: " + std::to_string(obj_anim->GetCurrentFrame())).c_str());
+
+					ImGui::EndTabItem();
+				}
+
+			}
+
+			// Tilemap Component Tab
+			if (comp_tile)
+			{
+				Tilemap* obj_tile = static_cast<Tilemap*>(comp_tile);
+				if (ImGui::BeginTabItem("Tilemap"))
+				{
+					//ImGui::Text(("Current Frame: " + std::to_string(obj_anim->GetCurrentFrame())).c_str());
+
+					ImGui::EndTabItem();
+				}
+
+			}
+
+			// Tilemap Component Tab
+			if (comp_move)
+			{
+				Movement* obj_move = static_cast<Movement*>(comp_move);
+				if (ImGui::BeginTabItem("Movement"))
+				{
+					//ImGui::Text(("Current Frame: " + std::to_string(obj_anim->GetCurrentFrame())).c_str());
+
+
+					ImGui::Checkbox("Use Gravity", &obj_move->gravity_on);
+
+					ImGui::Separator();
+
+
+					// position value handling
+					ImGui::Text("Velocity: ");
+
+					static float velX = obj_move->velocity.x;
+					static float velY = obj_move->velocity.y;
+					static float velZ = obj_move->velocity.z;
+
+					if (current_index != selected)
+					{
+						velX = obj_move->velocity.x;
+						velY = obj_move->velocity.y;
+						velZ = obj_move->velocity.z;
+					}
+
+					ImGui::DragFloat("X", &velX, 0.2f, -100000.0f, 100000.0f, "%.3f");
+					ImGui::SameLine;
+					ImGui::DragFloat("Y", &velY, 0.2f, -100000.0f, 100000.0f, "%.3f");
+					ImGui::SameLine;
+					ImGui::DragFloat("Z", &velZ, 0.2f, -100000.0f, 100000.0f, "%.3f");
+
+					// save new values
+					glm::vec4 new_vel{};
+					new_vel.x = velX;
+					new_vel.y = velY;
+					new_vel.z = velZ;
+					obj_move->velocity = new_vel;
+
+
+
+
+					ImGui::EndTabItem();
+				}
+
+			}
+
 
 			// Sample Details Tab
 			if (ImGui::BeginTabItem("Details"))

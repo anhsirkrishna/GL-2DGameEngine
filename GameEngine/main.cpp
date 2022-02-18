@@ -55,7 +55,7 @@ Camera* p_camera;
 */
 SDL_Window* gp_sdl_window;
 SDL_GLContext gp_gl_context;
-bool RUN_WITH_EDITOR = false;
+bool RUN_WITH_EDITOR = true;
 
 /*
 * Macro used to check for OpenGL errors.

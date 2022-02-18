@@ -63,6 +63,9 @@ public:
 	/*Function to check if one complete cycle of animation has finished
 	* Returns: bool - True if one cycle is complete
 	*/
+
+	int GetCurrentFrame();
+
 	bool Completed();
 	//Returns the total duration of the animation in number of frames
 	int Duration();
