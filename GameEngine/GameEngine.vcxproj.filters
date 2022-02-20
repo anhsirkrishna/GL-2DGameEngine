@@ -156,6 +156,9 @@
     <ClCompile Include="Tilemap.cpp">
       <Filter>Source Files\Components\GraphicsComponents</Filter>
     </ClCompile>
+    <ClCompile Include="MemoryManager.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -265,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="Tilemap.h">
       <Filter>Source Files\Components\GraphicsComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryManager.h">
+      <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

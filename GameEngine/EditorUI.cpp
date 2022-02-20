@@ -19,6 +19,7 @@
 #include "GLQuad.h"
 #include "Texture.h"
 #include "GameManager.h"
+#include "MemoryManager.h"
 
 
 /* Initializes imgui */
@@ -48,6 +49,8 @@ void Editor::DebuggerWindow() {
 	ImGui::Begin("Debug Info");
 
 	ImGui::Text("FPS: %s", std::to_string(last_frame_fps).c_str());
+	ImGui::Text("Memory Consumption (Kb): %s",
+		std::to_string(g_memory_manager.GetMemoryUsedKBytes()).c_str());
 	ImGui::End();
 }
 

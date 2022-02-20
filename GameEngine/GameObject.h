@@ -18,6 +18,8 @@ class GameObject {
 public:
 	//Creates a named game object
 	GameObject(std::string object_name);
+
+	~GameObject();
 	
 	//Returns the name of the Game object
 	std::string GetName();

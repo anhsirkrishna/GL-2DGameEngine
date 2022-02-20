@@ -11,6 +11,7 @@
 #include "ResourceManager.h"
 #include "ShaderProgram.h"
 #include "Texture.h"
+#include "MemoryManager.h"
 
 #include "SDL_image.h"
 #include <GL/glew.h>
