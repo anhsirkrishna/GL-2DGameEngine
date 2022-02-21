@@ -44,6 +44,7 @@ FMOD
 glew*
 glm
 GameEngine/External
+Diagrams
 
 # vcxproj.user file 
 *.vcxproj.user

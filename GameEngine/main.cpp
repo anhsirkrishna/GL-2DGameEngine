@@ -24,6 +24,7 @@
 #include "Camera.h"
 #include "Controller.h"
 #include "Collider.h"
+#include "MemoryManager.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -50,12 +51,14 @@ ResourceManager* p_resource_manager;
 AudioManager* p_audio_manager;
 Camera* p_camera;
 
+MemoryManager g_memory_manager;
+
 /*
 * Global variables to handle SDL window and Open GL Context
 */
 SDL_Window* gp_sdl_window;
 SDL_GLContext gp_gl_context;
-bool RUN_WITH_EDITOR = false;
+bool RUN_WITH_EDITOR = true;
 
 /*
 * Macro used to check for OpenGL errors.
@@ -87,6 +90,11 @@ void DeleteManagers() {
 	delete p_game_obj_manager;
 	delete p_game_manager;
 	delete p_input_manager;
+	delete p_framerate_controller;
+	delete p_resource_manager;
+	delete p_audio_manager;
+	delete p_editor;
+	delete p_camera;
 }
 
 
@@ -247,6 +255,7 @@ int main(int argc, char* args[])
 	GameObjectFactory go_factory;
 	go_factory.CreateLevel(0);
 
+	std::vector<GameObject*> new_go_list;
   
 	while (p_game_manager->Status())
 	{

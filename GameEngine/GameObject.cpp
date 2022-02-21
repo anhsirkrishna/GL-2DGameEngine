@@ -6,6 +6,13 @@ GameObject::GameObject(std::string object_name) : name(object_name), index(0) {
 	state_manager.SetOwner(this);
 }
 
+GameObject::~GameObject() {
+	for (unsigned int i = 0; i < component_list.size(); ++i) {
+		delete component_list[i];
+	}
+	component_list.clear();
+}
+
 //Returns the name of the Game object
 std::string GameObject::GetName() {
 	return name;

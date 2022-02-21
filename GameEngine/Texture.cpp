@@ -15,6 +15,7 @@
 #include <SDL_image.h>
 
 #include "Texture.h"
+#include "MemoryManager.h"
 
 /*Constructor to create a texture object from a file path.
 * Loads an image into an SDL surface, assigned a texture id to it
