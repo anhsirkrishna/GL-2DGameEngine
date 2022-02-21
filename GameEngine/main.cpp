@@ -1,9 +1,5 @@
 #include <Windows.h>
 #include <SDL.h>
-#include <GL\glew.h>
-#include <SDL_opengl.h>
-#include <GL\GLU.h>
-#include <SDL_image.h>
 
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl.h>
@@ -25,6 +21,7 @@
 #include "Controller.h"
 #include "Collider.h"
 #include "MemoryManager.h"
+#include "GraphicsManager.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -50,14 +47,10 @@ FrameRateController* p_framerate_controller;
 ResourceManager* p_resource_manager;
 AudioManager* p_audio_manager;
 Camera* p_camera;
+GraphicsManager* p_graphics_manager;
 
 MemoryManager g_memory_manager;
 
-/*
-* Global variables to handle SDL window and Open GL Context
-*/
-SDL_Window* gp_sdl_window;
-SDL_GLContext gp_gl_context;
 bool RUN_WITH_EDITOR = true;
 
 /*
@@ -80,12 +73,14 @@ void CreateManagers() {
 	p_audio_manager = new AudioManager();
 	p_editor = new Editor();
 	p_camera = new Camera(glm::vec3(0.0f, 0.0f, -262.0f));
+	p_graphics_manager = new GraphicsManager();
 }
 
 /*
 * Cleanup the global managers
 */
 void DeleteManagers() {
+	delete p_graphics_manager;
 	p_game_obj_manager->Cleanup();
 	delete p_game_obj_manager;
 	delete p_game_manager;
@@ -97,93 +92,6 @@ void DeleteManagers() {
 	delete p_camera;
 }
 
-
-/*
-* Function to initalize SDL and Open GL and SDL_Image
-* Sets the OpenGL Version
-* Creates an SDL Window
-* Associates an OpenGL Context
-* Init GLEW framework
-* Init PNG loading using SDL_image
-* Returns: bool - True if initialization was a success, else False
-*/
-bool SDL_GL_Init() {
-
-	int error = 0;
-	// Initialize SDL
-	if ((error = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)) < 0)
-	{
-		SDL_Log("Couldn't initialize SDL, error %i\n", error);
-		return false;
-	}
-
-	//Use OpenGL 3.1 core
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
-	if (SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24) != 0)
-	{
-		// In case the required Depth buffer couldn't be acquired
-		SDL_Log("Could not allocated required depth buffer: %s\n",
-				SDL_GetError());
-		return false;
-	}
-
-	gp_sdl_window = SDL_CreateWindow("GameEngine",		// window title
-		SDL_WINDOWPOS_UNDEFINED,					// initial x position
-		SDL_WINDOWPOS_UNDEFINED,					// initial y position
-		WINDOW_WIDTH,								// width, in pixels
-		WINDOW_HEIGHT,								// height, in pixels
-		SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-
-	// Check that the window was successfully made
-	if (NULL == gp_sdl_window)
-	{
-		// In the event that the window could not be made...
-		SDL_Log("Could not create window: %s\n", SDL_GetError());
-		return false;
-	}
-
-	//Create context
-	gp_gl_context = SDL_GL_CreateContext(gp_sdl_window);
-	if (gp_gl_context == NULL)
-	{
-		SDL_Log("OpenGL context could not be created! SDL Error: %s\n", SDL_GetError());
-		return false;
-	}
-	else
-	{
-		//Initialize GLEW
-		GLenum glew_error = glewInit();
-		if (glew_error != GLEW_OK)
-		{
-			SDL_Log("Error initializing GLEW! %s\n", glewGetErrorString(glew_error));
-			return false;
-		}
-
-		//Use Vsync
-		if (SDL_GL_SetSwapInterval(1) < 0)
-		{
-			SDL_Log("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
-			return false;
-		}
-
-		//Initialize PNG loading
-		int img_flags = IMG_INIT_PNG;
-		if (!(IMG_Init(img_flags) & img_flags))
-		{
-			SDL_Log("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-			return false;
-		}
-	}
-
-	int depth_size;
-	SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &depth_size);
-	glEnable(GL_DEPTH_TEST);
-	return true;
-}
-
 /*
 * Function to Close the application
 * Destroys the SDL window and quits SDL
@@ -191,8 +99,6 @@ bool SDL_GL_Init() {
 * Returns : void 
 */
 void CloseProgram() {
-	// Close and destroy the window
-	SDL_DestroyWindow(gp_sdl_window);
 
 	// Quit SDL subsystems
 	SDL_Quit();
@@ -203,26 +109,6 @@ void CloseProgram() {
 
 }
 
-/*
-* Creates a OpenGL Shader program
-* Adds individual shaders and compiles them
-* Sets the input variables for the shader program
-* Returns: Pointer to ShaderProgram Oject 
-*/
-ShaderProgram* GL_Program_init() {
-	//ShaderProgram is a util class to encapsulate common methods and attributes for ShaderPrograms
-	p_resource_manager->add_shader("final");
-	ShaderProgram* p_shader_program = p_resource_manager->get_shader("final");
-
-	glBindAttribLocation(p_shader_program->program_id, 0, "in_position"); //Attrib location 0 will always be used for position coordinates
-	glBindAttribLocation(p_shader_program->program_id, 1, "in_color"); //Attrib location 1 will always be used for colors
-	glBindAttribLocation(p_shader_program->program_id, 2, "in_texcoords"); //Attric location 2 will always be used for texture coordinates
-	p_shader_program->LinkProgram();
-	CHECKERROR;
-
-	return p_shader_program;
-}
-
 
 int main(int argc, char* args[])
 {
@@ -230,14 +116,6 @@ int main(int argc, char* args[])
 		//This call creates a console window that SDL can log to for debugging.
 		AllocConsole();
 	#endif // DEBUG
-
-	//Init SDL and OpenGL
-	if (SDL_GL_Init())
-		SDL_Log("Initialization Complete");
-	else {
-		SDL_Log("Initialization Failed");
-		return 1;
-	}
 
 	//Create all the global managers
 	CreateManagers();
@@ -247,10 +125,10 @@ int main(int argc, char* args[])
 	
 
 	if (RUN_WITH_EDITOR)
-		p_editor->Init(gp_sdl_window, gp_gl_context);
+		p_editor->Init();
 
 	//Create the Shader Program
-	ShaderProgram* p_shader_program = GL_Program_init();
+	ShaderProgram* p_shader_program = p_graphics_manager->GetActiveShader();
 
 	GameObjectFactory go_factory;
 	go_factory.CreateLevel(0);
@@ -313,42 +191,27 @@ int main(int argc, char* args[])
 
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
-		glClearColor(0.0, 0.0, 0.0, 0.0);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		p_graphics_manager->ClearBuffer(glm::vec4(1.0f));
 
 		if (RUN_WITH_EDITOR)
 			p_editor->NewFrame();
 
-		//Rendering demo scene
-		Matrix3D orthoGraphProj = OrthographicProj(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0, 0, 1.0);
-		GLuint loc = glGetUniformLocation(p_shader_program->program_id, "orthoGraphProj");
-		glUniformMatrix4fv(loc, 1, GL_FALSE, orthoGraphProj.GetMatrixP());
-
-		loc = glGetUniformLocation(p_shader_program->program_id, "mode");
-		glUniform1i(loc, 0);
-
-		CHECKERROR;
-
 		// set up projection and view matrices for the camera
 		glm::mat4 projection = glm::perspective(glm::radians(p_camera->zoom), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 10000.0f);
-		loc = glGetUniformLocation(p_shader_program->program_id, "projection");
-		glUniformMatrix4fv(loc, 1, GL_FALSE, &(projection[0][0]));
+		p_graphics_manager->SetUniformMatrix4(projection, "projection");
 
 		glm::mat4 view = p_camera->GetViewMatrix();
-		loc = glGetUniformLocation(p_shader_program->program_id, "view");
-		glUniformMatrix4fv(loc, 1, GL_FALSE, &(view[0][0]));
+		p_graphics_manager->SetUniformMatrix4(view, "view");
 
 		//Redraw the scene every frame
 		p_game_obj_manager->Draw(p_shader_program);
-		CHECKERROR;
 		p_shader_program->Unuse();
 
 		//ImGui Render
 		if (RUN_WITH_EDITOR)
 			p_editor->Render();
 
-		//Buffer Swapping
-		SDL_GL_SwapWindow(gp_sdl_window);
+		p_graphics_manager->SwapBuffers();
 
 		p_framerate_controller->end_game_loop();
 	}
