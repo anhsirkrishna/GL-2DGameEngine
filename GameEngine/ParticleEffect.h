@@ -11,9 +11,10 @@
 #pragma once
 
 #include <glm.hpp>
-#include <GL/glew.h>
 
 #include "Component.h"
+
+typedef unsigned int GLuint;
 
 class Texture;
 class Transform;
