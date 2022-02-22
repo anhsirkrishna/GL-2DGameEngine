@@ -21,7 +21,7 @@ public:
 
 	float last_frame_fps;
 
-	void Init(SDL_Window* window, SDL_GLContext context) const;
+	void Init() const;
 	void NewFrame() const;
 	void DebuggerWindow();
 	void GameObjectWindow();

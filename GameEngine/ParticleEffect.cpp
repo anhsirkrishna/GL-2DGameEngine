@@ -17,20 +17,19 @@
 #include "GameManager.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "MemoryManager.h"
+#include "GraphicsManager.h"
 
-#include <SDL.h>
-#include <SDL_opengl.h>
-#include <GL\GLU.h>
 #include <gtc/random.hpp>
 
 unsigned int particles_spawned_per_frame = 2;
 
 
-#define CHECKERROR {GLenum err = glGetError(); if (err != GL_NO_ERROR) { SDL_Log("OpenGL error (at line GLQuad.cpp:%d): %s\n", __LINE__, glewGetErrorString(err)); exit(-1);} }
-
 ParticleEffect::ParticleEffect() : Component("PARTICLE_EFFECT"), p_owner_transform(nullptr), \
 								   p_texture(nullptr), texture_mode(0), max_particle_count(0), 
-								   particle_lifetime(0), maximum_velocity(0.0f) { }
+								   particle_lifetime(0), maximum_velocity(0.0f),
+								   minimum_velocity(0.0f), origin_offset(0.0f) {
+}
 
 //Returns a pointer to the texture used for the particles.
 Texture* ParticleEffect::GetTexture() {
@@ -96,67 +95,21 @@ void ParticleEffect::Serialize(json json_object) {
 	p_resource_manager->add_texture(texture_name);
 	SetTexture(p_resource_manager->get_texture(texture_name));
 
-	//Create a VAO and put the ID in vao_id
-	glGenVertexArrays(1, &vao_id);
-	//Use the same VAO for all the following operations
-	glBindVertexArray(vao_id);
-
 	//Put a vertex consisting of 3 float coordinates x,y,z into 
 	//the list of all vertices
 	auto vertices = json_object["vertex_list"].get<std::vector<float>>();
-
-	//Create a continguous buffer for all the vertices/points
-	GLuint point_buffer;
-	glGenBuffers(1, &point_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, point_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices.size(), 
-				 &vertices[0], GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	CHECKERROR;
 
 	//Put a color consisting of 4 float values rgba into the list of all colors
 	auto colors = json_object["color_list"].get<std::vector<float>>();
 	//Convert colors from 0-255 range to 0-1 range
 	ConvertColor(colors);
-	//Create another continuguous buffer for all the colors for each vertex
-	GLuint color_buffer;
-	glGenBuffers(1, &color_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, color_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * colors.size(), &colors[0], 
-				 GL_STATIC_DRAW);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	CHECKERROR;
 
 	//Put a texture coordinate cosisting of 2 uv float values 
 	auto coord = json_object["tex_coord_list"].get<std::vector<float>>();
 	//Convert coords from image space to 0..1
 	ConvertTextureCoords(coord, p_texture->width, p_texture->height);
-	//Create another continguous buffer for all the textures for each vertex
-	GLuint tex_coord_buffer;
-	glGenBuffers(1, &tex_coord_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, tex_coord_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * coord.size(), &coord[0],
-				 GL_STATIC_DRAW);
-	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	CHECKERROR;
-	//IBO data
-	GLuint indexData[] = { 0, 1, 2, 3 };
-	//Create IBO
-	GLuint indeces_buffer;
-	glGenBuffers(1, &indeces_buffer);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indeces_buffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), indexData,
-				 GL_STATIC_DRAW);
-	CHECKERROR;
-	glBindVertexArray(0);
 
-	SetTextureMode(0);
+	vao_id = p_graphics_manager->GenerateQuadVAO(&vertices[0], &colors[0], &coord[0]);
 }
 
 /*Update each particle in the particle effect.
@@ -224,59 +177,38 @@ void ParticleEffect::Draw(ShaderProgram* program) {
 	GLuint loc;
 	glm::mat4 translate_matrix = p_owner_transform->GetTranslateMatrix();
 
-	loc = glGetUniformLocation(program->program_id, "rotateMatrix");
-	glm::mat4 rotate_matrix = p_owner_transform->GetRotateMatrix();
-	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(rotate_matrix));
-	CHECKERROR;
+	p_graphics_manager->SetUniformMatrix4(
+		p_owner_transform->GetRotateMatrix(), "rotateMatrix");
 
-	loc = glGetUniformLocation(program->program_id, "scaleMatrix");
-	glm::mat4 scale_matrix = p_owner_transform->GetScaleMatrix();
-	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(scale_matrix));
-	CHECKERROR;
+	p_graphics_manager->SetUniformMatrix4(
+		p_owner_transform->GetScaleMatrix(), "scaleMatrix");
 
-	loc = glGetUniformLocation(program->program_id, "preRotateMatrix");
-	glm::mat4 pre_rotate_matrix = p_owner_transform->GetPreRotateMatrix();
-	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(pre_rotate_matrix));
-	CHECKERROR;
+	p_graphics_manager->SetUniformMatrix4(
+		p_owner_transform->GetPreRotateMatrix(), "preRotateMatrix");
 
-	loc = glGetUniformLocation(program->program_id, "postRotateMatrix");
-	glm::mat4 post_rotate_matrix = p_owner_transform->GetPostRotateMatrix();
-	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(post_rotate_matrix));
-	CHECKERROR;
+	p_graphics_manager->SetUniformMatrix4(
+		p_owner_transform->GetPostRotateMatrix(), "postRotateMatrix");
 
-	glActiveTexture(GL_TEXTURE2); // Activate texture unit 2
-	glBindTexture(GL_TEXTURE_2D, p_texture->texture_id); // Load texture into it
-	loc = glGetUniformLocation(program->program_id, "texture_map");
-	glUniform1i(loc, 2); // Tell shader texture is in unit 2
-	CHECKERROR;
+	p_texture->Bind(2, p_graphics_manager->GetActiveShader()->program_id, "texture_map");
 
-	loc = glGetUniformLocation(program->program_id, "mode");
-	glUniform1i(loc, texture_mode);
-	CHECKERROR;
+	p_graphics_manager->SetUniformInt(texture_mode, "mode");
 
-	loc = glGetUniformLocation(program->program_id, "particle");
-	glUniform1i(loc, 1);
-	CHECKERROR;
+	p_graphics_manager->SetUniformInt(1, "particle");
 
-	glBindVertexArray(vao_id);
-	CHECKERROR;
-
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+	p_graphics_manager->SetAlphaBlendingOn();
 	for (auto &particle : particles) {
 		if (particle.life_time > 0)
 		{
-			loc = glGetUniformLocation(program->program_id, "translateMatrix");
 			final_translate_matrix = translate_matrix;
 			final_translate_matrix[3][0] += particle.position.x;
 			final_translate_matrix[3][1] += particle.position.y;
 			final_translate_matrix[3][2] += particle.position.z;
-			glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(final_translate_matrix));
-			CHECKERROR;
-			glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL);
+			p_graphics_manager->SetUniformMatrix4(
+				final_translate_matrix, "translateMatrix");
+			p_graphics_manager->DrawQuad(vao_id);
 		}
 	}
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glBindVertexArray(0);
+	p_graphics_manager->SetAlphaBlendingOff();
 }
 
 /*Links the Particle Effect component with it's related components

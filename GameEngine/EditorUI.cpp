@@ -20,17 +20,18 @@
 #include "Texture.h"
 #include "GameManager.h"
 #include "MemoryManager.h"
-
+#include "GraphicsManager.h"
 
 /* Initializes imgui */
-void Editor::Init(SDL_Window* window, SDL_GLContext context) const {
+void Editor::Init() const {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 	ImGui::StyleColorsDark();
 
-	ImGui_ImplSDL2_InitForOpenGL(window, context);
+	ImGui_ImplSDL2_InitForOpenGL(p_graphics_manager->p_sdl_window,
+								 p_graphics_manager->p_gl_context);
 
 	std::string glsl_version = "#version 130";
 	ImGui_ImplOpenGL3_Init(glsl_version.c_str());

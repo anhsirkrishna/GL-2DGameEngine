@@ -162,6 +162,9 @@
     <ClCompile Include="MemoryManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicsManager.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -277,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="ControlSchemeManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsManager.h">
+      <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

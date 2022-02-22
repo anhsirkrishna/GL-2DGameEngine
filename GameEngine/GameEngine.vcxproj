@@ -173,6 +173,7 @@
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GLQuad.cpp" />
+    <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GLQuad.h" />
+    <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Matrix3D.h" />
     <ClInclude Include="MemoryManager.h" />

@@ -4,7 +4,7 @@
 #include <vector>
 
 //Utility function to get the pointer from a glm::mat4 to send to gfx h/w
-float* getMat4Pointer(glm::mat4& matrix);
+float const* getMat4Pointer(glm::mat4 const& matrix);
 
 /*
 * Returns the Matrix in a readable string for debug purposes

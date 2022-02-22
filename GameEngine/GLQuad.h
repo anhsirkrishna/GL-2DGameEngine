@@ -2,9 +2,11 @@
 
 
 #include <vector>
-#include <GL\glew.h>
 #include <glm.hpp>
 #include "Component.h"
+
+typedef unsigned int GLuint;
+typedef float GLfloat;
 
 //Forward Declaration
 class Texture;
