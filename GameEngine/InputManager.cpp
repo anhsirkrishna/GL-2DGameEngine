@@ -3,14 +3,24 @@
 #include "Camera.h"
 #include <SDL.h>
 
+#include <iostream>
+
 /*
 * Default Ctor for InputManager
 * Intializes required data structures.
 * Intializes the game controller if found
 */
 InputManager::InputManager() : quit(false) {
+
 	memset(current_state, 0, 512 * sizeof * current_state);
 	memset(prev_state, 0, 512 * sizeof * prev_state);
+
+	memset(current_button_state, 0, 20 * sizeof * current_button_state);
+	memset(prev_button_state, 0, 20 * sizeof * prev_button_state);
+
+	memset(current_axis_state, 0, 8 * sizeof * current_axis_state);
+	memset(prev_axis_state, 0, 8 * sizeof * prev_axis_state);
+
 	prev_mouse_state = mouse_state = 0;
 
 	//Check for joysticks
@@ -64,6 +74,31 @@ void InputManager::Update() {
 			quit = true;
 		}
 	}
+
+
+	//memcpy(prev_button_state, current_button_state, 20 * sizeof * current_button_state);
+	//memcpy(current_state, current_button_states, 512 * sizeof * current_button_state);
+	Uint8 new_button_state[20];
+	int new_axis_state[8];
+
+	// Getting states of controller buttons
+	for (Uint8 i = 0; i < 20; i++) {
+		new_button_state[i] = SDL_GameControllerGetButton(p_controller, SDL_GameControllerButton(i));
+	}
+	memcpy(prev_button_state, current_button_state, 20 * sizeof * current_button_state);
+	memcpy(current_button_state, new_button_state, 20 * sizeof * current_button_state);
+
+	// Getting states of controller joystick axis
+	int temp;
+	for (Uint8 i = 0; i < 8; i++) {
+		 temp = SDL_GameControllerGetAxis(p_controller, SDL_GameControllerAxis(i));
+
+		 new_axis_state[i] = (temp < -JOYSTICK_DEAD_ZONE) ? -1 :
+			 ((temp > JOYSTICK_DEAD_ZONE) ? 1 : 0);
+	}
+
+	memcpy(prev_axis_state, current_axis_state, 8 * sizeof * current_axis_state);
+	memcpy(current_axis_state, new_axis_state, 8 * sizeof * current_axis_state);
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(&numberOfItems);
 	if (numberOfItems > 512)
@@ -189,8 +224,52 @@ int InputManager::getLeftStickVertical() {
 * Returns bool : True if pressed
 */
 bool InputManager::isControllerButtonPressed(int button_code) {
-	if (SDL_GameControllerGetButton(p_controller, SDL_GameControllerButton(button_code)) == 1)
+	if (current_button_state[button_code])
 		return true;
-	
+		
 	return false;
+}
+
+
+/*
+* Checks if a particular controller button is being triggered in the current frame
+* Returns bool : True if triggered
+*/
+bool InputManager::isControllerButtonTriggered(int button_code) {
+	if (current_button_state[button_code] && !prev_button_state[button_code])
+		return true;
+
+	return false;
+}
+
+/*
+* Checks if a particular controller button is released in the current frame
+* Returns bool : True if released
+*/
+bool InputManager::isControllerButtonReleased(int button_code)
+{
+	if (!current_button_state[button_code] && prev_button_state[button_code])
+		return true;
+
+	return false;
+
+}
+
+/*
+* Checks if controller joystick is being released in the current frame
+* Returns bool : True if released
+*/
+bool InputManager::isControllerAxisReleased(int axis_code)
+{
+	if (prev_axis_state[axis_code] != current_axis_state[axis_code])
+		return true;
+
+	return false;
+}
+
+
+// Gets value of the axis state for the joytick in the current frame
+int InputManager::getAxisValueAt(int axis_code)
+{
+	return current_axis_state[axis_code];
 }

@@ -156,6 +156,9 @@
     <ClCompile Include="Tilemap.cpp">
       <Filter>Source Files\Components\GraphicsComponents</Filter>
     </ClCompile>
+    <ClCompile Include="ControlSchemeManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="MemoryManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
@@ -272,6 +275,9 @@
     <ClInclude Include="MemoryManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
+    <ClInclude Include="ControlSchemeManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -298,5 +304,6 @@
     <None Include="Obj_defs\Tilemap1.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
+    <None Include="Settings\Control_Config.json" />
   </ItemGroup>
 </Project>

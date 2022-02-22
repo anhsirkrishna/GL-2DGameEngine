@@ -1,0 +1,21 @@
+{
+  "Move Left": {
+    "Enum Key" : 0,
+    "Control Codes": [
+      [ 13, 13, 0, -1 ]
+    ]
+  },
+  "Move Right": {
+    "Enum Key": 1,
+    "Control Codes": [
+      [ 15, 14, 0, 1 ]
+    ]
+  },
+  "Jump": {
+    "Enum Key": 2,
+    "Control Codes": [
+      [ 12, 0, -1, 2 ],
+      [ 229, -1, -1, 2 ]
+    ]
+  }
+}

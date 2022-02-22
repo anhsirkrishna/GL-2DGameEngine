@@ -87,12 +87,46 @@ public:
 	* Returns bool : True if pressed
 	*/
 	bool isControllerButtonPressed(int button_code);
+
+	/*
+	* Checks if a particular controller button is being triggered in the current frame
+	* Returns bool : True if triggered
+	*/
+	bool isControllerButtonTriggered(int button_code);
+
+	/*
+	* Checks if a particular controller button is being released in the current frame
+	* Returns bool : True if released
+	*/
+	bool isControllerButtonReleased(int button_code);
+
+	///*
+	//* Checks if a particular controller joystick is being pushed in the current frame
+	//* Returns bool : True if helf
+	//*/
+	//bool isControllerAxisHeld(int button_code);
+
+	/*
+	* Checks if a particular controller joystick is being released in the current frame
+	* Returns bool : True if released
+	*/
+	bool isControllerAxisReleased(int axis_code);
+
+	int getAxisValueAt(int axis_code);
+
 public:
 	int mouse_x, mouse_y;
 private:
 private:
 	Uint8 current_state[512];
 	Uint8 prev_state[512];
+
+	Uint8 current_button_state[20];
+	Uint8 prev_button_state[20];
+
+	int current_axis_state[8];
+	int prev_axis_state[8];
+
 	Uint32 mouse_state;
 	Uint32 prev_mouse_state;
 	SDL_GameController* p_controller;
