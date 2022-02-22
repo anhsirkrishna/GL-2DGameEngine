@@ -17,6 +17,8 @@
 #include "Texture.h"
 #include "MemoryManager.h"
 
+#define CHECKERROR {GLenum err = glGetError(); if (err != GL_NO_ERROR) { SDL_Log("OpenGL error (at line Texture.cpp:%d): %s\n", __LINE__, glewGetErrorString(err));} }
+
 /*Constructor to create a texture object from a file path.
 * Loads an image into an SDL surface, assigned a texture id to it
 * and sends it to the graphics card.
@@ -55,9 +57,13 @@ Texture::Texture(const std::string& filename) {
 void Texture::Bind(const int unit, const int program_id, const std::string& name)
 {
 	glActiveTexture((GLenum)((int)GL_TEXTURE0 + unit));
+	CHECKERROR;
 	glBindTexture(GL_TEXTURE_2D, texture_id);
+	CHECKERROR;
 	int loc = glGetUniformLocation(program_id, name.c_str());
+	CHECKERROR;
 	glUniform1i(loc, unit);
+	CHECKERROR;
 }
 
 //Unbind a texture after use

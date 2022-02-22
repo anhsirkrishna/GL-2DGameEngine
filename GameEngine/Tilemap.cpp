@@ -19,8 +19,10 @@
 #include "GraphicsManager.h"
 #include "GameManager.h"
 
-Tilemap::Tilemap() : Component("TILEMAP"), p_texture(NULL), p_owner_transform(NULL), grid_width(0),
-grid_height(0), tile_width(0), tile_height(0), dimensions() {}
+Tilemap::Tilemap() : Component("TILEMAP"), p_texture(NULL),
+					 p_owner_transform(NULL), grid_width(0),
+					 grid_height(0), tile_width(0), tile_height(0),
+					 dimensions(), vao_id(0), texture_mode(1) {}
 
 void Tilemap::Serialize(json json_object) {
 
@@ -87,6 +89,9 @@ void Tilemap::Link() {
 }
 
 void Tilemap::Draw(ShaderProgram* p_program) {
+	p_graphics_manager->SetProjectionMatrix();
+	p_graphics_manager->SetViewMatrix();
+
 	p_graphics_manager->SetUniformMatrix4(
 		p_owner_transform->GetTranslateMatrix(), "translateMatrix");
 
@@ -114,8 +119,6 @@ void Tilemap::Draw(ShaderProgram* p_program) {
 		SetTextureMode(1);
 
 	p_graphics_manager->SetUniformInt(texture_mode, "mode");
-
-	p_graphics_manager->SetUniformInt(0, "particle");
 
 	p_graphics_manager->DrawQuad(vao_id, grid_width*grid_height);
 }

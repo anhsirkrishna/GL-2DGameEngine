@@ -60,10 +60,10 @@
            512,  0
         ],
         "particle_offset": [24, 24],
-        "max_particle_count": 300,
-        "particle_lifetime": 1500,
-        "maximum_particle_velocity": [ 0.1, 0.0, 0.0 ],
-        "minimum_particle_velocity": [ -0.1, -0.2, 0.0 ]
+        "max_particle_count": 200,
+        "particle_lifetime": 1000,
+        "maximum_particle_velocity": [ 5, 0.0, 0.0 ],
+        "minimum_particle_velocity": [ -5, -10, 0.0 ]
     }
    },
   "STATES": {
