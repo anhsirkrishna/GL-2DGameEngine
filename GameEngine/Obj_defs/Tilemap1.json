@@ -1,26 +1,5 @@
 {
   "COMPONENTS": {
-    "GLQUAD": {
-      "texture_names": [ "tileset" ],
-      "vertex_list": [
-          0,  0, 0,
-          0, 32, 0,
-         32, 32, 0,
-         32,  0, 0
-      ],
-      "color_list": [
-        255, 255, 255, 255,
-        255, 255, 255, 255,
-        255, 255, 255, 255,
-        255, 255, 255, 255
-      ],
-      "tex_coord_list": [
-          0,  0,
-          0, 32,
-         32, 32,
-         32,  0
-      ]
-    },
     "TRANSFORM": {},
     "TILEMAP": {
       "tile_index_map": [
@@ -34,14 +13,11 @@
       ],
       "tile_width": 32,
       "tile_height": 32,
-      "position": [0, 0]
+      "texture_name": "tileset"
     }
   },
   "STATES": {
     "DEFAULT": {
-      "GLQUAD": {
-        "texture_names": [ "tileset" ]
-      }
     }
   },
   "DEFAULT_STATE": "DEFAULT"

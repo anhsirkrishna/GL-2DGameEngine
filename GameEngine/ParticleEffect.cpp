@@ -19,6 +19,7 @@
 #include "GameObject.h"
 #include "MemoryManager.h"
 #include "GraphicsManager.h"
+#include "InputManager.h"
 
 #include <gtc/random.hpp>
 
@@ -195,7 +196,11 @@ void ParticleEffect::Draw(ShaderProgram* program) {
 
 	p_graphics_manager->SetUniformInt(1, "particle");
 
+	p_graphics_manager->SetUniformVec2(glm::vec2(0, 0), "tex_offset");
+
 	p_graphics_manager->SetAlphaBlendingOn();
+	p_graphics_manager->SetDepthTestOff();
+	float particle_lifetime_var;
 	for (auto &particle : particles) {
 		if (particle.life_time > 0)
 		{
@@ -203,11 +208,14 @@ void ParticleEffect::Draw(ShaderProgram* program) {
 			final_translate_matrix[3][0] += particle.position.x;
 			final_translate_matrix[3][1] += particle.position.y;
 			final_translate_matrix[3][2] += particle.position.z;
+			particle_lifetime_var = (float)particle.life_time / particle_lifetime;
+			p_graphics_manager->SetUniformFloat(particle_lifetime_var, "particle_lifetime");
 			p_graphics_manager->SetUniformMatrix4(
 				final_translate_matrix, "translateMatrix");
 			p_graphics_manager->DrawQuad(vao_id);
 		}
 	}
+	p_graphics_manager->SetDepthTestOn();
 	p_graphics_manager->SetAlphaBlendingOff();
 }
 

@@ -42,10 +42,10 @@
     "PARTICLE_EFFECT": {
       "texture_name": "flame_particle",
         "vertex_list": [
-            0, 0, 0,
-            0, 5, 0,
-            5, 5, 0,
-            5, 0, 0
+            0, 0, -1,
+            0, 5, -1,
+            5, 5, -1,
+            5, 0, -1
         ],
         "color_list": [
             220, 100, 30, 255,
@@ -61,9 +61,9 @@
         ],
         "particle_offset": [24, 24],
         "max_particle_count": 300,
-        "particle_lifetime": 1000,
-        "maximum_particle_velocity": [ 0.2, 0.0, 0.0 ],
-        "minimum_particle_velocity": [ -0.2, -0.5, 0.0 ]
+        "particle_lifetime": 1500,
+        "maximum_particle_velocity": [ 0.1, 0.0, 0.0 ],
+        "minimum_particle_velocity": [ -0.1, -0.2, 0.0 ]
     }
    },
   "STATES": {

@@ -13,23 +13,31 @@
 
 #include "Component.h"
 
+typedef unsigned int GLuint;
+
 class GLQuad;
+class Texture;
 class Transform;
 
 class Tilemap : public Component {
 private:
-	GLQuad* p_owner_sprite;
+	GLuint vao_id;
+	Texture* p_texture;
 	Transform* p_owner_transform;
 	int grid_width;
 	int grid_height;
 	int tile_width;
 	int tile_height;
 	glm::vec4 dimensions;
-
+	int texture_mode;
 	std::vector<std::vector<std::vector<int>>> tile_index_map;
+
+	void GenerateTilemapVertices(std::vector<float> &vertices);
+	void GenerateTilemapTextureCoords(std::vector<float>& tex_coords);
 public:
 	Tilemap();
 	void Serialize(json json_object);
 	virtual void Link();
 	virtual void Draw(ShaderProgram* p_program);
+	void SetTextureMode(int _mode);
 };

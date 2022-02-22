@@ -65,13 +65,15 @@ public:
 	/*Creates a vertex array object and sends it to the GPU
 	* Returns: GLuint - The vao_id
 	*/
-	GLuint GenerateQuadVAO(float const *positions, float const *colors, 
-						   float const *texture_coords);
+	GLuint GenerateQuadVAO(float const *positions, float const *colors,
+						   float const *texture_coords, 
+						   unsigned int batch_size=1);
+
 
 	/*Sends the GL_Draw call after binding the specified vao
 	* Returns: void
 	*/
-	void DrawQuad(GLuint vao_id);
+	void DrawQuad(GLuint vao_id, unsigned int batch_size=1);
 
 	/*Clear the currently active buffer
 	* Returns: void

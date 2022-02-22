@@ -1,7 +1,7 @@
 #include "Transform.h"
 #include "Util.h"
-#include "GLQuad.h"
 #include "GameObject.h"
+#include "GLQuad.h"
 
 #include <SDL.h>
 
@@ -57,15 +57,17 @@ void Transform::Serialize(json json_object) {
 
 //Sets the RotMatrices
 void Transform::SetRotMatrices() {
-	//Translate to origin before rotation
-	float quad_width = p_owner_glquad->GetDimensions().x * scale_x;
-	float quad_height = p_owner_glquad->GetDimensions().y * scale_y;
-	pre_rotate_matrix[3].x = -(quad_width / 2.0);
-	pre_rotate_matrix[3].y = -(quad_height / 2.0);
+	if (p_owner_glquad != nullptr) {
+		//Translate to origin before rotation
+		float quad_width = p_owner_glquad->GetDimensions().x * scale_x;
+		float quad_height = p_owner_glquad->GetDimensions().y * scale_y;
+		pre_rotate_matrix[3].x = -(quad_width / 2.0);
+		pre_rotate_matrix[3].y = -(quad_height / 2.0);
 
-	//Translate to position after rotation
-	post_rotate_matrix[3].x = (quad_width / 2.0);
-	post_rotate_matrix[3].y = (quad_height / 2.0);
+		//Translate to position after rotation
+		post_rotate_matrix[3].x = (quad_width / 2.0);
+		post_rotate_matrix[3].y = (quad_height / 2.0);
+	}
 }
 
 /*

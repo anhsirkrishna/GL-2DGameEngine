@@ -9,6 +9,7 @@ uniform sampler2D texture_map;
 uniform vec2 tex_offset;
 out vec4 out_Color;
 uniform int particle;
+uniform float particle_lifetime;
 
 void main() {
 	//Mode specified if we are filling with colors or textures.
@@ -16,12 +17,10 @@ void main() {
 		out_Color = ex_Color;
 	else{
 		vec4 tex_color = texture(texture_map, ex_TextCoord + tex_offset);
-		//If the alpha value is transparent then discard the pixel to achieve transparency.
-		if (tex_color.a < 0.1)
-			discard;
-		//If we are renderign a particle add the color
-		if (particle == 1)
-			tex_color += ex_Color;
+		//If we are renderign a particle add the color with particle lifetime
+		if (particle == 1) {
+			tex_color *= (ex_Color * particle_lifetime);
+		}
 		out_Color = tex_color; 
 	}
 }

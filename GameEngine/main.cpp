@@ -191,7 +191,7 @@ int main(int argc, char* args[])
 
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
-		p_graphics_manager->ClearBuffer(glm::vec4(1.0f));
+		p_graphics_manager->ClearBuffer(glm::vec4(0.3f));
 
 		if (RUN_WITH_EDITOR)
 			p_editor->NewFrame();

@@ -136,7 +136,7 @@ bool GraphicsManager::GL_Initialize() {
 	SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &depth_size);
 	
 	SetDepthTestOn();
-	//SetBlendingOn();
+	SetBlendingOn();
 
 	return true;
 }
@@ -191,7 +191,7 @@ void GraphicsManager::SwapBuffers() {
 * Returns: GLuint - The vao_id
 */
 GLuint GraphicsManager::GenerateQuadVAO(float const* positions, float const* colors,
-	float const* texture_coords) {
+	float const* texture_coords, unsigned int batch_size) {
 	int vertices_count = 4;
 	int positions_count = 3;
 	int colors_count = 4;
@@ -206,7 +206,8 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions, float const* col
 	GLuint point_buffer;
 	glGenBuffers(1, &point_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, point_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_count * positions_count, 
+	glBufferData(GL_ARRAY_BUFFER,
+		         sizeof(float) * vertices_count * positions_count * batch_size,
 				 positions, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
@@ -217,7 +218,8 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions, float const* col
 	GLuint color_buffer;
 	glGenBuffers(1, &color_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, color_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_count * colors_count, 
+	glBufferData(GL_ARRAY_BUFFER,
+		         sizeof(float) * vertices_count * colors_count * batch_size,
 				 colors, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
@@ -228,18 +230,29 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions, float const* col
 	GLuint tex_coord_buffer;
 	glGenBuffers(1, &tex_coord_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, tex_coord_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_count * tex_coords_count, texture_coords, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,
+				 sizeof(float) * vertices_count * tex_coords_count * batch_size,
+				 texture_coords, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	CHECKERROR;
 	//IBO data
-	GLuint indexData[] = { 0, 1, 2, 3 };
+	std::vector<GLuint> indexData = { 0, 1, 2, 0, 2, 3 };
+	for (unsigned int i = 1; i < batch_size; ++i) {
+		indexData.push_back(0 + (i * 4));
+		indexData.push_back(1 + (i * 4));
+		indexData.push_back(2 + (i * 4));
+		indexData.push_back(0 + (i * 4));
+		indexData.push_back(2 + (i * 4));
+		indexData.push_back(3 + (i * 4));
+	}
 	//Create IBO
 	GLuint indeces_buffer;
 	glGenBuffers(1, &indeces_buffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indeces_buffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), indexData, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint) * batch_size,
+				 &indexData[0], GL_STATIC_DRAW);
 	CHECKERROR;
 	glBindVertexArray(0);
 
@@ -249,10 +262,10 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions, float const* col
 /*Sends the GL_Draw call after binding the specified vao
 * Returns: void
 */
-void GraphicsManager::DrawQuad(GLuint vao_id) {
+void GraphicsManager::DrawQuad(GLuint vao_id, unsigned int batch_size) {
 	glBindVertexArray(vao_id);
 	CHECKERROR;
-	glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, 6 * batch_size, GL_UNSIGNED_INT, NULL);
 	CHECKERROR;
 	glBindVertexArray(0);
 }
