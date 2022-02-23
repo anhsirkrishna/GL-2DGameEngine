@@ -10,6 +10,7 @@
 
 #include "GameObjectManager.h"
 #include "GameObjectFactory.h"
+#include "MemoryManager.h"
 #include "Transform.h"
 #include <iostream>
 

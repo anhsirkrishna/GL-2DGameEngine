@@ -172,9 +172,11 @@
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GLQuad.cpp" />
+    <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
+    <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="Movement.cpp" />
     <ClCompile Include="ParticleEffect.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -211,8 +213,10 @@
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GLQuad.h" />
+    <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Matrix3D.h" />
+    <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="ParticleEffect.h" />
     <ClInclude Include="ResourceManager.h" />

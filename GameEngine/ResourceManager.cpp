@@ -11,6 +11,7 @@
 #include "ResourceManager.h"
 #include "ShaderProgram.h"
 #include "Texture.h"
+#include "MemoryManager.h"
 
 #include "SDL_image.h"
 #include <GL/glew.h>
@@ -105,6 +106,7 @@ void ResourceManager::add_shader(std::string file_name) {
 		ShaderProgram* p_shader_program = new ShaderProgram();
 		p_shader_program->AddShader(vertex_shader_name.c_str(), GL_VERTEX_SHADER);
 		p_shader_program->AddShader(frag_shader_name.c_str(), GL_FRAGMENT_SHADER);
+		p_shader_program->LinkProgram();
 		shader_map.insert({ file_name, p_shader_program });
 	}
 }

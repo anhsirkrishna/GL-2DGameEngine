@@ -5,6 +5,7 @@
 #include <GL\GLU.h>
 
 #include "ShaderProgram.h"
+#include "MemoryManager.h"
 
 /*
 * Reads a file which contains a GLSL program
