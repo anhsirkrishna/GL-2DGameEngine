@@ -24,14 +24,14 @@ void Controller::Update() {
 	}
 
 	// Jump
-	if (actionState[Action::JUMP] == ControlState::TRIGGERED ) {
+	if (actionState[Action::JUMP] == ControlState::RELEASED ) {
 		p_owner_movement->SetGravityUsage(true);
 		p_owner_movement->Jump(-200.0f);
 	}
 
 
 	// Stop horizontal movement
-	if (actionState[Action::MOVE_LEFT] == ControlState::RELEASED &&
+	if (actionState[Action::MOVE_LEFT] == ControlState::RELEASED ||
 		actionState[Action::MOVE_RIGHT] == ControlState::RELEASED) {
 		p_owner_movement->MoveHorizontally(0);
 	}

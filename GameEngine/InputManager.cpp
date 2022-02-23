@@ -15,15 +15,25 @@ InputManager::InputManager() : quit(false) {
 	memset(current_state, 0, 512 * sizeof * current_state);
 	memset(prev_state, 0, 512 * sizeof * prev_state);
 
-	memset(current_button_state, 0, 20 * sizeof * current_button_state);
-	memset(prev_button_state, 0, 20 * sizeof * prev_button_state);
+	memset(current_button_state, 0, SDL_CONTROLLER_BUTTON_MAX * sizeof * current_button_state);
+	memset(prev_button_state, 0, SDL_CONTROLLER_BUTTON_MAX * sizeof * prev_button_state);
 
-	memset(current_axis_state, 0, 8 * sizeof * current_axis_state);
-	memset(prev_axis_state, 0, 8 * sizeof * prev_axis_state);
+	memset(current_axis_state, 0, SDL_CONTROLLER_AXIS_MAX * sizeof * current_axis_state);
+	memset(prev_axis_state, 0, SDL_CONTROLLER_AXIS_MAX * sizeof * prev_axis_state);
 
 	prev_mouse_state = mouse_state = 0;
+}
 
-	//Check for joysticks
+//Cleanup for Input Manager. Closes game controller if opened.
+InputManager::~InputManager() {
+	//Close the controller
+	SDL_GameControllerClose(p_controller);
+}
+
+// To check for controller
+void InputManager::CheckForController()
+{
+	// Check for joysticks
 	if (SDL_NumJoysticks() > 0)
 	{
 		//Load joystick
@@ -38,18 +48,13 @@ InputManager::InputManager() : quit(false) {
 	}
 }
 
-//Cleanup for Input Manager. Closes game controller if opened.
-InputManager::~InputManager() {
-	//Close the controller
-	SDL_GameControllerClose(p_controller);
-}
-
 
 /*
 * Calls SDL_PollEvent() which polls events from the queue
 * Updates Keyboard and Mouse states
 */
 void InputManager::Update() {
+
 	int numberOfItems = 0;
 	SDL_Event e;
 
@@ -76,29 +81,27 @@ void InputManager::Update() {
 	}
 
 
-	//memcpy(prev_button_state, current_button_state, 20 * sizeof * current_button_state);
-	//memcpy(current_state, current_button_states, 512 * sizeof * current_button_state);
-	Uint8 new_button_state[20];
-	int new_axis_state[8];
+	Uint8 new_button_state[SDL_CONTROLLER_BUTTON_MAX];
+	int new_axis_state[SDL_CONTROLLER_AXIS_MAX];
 
 	// Getting states of controller buttons
-	for (Uint8 i = 0; i < 20; i++) {
+	for (Uint8 i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++) {
 		new_button_state[i] = SDL_GameControllerGetButton(p_controller, SDL_GameControllerButton(i));
 	}
-	memcpy(prev_button_state, current_button_state, 20 * sizeof * current_button_state);
-	memcpy(current_button_state, new_button_state, 20 * sizeof * current_button_state);
+	memcpy(prev_button_state, current_button_state, SDL_CONTROLLER_BUTTON_MAX * sizeof * current_button_state);
+	memcpy(current_button_state, new_button_state, SDL_CONTROLLER_BUTTON_MAX * sizeof * current_button_state);
 
-	// Getting states of controller joystick axis
+	// Getting states of controller joystick axes
 	int temp;
-	for (Uint8 i = 0; i < 8; i++) {
+	for (Uint8 i = 0; i < SDL_CONTROLLER_AXIS_MAX; i++) {
 		 temp = SDL_GameControllerGetAxis(p_controller, SDL_GameControllerAxis(i));
 
 		 new_axis_state[i] = (temp < -JOYSTICK_DEAD_ZONE) ? -1 :
 			 ((temp > JOYSTICK_DEAD_ZONE) ? 1 : 0);
 	}
 
-	memcpy(prev_axis_state, current_axis_state, 8 * sizeof * current_axis_state);
-	memcpy(current_axis_state, new_axis_state, 8 * sizeof * current_axis_state);
+	memcpy(prev_axis_state, current_axis_state, SDL_CONTROLLER_AXIS_MAX * sizeof * current_axis_state);
+	memcpy(current_axis_state, new_axis_state, SDL_CONTROLLER_AXIS_MAX * sizeof * current_axis_state);
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(&numberOfItems);
 	if (numberOfItems > 512)

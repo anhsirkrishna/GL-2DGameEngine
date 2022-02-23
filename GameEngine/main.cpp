@@ -54,12 +54,6 @@ GraphicsManager* p_graphics_manager;
 MemoryManager g_memory_manager;
 
 
-/*
-* Global variables to handle SDL window and Open GL Context
-*/
-SDL_Window* gp_sdl_window;
-SDL_GLContext gp_gl_context;
-
 bool RUN_WITH_EDITOR = false;
 
 
@@ -133,8 +127,9 @@ int main(int argc, char* args[])
 
 	// audio test - delete if needed
 	p_audio_manager->CreateSound("bass.wav");
-	
 
+	p_input_manager->CheckForController();
+	
 	if (RUN_WITH_EDITOR)
 		p_editor->Init();
 

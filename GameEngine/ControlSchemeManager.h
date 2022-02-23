@@ -40,11 +40,22 @@ enum class Action {
 enum class ControlState {
 	HELD,
 	TRIGGERED,
-	RELEASED
+	RELEASED,
+	INACTIVE
 };
 
-class ControlSchemeManager
-{
+class ControlSchemeManager {
+
+private:
+	// map of actions to different types of inputs
+	std::unordered_map<Action, std::vector<CodeStruct>> action_control_map;
+
+	// map of actions to key state
+	std::unordered_map<Action, ControlState> action_control_state;
+
+	// map of actions to key state - stores states from previous frame
+	std::unordered_map<Action, ControlState> action_control_state_prev;
+
 public:
 	ControlSchemeManager();
 
@@ -58,13 +69,6 @@ public:
 
 	// Getter to get the action map state
 	std::unordered_map<Action, ControlState> GetActionStateMap();
-
-private:
-	// map of actions to different types of inputs
-	std::unordered_map<Action, std::vector<CodeStruct>> action_control_map;
-
-	// map of actions to key state
-	std::unordered_map<Action, ControlState> action_control_state;
 };
 
 extern ControlSchemeManager* p_control_scheme_manager;
