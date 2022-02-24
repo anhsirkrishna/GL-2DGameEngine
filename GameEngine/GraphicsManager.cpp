@@ -15,12 +15,14 @@
 #include "ResourceManager.h"
 #include "ShaderProgram.h"
 #include "Util.h"
+#include "Camera.h"
 
 #include <SDL.h>
 #include <GL\glew.h>
 #include <SDL_opengl.h>
 #include <GL\GLU.h>
 #include <SDL_image.h>
+#include <glm.hpp>
 
 /*
 * Macro used to check for OpenGL errors.
@@ -136,7 +138,7 @@ bool GraphicsManager::GL_Initialize() {
 	SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &depth_size);
 	
 	SetDepthTestOn();
-	//SetBlendingOn();
+	SetBlendingOn();
 
 	return true;
 }
@@ -146,7 +148,9 @@ bool GraphicsManager::GL_Initialize() {
 * Returns: void
 */
 void GraphicsManager::SetActiveShader(std::string shader_name) {
+	p_active_shader->Unuse();
 	p_active_shader = p_resource_manager->get_shader(shader_name);
+	p_active_shader->Use();
 }
 
 /*Function to get the a shader program which
@@ -190,8 +194,8 @@ void GraphicsManager::SwapBuffers() {
 /*Creates a vertex array object and sends it to the GPU
 * Returns: GLuint - The vao_id
 */
-GLuint GraphicsManager::GenerateQuadVAO(float const* positions, float const* colors,
-	float const* texture_coords) {
+GLuint GraphicsManager::GenerateQuadVAO(float const* positions, 
+	float const* colors, float const* texture_coords, unsigned int batch_size) {
 	int vertices_count = 4;
 	int positions_count = 3;
 	int colors_count = 4;
@@ -206,7 +210,8 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions, float const* col
 	GLuint point_buffer;
 	glGenBuffers(1, &point_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, point_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_count * positions_count, 
+	glBufferData(GL_ARRAY_BUFFER,
+		         sizeof(float) * vertices_count * positions_count * batch_size,
 				 positions, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
@@ -217,7 +222,8 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions, float const* col
 	GLuint color_buffer;
 	glGenBuffers(1, &color_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, color_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_count * colors_count, 
+	glBufferData(GL_ARRAY_BUFFER,
+		         sizeof(float) * vertices_count * colors_count * batch_size,
 				 colors, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
@@ -228,37 +234,168 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions, float const* col
 	GLuint tex_coord_buffer;
 	glGenBuffers(1, &tex_coord_buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, tex_coord_buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertices_count * tex_coords_count, texture_coords, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,
+				 sizeof(float) * vertices_count * tex_coords_count * batch_size,
+				 texture_coords, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	CHECKERROR;
 	//IBO data
-	GLuint indexData[] = { 0, 1, 2, 3 };
+	std::vector<GLuint> indexData = { 0, 1, 2, 0, 2, 3 };
+	for (unsigned int i = 1; i < batch_size; ++i) {
+		indexData.push_back(0 + (i * 4));
+		indexData.push_back(1 + (i * 4));
+		indexData.push_back(2 + (i * 4));
+		indexData.push_back(0 + (i * 4));
+		indexData.push_back(2 + (i * 4));
+		indexData.push_back(3 + (i * 4));
+	}
 	//Create IBO
 	GLuint indeces_buffer;
 	glGenBuffers(1, &indeces_buffer);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indeces_buffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(GLuint), indexData, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint) * batch_size,
+				 &indexData[0], GL_STATIC_DRAW);
 	CHECKERROR;
 	glBindVertexArray(0);
 
 	return vao_id;
 }
 
+/*Creates a vertex array object with a dynamic array for the vertices
+* and sends it to the GPU
+* Returns: GLuint - The vao_id
+*/
+GLuint GraphicsManager::GenerateDynamicQuadVAO(GLuint& vertex_buffer_id,
+	float const* colors, float const* texture_coords, unsigned int batch_size) {
+	int vertices_count = 4;
+	int positions_count = 3;
+	int colors_count = 4;
+	int tex_coords_count = 2;
+	//Create a VAO and put the ID in vao_id
+	GLuint vao_id;
+	glGenVertexArrays(1, &vao_id);
+	//Use the same VAO for all the following operations
+	glBindVertexArray(vao_id);
+
+	//Create a continguous buffer for all the vertices/points
+	glGenBuffers(1, &vertex_buffer_id);
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
+	glBufferData(GL_ARRAY_BUFFER,
+		sizeof(float) * vertices_count * positions_count * batch_size,
+		NULL, GL_DYNAMIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	CHECKERROR;
+
+	//Create another continuguous buffer for all the colors for each vertex
+	GLuint color_buffer;
+	glGenBuffers(1, &color_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, color_buffer);
+	glBufferData(GL_ARRAY_BUFFER,
+		sizeof(float) * vertices_count * colors_count * batch_size,
+		colors, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	CHECKERROR;
+
+	//Create another continguous buffer for all the textures for each vertex
+	GLuint tex_coord_buffer;
+	glGenBuffers(1, &tex_coord_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, tex_coord_buffer);
+	glBufferData(GL_ARRAY_BUFFER,
+		sizeof(float) * vertices_count * tex_coords_count * batch_size,
+		texture_coords, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	CHECKERROR;
+	//IBO data
+	std::vector<GLuint> indexData = { 0, 1, 2, 0, 2, 3 };
+	for (unsigned int i = 1; i < batch_size; ++i) {
+		indexData.push_back(0 + (i * 4));
+		indexData.push_back(1 + (i * 4));
+		indexData.push_back(2 + (i * 4));
+		indexData.push_back(0 + (i * 4));
+		indexData.push_back(2 + (i * 4));
+		indexData.push_back(3 + (i * 4));
+	}
+	//Create IBO
+	GLuint indeces_buffer;
+	glGenBuffers(1, &indeces_buffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indeces_buffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint) * batch_size,
+		&indexData[0], GL_STATIC_DRAW);
+	CHECKERROR;
+	glBindVertexArray(0);
+
+	return vao_id;
+}
+
+/*Creates a dynamic array buffer associated with a vao_id
+* and sends it to the GPU
+* Returns: GLUint the array buffer id
+*/
+GLuint GraphicsManager::GenerateDynamicArrayBuffer(GLuint vao_id, GLuint array_count, size_t array_size, GLuint attrib) {
+	glBindVertexArray(vao_id);
+	CHECKERROR;
+
+	//Create a continguous buffer for the array
+	GLuint new_array_buffer;
+	glGenBuffers(1, &new_array_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, new_array_buffer);
+	glBufferData(GL_ARRAY_BUFFER, array_size, NULL, GL_DYNAMIC_DRAW);
+	glEnableVertexAttribArray(attrib);
+	glVertexAttribPointer(attrib, array_count, GL_FLOAT, GL_FALSE, 0, 0);
+	CHECKERROR;
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	CHECKERROR;
+
+	glBindVertexArray(0);
+
+	return new_array_buffer;
+}
+
+/*Function to bind an attribute locations
+* for the given variable
+* Returns: void
+*/
+void GraphicsManager::BindAttrib(GLuint attrib, std::string var_name) {
+	//Attrib location 0 will always be used for position coordinates
+	glBindAttribLocation(p_active_shader->program_id, attrib, var_name.c_str());
+	CHECKERROR;
+}
+
+/*Dynamically set the data for a GL vertex buffer and send to the GPU
+* Returns: void
+*/
+void GraphicsManager::SetDynamicBufferData(GLuint vao_id, GLuint vertex_buffer_id, 
+	float const* data, size_t data_size) {
+	glBindVertexArray(vao_id);
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, data_size, data);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+	CHECKERROR;
+}
+
 /*Sends the GL_Draw call after binding the specified vao
 * Returns: void
 */
-void GraphicsManager::DrawQuad(GLuint vao_id) {
+void GraphicsManager::DrawQuad(GLuint vao_id, unsigned int batch_size) {
 	glBindVertexArray(vao_id);
 	CHECKERROR;
-	glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL);
+	glDrawElements(GL_TRIANGLES, 6 * batch_size, GL_UNSIGNED_INT, NULL);
 	CHECKERROR;
 	glBindVertexArray(0);
 }
 
 //Sets a uniform int
 void GraphicsManager::SetUniformInt(int var, std::string var_name) {
+	CHECKERROR;
 	GLuint loc = glGetUniformLocation(p_active_shader->program_id, var_name.c_str());
 	glUniform1i(loc, var);
 	CHECKERROR;
@@ -312,4 +449,16 @@ void GraphicsManager::SetAlphaBlendingOn() {
 
 void GraphicsManager::SetAlphaBlendingOff() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void GraphicsManager::SetProjectionMatrix() {
+	// set up projection matrix for the camera
+	glm::mat4 projection = glm::perspective(glm::radians(p_camera->zoom), (float)window_width / (float)window_height, 0.1f, 10000.0f);
+	SetUniformMatrix4(projection, "projection");
+}
+
+void GraphicsManager::SetViewMatrix() {
+	// set up view matrix for the camera
+	glm::mat4 view = p_camera->GetViewMatrix();
+	SetUniformMatrix4(view, "view");
 }

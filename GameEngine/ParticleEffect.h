@@ -23,7 +23,8 @@ class ShaderProgram;
 struct Particle
 {
 	glm::vec4 position, velocity;
-	int life_time;
+	long long int life_time;
+
 	Particle(glm::vec4 position_, glm::vec4 velocity_, int life_time_) :
 		position(position_), velocity(velocity_), life_time(life_time_) {}
 };
@@ -32,13 +33,21 @@ class ParticleEffect : public Component {
 private:
 	Texture* p_texture;
 	std::vector<Particle> particles;
-	GLuint vao_id = 0;
+	std::vector<float> particle_vertex_list;
+	std::vector<float> single_particle_vertices;
+	std::vector<float> particle_brightness_list;
+	GLuint vao_id;
+	GLuint vertex_buffer_id;
+	GLuint brightness_buffer_id;
 	Transform* p_owner_transform;
 	unsigned int max_particle_count;
 	unsigned int texture_mode;
-	unsigned int particle_lifetime;
+	int particle_lifetime;
 	glm::vec2 origin_offset;
 	glm::vec4 maximum_velocity, minimum_velocity;
+
+	//To keep track of the last used particle
+	int lastUsedParticle;
 	
 	//Returns a pointer to the texture used for the particles.
 	Texture* GetTexture();
@@ -47,7 +56,7 @@ private:
 	void SetTexture(Texture* _p_texture);
 
 	//Get the index of a dead particle
-	int FirstUnusedParticle();
+	int GetLastUsedParticle();
 
 	//Reset the particle at the given particle_index
 	void RespawnParticle(int particle_index);

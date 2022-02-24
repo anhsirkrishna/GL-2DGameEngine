@@ -25,6 +25,6 @@
   },
   "background_obj": {
     "obj_def": "Tilemap1",
-    "starting_position":  [0, 0, 1, 0]
+    "starting_position": [ 0, 0, 1, 0 ]
   }
 }

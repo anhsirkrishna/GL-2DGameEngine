@@ -315,6 +315,11 @@
     </None>
     <None Include="Settings\Control_Config.json">
       <Filter>Source Files\Settings</Filter>
+    <None Include="particles.vert">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="particles.frag">
+      <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

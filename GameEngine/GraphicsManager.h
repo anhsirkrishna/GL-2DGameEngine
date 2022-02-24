@@ -65,13 +65,41 @@ public:
 	/*Creates a vertex array object and sends it to the GPU
 	* Returns: GLuint - The vao_id
 	*/
-	GLuint GenerateQuadVAO(float const *positions, float const *colors, 
-						   float const *texture_coords);
+	GLuint GenerateQuadVAO(float const *positions, float const *colors,
+						   float const *texture_coords, 
+						   unsigned int batch_size=1);
+
+	/*Creates a vertex array object with a dynamic array for the vertices 
+	* and sends it to the GPU
+	* Returns: GLuint - The vao_id
+	*/
+	GLuint GenerateDynamicQuadVAO(GLuint &vertex_buffer_id, float const* colors,
+		float const* texture_coords,
+		unsigned int batch_size = 1);
+
+	/*Dynamically set the data for a GL vertex buffer and send to the GPU
+	* Returns: void
+	*/
+	void SetDynamicBufferData(GLuint vao_id, GLuint vertex_buffer_id, 
+		float const* data, size_t data_size);
+
+	/*Creates a dynamic array buffer associated with a vao_id
+	* and sends it to the GPU
+	* Returns: GLuint the id of the dynamic array buffer
+	*/
+	GLuint GenerateDynamicArrayBuffer(GLuint vao_id, GLuint array_count, 
+		size_t array_size, GLuint attrib);
+
+	/*Function to bind an attribute locations
+	* for the given variable
+	* Returns: void
+	*/
+	void BindAttrib(GLuint attrib, std::string var_name);
 
 	/*Sends the GL_Draw call after binding the specified vao
 	* Returns: void
 	*/
-	void DrawQuad(GLuint vao_id);
+	void DrawQuad(GLuint vao_id, unsigned int batch_size=1);
 
 	/*Clear the currently active buffer
 	* Returns: void
@@ -110,6 +138,12 @@ public:
 
 	//Set alpha blending to default 
 	void SetAlphaBlendingOff();
+
+	//Set Projection Matrix
+	void SetProjectionMatrix();
+
+	//Set view Matrix
+	void SetViewMatrix();
 };
 
 extern GraphicsManager* p_graphics_manager;
