@@ -19,6 +19,7 @@ private:
 	Uint32 loop_start_time;
 	Uint32 prev_loop_delta_time;
 	int frame_counter;
+	int timer;
 };
 
 extern FrameRateController* p_framerate_controller;

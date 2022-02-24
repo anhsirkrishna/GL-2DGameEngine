@@ -19,7 +19,7 @@ class Editor
 {
 public:
 
-	float last_frame_fps;
+	int last_frame_fps;
 
 	void Init() const;
 	void NewFrame() const;
