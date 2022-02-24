@@ -17,6 +17,11 @@ GLQuad::GLQuad() : Component("GLQUAD"), p_texture(NULL), vao_id(0),
 
 
 void GLQuad::Draw(ShaderProgram* program) {
+
+	p_graphics_manager->SetProjectionMatrix();
+
+	p_graphics_manager->SetViewMatrix();
+
 	p_graphics_manager->SetUniformMatrix4(
 		p_owner_transform->GetTranslateMatrix(), "translateMatrix");
 
@@ -47,8 +52,6 @@ void GLQuad::Draw(ShaderProgram* program) {
 		SetTextureMode(1);
 
 	p_graphics_manager->SetUniformInt(texture_mode, "mode");
-
-	p_graphics_manager->SetUniformInt(0, "particle");
 
 	p_graphics_manager->DrawQuad(vao_id);
 }

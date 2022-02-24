@@ -191,17 +191,10 @@ int main(int argc, char* args[])
 
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
-		p_graphics_manager->ClearBuffer(glm::vec4(1.0f));
+		p_graphics_manager->ClearBuffer(glm::vec4(0.3f));
 
 		if (RUN_WITH_EDITOR)
 			p_editor->NewFrame();
-
-		// set up projection and view matrices for the camera
-		glm::mat4 projection = glm::perspective(glm::radians(p_camera->zoom), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 10000.0f);
-		p_graphics_manager->SetUniformMatrix4(projection, "projection");
-
-		glm::mat4 view = p_camera->GetViewMatrix();
-		p_graphics_manager->SetUniformMatrix4(view, "view");
 
 		//Redraw the scene every frame
 		p_game_obj_manager->Draw(p_shader_program);

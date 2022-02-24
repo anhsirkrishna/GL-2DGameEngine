@@ -236,6 +236,8 @@
     <None Include="Obj_defs\obj2.json" />
     <None Include="Obj_defs\Tilemap.json" />
     <None Include="Obj_defs\Tilemap1.json" />
+    <None Include="particles.frag" />
+    <None Include="particles.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,6 +19,7 @@
 #include "GameObject.h"
 #include "MemoryManager.h"
 #include "GraphicsManager.h"
+#include "InputManager.h"
 
 #include <gtc/random.hpp>
 
@@ -28,7 +29,9 @@ unsigned int particles_spawned_per_frame = 2;
 ParticleEffect::ParticleEffect() : Component("PARTICLE_EFFECT"), p_owner_transform(nullptr), \
 								   p_texture(nullptr), texture_mode(0), max_particle_count(0), 
 								   particle_lifetime(0), maximum_velocity(0.0f),
-								   minimum_velocity(0.0f), origin_offset(0.0f) {
+								   minimum_velocity(0.0f), origin_offset(0.0f), vao_id(0),
+								   vertex_buffer_id(0), brightness_buffer_id(0),
+								   lastUsedParticle(0) {
 }
 
 //Returns a pointer to the texture used for the particles.
@@ -69,6 +72,11 @@ glm::vec4 ParticleEffect::GetRandomParticleVelocity() {
 * Returns : void
 */
 void ParticleEffect::Serialize(json json_object) {
+	
+	p_resource_manager->add_shader("particles");
+	p_graphics_manager->SetActiveShader("particles");
+	p_graphics_manager->BindDefaultAttribLocations();
+	p_graphics_manager->BindAttrib(3, "in_particle_brightness");
 
 	auto particle_velocity = 
 		json_object["maximum_particle_velocity"].get<std::vector<float>>();
@@ -86,10 +94,6 @@ void ParticleEffect::Serialize(json json_object) {
 	origin_offset.x = offset[0];
 	origin_offset.y = offset[1];
 
-	for (int i = 0; i < max_particle_count; i++) {
-		particles.push_back(Particle(glm::vec4(origin_offset, glm::vec2(0.0f)),
-									 GetRandomParticleVelocity(), particle_lifetime));
-	}
 
 	auto texture_name = json_object["texture_name"].get<std::string>();
 	p_resource_manager->add_texture(texture_name);
@@ -97,19 +101,90 @@ void ParticleEffect::Serialize(json json_object) {
 
 	//Put a vertex consisting of 3 float coordinates x,y,z into 
 	//the list of all vertices
-	auto vertices = json_object["vertex_list"].get<std::vector<float>>();
+	single_particle_vertices = json_object["vertex_list"].get<std::vector<float>>();
 
 	//Put a color consisting of 4 float values rgba into the list of all colors
-	auto colors = json_object["color_list"].get<std::vector<float>>();
+	auto base_colors = json_object["color_list"].get<std::vector<float>>();
 	//Convert colors from 0-255 range to 0-1 range
-	ConvertColor(colors);
+	ConvertColor(base_colors);
 
 	//Put a texture coordinate cosisting of 2 uv float values 
-	auto coord = json_object["tex_coord_list"].get<std::vector<float>>();
+	auto base_coord = json_object["tex_coord_list"].get<std::vector<float>>();
 	//Convert coords from image space to 0..1
-	ConvertTextureCoords(coord, p_texture->width, p_texture->height);
+	ConvertTextureCoords(base_coord, p_texture->width, p_texture->height);
 
-	vao_id = p_graphics_manager->GenerateQuadVAO(&vertices[0], &colors[0], &coord[0]);
+	std::vector<float> colors;
+	std::vector<float> coord;
+
+	for (int i = 0; i < max_particle_count; i++) {
+		particles.push_back(Particle(glm::vec4(origin_offset, -1.0f, 0.0f),
+			GetRandomParticleVelocity(), particle_lifetime));
+		
+		//Top left vertex x, y and z
+		particle_vertex_list.push_back(single_particle_vertices[0]);
+		particle_vertex_list.push_back(single_particle_vertices[1]);
+		particle_vertex_list.push_back(single_particle_vertices[2]);
+
+		//Top right vertex x, y and z
+		particle_vertex_list.push_back(single_particle_vertices[3]);
+		particle_vertex_list.push_back(single_particle_vertices[4]);
+		particle_vertex_list.push_back(single_particle_vertices[5]);
+
+		//Bottom left vertex x, y and z
+		particle_vertex_list.push_back(single_particle_vertices[6]);
+		particle_vertex_list.push_back(single_particle_vertices[7]);
+		particle_vertex_list.push_back(single_particle_vertices[8]);
+
+		//Bottom right vertex x, y and z
+		particle_vertex_list.push_back(single_particle_vertices[9]);
+		particle_vertex_list.push_back(single_particle_vertices[10]);
+		particle_vertex_list.push_back(single_particle_vertices[11]);
+
+		//All vertices are going to have the same color
+		colors.push_back(base_colors[0]);
+		colors.push_back(base_colors[1]);
+		colors.push_back(base_colors[2]);
+		colors.push_back(base_colors[3]);
+
+		colors.push_back(base_colors[4]);
+		colors.push_back(base_colors[5]);
+		colors.push_back(base_colors[6]);
+		colors.push_back(base_colors[7]);
+
+		colors.push_back(base_colors[8]);
+		colors.push_back(base_colors[9]);
+		colors.push_back(base_colors[10]);
+		colors.push_back(base_colors[11]);
+
+		colors.push_back(base_colors[12]);
+		colors.push_back(base_colors[13]);
+		colors.push_back(base_colors[14]);
+		colors.push_back(base_colors[15]);
+
+
+		coord.push_back(base_coord[0]);
+		coord.push_back(base_coord[1]);
+
+		coord.push_back(base_coord[2]);
+		coord.push_back(base_coord[3]);
+
+		coord.push_back(base_coord[4]);
+		coord.push_back(base_coord[5]);
+
+		coord.push_back(base_coord[6]);
+		coord.push_back(base_coord[7]);
+
+		//Particle brightness for entire quad
+		particle_brightness_list.push_back(1.0f);
+	}
+
+	vao_id = p_graphics_manager->GenerateDynamicQuadVAO(
+		vertex_buffer_id, &colors[0], &coord[0], max_particle_count);
+
+	brightness_buffer_id = p_graphics_manager->GenerateDynamicArrayBuffer(
+		vao_id, 1, sizeof(float) * max_particle_count, 3);
+
+	p_graphics_manager->SetActiveShader("final");
 }
 
 /*Update each particle in the particle effect.
@@ -120,14 +195,44 @@ void ParticleEffect::Serialize(json json_object) {
 * Returns : void
 */
 void ParticleEffect::Update() {
-	//Respawn a max of 2 new particles per frame
-	for (unsigned int i = 0; i < particles_spawned_per_frame; i++) {
-		RespawnParticle(FirstUnusedParticle());
-	}
+	Uint32 dt = p_framerate_controller->GetPrevLoopDeltaTime();
 
-	for (auto &particle : particles) {
-		particle.life_time -= p_framerate_controller->GetPrevLoopDeltaTime();
-		particle.position += particle.velocity;
+	//Respawn a max of 2 new particles per frame
+	for (unsigned int j = 0; j < particles_spawned_per_frame; j++) {
+		RespawnParticle(GetLastUsedParticle());
+	}
+	float particle_lifetime_var;
+	unsigned int vertex_index = 0;
+	
+
+	for (unsigned int i=0; i < particles.size(); i++) {
+		particles[i].life_time -= dt;
+		particles[i].position += (particles[i].velocity * glm::vec4(dt / 1000.0f));
+
+		vertex_index = i * 12;
+		//Update the vertex list to send to the GPU
+		//Top left vertex x, y and z
+		particle_vertex_list[vertex_index] = (single_particle_vertices[0] + particles[i].position.x);
+		particle_vertex_list[vertex_index + 1] = (single_particle_vertices[1] + particles[i].position.y);
+		particle_vertex_list[vertex_index + 2] = (single_particle_vertices[2]);
+
+		//Top right vertex x, y and z
+		particle_vertex_list[vertex_index + 3] = (single_particle_vertices[3] + particles[i].position.x);
+		particle_vertex_list[vertex_index + 4] = (single_particle_vertices[4] + particles[i].position.y);
+		particle_vertex_list[vertex_index + 5] = (single_particle_vertices[5]);
+
+		//Bottom left vertex x, y and z
+		particle_vertex_list[vertex_index + 6] = (single_particle_vertices[6] + particles[i].position.x);
+		particle_vertex_list[vertex_index + 7] = (single_particle_vertices[7] + particles[i].position.y);
+		particle_vertex_list[vertex_index + 8] = (single_particle_vertices[8]);
+
+		//Bottom right vertex x, y and z
+		particle_vertex_list[vertex_index + 9] = (single_particle_vertices[9] + particles[i].position.x);
+		particle_vertex_list[vertex_index + 10] = (single_particle_vertices[10] + particles[i].position.y);
+		particle_vertex_list[vertex_index + 11] = (single_particle_vertices[11]);
+
+		particle_lifetime_var = pow(particles[i].life_time, 3) / pow(particle_lifetime, 3);
+		particle_brightness_list[i] = glm::max(particle_lifetime_var, 0.0f);
 	}
 
 	//Debug mode
@@ -135,13 +240,11 @@ void ParticleEffect::Update() {
 		SetTextureMode(0);
 	else
 		SetTextureMode(1);
+
 }
 
-//Global to keep track of the last used particle
-unsigned int lastUsedParticle = 0;
-
 //Get the index of a dead particle
-int ParticleEffect::FirstUnusedParticle() {
+int ParticleEffect::GetLastUsedParticle() {
 	for (unsigned int i = lastUsedParticle; i < max_particle_count; ++i) {
 		if (particles[i].life_time <= 0) {
 			lastUsedParticle = i;
@@ -173,9 +276,17 @@ void ParticleEffect::RespawnParticle(int particle_index) {
 * 
 */
 void ParticleEffect::Draw(ShaderProgram* program) {
+	p_graphics_manager->SetActiveShader("particles");
+
+	p_graphics_manager->SetProjectionMatrix();
+	p_graphics_manager->SetViewMatrix();
+
 	glm::mat4 final_translate_matrix;
 	GLuint loc;
 	glm::mat4 translate_matrix = p_owner_transform->GetTranslateMatrix();
+
+	p_graphics_manager->SetUniformMatrix4(
+		p_owner_transform->GetTranslateMatrix(), "translateMatrix");
 
 	p_graphics_manager->SetUniformMatrix4(
 		p_owner_transform->GetRotateMatrix(), "rotateMatrix");
@@ -193,22 +304,20 @@ void ParticleEffect::Draw(ShaderProgram* program) {
 
 	p_graphics_manager->SetUniformInt(texture_mode, "mode");
 
-	p_graphics_manager->SetUniformInt(1, "particle");
-
 	p_graphics_manager->SetAlphaBlendingOn();
-	for (auto &particle : particles) {
-		if (particle.life_time > 0)
-		{
-			final_translate_matrix = translate_matrix;
-			final_translate_matrix[3][0] += particle.position.x;
-			final_translate_matrix[3][1] += particle.position.y;
-			final_translate_matrix[3][2] += particle.position.z;
-			p_graphics_manager->SetUniformMatrix4(
-				final_translate_matrix, "translateMatrix");
-			p_graphics_manager->DrawQuad(vao_id);
-		}
-	}
+	p_graphics_manager->SetDepthTestOff();
+
+	p_graphics_manager->SetDynamicBufferData(vao_id, vertex_buffer_id, &particle_vertex_list[0],
+		sizeof(float) * particle_vertex_list.size());
+
+	p_graphics_manager->SetDynamicBufferData(vao_id, brightness_buffer_id, &particle_brightness_list[0],
+		sizeof(float) * particle_brightness_list.size());
+
+	p_graphics_manager->DrawQuad(vao_id, max_particle_count);
+	p_graphics_manager->SetDepthTestOn();
 	p_graphics_manager->SetAlphaBlendingOff();
+
+	p_graphics_manager->SetActiveShader("final");
 }
 
 /*Links the Particle Effect component with it's related components

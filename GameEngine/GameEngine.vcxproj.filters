@@ -304,5 +304,11 @@
     <None Include="Obj_defs\Tilemap1.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
+    <None Include="particles.vert">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="particles.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
