@@ -12,10 +12,9 @@ void Behavior::LoadScript()
 	p_lua_manager->RegPlayerFunctions(lua_state, GetOwner());
 
 
-	std::string file = "..\\Resources\\Scripts\\player_move.lua";
-
+	std::string file = "..\\Resources\\Scripts\\";
+	file += script_name;
 	script_result = lua_state.load_file(file);
-
 
 }
 
@@ -39,7 +38,7 @@ void Behavior::Update()
 //Serialize method. Nothing to do for Transform component.
 void Behavior::Serialize(json json_object)
 {
-
+	script_name = json_object["script_filename"];
 }
 
 //Links related components

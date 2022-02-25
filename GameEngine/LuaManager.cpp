@@ -65,7 +65,6 @@ void LuaManager::LoadBehaviorScripts()
 		if (bhv_comp != nullptr)
 		{
 			Behavior* move = dynamic_cast<Behavior*>(bhv_comp);
-
 			move->LoadScript();
 		}
 	}

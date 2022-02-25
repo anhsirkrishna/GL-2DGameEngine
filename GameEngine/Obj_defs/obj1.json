@@ -61,7 +61,9 @@
     },
     "TRANSFORM": {},
     "CONTROLLER": {},
-    "BEHAVIOR": {},
+    "BEHAVIOR": {
+      "script_filename": "player_move.lua"
+    },
     "COLLIDER": {
       "collider_offset_params": [ 0, 0, 24, 48 ]
     },
