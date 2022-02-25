@@ -72,35 +72,36 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Build\Lua\$(Configuration);$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(SolutionDir)..\lua-master;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Build\Lua\$(Configuration);$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(SolutionDir)..\lua-master;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Build\Lua\$(Configuration);$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(SolutionDir)..\lua-master;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Build\Lua\$(Configuration);$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(SolutionDir)..\lua-master;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Lua.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -110,14 +111,15 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Lua.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,12 +127,13 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Lua.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,19 +143,21 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Lua.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -174,6 +179,7 @@
     <ClCompile Include="GLQuad.cpp" />
     <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
     <ClCompile Include="MemoryManager.cpp" />
@@ -190,6 +196,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="Behavior.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
@@ -215,6 +222,7 @@
     <ClInclude Include="GLQuad.h" />
     <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LuaManager.h" />
     <ClInclude Include="Matrix3D.h" />
     <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="Movement.h" />

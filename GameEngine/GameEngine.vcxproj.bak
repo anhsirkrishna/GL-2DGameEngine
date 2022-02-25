@@ -73,22 +73,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x64;$(SolutionDir)..\SDL2_image-2.0.5\lib\x64;$(SolutionDir)..\glew-2.2.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x64;$(SolutionDir)..\SDL2_image-2.0.5\lib\x64;$(SolutionDir)..\glew-2.2.0\lib\Release\x64;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -100,7 +100,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -117,7 +117,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,7 +130,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,15 +147,19 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentCreator.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="EditorUI.cpp" />
     <ClCompile Include="External\imgui\imgui.cpp" />
@@ -169,22 +173,32 @@
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GLQuad.cpp" />
+    <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
+    <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="Movement.cpp" />
+    <ClCompile Include="ParticleEffect.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="Behavior.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentCreator.h" />
     <ClInclude Include="ComponentFactory.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="EditorUI.h" />
     <ClInclude Include="External\imgui\imconfig.h" />
@@ -202,12 +216,18 @@
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GLQuad.h" />
+    <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LuaManager.h" />
     <ClInclude Include="Matrix3D.h" />
+    <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="Movement.h" />
+    <ClInclude Include="ParticleEffect.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
@@ -215,7 +235,13 @@
     <None Include="final.frag" />
     <None Include="final.vert" />
     <None Include="Levels\Level_0.json" />
+    <None Include="Obj_defs\obj3.json" />
     <None Include="Obj_defs\obj1.json" />
+    <None Include="Obj_defs\obj2.json" />
+    <None Include="Obj_defs\Tilemap.json" />
+    <None Include="Obj_defs\Tilemap1.json" />
+    <None Include="particles.frag" />
+    <None Include="particles.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

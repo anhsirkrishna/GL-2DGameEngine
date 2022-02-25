@@ -1,71 +1,124 @@
 {
-   "COMPONENTS": {
-     "GLQUAD": {
-        "texture_names": [ "Player_idle" ],
-        "vertex_list": [
-            0,  0, 0,
-            0, 48, 0,
-            24, 48, 0,
-            24,  0, 0
-        ],
-        "color_list": [
-            0, 255,  0, 255,
-            50, 255, 50, 255,
-            0,   0,  0, 255,
-            50, 255, 50, 255
-        ],
-        "tex_coord_list": [
-            0,  0,
-            0, 32,
-            15, 32,
-            15,  0
-        ]
+  "COMPONENTS": {
+    "GLQUAD": {
+      "texture_names": [ "Player_idle" ],
+      "vertex_list": [
+        0,
+        0,
+        0,
+        0,
+        48,
+        0,
+        24,
+        48,
+        0,
+        24,
+        0,
+        0
+      ],
+      "color_list": [
+        0,
+        255,
+        0,
+        255,
+        50,
+        255,
+        50,
+        255,
+        0,
+        0,
+        0,
+        255,
+        50,
+        255,
+        50,
+        255
+      ],
+      "tex_coord_list": [
+        0,
+        0,
+        0,
+        32,
+        15,
+        32,
+        15,
+        0
+      ]
     },
     "ANIMATION": {
-        "frames": [
-          0, 0,
-          16, 0,
-          32, 0,
-          48, 0
-        ],
-        "looping": true,
-        "interval": 8
+      "frames": [
+        0,
+        0,
+        16,
+        0,
+        32,
+        0,
+        48,
+        0
+      ],
+      "looping": true,
+      "interval": 8
     },
     "TRANSFORM": {},
     "CONTROLLER": {},
+    "BEHAVIOR": {},
     "COLLIDER": {
-      "collider_offset_params" :  [0, 0, 24, 48]
+      "collider_offset_params": [ 0, 0, 24, 48 ]
     },
     "MOVEMENT": {
-      "gravity_on" : true
+      "gravity_on": true
     },
     "PARTICLE_EFFECT": {
       "texture_name": "flame_particle",
-        "vertex_list": [
-            0, 0, -1,
-            0, 5, -1,
-            5, 5, -1,
-            5, 0, -1
-        ],
-        "color_list": [
-            220, 100, 30, 255,
-            220, 100, 30, 255,
-            220, 100, 30, 255,
-            220, 100, 30, 255
-        ],
-        "tex_coord_list": [
-             0,   0,
-             0, 512,
-           512, 512,
-           512,  0
-        ],
-        "particle_offset": [24, 24],
-        "max_particle_count": 200,
-        "particle_lifetime": 1000,
-        "maximum_particle_velocity": [ 5, 0.0, 0.0 ],
-        "minimum_particle_velocity": [ -5, -10, 0.0 ]
+      "vertex_list": [
+        0,
+        0,
+        -1,
+        0,
+        5,
+        -1,
+        5,
+        5,
+        -1,
+        5,
+        0,
+        -1
+      ],
+      "color_list": [
+        220,
+        100,
+        30,
+        255,
+        220,
+        100,
+        30,
+        255,
+        220,
+        100,
+        30,
+        255,
+        220,
+        100,
+        30,
+        255
+      ],
+      "tex_coord_list": [
+        0,
+        0,
+        0,
+        512,
+        512,
+        512,
+        512,
+        0
+      ],
+      "particle_offset": [ 24, 24 ],
+      "max_particle_count": 200,
+      "particle_lifetime": 1000,
+      "maximum_particle_velocity": [ 5, 0.0, 0.0 ],
+      "minimum_particle_velocity": [ -5, -10, 0.0 ]
     }
-   },
+  },
   "STATES": {
     "IDLE": {
       "GLQUAD": {

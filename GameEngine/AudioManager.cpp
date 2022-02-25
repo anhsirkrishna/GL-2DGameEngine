@@ -72,7 +72,9 @@ void AudioManager::Play(std::string sound_name) const {
 	if (sound_map.at(sound_name))
 	{
 		result = system->playSound(sound_map.at(sound_name), 0, false, 0);
-		assert(result != FMOD_OK);
+#if DEBUG
+		assert(result == FMOD_OK);
+#endif
 	}
 	else
 	{

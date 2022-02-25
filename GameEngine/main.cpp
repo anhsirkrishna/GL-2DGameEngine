@@ -22,6 +22,7 @@
 #include "Collider.h"
 #include "MemoryManager.h"
 #include "GraphicsManager.h"
+#include "LuaManager.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -50,6 +51,7 @@ Camera* p_camera;
 GraphicsManager* p_graphics_manager;
 
 MemoryManager g_memory_manager;
+LuaManager* p_lua_manager;
 
 bool RUN_WITH_EDITOR = true;
 
@@ -74,6 +76,7 @@ void CreateManagers() {
 	p_editor = new Editor();
 	p_camera = new Camera(glm::vec3(0.0f, 0.0f, -262.0f));
 	p_graphics_manager = new GraphicsManager();
+	p_lua_manager = new LuaManager();
 }
 
 /*
@@ -133,6 +136,9 @@ int main(int argc, char* args[])
 	GameObjectFactory go_factory;
 	go_factory.CreateLevel(0);
 
+	p_lua_manager->LoadBehaviorScripts();
+
+
 	std::vector<GameObject*> new_go_list;
   
 	while (p_game_manager->Status())
@@ -144,6 +150,8 @@ int main(int argc, char* args[])
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
+
+		p_lua_manager->Update();
 
 
 		//-----------------------------------------------------------------------
