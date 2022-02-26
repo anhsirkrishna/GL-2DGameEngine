@@ -23,6 +23,7 @@
 #include "Collider.h"
 #include "MemoryManager.h"
 #include "GraphicsManager.h"
+#include "EventManager.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -50,6 +51,7 @@ ResourceManager* p_resource_manager;
 AudioManager* p_audio_manager;
 Camera* p_camera;
 GraphicsManager* p_graphics_manager;
+EventManager* p_event_manager;
 
 MemoryManager g_memory_manager;
 
@@ -79,6 +81,7 @@ void CreateManagers() {
 	p_camera = new Camera(glm::vec3(0.0f, 0.0f, -262.0f));
 	p_control_scheme_manager = new ControlSchemeManager();
 	p_graphics_manager = new GraphicsManager();
+	p_event_manager = new EventManager();
 }
 
 /*
@@ -95,6 +98,7 @@ void DeleteManagers() {
 	delete p_audio_manager;
 	delete p_editor;
 	delete p_camera;
+	delete p_event_manager;
 }
 
 /*
@@ -140,7 +144,8 @@ int main(int argc, char* args[])
 	go_factory.CreateLevel(0);
 
 	std::vector<GameObject*> new_go_list;
-  
+	GameObject* test_game_object = nullptr;
+
 	while (p_game_manager->Status())
 	{
 		p_framerate_controller->start_game_loop();
@@ -148,6 +153,7 @@ int main(int argc, char* args[])
 		p_game_obj_manager->Update();
 		p_input_manager->Update();
 		p_control_scheme_manager->Update();
+		p_event_manager->Update();
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
@@ -189,6 +195,18 @@ int main(int argc, char* args[])
 				if (game_object->HasComponent("CONTROLLER"))
 					game_object->state_manager.ChangeState("IDLE");
 			}
+		}
+
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_C)) {
+			p_event_manager->QueueTimedEvent(new TimedEvent(EventID::hit, true));
+		}
+
+		if (p_input_manager->isKeyPressed(SDL_SCANCODE_V)) {
+			for (auto game_object : p_game_obj_manager->game_object_list) {
+				if (game_object->HasComponent("PARTICLE_EFFECT"))
+					test_game_object = game_object;
+			}
+			p_event_manager->QueueTimedEvent(new TimedEvent(EventID::hit, false, test_game_object));
 		}
 
 		std::string pos_string = std::to_string(p_camera->position.x) + " " + std::to_string(p_camera->position.y) + " " + std::to_string(p_camera->position.z);

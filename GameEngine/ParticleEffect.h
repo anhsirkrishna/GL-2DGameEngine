@@ -64,6 +64,12 @@ private:
 	//Get a random particle velocity
 	glm::vec4 GetRandomParticleVelocity();
 
+	/*Respawn a set of particles with
+	* faster velocities and larger lifetime
+	* to produce a "Burst" effect
+	* Returns: void
+	*/
+	void BurstEffect(int burst_size);
 public:
 
 	//Default ctor to create a Particle Effect
@@ -99,4 +105,9 @@ public:
 	* Returns : void
 	*/
 	void Serialize(json json_object);
+
+	/*Handle an event sent to this component
+	* Returns: void
+	*/
+	virtual void HandleEvent(TimedEvent* p_event);
 };

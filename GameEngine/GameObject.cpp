@@ -63,3 +63,13 @@ void GameObject::Draw(ShaderProgram* program) {
 		component->Draw(program);
 	}
 }
+
+/*Handles an event sent to this object 
+* by passing the event onto all its components
+* Returns: void
+*/
+void GameObject::HandleEvent(TimedEvent* p_event) {
+	for (auto component : component_list) {
+		component->HandleEvent(p_event);
+	}
+}

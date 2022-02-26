@@ -20,6 +20,7 @@
 #include "MemoryManager.h"
 #include "GraphicsManager.h"
 #include "InputManager.h"
+#include "Events.h"
 
 #include <gtc/random.hpp>
 
@@ -331,4 +332,36 @@ void ParticleEffect::Link() {
 //Sets the render mode to color (int=0) or texture (int=1)
 void ParticleEffect::SetTextureMode(int mode_) {
 	texture_mode = mode_;
+}
+
+/*Respawn a set of particles with
+* faster velocities and larger lifetime
+* to produce a "Burst" effect
+* Returns: void
+*/
+void ParticleEffect::BurstEffect(int burst_size) {
+	//Respawn a max of 2 new particles per frame
+	unsigned int particle_index;
+	glm::vec4 new_velocity;
+	for (unsigned int j = 0; j < burst_size; j++) {
+		particle_index = GetLastUsedParticle();
+
+		particles[particle_index].life_time = particle_lifetime*2;
+		particles[particle_index].position = glm::vec4(origin_offset, 0.0f, 0.0f);
+		new_velocity = GetRandomParticleVelocity();
+		particles[particle_index].velocity.x = new_velocity.x * 10;
+		particles[particle_index].velocity.y = new_velocity.y * 10;
+		particles[particle_index].velocity.z = new_velocity.z * 10;
+	}
+}
+
+/*Handle an event sent to this component
+* Temporary behavior of producing a "Burst"
+* effect
+* Returns: void
+*/
+void ParticleEffect::HandleEvent(TimedEvent* p_event) {
+	if (p_event->event_id == EventID::hit) {
+		BurstEffect(50);
+	}
 }

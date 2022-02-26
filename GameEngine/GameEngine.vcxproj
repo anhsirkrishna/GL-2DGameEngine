@@ -160,6 +160,8 @@
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="ControlSchemeManager.cpp" />
+    <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="Events.cpp" />
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="EditorUI.cpp" />
     <ClCompile Include="External\imgui\imgui.cpp" />
@@ -198,6 +200,8 @@
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="ControlSchemeManager.h" />
+    <ClInclude Include="EventManager.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="EditorUI.h" />
     <ClInclude Include="External\imgui\imconfig.h" />

@@ -7,6 +7,7 @@
 //Forward declaration
 class Component;
 class ShaderProgram;
+class TimedEvent;
 
 /*
 * A GameObject class.
@@ -16,6 +17,10 @@ class ShaderProgram;
 */
 class GameObject {
 public:
+	//Index keeps track of the index with respect to the list of game objects
+	unsigned int index;
+	StateManager state_manager;
+
 	//Creates a named game object
 	GameObject(std::string object_name);
 
@@ -44,9 +49,12 @@ public:
 	//Calls the Draw() function for each of its components
 	void Draw(ShaderProgram* program);
 
-	//Index keeps track of the index with respect to the list of game objects
-	unsigned int index;
-	StateManager state_manager;
+	/*Handles an event sent to this object
+	* by passing the event onto all its components
+	* Returns: void
+	*/
+	void HandleEvent(TimedEvent* p_event);
+
 private:
 	std::string name;
 	std::vector<Component*> component_list;
