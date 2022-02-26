@@ -30,8 +30,8 @@
 unsigned int WORLD_WIDTH = 720;
 unsigned int WORLD_HEIGHT = 480;
 
-unsigned int WINDOW_WIDTH = 720;
-unsigned int WINDOW_HEIGHT = 480;
+unsigned int WINDOW_WIDTH = 960;
+unsigned int WINDOW_HEIGHT = 960;
 
 unsigned int DEFAULT_FRAMERATE = 60;
 
@@ -200,6 +200,8 @@ int main(int argc, char* args[])
 		p_game_obj_manager->Draw(p_shader_program);
 		p_shader_program->Unuse();
 
+		p_graphics_manager->PostProcess();
+		p_graphics_manager->DrawGBuffer();
 		//ImGui Render
 		if (RUN_WITH_EDITOR)
 			p_editor->Render();

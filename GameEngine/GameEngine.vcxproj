@@ -159,6 +159,7 @@
     <ClCompile Include="ComponentCreator.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="FBO.cpp" />
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="EditorUI.cpp" />
     <ClCompile Include="External\imgui\imgui.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="ComponentCreator.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="FBO.h" />
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="EditorUI.h" />
     <ClInclude Include="External\imgui\imconfig.h" />
@@ -230,7 +232,9 @@
   <ItemGroup>
     <None Include="final.frag" />
     <None Include="final.vert" />
+    <None Include="horizontal_blur.comp" />
     <None Include="Levels\Level_0.json" />
+    <None Include="Obj_defs\ice_ball.json" />
     <None Include="Obj_defs\obj3.json" />
     <None Include="Obj_defs\obj1.json" />
     <None Include="Obj_defs\obj2.json" />
@@ -238,6 +242,9 @@
     <None Include="Obj_defs\Tilemap1.json" />
     <None Include="particles.frag" />
     <None Include="particles.vert" />
+    <None Include="post.frag" />
+    <None Include="post.vert" />
+    <None Include="vertical_blur.comp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

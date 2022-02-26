@@ -23,6 +23,22 @@
     "obj_def": "obj2",
     "starting_position": [ -200, 500, 0, 0 ]
   },
+  "iceball0": {
+    "obj_def": "ice_ball",
+    "starting_position": [ 100, -50, -1, 0 ]
+  },
+  "iceball1": {
+    "obj_def": "ice_ball",
+    "starting_position": [ 200, -50, -1, 0 ]
+  },
+  "iceball2": {
+    "obj_def": "ice_ball",
+    "starting_position": [ 100, 30, -1, 0 ]
+  },
+  "iceball3": {
+    "obj_def": "ice_ball",
+    "starting_position": [ 200, 30, -1, 0 ]
+  },
   "background_obj": {
     "obj_def": "Tilemap1",
     "starting_position": [ 0, 0, 1, 0 ]

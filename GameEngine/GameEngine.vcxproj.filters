@@ -162,6 +162,9 @@
     <ClCompile Include="GraphicsManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
+    <ClCompile Include="FBO.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -278,6 +281,9 @@
     <ClInclude Include="GraphicsManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
+    <ClInclude Include="FBO.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -308,6 +314,21 @@
       <Filter>Source Files\Shaders</Filter>
     </None>
     <None Include="particles.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="post.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="post.vert">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="Obj_defs\ice_ball.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="horizontal_blur.comp">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="vertical_blur.comp">
       <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>

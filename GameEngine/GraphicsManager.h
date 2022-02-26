@@ -17,12 +17,20 @@ typedef void* SDL_GLContext;
 
 class ShaderProgram;
 struct SDL_Window;
+class FBO;
 
 class GraphicsManager {
 private:
 	ShaderProgram* p_active_shader;
 	GLuint window_width;
 	GLuint window_height;
+	FBO* g_buffer;
+	GLuint full_screen_quad_vao;
+	FBO* ping_pong_buffer;
+
+	//variable for gamma correction
+	float gamma;
+
 	/*
 	* Function to initalize SDL and Open GL and SDL_Image
 	* Sets the OpenGL Version
@@ -96,6 +104,12 @@ public:
 	*/
 	void BindAttrib(GLuint attrib, std::string var_name);
 
+	/*Function to bind an attribute location for output
+	* for a given variable
+	* Returns: void
+	*/
+	void BindOutputAttrib(GLuint attrib, std::string var_name);
+
 	/*Sends the GL_Draw call after binding the specified vao
 	* Returns: void
 	*/
@@ -121,6 +135,9 @@ public:
 	//Sets a uniform vec2
 	void SetUniformVec2(glm::vec2 const &var, std::string var_name);
 
+	//Sets a uniform vec3
+	void SetUniformVec3(glm::vec3 const& var, std::string var_name);
+
 	//Set blending on
 	void SetBlendingOn();
 
@@ -144,6 +161,36 @@ public:
 
 	//Set view Matrix
 	void SetViewMatrix();
+
+	//Performs all the post processing tasks required. 
+	void PostProcess();
+
+	/*Draw a full screen quad and render the GBuffer
+	* Returns: void
+	*/
+	void DrawGBuffer();
+
+	/*Create a quad that fills the entire screen.
+	* Used to render the gbuffer
+	* Returns: GLuint - vao_id of the quad
+	*/
+	GLuint GenerateFullScreenQuad();
+
+	/* Perform a blur on a given frame buffer
+	* Stores the blurred image in the ping_pong_buffer
+	* Returns: void
+	*/
+	void BlurBuffer(FBO* fbo, GLuint color_attachment, int iterations);
+
+	/* Bind a block to a bindpoint for the active shader
+	* Returns: void
+	*/
+	void BindBlockBinding(GLuint bind_point, std::string block_name);
+
+	/*Create a uniform block and send data to it
+	* Returns: GLuint - block_id for the created block
+	*/
+	GLuint GenerateUniformBlock(float const* block_data, size_t block_size, GLuint bind_point);
 };
 
 extern GraphicsManager* p_graphics_manager;

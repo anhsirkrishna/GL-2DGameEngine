@@ -34,21 +34,27 @@ Texture::Texture(const std::string& filename) {
 	glGenTextures(1, &texture_id);
 	glBindTexture(GL_TEXTURE_2D, texture_id);
 
-	int Mode = GL_RGB;
+	GLuint Mode = GL_SRGB;
+	GLuint format = GL_RGB;
 
 	if (loadedSurface->format->BytesPerPixel == 4) {
-		Mode = GL_RGBA;
+		Mode = GL_SRGB_ALPHA;
+		format = GL_RGBA;
 	}
 
-	glTexImage2D(GL_TEXTURE_2D, 0, Mode, loadedSurface->w, loadedSurface->h, 0, Mode, 
+	glTexImage2D(GL_TEXTURE_2D, 0, Mode, loadedSurface->w, loadedSurface->h, 0, format, 
 				 GL_UNSIGNED_BYTE, loadedSurface->pixels);
+	CHECKERROR;
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	CHECKERROR;
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLint)GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLint)GL_REPEAT);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	CHECKERROR;
+
 	SDL_FreeSurface(loadedSurface);
 }
 

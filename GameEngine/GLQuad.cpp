@@ -46,6 +46,8 @@ void GLQuad::Draw(ShaderProgram* program) {
 
 	p_graphics_manager->SetUniformVec2(converted_tex_offset, "tex_offset");
 
+	p_graphics_manager->SetUniformVec3(brightness, "brightness");
+
 	if (p_game_manager->GetDegugMode())
 		SetTextureMode(0);
 	else
@@ -128,6 +130,13 @@ void GLQuad::Serialize(json json_object) {
 	ConvertTextureCoords(tex_coord, p_texture->width, p_texture->height);
 
 	vao_id = p_graphics_manager->GenerateQuadVAO(&vertices[0], &colors[0], &tex_coord[0]);
+
+	if (json_object.contains("brightness")) {
+		auto bright_vals = json_object["brightness"].get<std::vector<float>>();
+		SetBrightness(glm::vec3(bright_vals[0], bright_vals[1], bright_vals[2]));
+	}
+	else
+		SetBrightness(glm::vec3(1.0f, 1.0f, 1.0f));
 }
 
 
@@ -148,4 +157,10 @@ void GLQuad::ChangeState(json json_object) {
 //Get the quad width and height
 glm::vec2 GLQuad::GetDimensions() {
 	return dimensions;
+}
+
+void GLQuad::SetBrightness(glm::vec3 const& brightness_) {
+	brightness.r = brightness_.r;
+	brightness.g = brightness_.g;
+	brightness.b = brightness_.b;
 }
