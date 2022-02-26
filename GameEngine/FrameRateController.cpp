@@ -4,8 +4,8 @@
 #include <string>
 
 /*Specify the framerate in FPS*/
-FrameRateController::FrameRateController(unsigned int frameRate) : time_per_frame(1000.0 / frameRate), loop_start_time(0),
-prev_loop_delta_time(0), frame_counter(0) {
+FrameRateController::FrameRateController(unsigned int frameRate) : time_per_frame(1000 / frameRate), loop_start_time(0),
+prev_loop_delta_time(0), frame_counter(0), timer(0) {
 }
 FrameRateController::~FrameRateController() {
 
@@ -19,10 +19,13 @@ void FrameRateController::end_game_loop() {
 	frame_counter++;
 	limit_frame_rate();
 	prev_loop_delta_time = SDL_GetTicks() - loop_start_time;
-	float avg_fps = frame_counter / (SDL_GetTicks() / 1000.0f);
-	std::string log_msg = "FPS : " + std::to_string(avg_fps);
-
-	p_editor->last_frame_fps = avg_fps;
+	timer += prev_loop_delta_time;
+	if (timer >= 1000) {
+		p_editor->last_frame_fps = frame_counter;
+		std::string log_msg = "FPS : " + std::to_string(frame_counter);
+		frame_counter = 0;
+		timer = 0;
+	}
 }
 
 void FrameRateController::limit_frame_rate() {
