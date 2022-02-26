@@ -1,12 +1,17 @@
-#pragma once
+/******************************************************************************/
+/*!
+/*File: Behavior.h
+/*Author: Brady Menendez
+/*Email: brady.m@digipen.edu
+/*Date   2/24/2022
+/*  Definition of the Behavior component
+*
+/* DigiPen Institute of Technology © 2022
+/******************************************************************************/
 #pragma once
 
 #include "Component.h"
-
 #include <sol/sol.hpp>
-
-
-class GLQuad;
 
 class Behavior : public Component {
 
@@ -27,8 +32,4 @@ public:
 
 	//Serialize method. Nothing to do for Transform component.
 	void Serialize(json json_object);
-
-	//Links related components
-	virtual void Link();
-	
 };

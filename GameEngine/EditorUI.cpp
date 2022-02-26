@@ -21,6 +21,9 @@
 #include "GameManager.h"
 #include "MemoryManager.h"
 #include "GraphicsManager.h"
+#include "InputManager.h"
+#include "FrameRateController.h"
+#include "Camera.h"
 
 /* Initializes imgui */
 void Editor::Init() const {
@@ -43,6 +46,23 @@ void Editor::NewFrame() const {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
+}
+
+void Editor::EditorCameraControls()
+{
+	// test camera movement lines
+	if (p_input_manager->isKeyPressed(12))
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_UP, p_framerate_controller->GetPrevLoopDeltaTime());
+	if (p_input_manager->isKeyPressed(13))
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_LEFT, p_framerate_controller->GetPrevLoopDeltaTime());
+	if (p_input_manager->isKeyPressed(14))
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_DOWN, p_framerate_controller->GetPrevLoopDeltaTime());
+	if (p_input_manager->isKeyPressed(15))
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_RIGHT, p_framerate_controller->GetPrevLoopDeltaTime());
+	if (p_input_manager->isKeyPressed(82))
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_FORWARD, p_framerate_controller->GetPrevLoopDeltaTime());
+	if (p_input_manager->isKeyPressed(81))
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_BACKWARD, p_framerate_controller->GetPrevLoopDeltaTime());
 }
 
 /* Debugging window implementation */
@@ -175,9 +195,7 @@ void Editor::GameObjectWindow() {
 				if (ImGui::BeginTabItem("Rendering"))
 				{
 					ImGui::Text(("Texture Name: " + obj_glquad->GetTexture()->name).c_str());
-
 					ImGui::Checkbox("Debug Draw", &p_game_manager->debug_mode);
-
 					ImGui::EndTabItem();
 				}
 
@@ -206,6 +224,7 @@ void Editor::Render() {
 	
 	DebuggerWindow();
 	GameObjectWindow();
+	EditorCameraControls();
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

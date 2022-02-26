@@ -97,15 +97,9 @@ void AudioManager::Update() {
 
 // deletes all sound pointers
 void AudioManager::Cleanup() {
-	/*
-	* This code is supposed to delete the sound created by FMOD
-	* But we haven't called new to create it
-	* So I don't think we can call delete on it like this
-	*
-	for (auto& sound_entry : sound_map)
-		delete sound_entry.second;
-	*/
 
+	for (auto& sound_entry : sound_map)
+		sound_entry.second->release();
 }
 
 // default destructor

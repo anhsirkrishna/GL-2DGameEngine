@@ -23,6 +23,7 @@ public:
 
 	void Init() const;
 	void NewFrame() const;
+	void EditorCameraControls();
 	void DebuggerWindow();
 	void GameObjectWindow();
 	void Render();

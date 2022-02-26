@@ -1,4 +1,3 @@
-#pragma once
 /******************************************************************************/
 /*!
 /*File: LuaManager.h
@@ -10,15 +9,11 @@
 /* DigiPen Institute of Technology © 2022
 /******************************************************************************/
 #pragma once
-
 #include <sol/sol.hpp>
-
-#include <string>
-
 
 class GameObject;
 
-// Custom FMOD Wrapper Class
+// Luabinding wrapper class using SOL
 class LuaManager
 {
 	sol::state lua_state;
@@ -30,9 +25,7 @@ public:
 	void Update();
 	void RegPlayerFunctions(sol::state& state, GameObject* obj);
 	void RegInputFunctions(sol::state& state);
-
 	void LoadBehaviorScripts();
-
 	void Cleanup();
 };
 
