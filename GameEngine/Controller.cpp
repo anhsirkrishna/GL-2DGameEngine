@@ -4,31 +4,35 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "Movement.h"
+#include "ControlSchemeManager.h"
 
 #include <SDL.h>
 
 void Controller::Update() {
 
+	std::unordered_map<Action, ControlState> actionState =
+		p_control_scheme_manager->GetActionStateMap();
+
 	// Move right
-	if (p_input_manager->isKeyPressed(SDL_SCANCODE_L)) {
+	if (actionState[Action::MOVE_RIGHT] == ControlState::HELD) {
 		p_owner_movement->MoveHorizontally(200.0f);
 	}
 
 	// Move left
-	if (p_input_manager->isKeyPressed(SDL_SCANCODE_J)) {
+	if (actionState[Action::MOVE_LEFT] == ControlState::HELD) {
 		p_owner_movement->MoveHorizontally(-200.0f);
 	}
 
 	// Jump
-	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_I)) {
+	if (actionState[Action::JUMP] == ControlState::RELEASED ) {
 		p_owner_movement->SetGravityUsage(true);
 		p_owner_movement->Jump(-200.0f);
 	}
 
 
 	// Stop horizontal movement
-	if (p_input_manager->isKeyReleased(SDL_SCANCODE_L) ||
-		p_input_manager->isKeyReleased(SDL_SCANCODE_J)) {
+	if (actionState[Action::MOVE_LEFT] == ControlState::RELEASED ||
+		actionState[Action::MOVE_RIGHT] == ControlState::RELEASED) {
 		p_owner_movement->MoveHorizontally(0);
 	}
 }

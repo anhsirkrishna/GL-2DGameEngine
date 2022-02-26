@@ -159,6 +159,7 @@
     <ClCompile Include="ComponentCreator.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="ControlSchemeManager.cpp" />
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="EditorUI.cpp" />
     <ClCompile Include="External\imgui\imgui.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="ComponentCreator.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="ControlSchemeManager.h" />
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="EditorUI.h" />
     <ClInclude Include="External\imgui\imconfig.h" />
@@ -236,6 +238,7 @@
     <None Include="Obj_defs\obj2.json" />
     <None Include="Obj_defs\Tilemap.json" />
     <None Include="Obj_defs\Tilemap1.json" />
+    <None Include="Settings\Control_Config.json" />
     <None Include="particles.frag" />
     <None Include="particles.vert" />
   </ItemGroup>

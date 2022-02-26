@@ -8,6 +8,7 @@
 #include "ShaderProgram.h"
 #include "GameObjectManager.h"
 #include "InputManager.h"
+#include "ControlSchemeManager.h"
 #include "FrameRateController.h"
 #include "ResourceManager.h"
 #include "AudioManager.h"
@@ -42,6 +43,7 @@ unsigned int DEFAULT_FRAMERATE = 60;
 GameObjectManager* p_game_obj_manager;
 GameManager* p_game_manager;
 InputManager* p_input_manager;
+ControlSchemeManager* p_control_scheme_manager;
 Editor* p_editor;
 FrameRateController* p_framerate_controller;
 ResourceManager* p_resource_manager;
@@ -51,7 +53,9 @@ GraphicsManager* p_graphics_manager;
 
 MemoryManager g_memory_manager;
 
-bool RUN_WITH_EDITOR = true;
+
+bool RUN_WITH_EDITOR = false;
+
 
 /*
 * Macro used to check for OpenGL errors.
@@ -73,6 +77,7 @@ void CreateManagers() {
 	p_audio_manager = new AudioManager();
 	p_editor = new Editor();
 	p_camera = new Camera(glm::vec3(0.0f, 0.0f, -262.0f));
+	p_control_scheme_manager = new ControlSchemeManager();
 	p_graphics_manager = new GraphicsManager();
 }
 
@@ -122,8 +127,9 @@ int main(int argc, char* args[])
 
 	// audio test - delete if needed
 	p_audio_manager->CreateSound("bass.wav");
-	
 
+	p_input_manager->CheckForController();
+	
 	if (RUN_WITH_EDITOR)
 		p_editor->Init();
 
@@ -141,6 +147,7 @@ int main(int argc, char* args[])
 
 		p_game_obj_manager->Update();
 		p_input_manager->Update();
+		p_control_scheme_manager->Update();
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
