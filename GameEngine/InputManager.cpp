@@ -3,17 +3,37 @@
 #include "Camera.h"
 #include <SDL.h>
 
+#include <iostream>
+
 /*
 * Default Ctor for InputManager
 * Intializes required data structures.
 * Intializes the game controller if found
 */
 InputManager::InputManager() : quit(false) {
+
 	memset(current_state, 0, 512 * sizeof * current_state);
 	memset(prev_state, 0, 512 * sizeof * prev_state);
-	prev_mouse_state = mouse_state = 0;
 
-	//Check for joysticks
+	memset(current_button_state, 0, SDL_CONTROLLER_BUTTON_MAX * sizeof * current_button_state);
+	memset(prev_button_state, 0, SDL_CONTROLLER_BUTTON_MAX * sizeof * prev_button_state);
+
+	memset(current_axis_state, 0, SDL_CONTROLLER_AXIS_MAX * sizeof * current_axis_state);
+	memset(prev_axis_state, 0, SDL_CONTROLLER_AXIS_MAX * sizeof * prev_axis_state);
+
+	prev_mouse_state = mouse_state = 0;
+}
+
+//Cleanup for Input Manager. Closes game controller if opened.
+InputManager::~InputManager() {
+	//Close the controller
+	SDL_GameControllerClose(p_controller);
+}
+
+// To check for controller
+void InputManager::CheckForController()
+{
+	// Check for joysticks
 	if (SDL_NumJoysticks() > 0)
 	{
 		//Load joystick
@@ -28,18 +48,13 @@ InputManager::InputManager() : quit(false) {
 	}
 }
 
-//Cleanup for Input Manager. Closes game controller if opened.
-InputManager::~InputManager() {
-	//Close the controller
-	SDL_GameControllerClose(p_controller);
-}
-
 
 /*
 * Calls SDL_PollEvent() which polls events from the queue
 * Updates Keyboard and Mouse states
 */
 void InputManager::Update() {
+
 	int numberOfItems = 0;
 	SDL_Event e;
 
@@ -64,6 +79,29 @@ void InputManager::Update() {
 			quit = true;
 		}
 	}
+
+
+	Uint8 new_button_state[SDL_CONTROLLER_BUTTON_MAX];
+	int new_axis_state[SDL_CONTROLLER_AXIS_MAX];
+
+	// Getting states of controller buttons
+	for (Uint8 i = 0; i < SDL_CONTROLLER_BUTTON_MAX; i++) {
+		new_button_state[i] = SDL_GameControllerGetButton(p_controller, SDL_GameControllerButton(i));
+	}
+	memcpy(prev_button_state, current_button_state, SDL_CONTROLLER_BUTTON_MAX * sizeof * current_button_state);
+	memcpy(current_button_state, new_button_state, SDL_CONTROLLER_BUTTON_MAX * sizeof * current_button_state);
+
+	// Getting states of controller joystick axes
+	int temp;
+	for (Uint8 i = 0; i < SDL_CONTROLLER_AXIS_MAX; i++) {
+		 temp = SDL_GameControllerGetAxis(p_controller, SDL_GameControllerAxis(i));
+
+		 new_axis_state[i] = (temp < -JOYSTICK_DEAD_ZONE) ? -1 :
+			 ((temp > JOYSTICK_DEAD_ZONE) ? 1 : 0);
+	}
+
+	memcpy(prev_axis_state, current_axis_state, SDL_CONTROLLER_AXIS_MAX * sizeof * current_axis_state);
+	memcpy(current_axis_state, new_axis_state, SDL_CONTROLLER_AXIS_MAX * sizeof * current_axis_state);
 
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(&numberOfItems);
 	if (numberOfItems > 512)
@@ -189,8 +227,52 @@ int InputManager::getLeftStickVertical() {
 * Returns bool : True if pressed
 */
 bool InputManager::isControllerButtonPressed(int button_code) {
-	if (SDL_GameControllerGetButton(p_controller, SDL_GameControllerButton(button_code)) == 1)
+	if (current_button_state[button_code])
 		return true;
-	
+		
 	return false;
+}
+
+
+/*
+* Checks if a particular controller button is being triggered in the current frame
+* Returns bool : True if triggered
+*/
+bool InputManager::isControllerButtonTriggered(int button_code) {
+	if (current_button_state[button_code] && !prev_button_state[button_code])
+		return true;
+
+	return false;
+}
+
+/*
+* Checks if a particular controller button is released in the current frame
+* Returns bool : True if released
+*/
+bool InputManager::isControllerButtonReleased(int button_code)
+{
+	if (!current_button_state[button_code] && prev_button_state[button_code])
+		return true;
+
+	return false;
+
+}
+
+/*
+* Checks if controller joystick is being released in the current frame
+* Returns bool : True if released
+*/
+bool InputManager::isControllerAxisReleased(int axis_code)
+{
+	if (prev_axis_state[axis_code] != current_axis_state[axis_code])
+		return true;
+
+	return false;
+}
+
+
+// Gets value of the axis state for the joytick in the current frame
+int InputManager::getAxisValueAt(int axis_code)
+{
+	return current_axis_state[axis_code];
 }

@@ -18,6 +18,9 @@ public:
 	//Cleanup for Input Manager. Closes game controller if opened.
 	~InputManager();
 
+	// To check for controller
+	void CheckForController();
+
 	/*
 	* Calls SDL_PollEvent() which polls events from the queue
 	* Updates Keyboard and Mouse states
@@ -87,12 +90,41 @@ public:
 	* Returns bool : True if pressed
 	*/
 	bool isControllerButtonPressed(int button_code);
+
+	/*
+	* Checks if a particular controller button is being triggered in the current frame
+	* Returns bool : True if triggered
+	*/
+	bool isControllerButtonTriggered(int button_code);
+
+	/*
+	* Checks if a particular controller button is being released in the current frame
+	* Returns bool : True if released
+	*/
+	bool isControllerButtonReleased(int button_code);
+
+	/*
+	* Checks if a particular controller joystick is being released in the current frame
+	* Returns bool : True if released
+	*/
+	bool isControllerAxisReleased(int axis_code);
+
+	// Gets the value of the axis state of joystick
+	int getAxisValueAt(int axis_code);
+
 public:
 	int mouse_x, mouse_y;
 private:
 private:
 	Uint8 current_state[512];
 	Uint8 prev_state[512];
+
+	Uint8 current_button_state[SDL_CONTROLLER_BUTTON_MAX];
+	Uint8 prev_button_state[SDL_CONTROLLER_BUTTON_MAX];
+
+	int current_axis_state[SDL_CONTROLLER_AXIS_MAX];
+	int prev_axis_state[SDL_CONTROLLER_AXIS_MAX];
+
 	Uint32 mouse_state;
 	Uint32 prev_mouse_state;
 	SDL_GameController* p_controller;

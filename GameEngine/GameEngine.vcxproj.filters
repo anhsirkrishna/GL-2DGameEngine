@@ -55,6 +55,9 @@
     <Filter Include="Source Files\Components\PlayerComponents">
       <UniqueIdentifier>{731a87e8-93a9-45e5-8b57-755a7f0f8b45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Settings">
+      <UniqueIdentifier>{330afc90-585b-4155-ad08-c20995402c86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -164,6 +167,9 @@
     </ClCompile>
     <ClCompile Include="FBO.cpp">
       <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlSchemeManager.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -284,6 +290,9 @@
     <ClInclude Include="FBO.h">
       <Filter>Source Files\Util</Filter>
     </ClInclude>
+    <ClInclude Include="ControlSchemeManager.h">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -310,6 +319,8 @@
     <None Include="Obj_defs\Tilemap1.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
+    <None Include="Settings\Control_Config.json">
+      <Filter>Source Files\Settings</Filter>
     <None Include="particles.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
