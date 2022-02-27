@@ -25,7 +25,6 @@ void Controller::Update() {
 
 	// Jump
 	if (actionState[Action::JUMP] == ControlState::RELEASED ) {
-		p_owner_movement->SetGravityUsage(true);
 		p_owner_movement->Jump(-200.0f);
 	}
 

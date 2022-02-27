@@ -16,8 +16,14 @@
 
 // Forward declaration
 class Transform;
+class Collider;
 
 using json = nlohmann::json;
+
+
+struct DirLocks {
+	bool down_lock, left_lock, right_lock;
+};
 
 class Movement : public Component {
 public:
@@ -34,13 +40,7 @@ public:
 	// Sets the velocity
 	void SetVelocity(glm::vec4 new_velocity);
 
-	// Decide whether to use gravity or not for owner object
-	void SetGravityUsage(bool gravity_on_or_off);
-
-	// Get the value of the gravity switch 
-	bool GetGravityUsage();
-
-	// Update the transform component of the owner game object
+	// Just check if any directional locks can be disabled if in case enabled
 	void Update();
 
 	// Sets the x velocity
@@ -55,10 +55,21 @@ public:
 	// Stores references to other components
 	void Link();
 
+
+	/* to lock or unlock movement in different directions
+	* 1st elem: Downward movement lock: vel y will remain zero
+	* 2nd elem: Leftward movement lock: vel x cannot be set to a -ve value and will remain zero
+	* 3rd elem: Righward movement lock: vel x cannot be set to a +ve value and will remain zero
+	*/
+
+	DirLocks dirLocks;
+
 private:
+
 	bool gravity_on;
 	float mass;
 	glm::vec4 velocity;
 	Transform* p_owner_transform;
+	Collider* p_owner_collider;
 };
 

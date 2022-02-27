@@ -183,6 +183,7 @@
     <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="Movement.cpp" />
     <ClCompile Include="ParticleEffect.cpp" />
+    <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StateManager.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="ParticleEffect.h" />
+    <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StateManager.h" />

@@ -19,6 +19,16 @@ class Transform;
 class Movement;
 
 
+class Collider;
+
+/* A reference to the colliders being touched from all directions.
+*  Needed to check if locks can be disabled back or not
+*/
+struct CollidersTouching {
+	Collider* beneath, * left, * right;
+};
+
+
 class Collider : public Component {
 public:
 	// Default ctor
@@ -30,6 +40,9 @@ public:
 	// Set offsets relative to the transform pos
 	void SetColliderOffsets(glm::vec4 offsets);
 
+	// Which collider is this object on top of?
+	void SetColliderOnTopOf(Collider* collider);
+
 	// Update transform position
 	void UpdateTransformPosition();
 
@@ -37,28 +50,25 @@ public:
 	void UpdateColliderPosition();
 
 	// Getter to get Collider Box Position
+	void SetColliderPosition(glm::vec4 new_col_pos);
+
+	// Getter to get Collider Box Position
 	glm::vec4 GetColliderPosition();
 
-	/*
-	* Update called once every game loop for the collider component
-	* Checks for collisions with every other game object.
-	*/
 	void Update();
 
 	// Link other components
 	void Link();
 
+	/* Stores references to 
+	   colliders being touched beneath, on the left, and right
+	*/
+	CollidersTouching colliders_touching;
 
 private:
 	Transform* p_owner_transform;
 	Movement* p_owner_movement;
 
-	/* A reference to the collider being touched.
-	*  Needed to check if gravity can be enabled back or not
-	*  Depending on whether one collider is 
-	*  left or right of collider_touching
-	*/
-	Collider* collider_touching;
 
 	/* Offset relative to transform component
 	 * x : offset from transform pos along x-axis
@@ -76,8 +86,5 @@ private:
 	 * w : half-height of collider box
 	 */
 	glm::vec4 col_pos;
-	
-	// Check for AABB collisions
-	bool AABB(glm::vec4 pos_0, glm::vec4 pos_1);
 };
 
