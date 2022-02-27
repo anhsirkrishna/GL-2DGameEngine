@@ -5,6 +5,7 @@
 //Forward declaration
 class GameObject;
 class ShaderProgram;
+class TimedEvent;
 
 using json = nlohmann::json;
 
@@ -34,7 +35,17 @@ public:
 	//Base Draw method. Does nothing.
 	virtual void Draw(ShaderProgram* p_program);
 
+	/*Changes the state of the component
+	* Individuals components have logic to do this
+	* Returns: void
+	*/
 	virtual void ChangeState(json json_object);
+
+	/*Handles the event sent to this component
+	* Individuals components have logic to do this
+	* Returns: void
+	*/
+	virtual void HandleEvent(TimedEvent* p_event);
 
 	//Returns the name of the component
 	std::string GetName();

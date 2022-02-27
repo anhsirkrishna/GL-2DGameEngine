@@ -28,7 +28,10 @@ void Component::Draw(ShaderProgram* p_program) {
 
 }
 
-//Base ChangeStateMethod. Does nothing.
+/*Changes the state of the component
+* Individuals components have logic to do this
+* Returns: void
+*/
 void Component::ChangeState(json json_object) {
 
 }
@@ -36,5 +39,13 @@ void Component::ChangeState(json json_object) {
 //Base Link method. Does nothing.
 //Individual components will have logic that links itself with other dependant components
 void Component::Link() {
+
+}
+
+/*Handles the event sent to this component
+* Individuals components have logic to do this
+* Returns: void
+*/
+void Component::HandleEvent(TimedEvent* p_event) {
 
 }

@@ -161,6 +161,8 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="FBO.cpp" />
     <ClCompile Include="ControlSchemeManager.cpp" />
+    <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="Events.cpp" />
     <ClCompile Include="FrameRateController.cpp" />
     <ClCompile Include="EditorUI.cpp" />
     <ClCompile Include="External\imgui\imgui.cpp" />
@@ -200,6 +202,8 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="FBO.h" />
     <ClInclude Include="ControlSchemeManager.h" />
+    <ClInclude Include="EventManager.h" />
+    <ClInclude Include="Events.h" />
     <ClInclude Include="FrameRateController.h" />
     <ClInclude Include="EditorUI.h" />
     <ClInclude Include="External\imgui\imconfig.h" />

@@ -58,6 +58,9 @@
     <Filter Include="Source Files\Settings">
       <UniqueIdentifier>{330afc90-585b-4155-ad08-c20995402c86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{f6f73177-502e-4845-b323-46a67bed7a49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -170,6 +173,12 @@
     </ClCompile>
     <ClCompile Include="ControlSchemeManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="EventManager.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="Events.cpp">
+      <Filter>Source Files\Events</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +302,12 @@
     <ClInclude Include="ControlSchemeManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Events.h">
+      <Filter>Source Files\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -321,6 +336,7 @@
     </None>
     <None Include="Settings\Control_Config.json">
       <Filter>Source Files\Settings</Filter>
+    </None>
     <None Include="particles.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
