@@ -1,10 +1,10 @@
 //Vertex shader
 
 #version 430
-in vec3 in_position;
-in vec4 in_Color;
-in vec2 in_TexCoords;
-in float in_particle_brightness;
+layout(location=0) in vec3 in_position;
+layout(location=1) in vec4 in_Color;
+layout(location=2) in vec2 in_TexCoords;
+layout(location=3) in float in_particle_brightness;
 
 uniform mat4 orthoGraphProj;
 uniform mat4 projection;

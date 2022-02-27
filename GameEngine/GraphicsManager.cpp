@@ -16,6 +16,8 @@
 #include "ShaderProgram.h"
 #include "Util.h"
 #include "Camera.h"
+#include "FBO.h"
+#include "InputManager.h"
 
 #include <SDL.h>
 #include <GL\glew.h>
@@ -40,13 +42,44 @@ GLuint ATTRIB_TEX_COORD = 2;
 */
 GraphicsManager::GraphicsManager() : p_active_shader(nullptr), p_sdl_window(nullptr), 
 									 p_gl_context(nullptr), window_width(WINDOW_WIDTH), 
-									 window_height(WINDOW_HEIGHT) {
+									 window_height(WINDOW_HEIGHT), gamma(2.2f) {
 	assert(GL_Initialize() == true);
 
 	//ShaderProgram is a util class to encapsulate common methods and attributes for ShaderPrograms
 	p_resource_manager->add_shader("final");
+	CHECKERROR;
+	p_resource_manager->add_shader("post");
+	CHECKERROR;
+
+	p_resource_manager->add_compute_shader("horizontal_blur");
+	CHECKERROR;
+	p_resource_manager->add_compute_shader("vertical_blur");
+	CHECKERROR;
+
+	SetActiveShader("post");
+	BindAttrib(0, "in_vertices");
 	SetActiveShader("final");
 	BindDefaultAttribLocations();
+	BindOutputAttrib(0, "out_Color");
+	BindOutputAttrib(1, "post_Buffer");
+
+	g_buffer = new FBO(window_width, window_height, 2);
+	ping_pong_buffer = new FBO(window_height, window_height, 2);
+
+	full_screen_quad_vao = GenerateFullScreenQuad();
+
+	float blur_weight[5] = { 0.227027, 0.1945946, 0.1216216, 0.054054, 0.016216 };
+	GLuint bind_point = 0;
+	GLuint h_block_id = GenerateUniformBlock(blur_weight, sizeof(float) * 5, bind_point);
+	SetActiveShader("horizontal_blur");
+	BindBlockBinding(bind_point, "blurKernel");
+
+	bind_point = 1;
+	GLuint v_block_id = GenerateUniformBlock(blur_weight, sizeof(float) * 5, bind_point);
+	SetActiveShader("vertical_blur");
+	BindBlockBinding(bind_point, "blurKernel");
+
+	SetActiveShader("final");
 }
 
 GraphicsManager::~GraphicsManager() {
@@ -136,10 +169,11 @@ bool GraphicsManager::GL_Initialize() {
 
 	int depth_size;
 	SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &depth_size);
-	
+	CHECKERROR;
 	SetDepthTestOn();
 	SetBlendingOn();
-
+	CHECKERROR;
+	
 	return true;
 }
 
@@ -149,8 +183,11 @@ bool GraphicsManager::GL_Initialize() {
 */
 void GraphicsManager::SetActiveShader(std::string shader_name) {
 	p_active_shader->Unuse();
+	CHECKERROR;
 	p_active_shader = p_resource_manager->get_shader(shader_name);
+	CHECKERROR;
 	p_active_shader->Use();
+	CHECKERROR;
 }
 
 /*Function to get the a shader program which
@@ -179,8 +216,22 @@ void GraphicsManager::BindDefaultAttribLocations() {
 * Returns: void
 */
 void GraphicsManager::ClearBuffer(glm::vec4 clear_color) {
+	glm::vec4 gamma_corrected(pow(clear_color.r, gamma), 
+							  pow(clear_color.g, gamma),
+							  pow(clear_color.b, gamma), 
+							  pow(clear_color.a, gamma));
 	glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	g_buffer->Bind();
+	glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	g_buffer->Unbind();
+
+	ping_pong_buffer->Bind();
+	glClearColor(clear_color.r, clear_color.g, clear_color.b, clear_color.a);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	ping_pong_buffer->Unbind();
 }
 
 /*Swap the currently active buffer
@@ -369,6 +420,11 @@ void GraphicsManager::BindAttrib(GLuint attrib, std::string var_name) {
 	CHECKERROR;
 }
 
+void GraphicsManager::BindOutputAttrib(GLuint attrib, std::string var_name) {
+	glBindFragDataLocation(p_active_shader->program_id, attrib, var_name.c_str());
+	CHECKERROR;
+}
+
 /*Dynamically set the data for a GL vertex buffer and send to the GPU
 * Returns: void
 */
@@ -386,11 +442,18 @@ void GraphicsManager::SetDynamicBufferData(GLuint vao_id, GLuint vertex_buffer_i
 * Returns: void
 */
 void GraphicsManager::DrawQuad(GLuint vao_id, unsigned int batch_size) {
+	g_buffer->Bind();
 	glBindVertexArray(vao_id);
 	CHECKERROR;
+
+	GLenum bufs[2] = { GL_COLOR_ATTACHMENT0_EXT , GL_COLOR_ATTACHMENT1_EXT };
+	glDrawBuffers(2, bufs);
+	CHECKERROR;
+
 	glDrawElements(GL_TRIANGLES, 6 * batch_size, GL_UNSIGNED_INT, NULL);
 	CHECKERROR;
 	glBindVertexArray(0);
+	g_buffer->Unbind();
 }
 
 //Sets a uniform int
@@ -422,6 +485,12 @@ void GraphicsManager::SetUniformVec2(glm::vec2 const& var, std::string var_name)
 	CHECKERROR;
 }
 
+//Sets a uniform vec3
+void GraphicsManager::SetUniformVec3(glm::vec3 const& var, std::string var_name) {
+	GLuint loc = glGetUniformLocation(p_active_shader->program_id, var_name.c_str());
+	glUniform3fv(loc, 1, &(var[0]));
+	CHECKERROR;
+}
 
 //Set blending on
 void GraphicsManager::SetBlendingOn() {
@@ -461,4 +530,170 @@ void GraphicsManager::SetViewMatrix() {
 	// set up view matrix for the camera
 	glm::mat4 view = p_camera->GetViewMatrix();
 	SetUniformMatrix4(view, "view");
+}
+
+//Performs all the post processing tasks required. 
+void GraphicsManager::PostProcess() {
+	BlurBuffer(g_buffer, 1, 3);
+}
+
+/*Draw a full screen quad and render the GBuffer
+* Returns: void
+*/
+void GraphicsManager::DrawGBuffer() {
+	SetActiveShader("post");
+
+	SetDepthTestOff();
+
+	glBindVertexArray(full_screen_quad_vao);
+	CHECKERROR;
+
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_R))
+		SetUniformInt(1, "debug");
+	else if (p_input_manager->isKeyPressed(SDL_SCANCODE_T))
+		SetUniformInt(2, "debug");
+	else
+		SetUniformInt(0, "debug");
+
+	g_buffer->BindTexture(GetActiveShader()->program_id, 2, "gBuffer", 0);
+	g_buffer->BindTexture(GetActiveShader()->program_id, 4, "gBuffer_d", 1);
+	ping_pong_buffer->BindTexture(GetActiveShader()->program_id, 3, "bloomBuffer", 1);
+	CHECKERROR;
+
+	SetUniformInt(window_width, "width");
+	SetUniformInt(window_height, "height");
+
+	SetUniformFloat(gamma, "gamma");
+
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
+	CHECKERROR;
+	glBindVertexArray(0);
+
+	SetDepthTestOn();
+
+	SetActiveShader("final");
+}
+
+/*Create a quad that fills the entire screen.
+* Used to render the gbuffer
+* Returns: GLuint - vao_id of the quad
+*/
+GLuint GraphicsManager::GenerateFullScreenQuad() {
+	float vertices[12] = {
+		-1,  1, 0,
+		-1, -1, 0,
+		 1, -1, 0,
+		 1,  1, 0
+	};
+
+	//Create a VAO and put the ID in vao_id
+	GLuint vao_id;
+	glGenVertexArrays(1, &vao_id);
+	//Use the same VAO for all the following operations
+	glBindVertexArray(vao_id);
+
+	//Create a continguous buffer for all the vertices/points
+	GLuint point_buffer;
+	glGenBuffers(1, &point_buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, point_buffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 12, vertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	CHECKERROR;
+
+	//IBO data
+	GLuint indeces[6] = {0, 1, 2, 0, 2, 3};
+	//Create IBO
+	GLuint indeces_buffer;
+	glGenBuffers(1, &indeces_buffer);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indeces_buffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint), indeces, 
+				 GL_STATIC_DRAW);
+	CHECKERROR;
+	glBindVertexArray(0);
+
+	return vao_id;
+}
+
+/* Perform a blur on a given frame buffer
+* Stores the blurred image in the ping_pong_buffer
+* Returns: void
+*/
+void GraphicsManager::BlurBuffer(FBO* fbo, GLuint color_attachment, int iterations) {
+	GLuint input_imageUnit = 0;
+	GLuint output_imageUnit = 1;
+	GLuint fbo_tex_id;
+	GLuint loc;
+	for (unsigned int i = 0; i < iterations; ++i) {
+		SetActiveShader("horizontal_blur");
+		if (i == 0) {
+			//Use the input fbo as the input for the first iteration
+			fbo_tex_id = fbo->textureID[color_attachment];
+			glBindImageTexture(input_imageUnit, fbo_tex_id, 0, GL_FALSE, 0, GL_READ_ONLY, GL_RGBA32F);
+			loc = glGetUniformLocation(GetActiveShader()->program_id, "src");
+			glUniform1i(loc, input_imageUnit);
+			CHECKERROR;
+		}
+		else {
+			//Use the ping pong buffer as the input for the other iterations
+			fbo_tex_id = ping_pong_buffer->textureID[1];
+			glBindImageTexture(input_imageUnit, fbo_tex_id, 0, GL_FALSE, 0, GL_READ_ONLY, GL_RGBA32F);
+			loc = glGetUniformLocation(GetActiveShader()->program_id, "src");
+			glUniform1i(loc, input_imageUnit);
+			CHECKERROR;
+		}
+		
+
+		fbo_tex_id = ping_pong_buffer->textureID[0];
+		glBindImageTexture(output_imageUnit, fbo_tex_id, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
+		loc = glGetUniformLocation(GetActiveShader()->program_id, "dst");
+		glUniform1i(loc, output_imageUnit);
+		CHECKERROR;
+
+		glDispatchCompute(window_width / 128, window_height, 1);
+		CHECKERROR;
+
+		SetActiveShader("vertical_blur");
+		fbo_tex_id = ping_pong_buffer->textureID[0];
+		glBindImageTexture(input_imageUnit, fbo_tex_id, 0, GL_FALSE, 0, GL_READ_ONLY, GL_RGBA32F);
+		loc = glGetUniformLocation(GetActiveShader()->program_id, "src");
+		glUniform1i(loc, input_imageUnit);
+		CHECKERROR;
+
+		fbo_tex_id = ping_pong_buffer->textureID[1];
+		glBindImageTexture(output_imageUnit, fbo_tex_id, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
+		loc = glGetUniformLocation(GetActiveShader()->program_id, "dst");
+		glUniform1i(loc, output_imageUnit);
+		CHECKERROR;
+
+		glDispatchCompute(window_width, window_height / 128, 1);
+		CHECKERROR;
+	}
+
+	SetActiveShader("final");
+}
+
+/*Create a uniform block and send data to it 
+* Returns: GLuint - block_id for the created block
+*/
+GLuint GraphicsManager::GenerateUniformBlock(float const* block_data, size_t block_size, GLuint bind_point) {
+	GLuint blockID;
+	glGenBuffers(1, &blockID);
+
+	glBindBuffer(GL_UNIFORM_BUFFER, blockID);
+	glBindBufferBase(GL_UNIFORM_BUFFER, bind_point, blockID);
+	glBufferData(GL_UNIFORM_BUFFER, block_size, block_data, GL_STATIC_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0);
+	CHECKERROR;
+
+	return blockID;
+}
+
+/* Bind a block to a bindpoint for the active shader
+* Returns: void
+*/
+void GraphicsManager::BindBlockBinding(GLuint bind_point, std::string block_name) {
+	GLuint loc = glGetUniformBlockIndex(GetActiveShader()->program_id, block_name.c_str());
+	glUniformBlockBinding(GetActiveShader()->program_id, loc, bind_point);
 }

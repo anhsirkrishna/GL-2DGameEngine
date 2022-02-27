@@ -47,6 +47,14 @@ public:
 	void add_shader(std::string file_name);
 	//Returns pointer to the shader program with the name specified
 	ShaderProgram* get_shader(std::string file_name);
+
+	/*Adds a compute shader program to the resource map.
+	* Adding a shader creates a ShaderProgram instance.
+	* This reads, loads and compiles the shader program.
+	* Requires the .comp file to have the same starting prefix filename
+	* Returns: void
+	*/
+	void add_compute_shader(std::string file_name);
 };
 
 extern ResourceManager * p_resource_manager;

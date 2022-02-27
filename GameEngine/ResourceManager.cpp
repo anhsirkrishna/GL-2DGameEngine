@@ -110,3 +110,19 @@ void ResourceManager::add_shader(std::string file_name) {
 		shader_map.insert({ file_name, p_shader_program });
 	}
 }
+
+/*Adds a compute shader program to the resource map.
+* Adding a shader creates a ShaderProgram instance.
+* This reads, loads and compiles the shader program.
+* Requires the .comp file to have the same starting prefix filename
+* Returns: void
+*/
+void ResourceManager::add_compute_shader(std::string file_name) {
+	if (get_shader(file_name) == NULL) {
+		std::string compute_shader_name = file_name + ".comp";
+		ShaderProgram* p_shader_program = new ShaderProgram();
+		p_shader_program->AddShader(compute_shader_name.c_str(), GL_COMPUTE_SHADER);
+		p_shader_program->LinkProgram();
+		shader_map.insert({ file_name, p_shader_program });
+	}
+}

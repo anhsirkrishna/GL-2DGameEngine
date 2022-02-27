@@ -32,6 +32,7 @@ private:
 	unsigned int texture_mode;
 	unsigned int vertex_count;
 	glm::vec2 dimensions;
+	glm::vec3 brightness;
 
 public:
 
@@ -83,4 +84,8 @@ public:
 
 	//Get the quad width and height
 	glm::vec2 GetDimensions();
+
+	//Set the brightness value for the quad which will be 
+	//multiplied to its colors
+	void SetBrightness(glm::vec3 const& brightness_);
 };
