@@ -23,6 +23,7 @@
 #include "Collider.h"
 #include "MemoryManager.h"
 #include "GraphicsManager.h"
+#include "LuaManager.h"
 #include "PhysicsWorld.h"
 #include "EventManager.h"
 
@@ -56,6 +57,7 @@ PhysicsWorld* p_physics_world;
 EventManager* p_event_manager;
 
 MemoryManager g_memory_manager;
+LuaManager* p_lua_manager;
 
 
 bool RUN_WITH_EDITOR = false;
@@ -68,7 +70,6 @@ bool RUN_WITH_EDITOR = false;
 */
 #define CHECKERROR {GLenum err = glGetError(); if (err != GL_NO_ERROR) { SDL_Log("OpenGL error (at line Main.cpp:%d): %s\n", __LINE__, glewGetErrorString(err));} }
 
-
 /*
 * Function to create all the global managers
 */
@@ -80,9 +81,10 @@ void CreateManagers() {
 	p_resource_manager = new ResourceManager();
 	p_audio_manager = new AudioManager();
 	p_editor = new Editor();
-	p_camera = new Camera(glm::vec3(0.0f, 0.0f, -262.0f));
+	p_camera = new Camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(0.0f, 0.0f, -262.0f));
 	p_control_scheme_manager = new ControlSchemeManager();
 	p_graphics_manager = new GraphicsManager();
+	p_lua_manager = new LuaManager();
 	p_physics_world = new PhysicsWorld();
 	p_event_manager = new EventManager();
 }
@@ -118,7 +120,6 @@ void CloseProgram() {
 	#ifdef DEBUG
 		FreeConsole();
 	#endif // DEBUG
-
 }
 
 
@@ -131,10 +132,6 @@ int main(int argc, char* args[])
 
 	//Create all the global managers
 	CreateManagers();
-
-	// audio test - delete if needed
-	p_audio_manager->CreateSound("bass.wav");
-
 	p_input_manager->CheckForController();
 	
 	if (RUN_WITH_EDITOR)
@@ -145,6 +142,10 @@ int main(int argc, char* args[])
 
 	GameObjectFactory go_factory;
 	go_factory.CreateLevel(0);
+
+	// loads behavior scripts after all game objects have been created 
+	// (components have an assigned parent)
+	p_lua_manager->LoadBehaviorScripts();
 
 	std::vector<GameObject*> new_go_list;
 	GameObject* test_game_object = nullptr;
@@ -160,6 +161,7 @@ int main(int argc, char* args[])
 		p_physics_world->DetectAndRecordCollisions();
 
 		p_game_obj_manager->Update();
+		p_lua_manager->Update();
 		p_input_manager->Update();
 		p_control_scheme_manager->Update();
 		p_event_manager->Update();
@@ -168,31 +170,6 @@ int main(int argc, char* args[])
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
-
-
-		//-----------------------------------------------------------------------
-
-
-		// test camera movement lines
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_W))
-			p_camera->ProcessKeyboardInput(CameraMovement::CAM_UP, p_framerate_controller->GetPrevLoopDeltaTime());
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_A))
-			p_camera->ProcessKeyboardInput(CameraMovement::CAM_LEFT, p_framerate_controller->GetPrevLoopDeltaTime());
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_S))
-			p_camera->ProcessKeyboardInput(CameraMovement::CAM_DOWN, p_framerate_controller->GetPrevLoopDeltaTime());
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_D))
-			p_camera->ProcessKeyboardInput(CameraMovement::CAM_RIGHT, p_framerate_controller->GetPrevLoopDeltaTime());
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_UP))
-			p_camera->ProcessKeyboardInput(CameraMovement::CAM_FORWARD, p_framerate_controller->GetPrevLoopDeltaTime());
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_DOWN))
-			p_camera->ProcessKeyboardInput(CameraMovement::CAM_BACKWARD, p_framerate_controller->GetPrevLoopDeltaTime());
-
-		// audio play test
-		if (p_input_manager->isKeyReleased(SDL_SCANCODE_P))
-		{
-			p_audio_manager->CreateSound("bass.wav");
-			p_audio_manager->Play("bass.wav");
-		}
 
 		//Test code for game object state management
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_X)) {
@@ -243,7 +220,6 @@ int main(int argc, char* args[])
 			p_editor->Render();
 
 		p_graphics_manager->SwapBuffers();
-
 		p_framerate_controller->end_game_loop();
 	}
 

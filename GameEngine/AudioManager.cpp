@@ -6,7 +6,7 @@
 /*Date   2/14/2022
 /*  Implementation of the Audio Manager Class
 *
-/* DigiPen Institute of Technology © 2022
+/* DigiPen Institute of Technology ï¿½ 2022
 /******************************************************************************/
 #include "AudioManager.h"
 #include <assert.h>
@@ -72,7 +72,9 @@ void AudioManager::Play(std::string sound_name) const {
 	if (sound_map.at(sound_name))
 	{
 		result = system->playSound(sound_map.at(sound_name), 0, false, 0);
+#if DEBUG
 		assert(result == FMOD_OK);
+#endif
 	}
 	else
 	{
@@ -95,15 +97,9 @@ void AudioManager::Update() {
 
 // deletes all sound pointers
 void AudioManager::Cleanup() {
-	/*
-	* This code is supposed to delete the sound created by FMOD
-	* But we haven't called new to create it
-	* So I don't think we can call delete on it like this
-	*
-	for (auto& sound_entry : sound_map)
-		delete sound_entry.second;
-	*/
 
+	for (auto& sound_entry : sound_map)
+		sound_entry.second->release();
 }
 
 // default destructor

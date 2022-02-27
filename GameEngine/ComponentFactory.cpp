@@ -20,6 +20,7 @@ ComponentFactory::ComponentFactory() {
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("ANIMATION", new AnimationCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("PARTICLE_EFFECT", new ParticleEffectCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("TILEMAP", new TilemapCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("BEHAVIOR", new BehaviorCreator));
 }
 
 ComponentFactory::~ComponentFactory() {

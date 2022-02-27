@@ -69,3 +69,24 @@ void Camera::UpdateCameraVectors()
 	right = glm::normalize(glm::cross(front, world_up));
 	up = glm::normalize(glm::cross(right, front));
 }
+
+glm::vec4 Camera::ScreenToWorld(int x, int y)
+{
+	float xnorm = (x / (float)window_width) * 2.0f - 1.0f;
+	float ynorm = -(y / (float)window_height) * 2.0f + 1.0f;
+	glm::vec4 screennorm(xnorm, -ynorm, -1.0f, 1.0f);
+
+	glm::mat4 projview = GetProjMatrix() * GetViewMatrix();
+	glm::mat4 projviewInv = glm::inverse(projview);
+
+	glm::vec4 worldpos = projviewInv * screennorm;
+	worldpos.w = 1.0f / worldpos.w;
+	worldpos.x *= worldpos.w;
+	worldpos.y *= worldpos.w;
+	worldpos.z *= worldpos.w;
+
+	return worldpos;
+}
+
+glm::mat4 Camera::GetViewMatrix() { return glm::lookAt(position, position + front, up); }
+glm::mat4 Camera::GetProjMatrix() { return glm::perspective(glm::radians(zoom), (float)window_width / (float)window_height, 0.1f, 10000.0f); }

@@ -39,10 +39,12 @@ SDL2.dll
 Json
 SDL2_image-2.0.5
 SDL2-2.0.16
+FMOD
 .vs
 glew*
 glm
 GameEngine/External
+Diagrams
 
 # vcxproj.user file 
 *.vcxproj.user

@@ -168,6 +168,12 @@
     <ClCompile Include="GraphicsManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
+    <ClCompile Include="Behavior.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaManager.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
     <ClCompile Include="FBO.cpp">
       <Filter>Source Files\Util</Filter>
     </ClCompile>
@@ -297,6 +303,12 @@
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
     <ClInclude Include="GraphicsManager.h">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
     <ClInclude Include="FBO.h">
