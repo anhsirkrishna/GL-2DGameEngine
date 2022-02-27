@@ -23,6 +23,7 @@
 #include "Collider.h"
 #include "MemoryManager.h"
 #include "GraphicsManager.h"
+#include "PhysicsWorld.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -50,6 +51,7 @@ ResourceManager* p_resource_manager;
 AudioManager* p_audio_manager;
 Camera* p_camera;
 GraphicsManager* p_graphics_manager;
+PhysicsWorld* p_physics_world;
 
 MemoryManager g_memory_manager;
 
@@ -79,6 +81,7 @@ void CreateManagers() {
 	p_camera = new Camera(glm::vec3(0.0f, 0.0f, -262.0f));
 	p_control_scheme_manager = new ControlSchemeManager();
 	p_graphics_manager = new GraphicsManager();
+	p_physics_world = new PhysicsWorld();
 }
 
 /*
@@ -140,14 +143,21 @@ int main(int argc, char* args[])
 	go_factory.CreateLevel(0);
 
 	std::vector<GameObject*> new_go_list;
+
+	p_physics_world->Init();
   
 	while (p_game_manager->Status())
 	{
 		p_framerate_controller->start_game_loop();
 
+		p_physics_world->Integrate();
+		p_physics_world->DetectAndRecordCollisions();
+
 		p_game_obj_manager->Update();
 		p_input_manager->Update();
 		p_control_scheme_manager->Update();
+
+		p_physics_world->ResolveCollisions();
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();

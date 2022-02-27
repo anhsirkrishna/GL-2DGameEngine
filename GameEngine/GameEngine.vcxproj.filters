@@ -168,6 +168,9 @@
     <ClCompile Include="ControlSchemeManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicsWorld.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -287,6 +290,9 @@
     <ClInclude Include="ControlSchemeManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
+    <ClInclude Include="PhysicsWorld.h">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -315,6 +321,7 @@
     </None>
     <None Include="Settings\Control_Config.json">
       <Filter>Source Files\Settings</Filter>
+    </None>
     <None Include="particles.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
