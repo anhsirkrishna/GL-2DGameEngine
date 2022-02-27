@@ -17,6 +17,7 @@
 #include "Animation.h"
 #include "ParticleEffect.h"
 #include "Tilemap.h"
+#include "MemoryManager.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.

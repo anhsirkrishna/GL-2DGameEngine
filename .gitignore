@@ -44,7 +44,11 @@ FMOD
 glew*
 glm
 GameEngine/External
+<<<<<<< HEAD
 GameEngine/imgui.ini
+=======
+Diagrams
+>>>>>>> b123f631bea0010ede91475dc6df9188d9687b81
 
 # vcxproj.user file 
 *.vcxproj.user

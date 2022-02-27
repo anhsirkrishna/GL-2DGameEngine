@@ -6,7 +6,7 @@
 /*Date   1/12/2022
 /*  Implementation of the Editor Class
 *
-/* DigiPen Institute of Technology © 2022
+/* DigiPen Institute of Technology ï¿½ 2022
 /******************************************************************************/
 #include "EditorUI.h"
 #include <string>
@@ -22,17 +22,19 @@
 #include "Tilemap.h"
 #include "Movement.h"
 #include "GameManager.h"
-
+#include "MemoryManager.h"
+#include "GraphicsManager.h"
 
 /* Initializes imgui */
-void Editor::Init(SDL_Window* window, SDL_GLContext context) const {
+void Editor::Init() const {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 	ImGui::StyleColorsDark();
 
-	ImGui_ImplSDL2_InitForOpenGL(window, context);
+	ImGui_ImplSDL2_InitForOpenGL(p_graphics_manager->p_sdl_window,
+								 p_graphics_manager->p_gl_context);
 
 	std::string glsl_version = "#version 130";
 	ImGui_ImplOpenGL3_Init(glsl_version.c_str());
@@ -51,6 +53,8 @@ void Editor::DebuggerWindow() {
 	ImGui::Begin("Debug Info");
 
 	ImGui::Text("FPS: %s", std::to_string(last_frame_fps).c_str());
+	ImGui::Text("Memory Consumption (Kb): %s",
+		std::to_string(g_memory_manager.GetMemoryUsedKBytes()).c_str());
 
 	ImGui::Checkbox("Debug Draw", &p_game_manager->debug_mode);
 

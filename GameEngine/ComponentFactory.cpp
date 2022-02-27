@@ -9,6 +9,7 @@
 /******************************************************************************/
 
 #include "ComponentFactory.h"
+#include "MemoryManager.h"
 
 ComponentFactory::ComponentFactory() {
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("TRANSFORM", new TransformCreator));
