@@ -72,6 +72,19 @@ void Editor::DebuggerWindow() {
 	ImGui::Text("FPS: %s", std::to_string(last_frame_fps).c_str());
 	ImGui::Text("Memory Consumption (Kb): %s",
 		std::to_string(g_memory_manager.GetMemoryUsedKBytes()).c_str());
+
+	int x, y;
+
+	SDL_GetMouseState(&x, &y);
+
+	mouse_worldpos = p_camera->ScreenToWorld(x, y);
+
+
+	std::string mouse_pos = "Mouse Pos: (" + std::to_string(mouse_worldpos.x) + ", " + std::to_string(mouse_worldpos.y) + ")";
+
+	ImGui::Text(mouse_pos.c_str());
+
+
 	ImGui::End();
 }
 

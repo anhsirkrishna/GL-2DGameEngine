@@ -49,7 +49,11 @@ public:
 	float zoom;
 	float zoom_speed;
 
-	Camera(glm::vec3 position_ = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up_ = glm::vec3(0.0f, -1.0f, 0.0f), float yaw_ = YAW, float pitch_ = PITCH) : front(glm::vec3(0.0f, 0.0f, 1.0f)), movement_speed(SPEED), zoom(ZOOM), zoom_speed(ZOOM_SPEED)
+	int window_height;
+	int window_width;
+
+	Camera(int width, int height, glm::vec3 position_ = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up_ = glm::vec3(0.0f, -1.0f, 0.0f), float yaw_ = YAW, float pitch_ = PITCH) :
+		front(glm::vec3(0.0f, 0.0f, 1.0f)), movement_speed(SPEED), zoom(ZOOM), zoom_speed(ZOOM_SPEED), window_width(width), window_height(height)
 	{
 		position = position_;
 		world_up = up_;
@@ -58,9 +62,11 @@ public:
 		UpdateCameraVectors();
 	}
 
-	glm::mat4 GetViewMatrix() { return glm::lookAt(position, position + front, up); }
+	glm::mat4 GetViewMatrix();
+	glm::mat4 GetProjMatrix();
 	void ProcessKeyboardInput(CameraMovement direction, float dt);
 	void ProcessZoom(CameraMovement direction);
+	glm::vec4 Camera::ScreenToWorld(int x, int y);
 
 private:
 

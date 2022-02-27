@@ -72,7 +72,7 @@ void CreateManagers() {
 	p_resource_manager = new ResourceManager();
 	p_audio_manager = new AudioManager();
 	p_editor = new Editor();
-	p_camera = new Camera(glm::vec3(0.0f, 0.0f, -262.0f));
+	p_camera = new Camera(WINDOW_WIDTH, WINDOW_HEIGHT, glm::vec3(0.0f, 0.0f, -262.0f));
 	p_graphics_manager = new GraphicsManager();
 	p_lua_manager = new LuaManager();
 }
