@@ -19,10 +19,13 @@ void main() {
 	vec2 uv = gl_FragCoord.xy / vec2(width, height);
 	vec4 fragColor = texture(gBuffer, uv);
 	vec4 bloomColor;
-	if (uv.x < 0.92)
-		bloomColor = texture(bloomBuffer, uv);
+	bloomColor = texture(bloomBuffer, uv);
 	if (debug == 1)
 		bloomColor = vec4(0.0f);
+	if (debug == 2){
+		out_color = texture(gBuffer_d, uv);
+		return;
+	}
 	fragColor += bloomColor;
 
 	//Convert color back into sRGB space

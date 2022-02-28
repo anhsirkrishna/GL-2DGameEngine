@@ -78,6 +78,8 @@ void ParticleEffect::Serialize(json json_object) {
 	p_graphics_manager->SetActiveShader("particles");
 	p_graphics_manager->BindDefaultAttribLocations();
 	p_graphics_manager->BindAttrib(3, "in_particle_brightness");
+	p_graphics_manager->BindOutputAttrib(0, "out_Color");
+	p_graphics_manager->BindOutputAttrib(1, "post_Buffer");
 
 	auto particle_velocity = 
 		json_object["maximum_particle_velocity"].get<std::vector<float>>();
@@ -205,7 +207,7 @@ void ParticleEffect::Update() {
 	float particle_lifetime_var;
 	unsigned int vertex_index = 0;
 	
-
+	float z = single_particle_vertices[2];
 	for (unsigned int i=0; i < particles.size(); i++) {
 		particles[i].life_time -= dt;
 		particles[i].position += (particles[i].velocity * glm::vec4(dt / 1000.0f));
@@ -215,25 +217,27 @@ void ParticleEffect::Update() {
 		//Top left vertex x, y and z
 		particle_vertex_list[vertex_index] = (single_particle_vertices[0] + particles[i].position.x);
 		particle_vertex_list[vertex_index + 1] = (single_particle_vertices[1] + particles[i].position.y);
-		particle_vertex_list[vertex_index + 2] = (single_particle_vertices[2]);
+		particle_vertex_list[vertex_index + 2] = z;
 
 		//Top right vertex x, y and z
 		particle_vertex_list[vertex_index + 3] = (single_particle_vertices[3] + particles[i].position.x);
 		particle_vertex_list[vertex_index + 4] = (single_particle_vertices[4] + particles[i].position.y);
-		particle_vertex_list[vertex_index + 5] = (single_particle_vertices[5]);
+		particle_vertex_list[vertex_index + 5] = z;
 
 		//Bottom left vertex x, y and z
 		particle_vertex_list[vertex_index + 6] = (single_particle_vertices[6] + particles[i].position.x);
 		particle_vertex_list[vertex_index + 7] = (single_particle_vertices[7] + particles[i].position.y);
-		particle_vertex_list[vertex_index + 8] = (single_particle_vertices[8]);
+		particle_vertex_list[vertex_index + 8] = z;
 
 		//Bottom right vertex x, y and z
 		particle_vertex_list[vertex_index + 9] = (single_particle_vertices[9] + particles[i].position.x);
 		particle_vertex_list[vertex_index + 10] = (single_particle_vertices[10] + particles[i].position.y);
-		particle_vertex_list[vertex_index + 11] = (single_particle_vertices[11]);
+		particle_vertex_list[vertex_index + 11] = z;
 
 		particle_lifetime_var = pow(particles[i].life_time, 3) / pow(particle_lifetime, 3);
 		particle_brightness_list[i] = glm::max(particle_lifetime_var, 0.0f);
+
+		z += 0.01;
 	}
 
 	//Debug mode
@@ -306,7 +310,7 @@ void ParticleEffect::Draw(ShaderProgram* program) {
 	p_graphics_manager->SetUniformInt(texture_mode, "mode");
 
 	p_graphics_manager->SetAlphaBlendingOn();
-	p_graphics_manager->SetDepthTestOff();
+	//p_graphics_manager->SetDepthTestOff();
 
 	p_graphics_manager->SetDynamicBufferData(vao_id, vertex_buffer_id, &particle_vertex_list[0],
 		sizeof(float) * particle_vertex_list.size());
@@ -315,7 +319,7 @@ void ParticleEffect::Draw(ShaderProgram* program) {
 		sizeof(float) * particle_brightness_list.size());
 
 	p_graphics_manager->DrawQuad(vao_id, max_particle_count);
-	p_graphics_manager->SetDepthTestOn();
+	//p_graphics_manager->SetDepthTestOn();
 	p_graphics_manager->SetAlphaBlendingOff();
 
 	p_graphics_manager->SetActiveShader("final");

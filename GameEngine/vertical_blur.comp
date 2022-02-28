@@ -2,21 +2,23 @@
 
 layout (local_size_x = 1, local_size_y = 128, local_size_z = 1) in; // Declares thread group size
 
-uniform blurKernel {float weights[5]; }; // Declares a uniform block
+uniform blurKernel {float weights[21]; }; // Declares a uniform block
 
 layout (rgba32f) uniform readonly image2D src; // src image as 4 channel 32bit float readonly
 layout (rgba32f) uniform writeonly image2D dst; // dst image as 4 channel 32bit float writeonly
 
 // Variable shared with other threads in the 128x1 thread group
-shared vec4 v[128+5];
+shared vec4 v[128+21];
+
+uniform int width;
 
 void main() {
-	int width = 2;
+
 	ivec2 gpos = ivec2(gl_GlobalInvocationID.xy);
 	uint i = gl_LocalInvocationID.y; // Local thread id in the 128x1 thread groups128x1
 	v[i] = imageLoad(src, gpos + ivec2(0, -width)); // read an image pixel at an ivec2(.,.) position
 	//v[i] = imageLoad(src, gpos); // read an image pixel at an ivec2(.,.) position
-	//if (i < 2*width) 
+	if (i < 2*width) 
 		v[i+128] = imageLoad(src, gpos+ivec2(0, 128-width)); 
 	
 	barrier(); // Wait for all threads to catchup before reading v[]
