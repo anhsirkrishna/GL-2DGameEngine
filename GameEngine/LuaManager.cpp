@@ -37,7 +37,7 @@ void LuaManager::RegPlayerFunctions(sol::state& state, GameObject* obj) {
 
 		state.set_function("move", &Movement::MoveHorizontally, move);
 		state.set_function("jump", &Movement::Jump, move);
-		state.set_function("set_grav", &Movement::SetGravityUsage, move);
+		//state.set_function("set_grav", &Movement::SetGravityUsage, move);
 	}
 }
 

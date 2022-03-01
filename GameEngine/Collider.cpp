@@ -9,7 +9,7 @@
 Collider::Collider() : Component("COLLIDER"), 
 					   p_owner_transform(nullptr), 
 					   p_owner_movement(nullptr),
-					   colliders_touching({nullptr, nullptr, nullptr}),
+					   colliders_touching({nullptr, nullptr, nullptr, nullptr}),
 					   pos_offset(glm::vec4(0)),
 					   col_pos(glm::vec4(0)) 
 {}

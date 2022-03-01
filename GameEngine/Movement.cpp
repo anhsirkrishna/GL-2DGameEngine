@@ -4,13 +4,12 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "Collider.h"
-#include "ControlSchemeManager.h"
 
 #include <SDL.h>
 #include <glm.hpp>
 
 Movement::Movement() : Component("MOVEMENT"), p_owner_transform(nullptr), p_owner_collider(nullptr),
-					mass(5), velocity(glm::vec4(0)), gravity_on(false), dirLocks({false, false, false}) {}
+					mass(5), velocity(glm::vec4(0)), gravity_on(false), dirLocks({false, false, false, false}) {}
 
 // Returns the mass value
 float Movement::GetMass() {
@@ -32,19 +31,36 @@ void Movement::SetVelocity(glm::vec4 new_velocity)
 // Just check if any directional locks can be disabled if in case enabled
 void Movement::Update()
 {
-	std::unordered_map<Action, ControlState> actionState =
-		p_control_scheme_manager->GetActionStateMap();
-
 	glm::vec4 col_pos = p_owner_collider->GetColliderPosition();
 
-	// For collision handling
+
+	// If beneath another object
+	if (p_owner_collider->colliders_touching.above != nullptr) {
+
+		glm::vec4 col_pos_other = p_owner_collider->colliders_touching.above->GetColliderPosition();
+
+		/* If far enough below the object OR
+		 * left or right of that touching object - and hence not touching anymore
+		 */
+		if ((col_pos.y - col_pos.w) - (col_pos_other.y + col_pos_other.w) > 2.0f ||
+		   ((col_pos.x + col_pos.z) < (col_pos_other.x - col_pos_other.z) ||
+			(col_pos.x - col_pos.z) > (col_pos_other.x + col_pos_other.z))) {
+
+			// Unlock downward movement. And not touching anything beneath it anymore
+			dirLocks.up_lock = false;
+			p_owner_collider->colliders_touching.above = nullptr;
+		}
+	}
+
 	// If standing on another object
 	if (p_owner_collider->colliders_touching.beneath != nullptr) {
 
 		glm::vec4 col_pos_other = p_owner_collider->colliders_touching.beneath->GetColliderPosition();
 
-		//If left or right of that touching object -  and hence not touching anymore
-		if  (actionState[Action::JUMP] == ControlState::RELEASED ||
+		/* If far enough above the object OR
+		 * left or right of that touching object -  and hence not touching anymore 
+		 */
+		if  ((col_pos_other.y - col_pos_other.w) - (col_pos.y + col_pos.w) > 2.0f ||
 			((col_pos.x + col_pos.z) < (col_pos_other.x - col_pos_other.z) ||
 			(col_pos.x - col_pos.z) > (col_pos_other.x + col_pos_other.z))) {
 
@@ -59,10 +75,11 @@ void Movement::Update()
 
 		glm::vec4 col_pos_other = p_owner_collider->colliders_touching.right->GetColliderPosition();
 
-		/* If moved right, or above or below the touching object on the right
+		/* If far enough left from the object, OR 
+		 * above or below the touching object on the right
 		 * Release right ward movement lock. (Can move right now)
 		 */
-		if (actionState[Action::MOVE_LEFT] == ControlState::TRIGGERED ||
+		if  ((col_pos_other.x - col_pos_other.z) - (col_pos.x + col_pos.z) > 1.5f ||
 			((col_pos.y - col_pos.w) > (col_pos_other.y + col_pos_other.w)) ||
 			((col_pos.y + col_pos.w) < (col_pos_other.y - col_pos_other.w))) {
 
@@ -77,10 +94,11 @@ void Movement::Update()
 		glm::vec4 col_pos_other = p_owner_collider->colliders_touching.left->GetColliderPosition();
 
 
-		/* If moved right, or above or below the touching object on the left
+		/* If far enough right from the object, OR
+         * above or below the touching object on the right
 		 * Release leftward movement lock. (Can move left now)
 		 */
-		if (actionState[Action::MOVE_RIGHT] == ControlState::TRIGGERED ||
+		if ((col_pos.x - col_pos.z) - (col_pos_other.x + col_pos_other.z) > 1.5f ||
 			((col_pos.y - col_pos.w) > (col_pos_other.y + col_pos_other.w)) ||
 			((col_pos.y + col_pos.w) < (col_pos_other.y - col_pos_other.w))) {
 
