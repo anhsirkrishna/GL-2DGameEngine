@@ -152,6 +152,13 @@ void PhysicsWorld::ResolveCollisions()
 
 			col_pos_a.y = col_pos_b.y + col_pos_b.w + col_pos_a.w + 0.5f;
 			vel.y = 0;
+
+			/* Store a reference to the collider of
+			 * the object being touched above (conceptually)
+			 * in the moving object's collider. Lock upward movement
+			 */
+			c->collider_a->colliders_touching.above = c->collider_b;
+			mov_a->dirLocks.up_lock = true;
 		}
 
 		/* Moving object touches the TOP of a platform - similar logic as previous
@@ -165,8 +172,6 @@ void PhysicsWorld::ResolveCollisions()
 
 			col_pos_a.y = col_pos_b.y - col_pos_b.w - col_pos_a.w - 0.5f;
 			vel.y = 0;
-
-
 
 			/* Store a reference to the collider of
 			 * the object being touched beneath (conceptually)

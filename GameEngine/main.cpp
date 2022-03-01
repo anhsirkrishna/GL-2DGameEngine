@@ -60,7 +60,7 @@ MemoryManager g_memory_manager;
 LuaManager* p_lua_manager;
 
 
-bool RUN_WITH_EDITOR = false;
+bool RUN_WITH_EDITOR = true;
 
 
 /*
