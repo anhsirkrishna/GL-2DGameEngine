@@ -25,7 +25,7 @@ class Collider;
 *  Needed to check if locks can be disabled back or not
 */
 struct CollidersTouching {
-	Collider* beneath, * left, * right;
+	Collider* above, * beneath, * left, * right;
 };
 
 
@@ -61,7 +61,7 @@ public:
 	void Link();
 
 	/* Stores references to 
-	   colliders being touched beneath, on the left, and right
+	   colliders being touched above, beneath, on the left, and right
 	*/
 	CollidersTouching colliders_touching;
 

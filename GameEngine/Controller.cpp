@@ -24,7 +24,7 @@ void Controller::Update() {
 	}
 
 	// Jump
-	if (actionState[Action::JUMP] == ControlState::RELEASED ) {
+	if (actionState[Action::JUMP] == ControlState::TRIGGERED ) {
 		p_owner_movement->Jump(-200.0f);
 	}
 

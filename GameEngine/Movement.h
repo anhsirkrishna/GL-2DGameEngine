@@ -22,7 +22,7 @@ using json = nlohmann::json;
 
 
 struct DirLocks {
-	bool down_lock, left_lock, right_lock;
+	bool up_lock, down_lock, left_lock, right_lock;
 };
 
 class Movement : public Component {
@@ -55,11 +55,11 @@ public:
 	// Stores references to other components
 	void Link();
 
-
 	/* to lock or unlock movement in different directions
-	* 1st elem: Downward movement lock: vel y will remain zero
-	* 2nd elem: Leftward movement lock: vel x cannot be set to a -ve value and will remain zero
-	* 3rd elem: Righward movement lock: vel x cannot be set to a +ve value and will remain zero
+	* 1st elem: Upward movement lock: vel y cannot be set to a -ve value and will remain zero
+	* 2nd elem: Downward movement lock: vel y cannot be set to a +ve value and will remain zero
+	* 3rd elem: Leftward movement lock: vel x cannot be set to a -ve value and will remain zero
+	* 4th elem: Righward movement lock: vel x cannot be set to a +ve value and will remain zero
 	*/
 
 	DirLocks dirLocks;

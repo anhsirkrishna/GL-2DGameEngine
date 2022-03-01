@@ -2,19 +2,19 @@
   "move_left": {
     "enum_key" : 0,
     "control_codes": [
-      [ 13, 13, 0, -1 ]
+      [ 4, 13, 0, -1 ]
     ]
   },
   "Move_Right": {
     "enum_key": 1,
     "control_codes": [
-      [ 15, 14, 0, 1 ]
+      [ 7, 14, 0, 1 ]
     ]
   },
   "Jump": {
     "enum_key": 2,
     "control_codes": [
-      [ 12, 0, -1, 2 ],
+      [ 26, 0, -1, 2 ],
       [ 229, -1, -1, 2 ]
     ]
   }
