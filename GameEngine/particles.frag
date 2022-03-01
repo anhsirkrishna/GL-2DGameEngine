@@ -9,7 +9,8 @@ in float ex_particle_brightness;
 uniform int mode;
 uniform sampler2D texture_map;
 
-out vec4 out_Color;
+layout(location = 0) out vec4 out_Color;
+layout(location = 1) out vec4 post_Buffer;
 
 void main() {
 	//Mode specified if we are filling with colors or textures.
@@ -21,4 +22,6 @@ void main() {
 		tex_color *= ex_Color;
 		out_Color = tex_color;
 	}
+
+	post_Buffer = vec4(vec3(out_Color.rgb), 1.0f);
 }

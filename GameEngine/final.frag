@@ -23,13 +23,9 @@ void main() {
 		out_Color = tex_color;
 	}
 	out_Color.rgb *= brightness;
-	float out_blue = out_Color.b;
-	
-	//if (out_blue > 0.5f)
-	//	out_blue *= 5.0;
 
 	float brightness = dot(out_Color.rgb, vec3(0.2126, 0.7152, 0.0722));
-	if (brightness > 1.0f)
+	if (brightness > 1.5f)
 		post_Buffer = vec4(vec3(out_Color.rgb), 1.0f);
 	else
 		post_Buffer = vec4(vec3(0.0f), 1.0f);

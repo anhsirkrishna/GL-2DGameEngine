@@ -64,18 +64,17 @@ GraphicsManager::GraphicsManager() : p_active_shader(nullptr), p_sdl_window(null
 	BindOutputAttrib(1, "post_Buffer");
 
 	g_buffer = new FBO(window_width, window_height, 2);
-	ping_pong_buffer = new FBO(window_height, window_height, 2);
+	ping_pong_buffer = new FBO(window_width, window_height, 2);
 
 	full_screen_quad_vao = GenerateFullScreenQuad();
 
-	float blur_weight[5] = { 0.227027, 0.1945946, 0.1216216, 0.054054, 0.016216 };
+	//float blur_weight[5] = { 0.227027, 0.1945946, 0.1216216, 0.054054, 0.016216 };
+	std::vector<float> blur_weights = GenerateGaussianWeights(blur_kernel_width);
 	GLuint bind_point = 0;
-	GLuint h_block_id = GenerateUniformBlock(blur_weight, sizeof(float) * 5, bind_point);
+	GLuint h_block_id = GenerateUniformBlock(&blur_weights[0], sizeof(float) * blur_weights.size(), bind_point);
 	SetActiveShader("horizontal_blur");
 	BindBlockBinding(bind_point, "blurKernel");
 
-	bind_point = 1;
-	GLuint v_block_id = GenerateUniformBlock(blur_weight, sizeof(float) * 5, bind_point);
 	SetActiveShader("vertical_blur");
 	BindBlockBinding(bind_point, "blurKernel");
 
@@ -365,15 +364,22 @@ GLuint GraphicsManager::GenerateDynamicQuadVAO(GLuint& vertex_buffer_id,
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	CHECKERROR;
 	//IBO data
-	std::vector<GLuint> indexData = { 0, 1, 2, 0, 2, 3 };
-	for (unsigned int i = 1; i < batch_size; ++i) {
-		indexData.push_back(0 + (i * 4));
-		indexData.push_back(1 + (i * 4));
-		indexData.push_back(2 + (i * 4));
+	std::vector<GLuint> indexData;
+	for (unsigned int i = batch_size - 1; i > 1; --i) {
 		indexData.push_back(0 + (i * 4));
 		indexData.push_back(2 + (i * 4));
 		indexData.push_back(3 + (i * 4));
+		indexData.push_back(0 + (i * 4));
+		indexData.push_back(1 + (i * 4));
+		indexData.push_back(2 + (i * 4));
 	}
+	indexData.push_back(0);
+	indexData.push_back(2);
+	indexData.push_back(3);
+	indexData.push_back(0);
+	indexData.push_back(1);
+	indexData.push_back(2);
+
 	//Create IBO
 	GLuint indeces_buffer;
 	glGenBuffers(1, &indeces_buffer);
@@ -443,6 +449,7 @@ void GraphicsManager::SetDynamicBufferData(GLuint vao_id, GLuint vertex_buffer_i
 */
 void GraphicsManager::DrawQuad(GLuint vao_id, unsigned int batch_size) {
 	g_buffer->Bind();
+
 	glBindVertexArray(vao_id);
 	CHECKERROR;
 
@@ -453,6 +460,7 @@ void GraphicsManager::DrawQuad(GLuint vao_id, unsigned int batch_size) {
 	glDrawElements(GL_TRIANGLES, 6 * batch_size, GL_UNSIGNED_INT, NULL);
 	CHECKERROR;
 	glBindVertexArray(0);
+
 	g_buffer->Unbind();
 }
 
@@ -505,11 +513,13 @@ void GraphicsManager::SetBlendingOff() {
 //Set Depth test on
 void GraphicsManager::SetDepthTestOn() {
 	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
 }
 
 //Set Depth test off
 void GraphicsManager::SetDepthTestOff() {
 	glDisable(GL_DEPTH_TEST);
+	glDepthMask(GL_FALSE);
 }
 
 void GraphicsManager::SetAlphaBlendingOn() {
@@ -518,6 +528,14 @@ void GraphicsManager::SetAlphaBlendingOn() {
 
 void GraphicsManager::SetAlphaBlendingOff() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void GraphicsManager::SetColorBlendingOn() {
+	glBlendFunc(GL_SRC_COLOR, GL_ONE);
+}
+
+void GraphicsManager::SetColorBlendingOff() {
+	glBlendFunc(GL_SRC_COLOR, GL_ONE_MINUS_SRC_COLOR);
 }
 
 void GraphicsManager::SetProjectionMatrix() {
@@ -534,7 +552,7 @@ void GraphicsManager::SetViewMatrix() {
 
 //Performs all the post processing tasks required. 
 void GraphicsManager::PostProcess() {
-	BlurBuffer(g_buffer, 1, 3);
+	BlurBuffer(g_buffer, 1, 10);
 }
 
 /*Draw a full screen quad and render the GBuffer
@@ -543,7 +561,7 @@ void GraphicsManager::PostProcess() {
 void GraphicsManager::DrawGBuffer() {
 	SetActiveShader("post");
 
-	SetDepthTestOff();
+	//SetDepthTestOff();
 
 	glBindVertexArray(full_screen_quad_vao);
 	CHECKERROR;
@@ -627,6 +645,8 @@ void GraphicsManager::BlurBuffer(FBO* fbo, GLuint color_attachment, int iteratio
 	GLuint loc;
 	for (unsigned int i = 0; i < iterations; ++i) {
 		SetActiveShader("horizontal_blur");
+		SetUniformInt(blur_kernel_width, "width");
+
 		if (i == 0) {
 			//Use the input fbo as the input for the first iteration
 			fbo_tex_id = fbo->textureID[color_attachment];
@@ -651,10 +671,12 @@ void GraphicsManager::BlurBuffer(FBO* fbo, GLuint color_attachment, int iteratio
 		glUniform1i(loc, output_imageUnit);
 		CHECKERROR;
 
-		glDispatchCompute(window_width / 128, window_height, 1);
+		glDispatchCompute(glm::ceil(window_width / 128.0f), window_height, 1);
 		CHECKERROR;
 
 		SetActiveShader("vertical_blur");
+		SetUniformInt(blur_kernel_width, "width");
+
 		fbo_tex_id = ping_pong_buffer->textureID[0];
 		glBindImageTexture(input_imageUnit, fbo_tex_id, 0, GL_FALSE, 0, GL_READ_ONLY, GL_RGBA32F);
 		loc = glGetUniformLocation(GetActiveShader()->program_id, "src");
@@ -667,7 +689,7 @@ void GraphicsManager::BlurBuffer(FBO* fbo, GLuint color_attachment, int iteratio
 		glUniform1i(loc, output_imageUnit);
 		CHECKERROR;
 
-		glDispatchCompute(window_width, window_height / 128, 1);
+		glDispatchCompute(window_width, glm::ceil(window_height / 128.0f), 1);
 		CHECKERROR;
 	}
 

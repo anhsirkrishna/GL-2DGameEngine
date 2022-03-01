@@ -34,7 +34,7 @@
 unsigned int WORLD_WIDTH = 720;
 unsigned int WORLD_HEIGHT = 480;
 
-unsigned int WINDOW_WIDTH = 960;
+unsigned int WINDOW_WIDTH = 1480;
 unsigned int WINDOW_HEIGHT = 960;
 
 unsigned int DEFAULT_FRAMERATE = 60;
@@ -204,7 +204,7 @@ int main(int argc, char* args[])
 
 		//The following bit of code should be moved into a GameStateManager or and individual game State
 		p_shader_program->Use();
-		p_graphics_manager->ClearBuffer(glm::vec4(0.3f));
+		p_graphics_manager->ClearBuffer(glm::vec4(0.1f));
 
 		if (RUN_WITH_EDITOR)
 			p_editor->NewFrame();

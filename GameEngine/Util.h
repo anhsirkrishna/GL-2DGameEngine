@@ -20,3 +20,8 @@ void ConvertColor(std::vector<float>& colors);
 //Also swaps the coordinates for use
 void ConvertTextureCoords(std::vector<float>& tex_coords, float tex_width,
 	float tex_height);
+
+/*Function to generate a set of weights for gaussian blur
+* Returns: std::vector<float>
+*/
+std::vector<float> GenerateGaussianWeights(int width);

@@ -31,6 +31,8 @@ private:
 	//variable for gamma correction
 	float gamma;
 
+	int blur_kernel_width=10;
+
 	/*
 	* Function to initalize SDL and Open GL and SDL_Image
 	* Sets the OpenGL Version
@@ -191,6 +193,12 @@ public:
 	* Returns: GLuint - block_id for the created block
 	*/
 	GLuint GenerateUniformBlock(float const* block_data, size_t block_size, GLuint bind_point);
+
+	//Set color blending as additive
+	void SetColorBlendingOn();
+
+	//Set color blending off
+	void SetColorBlendingOff();
 };
 
 extern GraphicsManager* p_graphics_manager;

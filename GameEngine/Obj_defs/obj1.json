@@ -45,10 +45,10 @@
     "PARTICLE_EFFECT": {
       "texture_name": "flame_particle",
         "vertex_list": [
-            0, 0, -1,
-            0, 5, -1,
-            5, 5, -1,
-            5, 0, -1
+            0, 0, -2,
+            0, 5, -2,
+            5, 5, -2,
+            5, 0, -2
         ],
         "color_list": [
             220, 100, 30, 255,
