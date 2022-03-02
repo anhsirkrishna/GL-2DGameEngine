@@ -3,6 +3,10 @@
     "obj_def": "obj1",
     "starting_position": [ 0, 0, 0, 0 ]
   },
+  "enemy_obj": {
+    "obj_def": "enemy_obj",
+    "starting_position": [ 200, 0, 0, 0 ]
+  },
   "demo_obj_1": {
     "obj_def": "obj2",
     "starting_position": [ 0, 150, 0, 0 ]

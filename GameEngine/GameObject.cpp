@@ -42,8 +42,10 @@ void GameObject::AddComponent(Component* component) {
 
 //Calls the Update() function for each of its components
 void GameObject::Update() {
-	for (auto component : component_list) {
+	if (IsActive()) {
+		for (auto component : component_list) {
 		component->Update();
+		}
 	}
 }
 
@@ -59,8 +61,10 @@ void GameObject::LinkComponents() {
 
 //Calls the Draw() function for each of its components
 void GameObject::Draw(ShaderProgram* program) {
-	for (auto component : component_list) {
-		component->Draw(program);
+	if (IsActive()) {
+		for (auto component : component_list) {
+			component->Draw(program);
+		}
 	}
 }
 
@@ -69,9 +73,21 @@ void GameObject::Draw(ShaderProgram* program) {
 * Returns: void
 */
 void GameObject::HandleEvent(TimedEvent* p_event) {
-	for (auto component : component_list) {
-		component->HandleEvent(p_event);
+	if (IsActive()) {
+		for (auto component : component_list) {
+			component->HandleEvent(p_event);
+		}
 	}
+}
+
+//Disable game object
+void GameObject::Disable() {
+	is_active = false;
+}
+
+//Enable game object
+void GameObject::Enable() {
+	is_active = true;
 }
 
 void GameObject::SetActive(bool val)

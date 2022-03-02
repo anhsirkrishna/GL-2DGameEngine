@@ -59,8 +59,8 @@ void Transform::Serialize(json json_object) {
 void Transform::SetRotMatrices() {
 	if (p_owner_glquad != nullptr) {
 		//Translate to origin before rotation
-		float quad_width = p_owner_glquad->GetDimensions().x * scale_x;
-		float quad_height = p_owner_glquad->GetDimensions().y * scale_y;
+		float quad_width = p_owner_glquad->GetDimensions().x * glm::abs(scale_x);
+		float quad_height = p_owner_glquad->GetDimensions().y * glm::abs(scale_y);
 		pre_rotate_matrix[3].x = -(quad_width / 2.0);
 		pre_rotate_matrix[3].y = -(quad_height / 2.0);
 
@@ -115,4 +115,30 @@ glm::mat4 Transform::GetScaleMatrix() {
 void Transform::Link() {
 	p_owner_glquad = static_cast<GLQuad*>(GetOwner()->HasComponent("GLQUAD"));
 	SetRotMatrices();
+}
+
+/*Flips the transform so it appears to be facing the opposite direction
+* in the x axist
+* Returns : void
+*/
+void Transform::FlipTransform() {
+	SetScale(GetScaleX() * -1, GetScaleY());
+}
+
+/*Sets a specific coordinate
+* coord_ specifies which coordnate
+* x - 0, y - 1, z - 2, w - 3
+* Returns : void
+*/
+void Transform::SetPosCoord(float val_, int coord_) {
+	position[coord_] = val_;
+}
+
+/*Gets a specific coordinate
+* coord_ specifies which coordnate
+* x - 0, y - 1, z - 2, w - 3
+* Returns : float - the coordinate
+*/
+float Transform::GetPosCoord(int coord_) {
+	return position[coord_];
 }

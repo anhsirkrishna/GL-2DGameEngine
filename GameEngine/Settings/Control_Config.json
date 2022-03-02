@@ -1,6 +1,6 @@
 {
   "move_left": {
-    "enum_key" : 0,
+    "enum_key": 0,
     "control_codes": [
       [ 4, 13, 0, -1 ]
     ]
@@ -16,6 +16,12 @@
     "control_codes": [
       [ 26, 0, -1, 2 ],
       [ 229, -1, -1, 2 ]
+    ]
+  },
+  "Attack": {
+    "enum_key": 3,
+    "control_codes": [
+      [ 44, 0, -1, -1 ]
     ]
   }
 }

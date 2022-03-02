@@ -66,4 +66,10 @@ public:
 	bool Completed();
 	//Returns the total duration of the animation in number of frames
 	int Duration();
+
+	/*Change the state of the Animation component
+	* Involves changing the texture offsets for animation
+	* Returns : void
+	*/
+	void ChangeState(json json_object);
 };

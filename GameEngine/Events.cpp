@@ -2,8 +2,8 @@
 #include "FrameRateController.h"
 #include "GameObject.h"
 
-TimedEvent::TimedEvent(EventID _id, bool _broadcast, GameObject* _p_game_obj) : 
-	time(0), event_id(_id), broadcast(_broadcast), 
+TimedEvent::TimedEvent(EventID _id, bool _broadcast, GameObject* _p_game_obj, double time_) :
+	time(time_), event_id(_id), broadcast(_broadcast),
 	reciever_p_game_obj(_p_game_obj) { }
 
 TimedEvent::~TimedEvent() {

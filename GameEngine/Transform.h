@@ -61,6 +61,27 @@ public:
 
 	//Links the transform component with other related components
 	virtual void Link();
+
+	/*Flips the transform so it appears to be facing the opposite direction
+	* in the x axist
+	* Returns : void
+	*/
+	void FlipTransform();
+
+	/*Sets a specific coordinate
+	* coord_ specifies which coordnate
+	* x - 0, y - 1, z - 2, w - 3
+	* Returns : void
+	*/
+	void SetPosCoord(float val_, int coord_);
+
+	/*Gets a specific coordinate
+	* coord_ specifies which coordnate
+	* x - 0, y - 1, z - 2, w - 3
+	* Returns : float - the coordinate
+	*/
+	float GetPosCoord(int coord_);
+
 private:
 	glm::vec4 position;
 	glm::mat4 translate_matrix;

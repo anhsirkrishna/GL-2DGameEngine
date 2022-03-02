@@ -55,7 +55,8 @@ void PhysicsWorld::Integrate()
 	float dt = p_framerate_controller->GetPrevLoopDeltaTime() / 1000.0f;
 
 	for (GameObject* p : physics_game_objects) {
-
+		if (!p->IsActive())
+			continue;
 		if (p->HasComponent("MOVEMENT")) {
 
 			Transform* p_transf = static_cast<Transform*>(p->HasComponent("TRANSFORM"));
@@ -247,3 +248,89 @@ void PhysicsWorld::ResolveCollisions()
 	collision_list.clear();
 }
 
+void PhysicsWorld::UnlockMovements() {
+	Collider* p_owner_collider;
+	Movement* p_owner_movement;
+
+	for (auto i = physics_game_objects.begin(); i != physics_game_objects.end(); i++) {
+		p_owner_movement = static_cast<Movement*>((*i)->HasComponent("MOVEMENT"));
+		if (p_owner_movement != nullptr) {
+			p_owner_collider = static_cast<Collider*>((*i)->HasComponent("COLLIDER"));
+			if (p_owner_collider != nullptr) {
+				glm::vec4 col_pos = p_owner_collider->GetColliderPosition();
+
+				// If beneath another object
+				if (p_owner_collider->colliders_touching.above != nullptr) {
+
+					glm::vec4 col_pos_other = p_owner_collider->colliders_touching.above->GetColliderPosition();
+
+					/* If far enough below the object OR
+					 * left or right of that touching object - and hence not touching anymore
+					 */
+					if ((col_pos.y - col_pos.w) - (col_pos_other.y + col_pos_other.w) > 2.0f ||
+						((col_pos.x + col_pos.z) < (col_pos_other.x - col_pos_other.z) ||
+							(col_pos.x - col_pos.z) > (col_pos_other.x + col_pos_other.z))) {
+
+						// Unlock downward movement. And not touching anything beneath it anymore
+						p_owner_movement->dirLocks.up_lock = false;
+						p_owner_collider->colliders_touching.above = nullptr;
+					}
+				}
+
+				// If standing on another object
+				if (p_owner_collider->colliders_touching.beneath != nullptr) {
+
+					glm::vec4 col_pos_other = p_owner_collider->colliders_touching.beneath->GetColliderPosition();
+
+					/* If far enough above the object OR
+					 * left or right of that touching object -  and hence not touching anymore
+					 */
+					if ((col_pos_other.y - col_pos_other.w) - (col_pos.y + col_pos.w) > 2.0f ||
+						((col_pos.x + col_pos.z) < (col_pos_other.x - col_pos_other.z) ||
+							(col_pos.x - col_pos.z) > (col_pos_other.x + col_pos_other.z))) {
+						// Unlock downward movement. And not touching anything beneath it anymore
+						p_owner_movement->dirLocks.down_lock = false;
+						p_owner_collider->colliders_touching.beneath = nullptr;
+					}
+				}
+
+				// If touching a body on the right
+				if (p_owner_collider->colliders_touching.right != nullptr) {
+
+					glm::vec4 col_pos_other = p_owner_collider->colliders_touching.right->GetColliderPosition();
+
+					/* If far enough left from the object, OR
+					 * above or below the touching object on the right
+					 * Release right ward movement lock. (Can move right now)
+					 */
+					if ((col_pos_other.x - col_pos_other.z) - (col_pos.x + col_pos.z) > 1.5f ||
+						((col_pos.y - col_pos.w) > (col_pos_other.y + col_pos_other.w)) ||
+						((col_pos.y + col_pos.w) < (col_pos_other.y - col_pos_other.w))) {
+
+						p_owner_movement->dirLocks.right_lock = false;
+						p_owner_collider->colliders_touching.right = nullptr;
+					}
+				}
+
+				// If touching a body on the left
+				if (p_owner_collider->colliders_touching.left != nullptr) {
+
+					glm::vec4 col_pos_other = p_owner_collider->colliders_touching.left->GetColliderPosition();
+
+
+					/* If far enough right from the object, OR
+					 * above or below the touching object on the right
+					 * Release leftward movement lock. (Can move left now)
+					 */
+					if ((col_pos.x - col_pos.z) - (col_pos_other.x + col_pos_other.z) > 1.5f ||
+						((col_pos.y - col_pos.w) > (col_pos_other.y + col_pos_other.w)) ||
+						((col_pos.y + col_pos.w) < (col_pos_other.y - col_pos_other.w))) {
+
+						p_owner_movement->dirLocks.left_lock = false;
+						p_owner_collider->colliders_touching.left = nullptr;
+					}
+				}
+			}
+		}
+	}
+}

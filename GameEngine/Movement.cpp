@@ -1,3 +1,14 @@
+/******************************************************************************/
+/* !
+/* File   Movement.cpp
+/* Author Sreyash Raychaudhuri
+*		  Krishna Pillai - Added logic to interact with script
+/* Email: srey.raychaudhuri@digipen.edu
+/* Date   01/27/2022
+/* Movement Component implementation file
+/* DigiPen Institute of Technology © 2022
+/******************************************************************************/
+
 #include "Movement.h"
 #include "InputManager.h"
 #include "FrameRateController.h"
@@ -8,8 +19,11 @@
 #include <SDL.h>
 #include <glm.hpp>
 
-Movement::Movement() : Component("MOVEMENT"), p_owner_transform(nullptr), p_owner_collider(nullptr),
-					mass(5), velocity(glm::vec4(0)), gravity_on(false), dirLocks({false, false, false, false}) {}
+Movement::Movement() : Component("MOVEMENT"), p_owner_transform(nullptr),
+						p_owner_collider(nullptr), mass(5),
+						velocity(glm::vec4(0)), gravity_on(false),
+						dirLocks({false, false, false, false}) {
+}
 
 // Returns the mass value
 float Movement::GetMass() {
@@ -28,87 +42,6 @@ void Movement::SetVelocity(glm::vec4 new_velocity)
 	velocity = new_velocity;
 }
 
-// Just check if any directional locks can be disabled if in case enabled
-void Movement::Update()
-{
-	glm::vec4 col_pos = p_owner_collider->GetColliderPosition();
-
-
-	// If beneath another object
-	if (p_owner_collider->colliders_touching.above != nullptr) {
-
-		glm::vec4 col_pos_other = p_owner_collider->colliders_touching.above->GetColliderPosition();
-
-		/* If far enough below the object OR
-		 * left or right of that touching object - and hence not touching anymore
-		 */
-		if ((col_pos.y - col_pos.w) - (col_pos_other.y + col_pos_other.w) > 2.0f ||
-		   ((col_pos.x + col_pos.z) < (col_pos_other.x - col_pos_other.z) ||
-			(col_pos.x - col_pos.z) > (col_pos_other.x + col_pos_other.z))) {
-
-			// Unlock downward movement. And not touching anything beneath it anymore
-			dirLocks.up_lock = false;
-			p_owner_collider->colliders_touching.above = nullptr;
-		}
-	}
-
-	// If standing on another object
-	if (p_owner_collider->colliders_touching.beneath != nullptr) {
-
-		glm::vec4 col_pos_other = p_owner_collider->colliders_touching.beneath->GetColliderPosition();
-
-		/* If far enough above the object OR
-		 * left or right of that touching object -  and hence not touching anymore 
-		 */
-		if  ((col_pos_other.y - col_pos_other.w) - (col_pos.y + col_pos.w) > 2.0f ||
-			((col_pos.x + col_pos.z) < (col_pos_other.x - col_pos_other.z) ||
-			(col_pos.x - col_pos.z) > (col_pos_other.x + col_pos_other.z))) {
-
-			// Unlock downward movement. And not touching anything beneath it anymore
-			dirLocks.down_lock = false;
-			p_owner_collider->colliders_touching.beneath = nullptr;
-		}
-	}
-
-	// If touching a body on the right
-	if (p_owner_collider->colliders_touching.right != nullptr) {
-
-		glm::vec4 col_pos_other = p_owner_collider->colliders_touching.right->GetColliderPosition();
-
-		/* If far enough left from the object, OR 
-		 * above or below the touching object on the right
-		 * Release right ward movement lock. (Can move right now)
-		 */
-		if  ((col_pos_other.x - col_pos_other.z) - (col_pos.x + col_pos.z) > 1.5f ||
-			((col_pos.y - col_pos.w) > (col_pos_other.y + col_pos_other.w)) ||
-			((col_pos.y + col_pos.w) < (col_pos_other.y - col_pos_other.w))) {
-
-			dirLocks.right_lock = false;
-			p_owner_collider->colliders_touching.right = nullptr;
-		}
-	}
-
-	// If touching a body on the left
-	if (p_owner_collider->colliders_touching.left != nullptr) {
-
-		glm::vec4 col_pos_other = p_owner_collider->colliders_touching.left->GetColliderPosition();
-
-
-		/* If far enough right from the object, OR
-         * above or below the touching object on the right
-		 * Release leftward movement lock. (Can move left now)
-		 */
-		if ((col_pos.x - col_pos.z) - (col_pos_other.x + col_pos_other.z) > 1.5f ||
-			((col_pos.y - col_pos.w) > (col_pos_other.y + col_pos_other.w)) ||
-			((col_pos.y + col_pos.w) < (col_pos_other.y - col_pos_other.w))) {
-
-			dirLocks.left_lock = false;
-			p_owner_collider->colliders_touching.left = nullptr;
-		}
-	}
-}
-
-
 // Sets the x velocity
 void Movement::MoveHorizontally(float vel_x)
 {
@@ -122,7 +55,7 @@ void Movement::MoveHorizontally(float vel_x)
 
 
 // Gives a -ve y velocity. Min is -10.0f
-void Movement::Jump(float vel_y)
+void Movement::Jump(float vel_y) 
 {
 	// Has to have a minimum upward velocity of 10.0f;
 	if (vel_y > -10.0f) {
@@ -132,6 +65,7 @@ void Movement::Jump(float vel_y)
 		velocity.y = vel_y;
 	}
 
+	dirLocks.down_lock = false;
 }
 
 // Serialize method. Nothing to do for the movement component
@@ -148,3 +82,12 @@ void Movement::Link()
 }
 
 
+//Returns the velocity in the y direction
+float Movement::GetVerticalVelocity() {
+	return velocity.y;
+}
+
+//Returns downlock
+bool Movement::GetDownLock() {
+	return dirLocks.down_lock;
+}

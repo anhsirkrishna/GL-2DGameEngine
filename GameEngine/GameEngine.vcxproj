@@ -182,6 +182,8 @@
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GLQuad.cpp" />
     <ClCompile Include="GraphicsManager.cpp" />
+    <ClCompile Include="Hitbox.cpp" />
+    <ClCompile Include="Hurtbox.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LuaManager.cpp" />
@@ -191,6 +193,7 @@
     <ClCompile Include="Movement.cpp" />
     <ClCompile Include="ParticleEffect.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StateManager.cpp" />
@@ -231,6 +234,8 @@
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GLQuad.h" />
     <ClInclude Include="GraphicsManager.h" />
+    <ClInclude Include="Hitbox.h" />
+    <ClInclude Include="Hurtbox.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LuaManager.h" />
@@ -239,6 +244,7 @@
     <ClInclude Include="Movement.h" />
     <ClInclude Include="ParticleEffect.h" />
     <ClInclude Include="PhysicsWorld.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StateManager.h" />
@@ -248,10 +254,15 @@
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Resources\Scripts\enemy_1.lua" />
+    <None Include="..\Resources\Scripts\player_move.lua" />
+    <None Include="..\Resources\Scripts\projectile_move.lua" />
     <None Include="final.frag" />
     <None Include="final.vert" />
     <None Include="horizontal_blur.comp" />
     <None Include="Levels\Level_0.json" />
+    <None Include="Obj_defs\enemy_obj.json" />
+    <None Include="Obj_defs\fire_projectile.json" />
     <None Include="Obj_defs\ice_ball.json" />
     <None Include="Obj_defs\obj3.json" />
     <None Include="Obj_defs\obj1.json" />

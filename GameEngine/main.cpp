@@ -142,18 +142,18 @@ int main(int argc, char* args[])
 
 	//Create the Shader Program
 	ShaderProgram* p_shader_program = p_graphics_manager->GetActiveShader();
+	
+	p_physics_world->Init();
 
 	p_level_manager->LoadLevel(0);
 
 	// loads behavior scripts after all game objects have been created 
 	// (components have an assigned parent)
-	p_lua_manager->LoadBehaviorScripts();
+	//p_lua_manager->LoadBehaviorScripts();
 
 	std::vector<GameObject*> new_go_list;
 	GameObject* test_game_object = nullptr;
 
-
-	p_physics_world->Init();
   
 	while (p_game_manager->Status())
 	{
@@ -162,7 +162,9 @@ int main(int argc, char* args[])
 		p_physics_world->Integrate();
 		p_physics_world->DetectAndRecordCollisions();
 
+		p_physics_world->UnlockMovements();
 		p_game_obj_manager->Update();
+
 		p_lua_manager->Update();
 		p_input_manager->Update();
 		p_control_scheme_manager->Update();
@@ -173,19 +175,6 @@ int main(int argc, char* args[])
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
 
-		//Test code for game object state management
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_X)) {
-			for (auto game_object : p_game_obj_manager->game_object_list) {
-				if (game_object->HasComponent("CONTROLLER"))
-					game_object->state_manager.ChangeState("WALK");
-			}
-		}
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_Z)) {
-			for (auto game_object : p_game_obj_manager->game_object_list) {
-				if (game_object->HasComponent("CONTROLLER"))
-					game_object->state_manager.ChangeState("IDLE");
-			}
-		}
 
 		if (p_input_manager->isKeyPressed(SDL_SCANCODE_C)) {
 			p_event_manager->QueueTimedEvent(new TimedEvent(EventID::hit, true));

@@ -13,6 +13,7 @@ void Controller::Update() {
 	std::unordered_map<Action, ControlState> actionState =
 		p_control_scheme_manager->GetActionStateMap();
 
+	/*
 	// Move right
 	if (actionState[Action::MOVE_RIGHT] == ControlState::HELD) {
 		p_owner_movement->MoveHorizontally(200.0f);
@@ -33,7 +34,7 @@ void Controller::Update() {
 	if (actionState[Action::MOVE_LEFT] == ControlState::RELEASED ||
 		actionState[Action::MOVE_RIGHT] == ControlState::RELEASED) {
 		p_owner_movement->MoveHorizontally(0);
-	}
+	}*/
 }
 
 void Controller::Serialize(json json_object) {

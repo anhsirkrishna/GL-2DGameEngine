@@ -2,6 +2,7 @@
 /* !
 /* File:   ControlSchemeManager.h
 /* Author: Sreyash Raychaudhuri
+*		   Krishna Pillai - Added methods to talk to Lua script
 /* Email: srey.raychaudhuri@digipen.edu
 /* Date:   02/17/2022
 /* Control Scheme Manager encapsulation header file
@@ -33,7 +34,9 @@ struct CodeStruct {
 enum class Action {
 	MOVE_LEFT,
 	MOVE_RIGHT,
-	JUMP
+	JUMP,
+	ATTACK,
+	NUM
 };
 
 // States of action controls
@@ -69,6 +72,12 @@ public:
 
 	// Getter to get the action map state
 	std::unordered_map<Action, ControlState> GetActionStateMap();
+
+	/*Check if state of the action map for a particlur action matches
+	* the queried value
+	* Returns : bool - True if action state matches
+	*/ 
+	bool CheckActionState(Action check_action, ControlState check_state);
 };
 
 extern ControlSchemeManager* p_control_scheme_manager;

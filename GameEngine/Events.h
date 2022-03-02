@@ -16,6 +16,7 @@ enum class EventID
 	collision,
 	out_of_bounds,
 	hit,
+	impact,
 	NUM
 };
 
@@ -34,7 +35,7 @@ public:
 	const EventID event_id;
 	const bool broadcast;
 	GameObject* reciever_p_game_obj;
-	TimedEvent(EventID _id, bool _broadcast = false, GameObject* _p_game_obj=nullptr);
+	TimedEvent(EventID _id, bool _broadcast = false, GameObject* _p_game_obj=nullptr, double time_=0);
 	//virtual void Execute() = 0;
 	virtual void SetTime(double _time);
 	virtual double When() const;

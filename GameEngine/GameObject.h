@@ -59,6 +59,11 @@ public:
 	void SetActive(bool val);
 	bool IsActive() const;
 
+	//Disable game object
+	void Disable();
+
+	//Enable game object
+	void Enable();
 private:
 	std::string name;
 	std::vector<Component*> component_list;
