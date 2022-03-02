@@ -2,7 +2,7 @@
 #include "Component.h"
 
 //Creates a named game object
-GameObject::GameObject(std::string object_name) : name(object_name), index(0) {
+GameObject::GameObject(std::string object_name) : name(object_name), index(0), is_active(true) {
 	state_manager.SetOwner(this);
 }
 
@@ -72,4 +72,14 @@ void GameObject::HandleEvent(TimedEvent* p_event) {
 	for (auto component : component_list) {
 		component->HandleEvent(p_event);
 	}
+}
+
+void GameObject::SetActive(bool val)
+{
+	is_active = val;
+}
+
+bool GameObject::IsActive() const
+{
+	return is_active;
 }

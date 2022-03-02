@@ -52,5 +52,9 @@ public:
 	
 	// Resolve all recorded collisions
 	void ResolveCollisions();
+
+	// Reloads physics objects on new level load
+	void Reload();
 };
 
+extern PhysicsWorld* p_physics_world;

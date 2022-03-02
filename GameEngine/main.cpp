@@ -26,6 +26,7 @@
 #include "LuaManager.h"
 #include "PhysicsWorld.h"
 #include "EventManager.h"
+#include "LevelManager.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -55,6 +56,7 @@ Camera* p_camera;
 GraphicsManager* p_graphics_manager;
 PhysicsWorld* p_physics_world;
 EventManager* p_event_manager;
+LevelManager* p_level_manager;
 
 MemoryManager g_memory_manager;
 LuaManager* p_lua_manager;
@@ -87,6 +89,7 @@ void CreateManagers() {
 	p_lua_manager = new LuaManager();
 	p_physics_world = new PhysicsWorld();
 	p_event_manager = new EventManager();
+	p_level_manager = new LevelManager();
 }
 
 /*
@@ -140,8 +143,7 @@ int main(int argc, char* args[])
 	//Create the Shader Program
 	ShaderProgram* p_shader_program = p_graphics_manager->GetActiveShader();
 
-	GameObjectFactory go_factory;
-	go_factory.CreateLevel(0);
+	p_level_manager->LoadLevel(0);
 
 	// loads behavior scripts after all game objects have been created 
 	// (components have an assigned parent)
