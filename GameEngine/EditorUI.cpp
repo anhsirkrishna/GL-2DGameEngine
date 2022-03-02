@@ -6,7 +6,7 @@
 /*Date   1/12/2022
 /*  Implementation of the Editor Class
 *
-/* DigiPen Institute of Technology © 2022
+/* DigiPen Institute of Technology Â© 2022
 /******************************************************************************/
 #include "EditorUI.h"
 #include <string>

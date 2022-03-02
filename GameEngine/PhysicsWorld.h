@@ -5,7 +5,7 @@
 /* Email:  srey.raychaudhuri@digipen.edu
 /* Date:   02/25/2022
 /* Physics World class encapsulation header file
-/* DigiPen Institute of Technology © 2022
+/* DigiPen Institute of Technology Â© 2022
 /******************************************************************************/
 
 #include "GameObjectManager.h"
