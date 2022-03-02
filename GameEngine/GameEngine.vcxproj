@@ -183,6 +183,7 @@
     <ClCompile Include="GLQuad.cpp" />
     <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="GLQuad.h" />
     <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="Matrix3D.h" />
     <ClInclude Include="MemoryManager.h" />

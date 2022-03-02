@@ -55,7 +55,12 @@ public:
 	*/
 	void HandleEvent(TimedEvent* p_event);
 
+	// is_active getters and setters
+	void SetActive(bool val);
+	bool IsActive() const;
+
 private:
 	std::string name;
 	std::vector<Component*> component_list;
+	bool is_active;
 };

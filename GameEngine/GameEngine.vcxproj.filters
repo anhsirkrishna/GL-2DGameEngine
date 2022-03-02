@@ -189,6 +189,9 @@
     <ClCompile Include="Events.cpp">
       <Filter>Source Files\Events</Filter>
     </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="Events.h">
       <Filter>Source Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

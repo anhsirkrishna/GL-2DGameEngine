@@ -25,6 +25,7 @@ public:
 	float mouse_x;
 	float mouse_y;
 	glm::vec4 mouse_worldpos;
+	int level_num;
 
 	void Init() const;
 	void NewFrame() const;

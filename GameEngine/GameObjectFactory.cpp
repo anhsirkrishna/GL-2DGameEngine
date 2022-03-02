@@ -66,6 +66,13 @@ void GameObjectFactory::CreateLevel(unsigned int level) {
 	std::string level_file = ".\\Levels\\Level_" + std::to_string(level) + ".json";
 	std::ifstream level_data(level_file);
 
+	// missing level file check
+	if (!level_data.good())
+	{
+		level_data.close();
+		return;
+	}
+
 	json json_object;
 	level_data >> json_object;
 
