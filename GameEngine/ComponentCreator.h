@@ -76,3 +76,21 @@ class BehaviorCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
+
+//Creates instance of Behavior component
+class ProjectileCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
+
+//Creates instance of Behavior component
+class HitboxCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
+
+//Creates instance of Behavior component
+class HurtboxCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};

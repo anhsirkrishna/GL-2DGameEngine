@@ -97,3 +97,23 @@ void Animation::Link() {
 int Animation::Duration() {
 	return (frames.size()/2) * interval;
 }
+
+/*Change the state of the Animation component
+* Involves changing the texture offsets for animation
+* Returns : void
+*/
+void Animation::ChangeState(json json_object) {
+	frames.clear();
+	auto tex_offset_list = json_object["frames"].get<std::vector<int>>();
+	GLfloat* temp_offset;
+	for (unsigned int i = 0; i < tex_offset_list.size(); i += 2) {
+		temp_offset = new GLfloat[2];
+		temp_offset[0] = tex_offset_list[i];
+		temp_offset[1] = tex_offset_list[i + 1];
+		frames.push_back(temp_offset);
+	}
+
+	looping = json_object["looping"].get<bool>();
+	interval = json_object["interval"].get<int>();
+	Refresh();
+}

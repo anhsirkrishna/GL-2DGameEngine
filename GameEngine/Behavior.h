@@ -32,4 +32,11 @@ public:
 
 	//Serialize method. Nothing to do for Transform component.
 	void Serialize(json json_object);
+
+	virtual void Link();
+
+	/*Sends the received event to the lua script
+	* Returns : void
+	*/
+	virtual void HandleEvent(TimedEvent* p_event);
 };

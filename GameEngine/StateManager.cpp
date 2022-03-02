@@ -12,12 +12,15 @@
 #include "GameObject.h"
 #include "Component.h"
 
+#include <SDL.h>
+
 /*Changes to the next state if the next state is different
 * Does nothing if the next state is the same as current state
 * Returns: Void
 */
 void StateManager::ChangeState(std::string next_state_) {
-	if (prev_state == next_state_)
+	//SDL_Log("Change state called for %s", next_state_.c_str());
+	if (current_state == next_state_)
 		return;
 
 	std::string component_name;
@@ -52,4 +55,18 @@ void StateManager::AddState(std::string new_state_, json json_object_) {
 	*/
 void StateManager::SetOwner(GameObject* p_game_object) {
 	p_owner_game_object = p_game_object;
+}
+
+/*Get the current state
+* Returns : string
+*/
+std::string StateManager::GetCurrentState() {
+	return current_state;
+}
+
+/*Get the previous state
+* Returns : string
+*/
+std::string StateManager::GetPrevState() {
+	return prev_state;
 }

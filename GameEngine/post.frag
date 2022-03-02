@@ -33,4 +33,5 @@ void main() {
 	//fragColor.rgb = vec3(1.0) - exp(-fragColor.rgb*exposure);
 	fragColor.rgb = pow(fragColor.rgb, vec3(1.0f/gamma));
 	out_color = vec4(fragColor.rgb, 1.0);
+
 }

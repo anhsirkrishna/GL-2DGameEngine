@@ -61,6 +61,12 @@
     <Filter Include="Source Files\Events">
       <UniqueIdentifier>{f6f73177-502e-4845-b323-46a67bed7a49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scripts">
+      <UniqueIdentifier>{ee7c9709-9ba3-419c-95e0-853ea650e1a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\GameplayComponents">
+      <UniqueIdentifier>{64d11472-5e11-49a7-928b-5331a5aef2eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -168,9 +174,6 @@
     <ClCompile Include="GraphicsManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
-    <ClCompile Include="Behavior.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="LuaManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
@@ -188,6 +191,18 @@
     </ClCompile>
     <ClCompile Include="Events.cpp">
       <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Behavior.cpp">
+      <Filter>Source Files\Components\GeneralComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Hitbox.cpp">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Hurtbox.cpp">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,9 +320,6 @@
     <ClInclude Include="GraphicsManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="LuaManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
@@ -325,6 +337,18 @@
     </ClInclude>
     <ClInclude Include="Events.h">
       <Filter>Source Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior.h">
+      <Filter>Source Files\Components\GeneralComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Hitbox.h">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Hurtbox.h">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -375,6 +399,21 @@
     </None>
     <None Include="vertical_blur.comp">
       <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\player_move.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\fire_projectile.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\projectile_move.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\enemy_obj.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\enemy_1.lua">
+      <Filter>Source Files\Scripts</Filter>
     </None>
   </ItemGroup>
 </Project>

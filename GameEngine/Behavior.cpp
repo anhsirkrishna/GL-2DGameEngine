@@ -10,6 +10,7 @@
 /******************************************************************************/
 #include "Behavior.h"
 #include "LuaManager.h"
+#include "Events.h"
 
 // default constructor
 Behavior::Behavior() : Component("BEHAVIOR") {
@@ -17,12 +18,11 @@ Behavior::Behavior() : Component("BEHAVIOR") {
 }
 
 // loads lua script to run on Update()
-void Behavior::LoadScript()
-{
+void Behavior::LoadScript() {
 	// registers functions from different sets (input/player/object/etc)
-	p_lua_manager->RegInputFunctions(lua_state);
-	p_lua_manager->RegPlayerFunctions(lua_state, GetOwner());
-
+	p_lua_manager->RegGlobals(lua_state);
+	p_lua_manager->RegObjectFunctions(lua_state, GetOwner());
+	p_lua_manager->RegEvents(lua_state, nullptr);
 	std::string file = "..\\Resources\\Scripts\\";
 	file += script_name;
 	script_result = lua_state.load_file(file);
@@ -32,10 +32,21 @@ void Behavior::LoadScript()
 void Behavior::Update()
 {
 	script_result();
+	p_lua_manager->RegEvents(lua_state, nullptr);
 }
 
 //Serialize method. Nothing to do for Transform component.
-void Behavior::Serialize(json json_object)
-{
+void Behavior::Serialize(json json_object) {
 	script_name = json_object["script_filename"];
+}
+
+void Behavior::Link() {
+	LoadScript();
+}
+
+/*Sends the received event to the lua script
+* Returns : void
+*/
+void Behavior::HandleEvent(TimedEvent* p_event) {
+	p_lua_manager->RegEvents(lua_state, p_event);
 }

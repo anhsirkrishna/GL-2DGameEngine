@@ -39,4 +39,14 @@ public:
 	* Returns: void
 	*/
 	void SetOwner(GameObject* p_game_object);
+
+	/*Get the current state
+	* Returns : string
+	*/
+	std::string GetCurrentState();
+
+	/*Get the previous state
+	* Returns : string
+	*/
+	std::string GetPrevState();
 };

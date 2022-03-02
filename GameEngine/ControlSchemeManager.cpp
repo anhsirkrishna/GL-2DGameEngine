@@ -1,3 +1,14 @@
+/******************************************************************************/
+/* !
+/* File:   ControlSchemeManager.cpp
+/* Author: Sreyash Raychaudhuri
+*		   Krishna Pillai - Added methods to talk to Lua script
+/* Email: srey.raychaudhuri@digipen.edu
+/* Date:   02/17/2022
+/* Control Scheme Manager encapsulation header file
+/* DigiPen Institute of Technology © 2022
+/******************************************************************************/
+
 #include "ControlSchemeManager.h"
 #include "InputManager.h"
 #include <SDL.h>
@@ -8,10 +19,10 @@ ControlSchemeManager::ControlSchemeManager() {
 	// Set up control map
 	Serialize();
 
-	// Everything is released when the game starts
-	action_control_state[Action::MOVE_LEFT] = ControlState::INACTIVE;
-	action_control_state[Action::MOVE_RIGHT] = ControlState::INACTIVE;
-	action_control_state[Action::JUMP] = ControlState::INACTIVE;
+	// Everything is inactive when the game starts
+	for (int i = 0; i < int(Action::NUM); ++i) {
+		action_control_state[static_cast<Action>(i)] = ControlState::INACTIVE;
+	}
 }
 
 void ControlSchemeManager::Serialize() {
@@ -57,7 +68,6 @@ void ControlSchemeManager::Serialize() {
 }
 
 void ControlSchemeManager::Update() {
-
 	// Iterate through action map
 	for (auto &a : action_control_map) {
 
@@ -103,4 +113,13 @@ void ControlSchemeManager::Update() {
 
 std::unordered_map<Action, ControlState> ControlSchemeManager::GetActionStateMap() {
 	return action_control_state;
+}
+
+
+/*Check if state of the action map for a particlur action matches
+* the queried value
+* Returns : bool - True if action state matches
+*/
+bool ControlSchemeManager::CheckActionState(Action check_action, ControlState check_state) {
+	return (action_control_state[check_action] == check_state);
 }

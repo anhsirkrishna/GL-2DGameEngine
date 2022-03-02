@@ -52,5 +52,11 @@ public:
 	
 	// Resolve all recorded collisions
 	void ResolveCollisions();
+
+	/*Unlocks the movement components if collisions aren't detected
+	* Returns: void
+	*/
+	void UnlockMovements();
 };
 
+extern PhysicsWorld* p_physics_world;

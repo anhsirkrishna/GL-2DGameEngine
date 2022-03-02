@@ -79,6 +79,7 @@ GraphicsManager::GraphicsManager() : p_active_shader(nullptr), p_sdl_window(null
 	BindBlockBinding(bind_point, "blurKernel");
 
 	SetActiveShader("final");
+	p_graphics_manager->SetAlphaBlendingOff();
 }
 
 GraphicsManager::~GraphicsManager() {

@@ -2,7 +2,7 @@
 #include "Component.h"
 
 //Creates a named game object
-GameObject::GameObject(std::string object_name) : name(object_name), index(0) {
+GameObject::GameObject(std::string object_name) : name(object_name), index(0), enabled(true) {
 	state_manager.SetOwner(this);
 }
 
@@ -42,8 +42,10 @@ void GameObject::AddComponent(Component* component) {
 
 //Calls the Update() function for each of its components
 void GameObject::Update() {
-	for (auto component : component_list) {
+	if (enabled) {
+		for (auto component : component_list) {
 		component->Update();
+		}
 	}
 }
 
@@ -59,8 +61,10 @@ void GameObject::LinkComponents() {
 
 //Calls the Draw() function for each of its components
 void GameObject::Draw(ShaderProgram* program) {
-	for (auto component : component_list) {
-		component->Draw(program);
+	if (enabled) {
+		for (auto component : component_list) {
+			component->Draw(program);
+		}
 	}
 }
 
@@ -69,7 +73,19 @@ void GameObject::Draw(ShaderProgram* program) {
 * Returns: void
 */
 void GameObject::HandleEvent(TimedEvent* p_event) {
-	for (auto component : component_list) {
-		component->HandleEvent(p_event);
+	if (enabled) {
+		for (auto component : component_list) {
+			component->HandleEvent(p_event);
+		}
 	}
+}
+
+//Disable game object
+void GameObject::Disable() {
+	enabled = false;
+}
+
+//Enable game object
+void GameObject::Enable() {
+	enabled = true;
 }

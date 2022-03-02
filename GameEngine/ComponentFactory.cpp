@@ -21,6 +21,9 @@ ComponentFactory::ComponentFactory() {
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("PARTICLE_EFFECT", new ParticleEffectCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("TILEMAP", new TilemapCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("BEHAVIOR", new BehaviorCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("PROJECTILE", new ProjectileCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("HITBOX", new HitboxCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("HURTBOX", new HurtboxCreator));
 }
 
 ComponentFactory::~ComponentFactory() {

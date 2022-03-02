@@ -19,6 +19,9 @@
 #include "Tilemap.h"
 #include "MemoryManager.h"
 #include "Behavior.h"
+#include "Projectile.h"
+#include "Hitbox.h"
+#include "Hurtbox.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.
@@ -86,4 +89,22 @@ Component* BehaviorCreator::Create(json json_object) {
 	Behavior* new_behavior = new Behavior;
 	new_behavior->Serialize(json_object);
 	return static_cast<Component*>(new_behavior);
+}
+
+Component* ProjectileCreator::Create(json json_object) {
+	Projectile* new_projectile = new Projectile;
+	new_projectile->Serialize(json_object);
+	return static_cast<Component*>(new_projectile);
+}
+
+Component* HitboxCreator::Create(json json_object) {
+	Hitbox* new_hitbox = new Hitbox;
+	new_hitbox->Serialize(json_object);
+	return static_cast<Component*>(new_hitbox);
+}
+
+Component* HurtboxCreator::Create(json json_object) {
+	Hurtbox* new_hurtbox = new Hurtbox;
+	new_hurtbox->Serialize(json_object);
+	return static_cast<Component*>(new_hurtbox);
 }

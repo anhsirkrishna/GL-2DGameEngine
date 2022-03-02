@@ -36,7 +36,7 @@
     },
     "TRANSFORM": {},
     "BEHAVIOR": {
-      "script_filename": "player_move.lua"
+      "script_filename": "enemy_1.lua"
     },
     "COLLIDER": {
       "collider_offset_params": [ 18, 18, 12, 30 ]
@@ -44,9 +44,9 @@
     "MOVEMENT": {
       "gravity_on": true
     },
-    "PROJECTILE": {
-      "instance_def": "fire_projectile",
-      "instance_count":  10
+    "HURTBOX": {
+      "offset": [ 20, 20 ],
+      "dimensions": [6, 15]
     }
   },
   "STATES": {
@@ -115,6 +115,22 @@
         ],
         "looping": false,
         "interval": 2
+      }
+    },
+    "DIE": {
+      "GLQUAD": {
+        "texture_names": [ "player_sheet" ]
+      },
+      "ANIMATION": {
+        "frames": [
+            0, 1428,
+           96, 1428,
+          192, 1428,
+          288, 1428,
+          384, 1428
+        ],
+        "looping": false,
+        "interval": 4
       }
     }
   },

@@ -22,8 +22,6 @@ class FBO;
 class GraphicsManager {
 private:
 	ShaderProgram* p_active_shader;
-	GLuint window_width;
-	GLuint window_height;
 	FBO* g_buffer;
 	GLuint full_screen_quad_vao;
 	FBO* ping_pong_buffer;
@@ -46,6 +44,8 @@ private:
 public:
 	SDL_Window* p_sdl_window;
 	SDL_GLContext p_gl_context;
+	GLuint window_width;
+	GLuint window_height;
 
 	/*Initializes the graphics manager
 	* Creates all the shader programs necessary

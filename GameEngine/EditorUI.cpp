@@ -51,17 +51,17 @@ void Editor::NewFrame() const {
 void Editor::EditorCameraControls()
 {
 	// test camera movement lines
-	if (p_input_manager->isKeyPressed(12))
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_UP))
 		p_camera->ProcessKeyboardInput(CameraMovement::CAM_UP, p_framerate_controller->GetPrevLoopDeltaTime());
-	if (p_input_manager->isKeyPressed(13))
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_LEFT))
 		p_camera->ProcessKeyboardInput(CameraMovement::CAM_LEFT, p_framerate_controller->GetPrevLoopDeltaTime());
-	if (p_input_manager->isKeyPressed(14))
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_DOWN))
 		p_camera->ProcessKeyboardInput(CameraMovement::CAM_DOWN, p_framerate_controller->GetPrevLoopDeltaTime());
-	if (p_input_manager->isKeyPressed(15))
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_RIGHT))
 		p_camera->ProcessKeyboardInput(CameraMovement::CAM_RIGHT, p_framerate_controller->GetPrevLoopDeltaTime());
-	if (p_input_manager->isKeyPressed(82))
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_Z))
 		p_camera->ProcessKeyboardInput(CameraMovement::CAM_FORWARD, p_framerate_controller->GetPrevLoopDeltaTime());
-	if (p_input_manager->isKeyPressed(81))
+	if (p_input_manager->isKeyPressed(SDL_SCANCODE_X))
 		p_camera->ProcessKeyboardInput(CameraMovement::CAM_BACKWARD, p_framerate_controller->GetPrevLoopDeltaTime());
 }
 
@@ -79,11 +79,11 @@ void Editor::DebuggerWindow() {
 
 	mouse_worldpos = p_camera->ScreenToWorld(x, y);
 
-
+	std::string mouse_coord = "Mouse coord: (" + std::to_string(x) + ", " + std::to_string(y) + ")";
 	std::string mouse_pos = "Mouse Pos: (" + std::to_string(mouse_worldpos.x) + ", " + std::to_string(mouse_worldpos.y) + ")";
 
 	ImGui::Text(mouse_pos.c_str());
-
+	ImGui::Text(mouse_coord.c_str());
 
 	ImGui::End();
 }

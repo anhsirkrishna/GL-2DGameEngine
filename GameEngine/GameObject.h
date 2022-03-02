@@ -19,6 +19,7 @@ class GameObject {
 public:
 	//Index keeps track of the index with respect to the list of game objects
 	unsigned int index;
+	bool enabled;
 	StateManager state_manager;
 
 	//Creates a named game object
@@ -54,6 +55,12 @@ public:
 	* Returns: void
 	*/
 	void HandleEvent(TimedEvent* p_event);
+
+	//Disable game object
+	void Disable();
+
+	//Enable game object
+	void Enable();
 
 private:
 	std::string name;

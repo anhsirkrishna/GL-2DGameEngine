@@ -20,6 +20,8 @@ void main() {
 	}
 	else {
 		vec4 tex_color = texture(texture_map, ex_TextCoord + tex_offset);
+		if (tex_color.a < 0.01)
+			discard;
 		out_Color = tex_color;
 	}
 	out_Color.rgb *= brightness;

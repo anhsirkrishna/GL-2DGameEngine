@@ -2,6 +2,7 @@
 /* !
 /* File   Movement.h
 /* Author Sreyash Raychaudhuri
+*		  Krishna Pillai - Added logic to interact with script
 /* Email: srey.raychaudhuri@digipen.edu
 /* Date   01/27/2022
 /* Movement Component class encapsulation header file
@@ -40,9 +41,6 @@ public:
 	// Sets the velocity
 	void SetVelocity(glm::vec4 new_velocity);
 
-	// Just check if any directional locks can be disabled if in case enabled
-	void Update();
-
 	// Sets the x velocity
 	void MoveHorizontally(float vel_x);
 
@@ -54,6 +52,12 @@ public:
 
 	// Stores references to other components
 	void Link();
+
+	//Returns the velocity in the y direction
+	float GetVerticalVelocity();
+
+	//Get downlock
+	bool GetDownLock();
 
 	/* to lock or unlock movement in different directions
 	* 1st elem: Upward movement lock: vel y cannot be set to a -ve value and will remain zero
