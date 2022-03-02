@@ -142,6 +142,8 @@ int main(int argc, char* args[])
 
 	//Create the Shader Program
 	ShaderProgram* p_shader_program = p_graphics_manager->GetActiveShader();
+	
+	p_physics_world->Init();
 
 	p_level_manager->LoadLevel(0);
 
@@ -152,8 +154,6 @@ int main(int argc, char* args[])
 	std::vector<GameObject*> new_go_list;
 	GameObject* test_game_object = nullptr;
 
-
-	p_physics_world->Init();
   
 	while (p_game_manager->Status())
 	{

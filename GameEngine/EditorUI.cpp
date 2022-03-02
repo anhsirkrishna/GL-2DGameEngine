@@ -92,6 +92,7 @@ void Editor::DebuggerWindow() {
 		p_level_manager->LoadLevel(level_num);
 
 	ImGui::Text("Current Level: %d", p_level_manager->current_level);
+	ImGui::Text(mouse_coord.c_str());
 
 	ImGui::End();
 }

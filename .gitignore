@@ -51,3 +51,5 @@ Diagrams
 # vcxproj.user file 
 *.vcxproj.user
 
+#bak files
+*.bak

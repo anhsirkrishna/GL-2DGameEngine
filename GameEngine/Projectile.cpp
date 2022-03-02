@@ -35,7 +35,7 @@ void Projectile::Serialize(json json_object) {
 	GameObject* new_object;
 	for (unsigned int i = 0; i < instance_count; i++) {
 		new_object = go_factory.CreateGameObject(projectile_name, instance_file);
-		new_object->enabled = false;
+		new_object->SetActive(false);
 		p_game_obj_manager->AddGameObject(new_object);
 		p_instances.push_back(new_object);
 	}
@@ -47,7 +47,7 @@ void Projectile::Link() {
 
 void Projectile::Spawn() {
 	GameObject* new_projectile = p_instances[GetLastUsedInstance()];
-	new_projectile->enabled = true;
+	new_projectile->SetActive(true);
 
 	Transform* projectile_transform = static_cast<Transform*>(new_projectile->HasComponent("TRANSFORM"));
 	projectile_transform->SetScale(p_owner_transform->GetScaleX(), p_owner_transform->GetScaleY());
@@ -60,7 +60,7 @@ void Projectile::Spawn() {
 int Projectile::GetLastUsedInstance() {
 	//Should usually return immediately 
 	for (unsigned int i = last_used_instance; i < instance_count; i++) {
-		if (!p_instances[i]->enabled) {
+		if (!p_instances[i]->IsActive()) {
 			last_used_instance = i;
 			return last_used_instance;
 		}
@@ -68,7 +68,7 @@ int Projectile::GetLastUsedInstance() {
 
 	//Otherwise perform linear search
 	for (unsigned int i = 0; i < last_used_instance; i++) {
-		if (!p_instances[i]->enabled) {
+		if (!p_instances[i]->IsActive()) {
 			last_used_instance = i;
 			return last_used_instance;
 		}

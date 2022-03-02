@@ -64,7 +64,6 @@ public:
 
 	//Enable game object
 	void Enable();
-
 private:
 	std::string name;
 	std::vector<Component*> component_list;

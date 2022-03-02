@@ -55,7 +55,7 @@ void PhysicsWorld::Integrate()
 	float dt = p_framerate_controller->GetPrevLoopDeltaTime() / 1000.0f;
 
 	for (GameObject* p : physics_game_objects) {
-		if (!p->enabled)
+		if (!p->IsActive())
 			continue;
 		if (p->HasComponent("MOVEMENT")) {
 

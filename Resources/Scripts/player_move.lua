@@ -9,7 +9,7 @@ triggered = 1
 released = 2
 inactive = 3
 
-walk_speed = 100;
+walk_speed = 50;
 jump_speed = -80;
 
 function MoveCharacterRight()
