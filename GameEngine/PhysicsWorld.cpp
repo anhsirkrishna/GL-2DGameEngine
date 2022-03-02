@@ -18,6 +18,23 @@ void PhysicsWorld::Init()
 	}
 }
 
+void PhysicsWorld::Reload() {
+
+	/*for (int i = 0; i < physics_game_objects.size(); i++) {
+		delete physics_game_objects[i];
+	}*/
+
+	physics_game_objects.clear();
+	
+	auto game_object_list = p_game_obj_manager->game_object_list;
+
+	for (int i = 0; i < game_object_list.size(); i++) {
+		if (game_object_list[i]->HasComponent("COLLIDER")) {
+			physics_game_objects.push_back(game_object_list[i]);
+		}
+	}
+}
+
 // Function to add a game object that can be affected by in-game physics
 void PhysicsWorld::AddPhysicsGameObject(GameObject* physics_object) {
 	physics_game_objects.push_back(physics_object);

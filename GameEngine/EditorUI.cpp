@@ -24,6 +24,7 @@
 #include "InputManager.h"
 #include "FrameRateController.h"
 #include "Camera.h"
+#include "LevelManager.h"
 
 /* Initializes imgui */
 void Editor::Init() const {
@@ -84,6 +85,13 @@ void Editor::DebuggerWindow() {
 
 	ImGui::Text(mouse_pos.c_str());
 	ImGui::Text(mouse_coord.c_str());
+
+	ImGui::InputInt("Target Level", &level_num);
+
+	if (ImGui::Button("Load"))
+		p_level_manager->LoadLevel(level_num);
+
+	ImGui::Text("Current Level: %d", p_level_manager->current_level);
 
 	ImGui::End();
 }

@@ -204,6 +204,9 @@
     <ClCompile Include="Hurtbox.cpp">
       <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -349,6 +352,9 @@
     </ClInclude>
     <ClInclude Include="Hurtbox.h">
       <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

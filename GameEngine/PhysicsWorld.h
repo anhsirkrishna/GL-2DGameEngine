@@ -57,6 +57,9 @@ public:
 	* Returns: void
 	*/
 	void UnlockMovements();
+
+	// Reloads physics objects on new level load
+	void Reload();
 };
 
 extern PhysicsWorld* p_physics_world;

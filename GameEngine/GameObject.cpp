@@ -2,7 +2,7 @@
 #include "Component.h"
 
 //Creates a named game object
-GameObject::GameObject(std::string object_name) : name(object_name), index(0), enabled(true) {
+GameObject::GameObject(std::string object_name) : name(object_name), index(0), is_active(true) {
 	state_manager.SetOwner(this);
 }
 
@@ -42,7 +42,7 @@ void GameObject::AddComponent(Component* component) {
 
 //Calls the Update() function for each of its components
 void GameObject::Update() {
-	if (enabled) {
+	if (IsActive()) {
 		for (auto component : component_list) {
 		component->Update();
 		}
@@ -61,7 +61,7 @@ void GameObject::LinkComponents() {
 
 //Calls the Draw() function for each of its components
 void GameObject::Draw(ShaderProgram* program) {
-	if (enabled) {
+	if (IsActive()) {
 		for (auto component : component_list) {
 			component->Draw(program);
 		}
@@ -73,7 +73,7 @@ void GameObject::Draw(ShaderProgram* program) {
 * Returns: void
 */
 void GameObject::HandleEvent(TimedEvent* p_event) {
-	if (enabled) {
+	if (IsActive()) {
 		for (auto component : component_list) {
 			component->HandleEvent(p_event);
 		}
@@ -82,10 +82,20 @@ void GameObject::HandleEvent(TimedEvent* p_event) {
 
 //Disable game object
 void GameObject::Disable() {
-	enabled = false;
+	is_active = false;
 }
 
 //Enable game object
 void GameObject::Enable() {
-	enabled = true;
+	is_active = true;
+}
+
+void GameObject::SetActive(bool val)
+{
+	is_active = val;
+}
+
+bool GameObject::IsActive() const
+{
+	return is_active;
 }

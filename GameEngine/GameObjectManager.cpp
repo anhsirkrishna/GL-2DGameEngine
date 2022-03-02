@@ -14,7 +14,8 @@ void GameObjectManager::AddGameObject(GameObject* game_object) {
 
 void GameObjectManager::Update() {
 	for (unsigned i = 0; i < game_object_list.size(); ++i) {
-		game_object_list[i]->Update();
+		if (game_object_list[i]->IsActive())
+			game_object_list[i]->Update();
 	}
 }
 
@@ -33,6 +34,7 @@ void GameObjectManager::Draw(ShaderProgram* program) {
 void GameObjectManager::Cleanup() {
 
 	for (unsigned i = 0; i < game_object_list.size(); ++i) {
+		game_object_list[i]->SetActive(false);
 		delete game_object_list[i];
 	}
 	

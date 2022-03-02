@@ -185,6 +185,7 @@
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="Hurtbox.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LuaManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix3D.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="Hurtbox.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LuaManager.h" />
     <ClInclude Include="Matrix3D.h" />
     <ClInclude Include="MemoryManager.h" />
