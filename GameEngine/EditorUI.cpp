@@ -12,8 +12,11 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_sdl.h>
+
 #include "GameObjectManager.h"
 #include "Transform.h"
 #include "GLQuad.h"
@@ -25,9 +28,24 @@
 #include "FrameRateController.h"
 #include "Camera.h"
 #include "LevelManager.h"
+#include "GameObjectFactory.h"
+#include "PhysicsWorld.h"
+#include "LuaManager.h"
+
+std::vector<const char*> obj_def_list = {
+	"enemy_obj",
+	"fire_projectile",
+	"ice_ball",
+	"obj1",
+	"obj2",
+	"obj3",
+	"Tilemap",
+	"Tilemap1"
+};
+
 
 /* Initializes imgui */
-void Editor::Init() const {
+void Editor::Init() {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -39,6 +57,24 @@ void Editor::Init() const {
 
 	std::string glsl_version = "#version 130";
 	ImGui_ImplOpenGL3_Init(glsl_version.c_str());
+
+
+	for (auto& obj_def : obj_def_list)
+	{
+		std::string obj_def_file = ".\\Obj_defs\\" + std::string(obj_def) + ".json";
+		std::ifstream obj_def_data(obj_def_file);
+
+		if (obj_def_data.good())
+		{
+			std::stringstream buffer;
+			buffer << obj_def_data.rdbuf();
+			obj_def_json_strings.insert(std::pair<std::string, std::string>(obj_def, buffer.str()));
+		}
+	}
+
+	
+
+
 }
 
 /* Sets up new imgui frame */
@@ -92,7 +128,8 @@ void Editor::DebuggerWindow() {
 		p_level_manager->LoadLevel(level_num);
 
 	ImGui::Text("Current Level: %d", p_level_manager->current_level);
-	ImGui::Text(mouse_coord.c_str());
+	if (ImGui::Button("Save"))
+		p_level_manager->SaveLevel();
 
 	ImGui::End();
 }
@@ -108,13 +145,13 @@ void Editor::GameObjectWindow() {
 	for (int i = 0; i < objlist_size; ++i)
 		obj_names.push_back(p_game_obj_manager->game_object_list[i]->GetNameRef().c_str());
 
-	static int selected = 0;
-	static int current_index = 0;
+	
 
 	// Left Item
 	{
-		ImGui::BeginChild("left pane", ImVec2(150, 0), true);
+		ImGui::BeginChild("left pane", ImVec2(250, 0), true);
 		ImGui::ListBox("List", &selected, obj_names.data(), objlist_size);
+
 		ImGui::EndChild();
 	}
 	ImGui::SameLine();
@@ -126,6 +163,7 @@ void Editor::GameObjectWindow() {
 		ImGui::Text("Selected Object: %s", obj_names[selected]);
 		ImGui::Separator();
 
+		GameObject* curr_obj = p_game_obj_manager->game_object_list[selected];
 		Component* comp_transform = p_game_obj_manager->game_object_list[selected]->HasComponent("TRANSFORM");
 		Component* comp_glquad = p_game_obj_manager->game_object_list[selected]->HasComponent("GLQUAD");
 
@@ -196,14 +234,36 @@ void Editor::GameObjectWindow() {
 					// save new values
 					obj_transform->SetRotation(rot);
 
+					ImGui::Separator();
+
 					if (ImGui::Button("Revert"))
 					{
 						// revert to previous values
+
+						auto saved_pos = p_level_manager->curr_obj_map[curr_obj->GetName()]["starting_position"]
+							.get<std::vector<float>>();
+
+						posX = saved_pos[0];
+						posY = saved_pos[1];
+
+						obj_transform->SetPosition(glm::vec4(saved_pos[0], saved_pos[1], saved_pos[2], saved_pos[3]));
+
 					}
 					ImGui::SameLine();
 					if (ImGui::Button("Save"))
 					{
 						// save new values
+						std::vector<float> f_vector = { posX,
+														posY,
+														obj_transform->GetPosCoord(2),
+														obj_transform->GetPosCoord(3) };
+
+						p_level_manager->curr_obj_map[curr_obj->GetName()]["starting_position"]
+							= json(f_vector);
+
+
+						p_level_manager->SaveSingle();
+
 					}
 
 					ImGui::EndTabItem();
@@ -223,10 +283,11 @@ void Editor::GameObjectWindow() {
 
 			}
 
-			// Sample Details Tab
-			if (ImGui::BeginTabItem("Details"))
+			// JSON obj_def Tab
+			if (ImGui::BeginTabItem("OBJ_DEF"))
 			{
-				ImGui::Text("ID: 0123456789");
+				ImGui::Text(curr_obj->obj_def.c_str());
+				ImGui::Text(obj_def_json_strings[curr_obj->obj_def].c_str());
 				ImGui::EndTabItem();
 			}
 			ImGui::EndTabBar();

@@ -13,13 +13,24 @@ typedef struct SDL_Window;
 typedef void* SDL_GLContext;
 
 #include <glm.hpp>
+#include <string>
+#include <map>
 
 /*
 Custom ImGui Editor class
 */
 class Editor
 {
+
+	std::map<std::string, std::string> obj_def_json_strings;
+
+	int selected = 0;
+	int current_index = 0;
+	int obj_def_selected = 0;
+
 public:
+
+	
 
 	float last_frame_fps;
 	float mouse_x;
@@ -27,12 +38,13 @@ public:
 	glm::vec4 mouse_worldpos;
 	int level_num;
 
-	void Init() const;
+	void Init();
 	void NewFrame() const;
 	void EditorCameraControls();
 	void DebuggerWindow();
 	void GameObjectWindow();
 	void Render();
+	void CreateObject(std::string obj_def);
 	void Cleanup() const;
 };
 

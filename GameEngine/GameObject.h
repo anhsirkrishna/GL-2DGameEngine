@@ -21,6 +21,8 @@ public:
 	unsigned int index;
 	StateManager state_manager;
 
+	std::string obj_def;
+
 	//Creates a named game object
 	GameObject(std::string object_name);
 
@@ -64,6 +66,7 @@ public:
 
 	//Enable game object
 	void Enable();
+
 private:
 	std::string name;
 	std::vector<Component*> component_list;
