@@ -21,6 +21,7 @@ private:
 	glm::vec2 offset;
 	glm::vec2 dimensions;
 	Transform* p_owner_transform;
+	bool enabled;
 public:
 	Hurtbox();
 
@@ -45,4 +46,12 @@ public:
 	* Returns : vec4
 	*/
 	glm::vec4 GetHurtboxPos();
+
+	/*Handles events 
+	* Returns: void
+	*/
+	virtual void HandleEvent(TimedEvent* p_event);
+	
+	//Returns enabled state
+	bool IsEnabled();
 };

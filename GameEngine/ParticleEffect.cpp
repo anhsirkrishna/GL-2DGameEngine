@@ -310,7 +310,6 @@ void ParticleEffect::Draw(ShaderProgram* program) {
 	p_graphics_manager->SetUniformInt(texture_mode, "mode");
 
 	p_graphics_manager->SetAlphaBlendingOn();
-	//p_graphics_manager->SetDepthTestOff();
 
 	p_graphics_manager->SetDynamicBufferData(vao_id, vertex_buffer_id, &particle_vertex_list[0],
 		sizeof(float) * particle_vertex_list.size());
@@ -319,7 +318,7 @@ void ParticleEffect::Draw(ShaderProgram* program) {
 		sizeof(float) * particle_brightness_list.size());
 
 	p_graphics_manager->DrawQuad(vao_id, max_particle_count);
-	//p_graphics_manager->SetDepthTestOn();
+
 	p_graphics_manager->SetAlphaBlendingOff();
 
 	p_graphics_manager->SetActiveShader("final");
@@ -350,12 +349,12 @@ void ParticleEffect::BurstEffect(int burst_size) {
 	for (unsigned int j = 0; j < burst_size; j++) {
 		particle_index = GetLastUsedParticle();
 
-		particles[particle_index].life_time = particle_lifetime*2;
+		particles[particle_index].life_time = particle_lifetime;
 		particles[particle_index].position = glm::vec4(origin_offset, 0.0f, 0.0f);
 		new_velocity = GetRandomParticleVelocity();
-		particles[particle_index].velocity.x = new_velocity.x * 10;
-		particles[particle_index].velocity.y = new_velocity.y * 10;
-		particles[particle_index].velocity.z = new_velocity.z * 10;
+		particles[particle_index].velocity.x = new_velocity.x * 50;
+		particles[particle_index].velocity.y = new_velocity.y * 50;
+		particles[particle_index].velocity.z = new_velocity.z * 50;
 	}
 }
 
@@ -365,7 +364,16 @@ void ParticleEffect::BurstEffect(int burst_size) {
 * Returns: void
 */
 void ParticleEffect::HandleEvent(TimedEvent* p_event) {
-	if (p_event->event_id == EventID::hit) {
-		BurstEffect(50);
+	if (p_event->event_id == EventID::disable) {
+		ResetParticles();
+	}
+}
+
+/*Resets all the particles to their starting position
+* Returns: void
+*/
+void ParticleEffect::ResetParticles() {
+	for (unsigned int i = 0; i < particles.size(); i++) {
+		RespawnParticle(i);
 	}
 }

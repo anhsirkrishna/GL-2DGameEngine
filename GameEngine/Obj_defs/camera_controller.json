@@ -1,0 +1,14 @@
+{
+  "COMPONENTS": {
+    "CAMERA_CONTROLLER": {
+      "follow_object_name": "player_character"
+    },
+    "BEHAVIOR": {
+      "script_filename": "camera_controller.lua"
+    }
+  },
+  "STATES": {
+    "DEFAULT": {}
+  },
+  "DEFAULT_STATE": "DEFAULT"
+}

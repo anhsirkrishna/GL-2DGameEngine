@@ -2,6 +2,7 @@
 /*!
 /*File: Behavior.h
 /*Author: Brady Menendez
+*		  Krishna Pillai
 /*Email: brady.m@digipen.edu
 /*Date   2/24/2022
 /*  Definition of the Behavior component
@@ -39,4 +40,12 @@ public:
 	* Returns : void
 	*/
 	virtual void HandleEvent(TimedEvent* p_event);
+
+
+	/*Send an event using the event manager
+	* Allows lua scripts to send events
+	* Args need to be primitive types for lua to send
+	* Returns: void
+	*/
+	void SendEvent(int event_id, int delay_time, bool broadcast);
 };

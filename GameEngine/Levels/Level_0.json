@@ -1,31 +1,51 @@
 {
-  "demo_obj": {
-    "obj_def": "obj1",
-    "starting_position": [ 0, 0, 0, 0 ]
+  "player_character": {
+    "obj_def": "player_obj",
+    "starting_position": [ 0, 0, -1, 0 ]
   },
   "enemy_obj": {
     "obj_def": "enemy_obj",
-    "starting_position": [ 200, 0, 0, 0 ]
+    "starting_position": [ 800, 0, -1, 0 ]
   },
-  "demo_obj_1": {
-    "obj_def": "obj2",
-    "starting_position": [ 0, 150, 0, 0 ]
+  "enemy_obj_1": {
+    "obj_def": "enemy_obj",
+    "starting_position": [ 750, 0, -1, 0 ]
   },
-  "demo_obj_2": {
-    "obj_def": "obj3",
-    "starting_position": [ 200, -300, 0, 0 ]
+  "enemy_obj_2": {
+    "obj_def": "enemy_obj",
+    "starting_position": [ 900, 0, -1, 0 ]
   },
-  "demo_obj_3": {
-    "obj_def": "obj2",
-    "starting_position": [ 200, -150, 0, 0 ]
+  "enemy_obj_3": {
+    "obj_def": "enemy_obj",
+    "starting_position": [ 500, 0, -1, 0 ]
   },
-  "demo_obj_4": {
-    "obj_def": "obj3",
-    "starting_position": [ -200, 400, 0, 0 ]
+  "enemy_obj_4": {
+    "obj_def": "enemy_obj",
+    "starting_position": [ 200, 0, -1, 0 ]
   },
-  "demo_obj_5": {
-    "obj_def": "obj2",
-    "starting_position": [ -200, 500, 0, 0 ]
+  "enemy_obj_5": {
+    "obj_def": "enemy_obj",
+    "starting_position": [ 300, 0, -1, 0 ]
+  },
+  "platform_1": {
+    "obj_def": "test_platform",
+    "starting_position": [ -20, 150, 0, 0 ]
+  },
+  "platform_2": {
+    "obj_def": "test_platform",
+    "starting_position": [ 450, 150, 0, 0 ]
+  },
+  "platform_3": {
+    "obj_def": "test_platform",
+    "starting_position": [ 900, 150, 0, 0 ]
+  },
+  "platform_4": {
+    "obj_def": "test_platform",
+    "starting_position": [ 200, 200, 0, 0 ]
+  },
+  "platform_5": {
+    "obj_def": "test_platform",
+    "starting_position": [ 700, 400, 0, 0 ]
   },
   "iceball0": {
     "obj_def": "ice_ball",
@@ -35,8 +55,15 @@
     "obj_def": "ice_ball",
     "starting_position": [ 200, -50, -1, 0 ]
   },
-  "background_obj": {
-    "obj_def": "Tilemap1",
-    "starting_position": [ 0, 0, 1, 0 ]
+  "backdrop": {
+    "obj_def": "far_backdrop",
+    "starting_position": [ -100, -100, 100, 0 ]
+  },
+  "camera_controller": {
+    "obj_def": "camera_controller"
+  },
+  "xfire_orb": {
+    "obj_def": "fire_orb",
+    "starting_position": [ 0, 0, -1, 0 ]
   }
 }
