@@ -21,11 +21,6 @@ class Collider;
 
 using json = nlohmann::json;
 
-
-struct DirLocks {
-	bool up_lock, down_lock, left_lock, right_lock;
-};
-
 class Movement : public Component {
 public:
 
@@ -37,6 +32,9 @@ public:
 
 	// Returns the velocity
 	glm::vec4 GetVelocity();
+
+	// Get the gravity values
+	bool GetGravity();
 
 	// Sets the velocity
 	void SetVelocity(glm::vec4 new_velocity);
@@ -56,24 +54,10 @@ public:
 	//Returns the velocity in the y direction
 	float GetVerticalVelocity();
 
-	//Get downlock
-	bool GetDownLock();
-
-	/* to lock or unlock movement in different directions
-	* 1st elem: Upward movement lock: vel y cannot be set to a -ve value and will remain zero
-	* 2nd elem: Downward movement lock: vel y cannot be set to a +ve value and will remain zero
-	* 3rd elem: Leftward movement lock: vel x cannot be set to a -ve value and will remain zero
-	* 4th elem: Righward movement lock: vel x cannot be set to a +ve value and will remain zero
-	*/
-
-	DirLocks dirLocks;
-
 private:
-
 	bool gravity_on;
 	float mass;
 	glm::vec4 velocity;
 	Transform* p_owner_transform;
-	Collider* p_owner_collider;
 };
 

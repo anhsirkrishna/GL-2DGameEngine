@@ -58,8 +58,6 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 		state.set_function("move", &Movement::MoveHorizontally, move);
 		state.set_function("jump", &Movement::Jump, move);
 		state.set_function("get_vertical_velocity", &Movement::GetVerticalVelocity, move);
-		state.set_function("get_downlock", &Movement::GetDownLock, move);
-		//state.set_function("set_grav", &Movement::SetGravityUsage, move);
 	}
 
 	comp = obj->HasComponent("TRANSFORM");

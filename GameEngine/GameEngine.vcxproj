@@ -257,6 +257,7 @@
     <None Include="..\Resources\Scripts\enemy_1.lua" />
     <None Include="..\Resources\Scripts\player_move.lua" />
     <None Include="..\Resources\Scripts\projectile_move.lua" />
+    <None Include="..\Resources\Scripts\projectile_move_test.lua" />
     <None Include="final.frag" />
     <None Include="final.vert" />
     <None Include="horizontal_blur.comp" />

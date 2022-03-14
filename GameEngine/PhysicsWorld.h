@@ -13,11 +13,23 @@
 #include "Movement.h"
 #include "Transform.h"
 
-
-// Struct that stores pointers to the two colliding bodies
+/* Struct that stores
+   1) pointers to the two colliding bodies 
+   2) on which side of the second object it's colliding
+   3) penetration depth on collision
+*/
 struct Collision {
 	Collider* collider_a;
 	Collider* collider_b;
+	std::string side_of_b;
+	float penetration_depth;
+};
+
+// Info needed to be returned after AABB collision check
+struct AABBResult {
+	bool colliding;
+	std::string side_of_b;
+	float penetration_depth;
 };
 
 #pragma once
@@ -45,18 +57,13 @@ public:
 	void Integrate();
 
 	// To check for AABB collision between two given colliders
-	bool AABB(Collider* collider_0, Collider* collider_1);
+	AABBResult AABB(Collider* collider_0, Collider* collider_1);
 
 	// Check for a potential collision
 	void DetectAndRecordCollisions();
 	
 	// Resolve all recorded collisions
 	void ResolveCollisions();
-
-	/*Unlocks the movement components if collisions aren't detected
-	* Returns: void
-	*/
-	void UnlockMovements();
 
 	// Reloads physics objects on new level load
 	void Reload();
