@@ -38,6 +38,8 @@ void Camera::ProcessKeyboardInput(CameraMovement direction, float dt)
 	default:
 		break;
 	}
+
+//	ClampCameraPosition();
 }
 
 // Updates the camera zoom based on a direction enum
@@ -90,3 +92,18 @@ glm::vec4 Camera::ScreenToWorld(int x, int y)
 
 glm::mat4 Camera::GetViewMatrix() { return glm::lookAt(position, position + front, up); }
 glm::mat4 Camera::GetProjMatrix() { return glm::perspective(glm::radians(zoom), (float)window_width / (float)window_height, 0.1f, 10000.0f); }
+
+void Camera::ClampCameraPosition() {
+	float lower_limit_x = 300;
+	float lower_limit_y = 164;
+
+	float upper_limit_x = 1496;
+	float upper_limit_y = 730;
+
+	float static_z = -500;
+
+	//Clamp the x and y values between upper and lower limits
+	position.x = glm::min(glm::max(position.x, lower_limit_x), upper_limit_x);
+	position.y = glm::min(glm::max(position.y, lower_limit_y), upper_limit_y);
+	position.z = static_z;
+}

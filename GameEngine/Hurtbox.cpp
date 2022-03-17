@@ -1,9 +1,10 @@
 #include "Hurtbox.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "Events.h"
 
 Hurtbox::Hurtbox() : Component("HURTBOX"), offset(0.0f), dimensions(0.0f),
-p_owner_transform(nullptr) {
+					 p_owner_transform(nullptr), enabled(true) {
 }
 
 /*Inits a Hurtbox component
@@ -51,4 +52,23 @@ glm::vec4 Hurtbox::GetHurtboxPos() {
 	curr_position.w = dimensions.y;
 
 	return curr_position;
+}
+
+/*Handles events
+* Returns: void
+*/
+void Hurtbox::HandleEvent(TimedEvent* p_event) {
+	switch (p_event->event_id)
+	{
+	case EventID::die:
+		enabled = false;
+		break;
+	default:
+		break;
+	}
+}
+
+//Returns enabled state
+bool Hurtbox::IsEnabled() {
+	return enabled;
 }

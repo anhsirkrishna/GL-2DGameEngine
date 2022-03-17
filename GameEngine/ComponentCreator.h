@@ -94,3 +94,15 @@ class HurtboxCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
+
+//Creates instance of Behavior component
+class CameraControllerCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
+
+//Creates instance of Behavior component
+class DependantObjectsCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};

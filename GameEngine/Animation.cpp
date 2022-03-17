@@ -51,14 +51,15 @@ void Animation::Update() {
 
 	if (timer >= interval) {
 		timer = 0;
+		//On the last frame of animation
+		if (current_frame + 1 == frames.size())
+			times_played += 1;
 		//Move to the next frame of animation 
 		if (times_played > 0 && looping == false)
 			current_frame = frames.size() - 1;
 		else
 			current_frame = 
 				current_frame + 1 < frames.size() ? (current_frame + 1) : 0;
-		if (current_frame == 0)
-			times_played += 1;
 	}
 
 	//Set the texture offset for the GLSprite component of the the owner

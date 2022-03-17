@@ -22,6 +22,8 @@
 #include "Projectile.h"
 #include "Hitbox.h"
 #include "Hurtbox.h"
+#include "CameraController.h"
+#include "DependantObjects.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.
@@ -107,4 +109,16 @@ Component* HurtboxCreator::Create(json json_object) {
 	Hurtbox* new_hurtbox = new Hurtbox;
 	new_hurtbox->Serialize(json_object);
 	return static_cast<Component*>(new_hurtbox);
+}
+
+Component* CameraControllerCreator::Create(json json_object) {
+	CameraController* new_camera_c = new CameraController;
+	new_camera_c->Serialize(json_object);
+	return static_cast<Component*>(new_camera_c);
+}
+
+Component* DependantObjectsCreator::Create(json json_object) {
+	DependantObjects* new_dep_o = new DependantObjects;
+	new_dep_o->Serialize(json_object);
+	return static_cast<Component*>(new_dep_o);
 }

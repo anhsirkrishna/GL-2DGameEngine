@@ -159,11 +159,13 @@
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentCreator.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="DependantObjects.cpp" />
     <ClCompile Include="FBO.cpp" />
     <ClCompile Include="ControlSchemeManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -207,11 +209,13 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraController.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentCreator.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="DependantObjects.h" />
     <ClInclude Include="FBO.h" />
     <ClInclude Include="ControlSchemeManager.h" />
     <ClInclude Include="EventManager.h" />
@@ -254,19 +258,25 @@
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Resources\Scripts\camera_controller.lua" />
     <None Include="..\Resources\Scripts\enemy_1.lua" />
+    <None Include="..\Resources\Scripts\fire_orb.lua" />
     <None Include="..\Resources\Scripts\player_move.lua" />
     <None Include="..\Resources\Scripts\projectile_move.lua" />
     <None Include="final.frag" />
     <None Include="final.vert" />
     <None Include="horizontal_blur.comp" />
     <None Include="Levels\Level_0.json" />
+    <None Include="Levels\Level_1.json" />
+    <None Include="Obj_defs\camera_controller.json" />
     <None Include="Obj_defs\enemy_obj.json" />
+    <None Include="Obj_defs\far_backdrop.json" />
+    <None Include="Obj_defs\fire_orb.json" />
     <None Include="Obj_defs\fire_projectile.json" />
     <None Include="Obj_defs\ice_ball.json" />
     <None Include="Obj_defs\obj3.json" />
-    <None Include="Obj_defs\obj1.json" />
-    <None Include="Obj_defs\obj2.json" />
+    <None Include="Obj_defs\player_obj.json" />
+    <None Include="Obj_defs\test_platform.json" />
     <None Include="Obj_defs\Tilemap.json" />
     <None Include="Obj_defs\Tilemap1.json" />
     <None Include="Settings\Control_Config.json" />

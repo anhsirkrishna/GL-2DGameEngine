@@ -21,7 +21,13 @@
   "Attack": {
     "enum_key": 3,
     "control_codes": [
-      [ 44, 0, -1, -1 ]
+      [ 44, 1, -1, -1 ]
+    ]
+  },
+  "Action1": {
+    "enum_key": 4,
+    "control_codes": [
+      [ 225, 2, -1, -1 ]
     ]
   }
 }
