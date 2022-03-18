@@ -4,7 +4,6 @@
 
 in vec4 ex_Color;
 in vec2 ex_TextCoord;
-in float ex_particle_brightness;
 
 uniform int mode;
 uniform sampler2D texture_map;

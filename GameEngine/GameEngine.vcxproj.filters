@@ -445,11 +445,11 @@
     <None Include="Obj_defs\test_platform.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
-    <None Include="Obj_defs\fire_orb.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
     <None Include="..\Resources\Scripts\fire_orb.lua">
       <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\orb.json">
+      <Filter>Source Files\Obj_defs</Filter>
     </None>
   </ItemGroup>
 </Project>

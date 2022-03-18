@@ -318,8 +318,9 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions,
 * and sends it to the GPU
 * Returns: GLuint - The vao_id
 */
-GLuint GraphicsManager::GenerateDynamicQuadVAO(GLuint& vertex_buffer_id,
-	float const* colors, float const* texture_coords, unsigned int batch_size) {
+GLuint GraphicsManager::GenerateDynamicQuadVAO(GLuint& vertex_buffer_id, 
+	GLuint& color_buffer_id, float const* texture_coords, 
+	unsigned int batch_size) {
 	int vertices_count = 4;
 	int positions_count = 3;
 	int colors_count = 4;
@@ -342,12 +343,11 @@ GLuint GraphicsManager::GenerateDynamicQuadVAO(GLuint& vertex_buffer_id,
 	CHECKERROR;
 
 	//Create another continuguous buffer for all the colors for each vertex
-	GLuint color_buffer;
-	glGenBuffers(1, &color_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, color_buffer);
+	glGenBuffers(1, &color_buffer_id);
+	glBindBuffer(GL_ARRAY_BUFFER, color_buffer_id);
 	glBufferData(GL_ARRAY_BUFFER,
 		sizeof(float) * vertices_count * colors_count * batch_size,
-		colors, GL_STATIC_DRAW);
+		NULL, GL_DYNAMIC_DRAW);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -715,4 +715,12 @@ GLuint GraphicsManager::GenerateUniformBlock(float const* block_data, size_t blo
 void GraphicsManager::BindBlockBinding(GLuint bind_point, std::string block_name) {
 	GLuint loc = glGetUniformBlockIndex(GetActiveShader()->program_id, block_name.c_str());
 	glUniformBlockBinding(GetActiveShader()->program_id, loc, bind_point);
+}
+
+/*Function to delete a VAO
+* Returns: void
+*/
+void GraphicsManager::DeleteVAO(GLuint vao_id) {
+	glDeleteVertexArrays(1, &vao_id);
+	CHECKERROR;
 }

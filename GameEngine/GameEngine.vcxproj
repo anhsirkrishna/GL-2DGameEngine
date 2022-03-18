@@ -271,10 +271,10 @@
     <None Include="Obj_defs\camera_controller.json" />
     <None Include="Obj_defs\enemy_obj.json" />
     <None Include="Obj_defs\far_backdrop.json" />
-    <None Include="Obj_defs\fire_orb.json" />
     <None Include="Obj_defs\fire_projectile.json" />
     <None Include="Obj_defs\ice_ball.json" />
     <None Include="Obj_defs\obj3.json" />
+    <None Include="Obj_defs\orb.json" />
     <None Include="Obj_defs\player_obj.json" />
     <None Include="Obj_defs\test_platform.json" />
     <None Include="Obj_defs\Tilemap.json" />
