@@ -81,7 +81,7 @@ void LevelManager::SaveLevel() {
 				std::vector<float> f_vector = { trans_obj->GetPosCoord(0),
 												trans_obj->GetPosCoord(1),
 												trans_obj->GetPosCoord(2),
-												trans_obj->GetPosCoord(3) };
+												trans_obj->GetPosCoord(3)};
 
 				it.second["starting_position"] = json(f_vector);
 

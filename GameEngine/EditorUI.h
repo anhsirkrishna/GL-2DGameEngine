@@ -16,6 +16,8 @@ typedef void* SDL_GLContext;
 #include <string>
 #include <map>
 
+class GameObject;
+
 /*
 Custom ImGui Editor class
 */
@@ -27,6 +29,8 @@ class Editor
 	int selected = 0;
 	int current_index = 0;
 	int obj_def_selected = 0;
+
+	GameObject* current_tilemap;
 
 public:
 
@@ -45,6 +49,7 @@ public:
 	void GameObjectWindow();
 	void Render();
 	void CreateObject(std::string obj_def);
+	void TileEditorWindow();
 	void Cleanup() const;
 };
 
