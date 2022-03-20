@@ -5,7 +5,7 @@
 /*Email: krishna.pillai@digipen.edu
 /*Date   01/27/2022
 /*  GameObjectFactory implementation file
-/* DigiPen Institute of Technology © 2022
+/* DigiPen Institute of Technology ï¿½ 2022
 /******************************************************************************/
 
 #include "GameObjectManager.h"
@@ -65,13 +65,6 @@ GameObject* GameObjectFactory::CreateGameObject(std::string object_name, std::st
 */
 std::unordered_map<std::string, json> GameObjectFactory::CreateLevel(unsigned int level) {
 	std::string level_file = ".\\Levels\\Level_" + std::to_string(level) + ".json";
-
-	if (level == 3)
-	{
-		level_file = ".\\Levels\\Level_0save.json";
-	}
-
-
 
 	std::ifstream level_data(level_file);
 

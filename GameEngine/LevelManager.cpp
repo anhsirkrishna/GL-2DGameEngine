@@ -6,7 +6,7 @@
 /*Date   3/1/2022
 /*  Implementation of the LevelManager Class
 *
-/* DigiPen Institute of Technology © 2022
+/* DigiPen Institute of Technology ï¿½ 2022
 /******************************************************************************/
 #include "LevelManager.h"
 #include "GameObjectManager.h"
@@ -22,11 +22,6 @@
 void LevelManager::LoadLevel(int level) {
 
 	std::string level_file = ".\\Levels\\Level_" + std::to_string(level) + ".json";
-
-	if (level == 3)
-	{
-		level_file = ".\\Levels\\Level_0save.json";
-	}
 
 	std::ifstream level_data(level_file);
 
@@ -81,7 +76,7 @@ void LevelManager::SaveLevel() {
 				std::vector<float> f_vector = { trans_obj->GetPosCoord(0),
 												trans_obj->GetPosCoord(1),
 												trans_obj->GetPosCoord(2),
-												trans_obj->GetPosCoord(3) };
+												trans_obj->GetPosCoord(3)};
 
 				it.second["starting_position"] = json(f_vector);
 

@@ -21,6 +21,7 @@
 #include "Transform.h"
 #include "GLQuad.h"
 #include "Texture.h"
+#include "Tilemap.h"
 #include "GameManager.h"
 #include "MemoryManager.h"
 #include "GraphicsManager.h"
@@ -31,6 +32,7 @@
 #include "GameObjectFactory.h"
 #include "PhysicsWorld.h"
 #include "LuaManager.h"
+#include "GameDefs.h"
 
 std::vector<const char*> obj_def_list = {
 	"enemy_obj",
@@ -72,7 +74,9 @@ void Editor::Init() {
 		}
 	}
 
-	
+	/*crosshair = new GameObject("crosshair");
+	crosshair->AddComponent(new Transform());
+	crosshair->AddComponent(new GLQuad());*/
 
 
 }
@@ -166,6 +170,7 @@ void Editor::GameObjectWindow() {
 		GameObject* curr_obj = p_game_obj_manager->game_object_list[selected];
 		Component* comp_transform = p_game_obj_manager->game_object_list[selected]->HasComponent("TRANSFORM");
 		Component* comp_glquad = p_game_obj_manager->game_object_list[selected]->HasComponent("GLQUAD");
+		Component* comp_tilemap = p_game_obj_manager->game_object_list[selected]->HasComponent("TILEMAP");
 
 		// Component tabs
 		if (ImGui::BeginTabBar("##Tabs", ImGuiTabBarFlags_None))
@@ -181,11 +186,13 @@ void Editor::GameObjectWindow() {
 
 					static float posX = obj_transform->GetPosition().x;
 					static float posY = obj_transform->GetPosition().y;
+					static float posZ = obj_transform->GetPosition().z;
 
 					if (current_index != selected)
 					{
 						posX = obj_transform->GetPosition().x;
 						posY = obj_transform->GetPosition().y;
+						posZ = obj_transform->GetPosition().z;
 					}
 
 					ImGui::DragFloat("Pos.X", &posX, 0.2f, -100000.0f, 100000.0f, "%.3f");
@@ -196,6 +203,7 @@ void Editor::GameObjectWindow() {
 					glm::vec4 new_pos{};
 					new_pos.x = posX;
 					new_pos.y = posY;
+					new_pos.z = posZ;
 					obj_transform->SetPosition(new_pos);
 
 					ImGui::Separator();
@@ -283,6 +291,21 @@ void Editor::GameObjectWindow() {
 
 			}
 
+			// Tilemap
+			if (comp_tilemap)
+			{
+				Tilemap* obj_glquad = static_cast<Tilemap*>(comp_tilemap);
+				if (ImGui::BeginTabItem("Tilemap"))
+				{
+					if (ImGui::Button("Select Tilemap"))
+					{
+						current_tilemap = curr_obj;
+					}
+					ImGui::EndTabItem();
+				}
+
+			}
+
 			// JSON obj_def Tab
 			if (ImGui::BeginTabItem("OBJ_DEF"))
 			{
@@ -302,13 +325,152 @@ void Editor::GameObjectWindow() {
 	ImGui::End();
 }
 
+/* TileEditor window implementation */
+void Editor::TileEditorWindow() {
+	ImGui::Begin("Tile Editor");
+
+	Transform* target_transform;
+	Tilemap* target_tilemap;
+
+	if (current_tilemap == nullptr)
+	{
+		ImGui::Text("To start, click on SELECT TILEMAP on an object's Tilemap tab");
+		ImGui::End();
+		return;
+	}
+	
+
+	target_transform = static_cast<Transform*>
+				(current_tilemap->HasComponent("TRANSFORM"));
+	target_tilemap = static_cast<Tilemap*>
+				(current_tilemap->HasComponent("TILEMAP"));
+
+	std::string text = "CURRENT TILEMAP: " + current_tilemap->GetName();
+	int index_x = -1;
+	int index_y = -1;
+	int texcoord_first = -1;
+	GLuint texture_int = 0;
+
+	if (target_transform && target_tilemap)
+	{
+		glm::vec3 topleft = target_transform->GetPosition();
+		glm::vec3 bottomright = topleft + glm::vec3(target_tilemap->GetDimensions().z,
+			target_tilemap->GetDimensions().w, 0.0f);
+
+		glm::vec3 cam_pos = p_camera->position;
+
+		if (topleft.x <= cam_pos.x && cam_pos.x <= bottomright.x &&
+			topleft.y <= cam_pos.y && cam_pos.y <= bottomright.y)
+		{
+		
+			glm::vec2 proj_pos = glm::vec2(cam_pos.x - target_transform->GetPosition().x, 
+				cam_pos.y - target_transform->GetPosition().y);
+
+			index_x = static_cast<int>(proj_pos.x) / target_tilemap->GetTileWidth();
+			index_y = static_cast<int>(proj_pos.y) / target_tilemap->GetTileHeight();
+
+			texcoord_first = (target_tilemap->GetGridWidth() * index_y + index_x) * 8;
+
+			std::string coords = "TARGET:  X: " + std::to_string(index_x) + ", Y: " + std::to_string(index_y);
+
+			ImGui::Text(text.c_str());
+			ImGui::Text(coords.c_str());
+
+			ImVec2 uv0 = ImVec2(target_tilemap->GetTexCoords()[texcoord_first],
+				target_tilemap->GetTexCoords()[texcoord_first + 1]);
+
+			ImVec2 uv1 = ImVec2(target_tilemap->GetTexCoords()[texcoord_first + 4],
+				target_tilemap->GetTexCoords()[texcoord_first + 5]);
+
+			/*ImVec2 uv0 = ImVec2(0, 0);
+			ImVec2 uv1 = ImVec2(0.8, 0.8);*/
+
+			ImGui::Image((void*)(intptr_t)target_tilemap->GetTexture()->texture_id, ImVec2(100, 100), uv0, uv1);
+
+			ImGui::Separator();
+
+			static int currTile = 0;
+
+			ImGui::Text("SELECT A NEW TEXTURE, THEN CLICK IT TO CHANGE: ");
+
+
+			ImGui::SliderInt("TILE SELECT", &currTile, 0, 107);
+
+			int button_x = currTile % 12;
+			int button_y = currTile / 12;
+
+			ImVec2 uv2 = ImVec2(float(button_x) / 12.0f,
+				float(button_y) / 9.0f);
+
+			ImVec2 uv3 = ImVec2(float(button_x + 1) / 12.0f,
+				float(button_y + 1) / 9.0f);
+
+
+			// (4, 5), W: 12, H: 9
+			// 64 -> 5 * 12 + 4
+
+			// 4/12    ,  5/9       top left
+			// 5/12    ,  6/9       bot right
+
+			
+			if (ImGui::ImageButton((void*)(intptr_t)target_tilemap->GetTexture()->texture_id, ImVec2(100, 100), uv2, uv3))
+			{
+
+				target_tilemap->GetTileIndexMap()[index_y][index_x][0] = button_x;
+				target_tilemap->GetTileIndexMap()[index_y][index_x][1] = button_y;
+
+				target_tilemap->RegenTexCoords();
+
+				std::cout << "click\n";
+			}
+
+			if (ImGui::Button("Save new tilemap as JSON"))
+			{
+				
+				std::string obj_def = p_level_manager->curr_obj_map[current_tilemap->GetName()]["obj_def"];
+
+				std::string obj_def_file = ".\\Obj_defs\\" + obj_def + ".json";
+				std::ifstream obj_def_data(obj_def_file);
+
+				json json_object;
+				obj_def_data >> json_object;
+				obj_def_data.close();
+
+				json_object["COMPONENTS"]["TILEMAP"]["tile_index_map"] = json(target_tilemap->GetTileIndexMap());
+				//target_tilemap->GetObjMap()["tile_index_map"] = 
+				
+				std::ofstream o(obj_def_file);
+				o << std::setw(4) << json_object << std::endl;
+				o.close();
+			}
+
+		}
+	}
+
+	ImGui::End();
+
+	int cursor_window_width = 5;
+	int cursor_window_height = 5;
+
+	float window_center_x = WINDOW_WIDTH / 2.0f;
+	float window_center_y = WINDOW_HEIGHT / 2.0f;
+
+	ImGui::SetNextWindowPos(ImVec2(window_center_x, window_center_y));
+	ImGui::SetNextWindowSize(ImVec2(cursor_window_width, cursor_window_height));
+	ImGui::SetNextWindowCollapsed(false);
+
+	ImGui::Begin(" ");
+	ImGui::End();
+}
+
+
 /* Main imgui loop: GameObjectList Window */
 void Editor::Render() {
 	
 	DebuggerWindow();
 	GameObjectWindow();
+	TileEditorWindow();
 	EditorCameraControls();
-
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }

@@ -26,6 +26,8 @@ Tilemap::Tilemap() : Component("TILEMAP"), p_texture(NULL),
 
 void Tilemap::Serialize(json json_object) {
 
+	obj_map = json_object;
+
 	auto texture_name = json_object["texture_name"].get<std::string>();
 	p_resource_manager->add_texture(texture_name);
 	p_texture = p_resource_manager->get_texture(texture_name);
@@ -38,12 +40,10 @@ void Tilemap::Serialize(json json_object) {
 	grid_height = tile_index_map.size(); //Number of rows in the tile_index_map
 
 	dimensions.z = grid_width * tile_width;
-	dimensions.w = grid_width * tile_height;
+	dimensions.w = grid_height * tile_height;
 
-	std::vector<float> vertices;
 	GenerateTilemapVertices(vertices);
 
-	std::vector<float> colors;
 	for (unsigned int i = 0; i < grid_width * grid_width; ++i) {
 		//Green color for all tilemaps
 		//Top left vertex
@@ -71,7 +71,6 @@ void Tilemap::Serialize(json json_object) {
 		colors.push_back(1.0f);
 	}
 
-	std::vector<float> tex_coords;
 	GenerateTilemapTextureCoords(tex_coords);
 
 	//Convert coords from image space to 0..1
@@ -154,15 +153,15 @@ void Tilemap::GenerateTilemapTextureCoords(std::vector<float>& tex_coords) {
 			tex_coords.push_back((tile_index_map[i][j][0] * tile_width));
 			tex_coords.push_back((tile_index_map[i][j][1] * tile_height));
 
-			//Top right vertex
+			//Bottom left vertex
 			tex_coords.push_back((tile_index_map[i][j][0] * tile_width));
 			tex_coords.push_back((tile_index_map[i][j][1] * tile_height) + tile_height);
 
-			//Bottom left vertex
+			//Bottom right vertex
 			tex_coords.push_back((tile_index_map[i][j][0] * tile_width) + tile_width);
 			tex_coords.push_back((tile_index_map[i][j][1] * tile_height) + tile_height);
 
-			//Bottom right vertex
+			//Top right vertex
 			tex_coords.push_back((tile_index_map[i][j][0] * tile_width) + tile_width);
 			tex_coords.push_back((tile_index_map[i][j][1] * tile_height));
 		}
@@ -172,4 +171,54 @@ void Tilemap::GenerateTilemapTextureCoords(std::vector<float>& tex_coords) {
 //Sets the render mode to color (int=0) or texture (int=1)
 void Tilemap::SetTextureMode(int _mode) {
 	texture_mode = _mode;
+}
+
+glm::vec4 Tilemap::GetDimensions() {
+	return dimensions;
+}
+
+int Tilemap::GetTileWidth() {
+	return tile_width;
+}
+int Tilemap::GetTileHeight() {
+	return tile_height;
+}
+
+int Tilemap::GetGridWidth() {
+	return grid_width;
+}
+
+int Tilemap::GetGridHeight() {
+	return grid_height;
+}
+
+std::vector<std::vector<std::vector<int>>>& Tilemap::GetTileIndexMap() {
+	return tile_index_map;
+}
+
+Texture* Tilemap::GetTexture()
+{
+	return p_texture;
+}
+
+std::vector<float> Tilemap::GetTexCoords() {
+	return tex_coords;
+}
+
+void Tilemap::RegenTexCoords() {
+
+	tex_coords.clear();
+
+	GenerateTilemapTextureCoords(tex_coords);
+
+	//Convert coords from image space to 0..1
+	ConvertTextureCoords(tex_coords, p_texture->width, p_texture->height);
+
+	vao_id = p_graphics_manager->GenerateQuadVAO(
+		&vertices[0], &colors[0], &tex_coords[0], grid_width * grid_height);
+}
+
+json& Tilemap::GetObjMap()
+{
+	return obj_map;
 }
