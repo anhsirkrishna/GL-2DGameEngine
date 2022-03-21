@@ -207,6 +207,12 @@
     <ClCompile Include="LevelManager.cpp">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClCompile>
+    <ClCompile Include="CameraController.cpp">
+      <Filter>Source Files\Components\GeneralComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="DependantObjects.cpp">
+      <Filter>Source Files\Components\GeneralComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -356,6 +362,12 @@
     <ClInclude Include="LevelManager.h">
       <Filter>Source Files\GlobalManagers</Filter>
     </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>Source Files\Components\GeneralComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="DependantObjects.h">
+      <Filter>Source Files\Components\GeneralComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -366,12 +378,6 @@
     </None>
     <None Include="Levels\Level_0.json">
       <Filter>Source Files\Levels</Filter>
-    </None>
-    <None Include="Obj_defs\obj1.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
-    <None Include="Obj_defs\obj2.json">
-      <Filter>Source Files\Obj_defs</Filter>
     </None>
     <None Include="Obj_defs\obj3.json">
       <Filter>Source Files\Obj_defs</Filter>
@@ -422,6 +428,30 @@
       <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="..\Resources\Scripts\projectile_move_test.lua">
+          <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\far_backdrop.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Levels\Level_1.json">
+      <Filter>Source Files\Levels</Filter>
+    </None>
+    <None Include="Obj_defs\camera_controller.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\camera_controller.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\player_obj.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\test_platform.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\fire_orb.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\fire_orb.lua">
       <Filter>Source Files\Scripts</Filter>
     </None>
   </ItemGroup>

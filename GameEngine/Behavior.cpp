@@ -11,6 +11,7 @@
 #include "Behavior.h"
 #include "LuaManager.h"
 #include "Events.h"
+#include "EventManager.h"
 
 // default constructor
 Behavior::Behavior() : Component("BEHAVIOR") {
@@ -49,4 +50,22 @@ void Behavior::Link() {
 */
 void Behavior::HandleEvent(TimedEvent* p_event) {
 	p_lua_manager->RegEvents(lua_state, p_event);
+}
+
+/*Send an event using the event manager
+* Allows lua scripts to send events
+* Args need to be primitive types for lua to send
+* Returns: void
+*/
+void Behavior::SendEvent(int event_id, int delay_time, bool broadcast) {
+	if (broadcast) {
+		p_event_manager->QueueTimedEvent(
+			new TimedEvent(static_cast<EventID>(event_id), broadcast, nullptr, delay_time)
+		);
+	}
+	else {
+		p_event_manager->QueueTimedEvent(
+			new TimedEvent(static_cast<EventID>(event_id), broadcast, GetOwner(), delay_time)
+		);
+	}
 }

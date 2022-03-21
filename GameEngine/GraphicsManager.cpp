@@ -562,8 +562,6 @@ void GraphicsManager::PostProcess() {
 void GraphicsManager::DrawGBuffer() {
 	SetActiveShader("post");
 
-	//SetDepthTestOff();
-
 	glBindVertexArray(full_screen_quad_vao);
 	CHECKERROR;
 
@@ -587,8 +585,6 @@ void GraphicsManager::DrawGBuffer() {
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
 	CHECKERROR;
 	glBindVertexArray(0);
-
-	SetDepthTestOn();
 
 	SetActiveShader("final");
 }

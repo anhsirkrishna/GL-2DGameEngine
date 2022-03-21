@@ -1,0 +1,31 @@
+{
+  "COMPONENTS": {
+    "GLQUAD": {
+      "texture_names": [ "background" ],
+      "vertex_list": [
+           0,   0, 0,
+           0, 1080, 0,
+        1980, 1080, 0,
+        1980,   0, 0
+      ],
+      "color_list": [
+        255, 255, 255, 255,
+        255, 255, 255, 255,
+        255, 255, 255, 255,
+        255, 255, 255, 255
+      ],
+      "tex_coord_list": [
+           0,    0,
+           0, 1080,
+        1980, 1080,
+        1980,  0
+      ]
+    },
+    "TRANSFORM": {}
+  },
+  "STATES": {
+    "DEFAULT": {
+    }
+  },
+  "DEFAULT_STATE": "DEFAULT"
+}

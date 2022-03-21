@@ -83,8 +83,14 @@ void Editor::DebuggerWindow() {
 	std::string mouse_coord = "Mouse coord: (" + std::to_string(x) + ", " + std::to_string(y) + ")";
 	std::string mouse_pos = "Mouse Pos: (" + std::to_string(mouse_worldpos.x) + ", " + std::to_string(mouse_worldpos.y) + ")";
 
+	std::string camera_pos = "Camera Position : (" + 
+		std::to_string(p_camera->position.x) + ", " + 
+		std::to_string(p_camera->position.y) + ", " + 
+		std::to_string(p_camera->position.z) + ")";
+
 	ImGui::Text(mouse_pos.c_str());
 	ImGui::Text(mouse_coord.c_str());
+	ImGui::Text(camera_pos.c_str());
 
 	ImGui::InputInt("Target Level", &level_num);
 

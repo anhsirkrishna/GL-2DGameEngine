@@ -18,6 +18,8 @@ void main() {
 		out_Color = ex_Color;
 	else{
 		vec4 tex_color = texture(texture_map, ex_TextCoord);
+		if (tex_color.a < 0.01)
+			discard;
 		//If we are renderign a particle add the color with particle lifetime
 		tex_color *= ex_Color;
 		out_Color = tex_color;
