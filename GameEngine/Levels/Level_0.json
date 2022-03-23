@@ -71,7 +71,7 @@
     "obj_def": "camera_controller"
   },
   "xfire_orb": {
-    "obj_def": "fire_orb",
+    "obj_def": "orb",
     "starting_position": [ 0, 0, -1, 0 ]
   }
 }

@@ -4,7 +4,6 @@
 layout(location=0) in vec3 in_position;
 layout(location=1) in vec4 in_Color;
 layout(location=2) in vec2 in_TexCoords;
-layout(location=3) in float in_particle_brightness;
 
 uniform mat4 orthoGraphProj;
 uniform mat4 projection;
@@ -30,5 +29,4 @@ void main() {
 	
 	ex_Color = in_Color;
 	ex_TextCoord = in_TexCoords;
-	ex_particle_brightness = in_particle_brightness;
 }
