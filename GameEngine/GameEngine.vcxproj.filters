@@ -19,9 +19,6 @@
     <Filter Include="Source Files\GlobalManagers">
       <UniqueIdentifier>{292e1e11-57dd-4e5a-9d53-eb5f06592bbe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GameObject">
-      <UniqueIdentifier>{9cbf6fcd-95bb-4017-bcbb-6f97b514c7b3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Components">
       <UniqueIdentifier>{3c27093d-1bf5-439f-88b3-a8295fc3f5c6}</UniqueIdentifier>
     </Filter>
@@ -66,6 +63,9 @@
     </Filter>
     <Filter Include="Source Files\Components\GameplayComponents">
       <UniqueIdentifier>{64d11472-5e11-49a7-928b-5331a5aef2eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObject">
+      <UniqueIdentifier>{9cbf6fcd-95bb-4017-bcbb-6f97b514c7b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -426,6 +426,9 @@
     </None>
     <None Include="..\Resources\Scripts\enemy_1.lua">
       <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\projectile_move_test.lua">
+          <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="Obj_defs\far_backdrop.json">
       <Filter>Source Files\Obj_defs</Filter>

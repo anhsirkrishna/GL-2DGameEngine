@@ -48,6 +48,7 @@ void Projectile::Link() {
 void Projectile::Spawn() {
 	GameObject* new_projectile = p_instances[GetLastUsedInstance()];
 	new_projectile->SetActive(true);
+	p_physics_world->AddPhysicsGameObject(new_projectile);
 
 	Transform* projectile_transform = static_cast<Transform*>(new_projectile->HasComponent("TRANSFORM"));
 	projectile_transform->SetScale(p_owner_transform->GetScaleX(), p_owner_transform->GetScaleY());

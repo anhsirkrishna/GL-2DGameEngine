@@ -27,12 +27,15 @@
         "maximum_particle_velocity": [ -7,  3, 0.0 ],
         "minimum_particle_velocity": [ -2, -3, 0.0 ]
     },
+    "MOVEMENT": {
+      "gravity_on": false
+    },
     "HITBOX": {
       "offset": [ 0, 0 ],
       "dimensions": [ 5, 5 ]
     },
     "BEHAVIOR": {
-      "script_filename": "projectile_move.lua"
+      "script_filename": "projectile_move_test.lua"
     }
    },
   "STATES": {

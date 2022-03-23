@@ -12,7 +12,7 @@ void PhysicsWorld::Init()
 	auto game_object_list = p_game_obj_manager->game_object_list;
 
 	for (int i = 0; i < game_object_list.size(); i++) {
-		if (game_object_list[i]->HasComponent("COLLIDER")) {
+		if (game_object_list[i]->HasComponent("COLLIDER") || game_object_list[i]->HasComponent("MOVEMENT")) {
 			physics_game_objects.push_back(game_object_list[i]);
 		}
 	}
@@ -37,7 +37,9 @@ void PhysicsWorld::Reload() {
 
 // Function to add a game object that can be affected by in-game physics
 void PhysicsWorld::AddPhysicsGameObject(GameObject* physics_object) {
-	physics_game_objects.push_back(physics_object);
+	if (physics_object->HasComponent("MOVEMENT") || physics_object->HasComponent("COLLIDER")) {
+		physics_game_objects.push_back(physics_object);
+	}
 }
 
 // Function to remove a game object that in the physics world
@@ -65,9 +67,8 @@ void PhysicsWorld::Integrate()
 			auto p_pos = p_transf->GetPosition();
 			auto p_vel = p_mov->GetVelocity();
 
-
-			// Gravity acts on the body if downward movement is not locked
-			if (!p_mov->dirLocks.down_lock) {
+			// Apply gravity
+			if (p_mov->GetGravity()) {
 				p_vel += gravity * dt;
 			}
 
@@ -82,28 +83,63 @@ void PhysicsWorld::Integrate()
 
 
 // Check for AABB collisions between two colliders
-bool PhysicsWorld::AABB(Collider* collider_0, Collider* collider_1) {
+AABBResult PhysicsWorld::AABB(Collider* collider_0, Collider* collider_1) {
 
 	auto col_pos_0 = collider_0->GetColliderPosition();
 	auto col_pos_1 = collider_1->GetColliderPosition();
 
+	std::vector<AABBResult> collision_info;
+	float penetration_depth;
+
+	// If col box 0 is on the right of col box 1
 	if ((col_pos_0.x - col_pos_0.z) > (col_pos_1.x + col_pos_1.z)) {
-		return false;
+		return { false, "", FLT_MAX};
 	}
-
+	else {
+		// Colliding! on the RIGHT of col box 1
+		collision_info.push_back({ true, "RIGHT", (col_pos_1.x + col_pos_1.z) - (col_pos_0.x - col_pos_0.z)});
+	}
+		
+	// If col box 0 is on the left of col box 1
 	if ((col_pos_0.x + col_pos_0.z) < (col_pos_1.x - col_pos_1.z)) {
-		return false;
+		return { false, "", FLT_MAX};
+	}
+	else {
+		// Colliding! on the LEFT of col box 1
+		collision_info.push_back({ true, "LEFT", (col_pos_0.x + col_pos_0.z) - (col_pos_1.x - col_pos_1.z)});
 	}
 
+	// If col box 0 is above col box 1
 	if ((col_pos_0.y + col_pos_0.w) < (col_pos_1.y - col_pos_1.w)) {
-		return false;
+		return { false, "", FLT_MAX};
+	}
+	else {
+		// Colliding! on the TOP of col box 1
+		collision_info.push_back({ true, "TOP", (col_pos_0.y + col_pos_0.w) - (col_pos_1.y - col_pos_1.w) });
 	}
 
+	// If col box 0 is below col box 1
 	if ((col_pos_0.y - col_pos_0.w) > (col_pos_1.y + col_pos_1.w)) {
-		return false;
+		return { false, "", FLT_MAX};
+	}
+	else {
+		// Colliding! on the BOTTOM of col box 1
+		collision_info.push_back({ true, "BOTTOM", (col_pos_1.y + col_pos_1.w) - (col_pos_0.y - col_pos_0.w)});
 	}
 
-	return true;
+	// Collected info on collisions on all sides. 
+	// Store and resolve for the side where the penetration depth is the least
+	AABBResult result = { true, "", FLT_MAX};
+	float min_pen_depth = FLT_MAX;
+	for (int i = 0; i < collision_info.size(); i++) {
+		if (collision_info[i].penetration_depth < min_pen_depth) {
+			min_pen_depth = collision_info[i].penetration_depth;
+			result = collision_info[i];
+		}
+	}
+
+	return result;
+
 }
 
 // Detect any possible collision between two objects
@@ -114,7 +150,7 @@ void PhysicsWorld::DetectAndRecordCollisions()
 		/* Only check for a collision with another object
 		 * if the game object has a movement component 
 		 */
-		if ((*i)->HasComponent("MOVEMENT")) {
+		if ((*i)->HasComponent("MOVEMENT") && (*i)->HasComponent("COLLIDER")) {
 
 			for (auto j = physics_game_objects.begin(); j != physics_game_objects.end(); j++) {
 
@@ -123,19 +159,26 @@ void PhysicsWorld::DetectAndRecordCollisions()
 				}
 				else {
 
-					Collider* collider_a = static_cast<Collider*>((*i)->HasComponent("COLLIDER"));
-					Collider* collider_b = static_cast<Collider*>((*j)->HasComponent("COLLIDER"));
+					if ((*j)->HasComponent("COLLIDER")) {
 
-					collider_a->UpdateColliderPosition();
-					collider_b->UpdateColliderPosition();
+						Collider* collider_a = static_cast<Collider*>((*i)->HasComponent("COLLIDER"));
+						Collider* collider_b = static_cast<Collider*>((*j)->HasComponent("COLLIDER"));
 
-					if (AABB(collider_a, collider_b)) {
+						collider_a->UpdateColliderPosition();
+						collider_b->UpdateColliderPosition();
 
-						Collision* collision = new Collision();
-						collision->collider_a = collider_a;
-						collision->collider_b = collider_b;
+						AABBResult collision_result = AABB(collider_a, collider_b);
 
-						collision_list.push_back(collision);
+						if (collision_result.colliding) {
+
+							Collision* collision = new Collision();
+							collision->collider_a = collider_a;
+							collision->collider_b = collider_b;
+							collision->penetration_depth = collision_result.penetration_depth;
+							collision->side_of_b = collision_result.side_of_b;
+
+							collision_list.push_back(collision);
+						}
 					}
 				}
 			}
@@ -152,6 +195,7 @@ void PhysicsWorld::ResolveCollisions()
 		 * position (collider position and hence also transform pos) will be updated
 		 */
 		Movement* mov_a = static_cast<Movement*>(c->collider_a->GetOwner()->HasComponent("MOVEMENT"));
+		Transform* transf_a = static_cast<Transform*>(c->collider_a->GetOwner()->HasComponent("TRANSFORM"));
 
 		glm::vec4 vel = mov_a->GetVelocity();
 
@@ -159,76 +203,32 @@ void PhysicsWorld::ResolveCollisions()
 		glm::vec4 col_pos_b = c->collider_b->GetColliderPosition();
 
 
-		/* If the moving object touches the BOTTOM of a platform:
-		* If the distance of overlap between the top of the first object and
-		* bottom of the second object is less than a certain distance (here 5) -
-		* then move the first object a bit below the other object by a small offset
-		*/
+		// Moving object touches the BOTTOM of the other object
+		if (c->side_of_b == "BOTTOM") {
 
-		if ((col_pos_b.y + col_pos_b.w) > (col_pos_a.y - col_pos_a.w) &&
-			(col_pos_b.y + col_pos_b.w) - (col_pos_a.y - col_pos_a.w) <= 10) {
-
-			col_pos_a.y = col_pos_b.y + col_pos_b.w + col_pos_a.w + 0.5f;
+			col_pos_a.y = col_pos_b.y + col_pos_b.w + col_pos_a.w + std::max(c->penetration_depth - 0.1f, 0.0f);
 			vel.y = 0;
-
-			/* Store a reference to the collider of
-			 * the object being touched above (conceptually)
-			 * in the moving object's collider. Lock upward movement
-			 */
-			c->collider_a->colliders_touching.above = c->collider_b;
-			mov_a->dirLocks.up_lock = true;
 		}
 
-		/* Moving object touches the TOP of a platform - similar logic as previous
-		 * This time, disable gravity for this body
-		 * Otherwise force of gravity and this collision resolution effect will compete.
-		 * This makes the body jitter oddly
-		 */
+		// Moving object touches the TOP of the other object
+		if (c->side_of_b == "TOP") {
 
-		if ((col_pos_a.y + col_pos_a.w) > (col_pos_b.y - col_pos_b.w) &&
-			(col_pos_a.y + col_pos_a.w) - (col_pos_b.y - col_pos_b.w) <= 10) {
-
-			col_pos_a.y = col_pos_b.y - col_pos_b.w - col_pos_a.w - 0.5f;
+			col_pos_a.y = col_pos_b.y - col_pos_b.w - col_pos_a.w - std::max(c->penetration_depth - 0.1f, 0.0f);
 			vel.y = 0;
-
-			/* Store a reference to the collider of
-			 * the object being touched beneath (conceptually)
-			 * in the moving object's collider. Lock downward movement
-			 */
-			c->collider_a->colliders_touching.beneath = c->collider_b;
-			mov_a->dirLocks.down_lock = true;
 		}
 
-		// Player touches the LEFT of the other object. Similar logic to prev.
-		if ((col_pos_a.x + col_pos_a.z) > (col_pos_b.x - col_pos_b.z) &&
-			(col_pos_a.x + col_pos_a.z) - (col_pos_b.x - col_pos_b.z) <= 10) {
+		// Moving object touches the LEFT of the other object
+		if (c->side_of_b == "LEFT") {
 
-			col_pos_a.x = col_pos_b.x - col_pos_b.z - col_pos_a.z - 0.5f;
+			col_pos_a.x = col_pos_b.x - col_pos_b.z - col_pos_a.z - std::max(c->penetration_depth - 0.1f, 0.0f);
 			vel.x = 0;
-
-			/* Store a reference to the collider of
-			 * the object being touched on the right (conceptually)
-			 * in the moving object's collider. Lock rightward movement
-			 */
-			c->collider_a->colliders_touching.right = c->collider_b;
-			mov_a->dirLocks.right_lock = true;
-			
 		}
 
-		// Player touches the RIGHT of the other object. Similar logic to prev.
-		if ((col_pos_b.x + col_pos_b.z) > (col_pos_a.x - col_pos_a.z) &&
-			(col_pos_b.x + col_pos_b.z) - (col_pos_a.x - col_pos_a.z) <= 10) {
+		// Moving object touches the RIGHT of the other object
+		if (c->side_of_b == "RIGHT") {
 
-			col_pos_a.x = col_pos_b.x + col_pos_b.z + col_pos_a.z + 0.5f;
+			col_pos_a.x = col_pos_b.x + col_pos_b.z + col_pos_a.z + std::max(c->penetration_depth - 0.1f, 0.0f);
 			vel.x = 0;
-
-
-			/* Store a reference to the collider of
-			 * the object being touched on the left (conceptually)
-			 * in the moving object's collider. Lock left movement
-			 */
-			c->collider_a->colliders_touching.left = c->collider_b;
-			mov_a->dirLocks.left_lock = true;
 		}
 
 		c->collider_a->SetColliderPosition(col_pos_a);
@@ -246,91 +246,4 @@ void PhysicsWorld::ResolveCollisions()
 	}
 
 	collision_list.clear();
-}
-
-void PhysicsWorld::UnlockMovements() {
-	Collider* p_owner_collider;
-	Movement* p_owner_movement;
-
-	for (auto i = physics_game_objects.begin(); i != physics_game_objects.end(); i++) {
-		p_owner_movement = static_cast<Movement*>((*i)->HasComponent("MOVEMENT"));
-		if (p_owner_movement != nullptr) {
-			p_owner_collider = static_cast<Collider*>((*i)->HasComponent("COLLIDER"));
-			if (p_owner_collider != nullptr) {
-				glm::vec4 col_pos = p_owner_collider->GetColliderPosition();
-
-				// If beneath another object
-				if (p_owner_collider->colliders_touching.above != nullptr) {
-
-					glm::vec4 col_pos_other = p_owner_collider->colliders_touching.above->GetColliderPosition();
-
-					/* If far enough below the object OR
-					 * left or right of that touching object - and hence not touching anymore
-					 */
-					if ((col_pos.y - col_pos.w) - (col_pos_other.y + col_pos_other.w) > 2.0f ||
-						((col_pos.x + col_pos.z) < (col_pos_other.x - col_pos_other.z) ||
-							(col_pos.x - col_pos.z) > (col_pos_other.x + col_pos_other.z))) {
-
-						// Unlock downward movement. And not touching anything beneath it anymore
-						p_owner_movement->dirLocks.up_lock = false;
-						p_owner_collider->colliders_touching.above = nullptr;
-					}
-				}
-
-				// If standing on another object
-				if (p_owner_collider->colliders_touching.beneath != nullptr) {
-
-					glm::vec4 col_pos_other = p_owner_collider->colliders_touching.beneath->GetColliderPosition();
-
-					/* If far enough above the object OR
-					 * left or right of that touching object -  and hence not touching anymore
-					 */
-					if ((col_pos_other.y - col_pos_other.w) - (col_pos.y + col_pos.w) > 2.0f ||
-						((col_pos.x + col_pos.z) < (col_pos_other.x - col_pos_other.z) ||
-							(col_pos.x - col_pos.z) > (col_pos_other.x + col_pos_other.z))) {
-						// Unlock downward movement. And not touching anything beneath it anymore
-						p_owner_movement->dirLocks.down_lock = false;
-						p_owner_collider->colliders_touching.beneath = nullptr;
-					}
-				}
-
-				// If touching a body on the right
-				if (p_owner_collider->colliders_touching.right != nullptr) {
-
-					glm::vec4 col_pos_other = p_owner_collider->colliders_touching.right->GetColliderPosition();
-
-					/* If far enough left from the object, OR
-					 * above or below the touching object on the right
-					 * Release right ward movement lock. (Can move right now)
-					 */
-					if ((col_pos_other.x - col_pos_other.z) - (col_pos.x + col_pos.z) > 1.5f ||
-						((col_pos.y - col_pos.w) > (col_pos_other.y + col_pos_other.w)) ||
-						((col_pos.y + col_pos.w) < (col_pos_other.y - col_pos_other.w))) {
-
-						p_owner_movement->dirLocks.right_lock = false;
-						p_owner_collider->colliders_touching.right = nullptr;
-					}
-				}
-
-				// If touching a body on the left
-				if (p_owner_collider->colliders_touching.left != nullptr) {
-
-					glm::vec4 col_pos_other = p_owner_collider->colliders_touching.left->GetColliderPosition();
-
-
-					/* If far enough right from the object, OR
-					 * above or below the touching object on the right
-					 * Release leftward movement lock. (Can move left now)
-					 */
-					if ((col_pos.x - col_pos.z) - (col_pos_other.x + col_pos_other.z) > 1.5f ||
-						((col_pos.y - col_pos.w) > (col_pos_other.y + col_pos_other.w)) ||
-						((col_pos.y + col_pos.w) < (col_pos_other.y - col_pos_other.w))) {
-
-						p_owner_movement->dirLocks.left_lock = false;
-						p_owner_collider->colliders_touching.left = nullptr;
-					}
-				}
-			}
-		}
-	}
 }

@@ -9,7 +9,6 @@
 Collider::Collider() : Component("COLLIDER"), 
 					   p_owner_transform(nullptr), 
 					   p_owner_movement(nullptr),
-					   colliders_touching({nullptr, nullptr, nullptr, nullptr}),
 					   pos_offset(glm::vec4(0)),
 					   col_pos(glm::vec4(0)) 
 {}
@@ -29,10 +28,6 @@ void Collider::SetColliderOffsets(glm::vec4 offsets)
 	pos_offset = offsets;
 }
 
-void Collider::SetColliderOnTopOf(Collider* collider)
-{
-	colliders_touching.beneath = collider;
-}
 
 /* Update transform position after 
  * updating collider positions
@@ -83,5 +78,4 @@ void Collider::Update()
 void Collider::Link()
 {
 	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
-	p_owner_movement = static_cast<Movement*>(GetOwner()->HasComponent("MOVEMENT"));
 }

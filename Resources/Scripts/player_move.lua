@@ -65,10 +65,8 @@ end
 if check_action_state(left_action, inactive) and 
 	check_action_state(right_action, inactive) and 
 	check_action_state(jump_action, inactive) then
-	if get_downlock() == true then
 		change_state("IDLE")
 		move(0)
-	end
 end
 
 --If right was triggered

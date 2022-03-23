@@ -160,8 +160,8 @@ int main(int argc, char* args[])
 
 		p_physics_world->Integrate();
 		p_physics_world->DetectAndRecordCollisions();
+		p_physics_world->ResolveCollisions();
 
-		p_physics_world->UnlockMovements();
 		p_game_obj_manager->Update();
 
 		p_lua_manager->Update();
@@ -169,7 +169,6 @@ int main(int argc, char* args[])
 		p_control_scheme_manager->Update();
 		p_event_manager->Update();
 
-		p_physics_world->ResolveCollisions();
 
 		if (p_input_manager->isQuit())
 			p_game_manager->Quit();
