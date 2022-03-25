@@ -74,6 +74,10 @@
   "xfire_orb": {
     "obj_def": "orb",
     "starting_position": [ 0, 0, -1, 0 ]
+  },
+  "tilemap_obj": {
+    "obj_def": "Tilemap1",
+    "starting_position": [0, 100, 3, 0]
   }
 }
 

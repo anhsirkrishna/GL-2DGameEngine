@@ -27,6 +27,8 @@
 #include "PhysicsWorld.h"
 #include "EventManager.h"
 #include "LevelManager.h"
+#include "StatestackManager.h"
+#include "PlayState.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -57,6 +59,7 @@ GraphicsManager* p_graphics_manager;
 PhysicsWorld* p_physics_world;
 EventManager* p_event_manager;
 LevelManager* p_level_manager;
+StateStackManager* p_statestack_manager;
 
 MemoryManager g_memory_manager;
 LuaManager* p_lua_manager;
@@ -90,6 +93,7 @@ void CreateManagers() {
 	p_physics_world = new PhysicsWorld();
 	p_event_manager = new EventManager();
 	p_level_manager = new LevelManager();
+	p_statestack_manager = new StateStackManager();
 }
 
 /*
@@ -139,73 +143,16 @@ int main(int argc, char* args[])
 	
 	if (RUN_WITH_EDITOR)
 		p_editor->Init();
-
-	//Create the Shader Program
-	ShaderProgram* p_shader_program = p_graphics_manager->GetActiveShader();
-	
-	p_physics_world->Init();
-
-	p_level_manager->LoadLevel(0);
-
-
-	std::vector<GameObject*> new_go_list;
-	GameObject* test_game_object = nullptr;
   
+	p_statestack_manager->Push(new PlayState());
+
 	while (p_game_manager->Status())
 	{
 		p_framerate_controller->start_game_loop();
 
-		p_physics_world->Integrate();
-		p_physics_world->DetectAndRecordCollisions();
-		p_physics_world->ResolveCollisions();
+		p_statestack_manager->Update();
+		p_statestack_manager->Render();
 
-		p_game_obj_manager->Update();
-
-		p_lua_manager->Update();
-		p_input_manager->Update();
-		p_control_scheme_manager->Update();
-		p_event_manager->Update();
-
-
-		if (p_input_manager->isQuit())
-			p_game_manager->Quit();
-
-
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_C)) {
-			p_event_manager->QueueTimedEvent(new TimedEvent(EventID::hit, true));
-		}
-
-		if (p_input_manager->isKeyPressed(SDL_SCANCODE_V)) {
-			for (auto game_object : p_game_obj_manager->game_object_list) {
-				if (game_object->HasComponent("PARTICLE_EFFECT"))
-					test_game_object = game_object;
-			}
-			p_event_manager->QueueTimedEvent(new TimedEvent(EventID::hit, false, test_game_object));
-		}
-
-		std::string pos_string = std::to_string(p_camera->position.x) + " " + std::to_string(p_camera->position.y) + " " + std::to_string(p_camera->position.z);
-
-		// camera pos debug string log
-		// SDL_Log(pos_string.c_str());
-
-		//The following bit of code should be moved into a GameStateManager or and individual game State
-		p_shader_program->Use();
-		p_graphics_manager->ClearBuffer(glm::vec4(0.1f));
-
-		if (RUN_WITH_EDITOR)
-			p_editor->NewFrame();
-
-		//Redraw the scene every frame
-		p_game_obj_manager->Draw(p_shader_program);
-		p_shader_program->Unuse();
-
-		p_graphics_manager->PostProcess();
-		p_graphics_manager->DrawGBuffer();
-		//ImGui Render
-		if (RUN_WITH_EDITOR)
-			p_editor->Render();
-
-		p_graphics_manager->SwapBuffers();
 		p_framerate_controller->end_game_loop();
 	}
 

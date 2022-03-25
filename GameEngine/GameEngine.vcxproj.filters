@@ -67,6 +67,9 @@
     <Filter Include="Source Files\GameObject">
       <UniqueIdentifier>{9cbf6fcd-95bb-4017-bcbb-6f97b514c7b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GameStates">
+      <UniqueIdentifier>{5f924a9e-2580-4cf1-8107-718232b608a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -212,6 +215,15 @@
     </ClCompile>
     <ClCompile Include="DependantObjects.cpp">
       <Filter>Source Files\Components\GeneralComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="StatestackManager.cpp">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorState.cpp">
+      <Filter>Source Files\GameStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -368,6 +380,18 @@
     <ClInclude Include="DependantObjects.h">
       <Filter>Source Files\Components\GeneralComponents</Filter>
     </ClInclude>
+    <ClInclude Include="StatestackManager.h">
+      <Filter>Source Files\GlobalManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -428,7 +452,7 @@
       <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="..\Resources\Scripts\projectile_move_test.lua">
-          <Filter>Source Files\Scripts</Filter>
+      <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="Obj_defs\far_backdrop.json">
       <Filter>Source Files\Obj_defs</Filter>

@@ -64,7 +64,7 @@ public:
 
 	glm::mat4 GetViewMatrix();
 	glm::mat4 GetProjMatrix();
-	void ProcessKeyboardInput(CameraMovement direction, float dt);
+	void ProcessKeyboardInput(CameraMovement direction);
 	void ProcessZoom(CameraMovement direction);
 	glm::vec4 Camera::ScreenToWorld(int x, int y);
 	void ClampCameraPosition();
