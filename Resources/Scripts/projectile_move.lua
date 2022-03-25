@@ -1,16 +1,17 @@
-projectile_speed = 2;
+--Constants
+projectile_speed = 100;
 
---Get the current xpos
-x_coord = get_pos_coord(0)
-
---Get the xpos after moving it
-new_x_coord = x_coord + (projectile_speed * get_scale_x())
-set_pos_coord(new_x_coord, 0)
+--Move the projectile in the correct direction
+move(projectile_speed * get_scale_x())
 
 if received_event then
+	received_event = false
 	if impact_event then
+		impact_event = false
+		--Particle burst effect
 		particle_burst(100)
-		--disable after half a second
-		delayed_disable_obj(500)
+
+		--disable after half a second for a lingering effect
+		delayed_disable_obj(300)
 	end
 end

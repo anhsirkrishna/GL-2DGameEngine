@@ -15,6 +15,7 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "Collider.h"
+#include "Events.h"
 
 #include <SDL.h>
 #include <glm.hpp>
@@ -80,4 +81,17 @@ void Movement::Link()
 //Returns the velocity in the y direction
 float Movement::GetVerticalVelocity() {
 	return velocity.y;
+}
+
+void Movement::EnableGravity() {
+	gravity_on = true;
+}
+
+void Movement::DisableGravity() {
+	gravity_on = false;
+}
+
+void Movement::Reset() {
+	velocity = glm::vec4(0);
+	gravity_on = false;
 }

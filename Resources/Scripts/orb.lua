@@ -1,4 +1,5 @@
 --Constants
+attack_action = 3
 fire_action = 5
 ice_action = 6
 earth_action = 7
@@ -18,6 +19,15 @@ if timer == 0 then
 	adder = 1
 end
 
+function ThrowProjectile()
+	spawn_projectile()
+end
+
+--player characters scale. object_index = 0
+follow_obj_scale_x = get_dependant_obj_scale_x(0)
+follow_obj_scale_y = get_dependant_obj_scale_y(0)
+set_transform_scale(follow_obj_scale_x, follow_obj_scale_y)
+
 --player characters x position. object_index = 0
 follow_obj_x = get_dependant_obj_pos_x(0)
 
@@ -27,6 +37,11 @@ follow_obj_y = get_dependant_obj_pos_y(0)
 --Get the current xpos
 x_coord = follow_obj_x + 20
 y_coord = follow_obj_y + 30
+
+--Move offset a little bit more when character is facing left
+if follow_obj_scale_x < 0 then
+	x_coord = x_coord + 5
+end
 
 --Set the fire orb pos to the position + offset
 --new_x_coord = x_coord + ((timer - 60*1.5)/ 60)
@@ -46,4 +61,9 @@ elseif check_action_state(ice_action, triggered) then
 	change_state("ICE")
 elseif check_action_state(earth_action, triggered) then
 	change_state("EARTH")
+end
+
+
+if check_action_state(attack_action, triggered) then
+	ThrowProjectile()
 end

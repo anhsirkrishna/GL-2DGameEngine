@@ -48,3 +48,19 @@ float DependantObjects::GetDependantObjectPosY(int obj_index) {
 		static_cast<Transform*>(p_dependant_objects[obj_index]->HasComponent("TRANSFORM"));
 	return follow_transform->GetPosCoord(1);
 }
+
+float DependantObjects::GetDependantObjectScaleX(int obj_index) {
+	SDL_assert(p_dependant_objects[obj_index] != nullptr);
+
+	Transform* follow_transform =
+		static_cast<Transform*>(p_dependant_objects[obj_index]->HasComponent("TRANSFORM"));
+	return follow_transform->GetScaleX();
+}
+
+float DependantObjects::GetDependantObjectScaleY(int obj_index) {
+	SDL_assert(p_dependant_objects[obj_index] != nullptr);
+
+	Transform* follow_transform =
+		static_cast<Transform*>(p_dependant_objects[obj_index]->HasComponent("TRANSFORM"));
+	return follow_transform->GetScaleY();
+}

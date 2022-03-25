@@ -28,46 +28,56 @@
         "minimum_particle_velocity": [ -3,   1, 0.0 ]
     },
     "BEHAVIOR": {
-      "script_filename": "fire_orb.lua"
+      "script_filename": "orb.lua"
     },
     "DEPENDANT_OBJECTS": {
       "dependant_object_names": [
         "player_character"
       ]
+    },
+    "PROJECTILE": {
+      "instance_def": "fire_projectile",
+      "instance_count": 10,
+      "spawn_offset":  [10, 10, 0]
     }
    },
   "STATES": {
     "FIRE": {
       "PARTICLE_EFFECT": {
-      "texture_name": "flame_particle",
-        "vertex_list": [
-            0, 0, 0,
-            0, 5, 0,
-            5, 5, 0,
-            5, 0, 0
-        ],
-        "color_list": [
-            550, 100, 30, 255,
-            550, 100, 30, 255,
-            550, 100, 30, 255,
-            550, 100, 30, 255
-        ],
-        "tex_coord_list": [
-             0,   0,
-             0, 512,
-           512, 512,
-           512,  0
-        ],
-        "particle_offset": [0, 0],
-        "max_particle_count": 200,
-        "particle_lifetime": 1000,
-        "maximum_particle_velocity": [  3, -7, 0.0 ],
-        "minimum_particle_velocity": [ -3,   1, 0.0 ]
+        "texture_name": "flame_particle",
+          "vertex_list": [
+              0, 0, 0,
+              0, 5, 0,
+              5, 5, 0,
+              5, 0, 0
+          ],
+          "color_list": [
+              550, 100, 30, 255,
+              550, 100, 30, 255,
+              550, 100, 30, 255,
+              550, 100, 30, 255
+          ],
+          "tex_coord_list": [
+               0,   0,
+               0, 512,
+             512, 512,
+             512,  0
+          ],
+          "particle_offset": [0, 0],
+          "max_particle_count": 200,
+          "particle_lifetime": 1000,
+          "maximum_particle_velocity": [  3, -7, 0.0 ],
+          "minimum_particle_velocity": [ -3,   1, 0.0 ]
+      },
+      "PROJECTILE": {
+        "instance_def": "fire_projectile",
+        "instance_count": 10,
+        "spawn_offset": [ 10, 10, 0 ]
       }
     },
     "ICE": {
       "PARTICLE_EFFECT": {
-      "texture_name": "ice_particle",
+        "texture_name": "ice_particle",
         "vertex_list": [
             0, 0, 0,
             0, 5, 0,
@@ -91,10 +101,15 @@
         "particle_lifetime": 1000,
         "maximum_particle_velocity": [  3, -7, 0.0 ],
         "minimum_particle_velocity": [ -3,   1, 0.0 ]
+      },
+      "PROJECTILE": {
+        "instance_def": "earth_projectile",
+        "instance_count": 1,
+        "spawn_offset": [ 0, 20, 0 ]
       }
     },
     "EARTH": {
-        "PARTICLE_EFFECT": {
+      "PARTICLE_EFFECT": {
         "texture_name": "earth_particle",
           "vertex_list": [
               0, 0, 0,
@@ -119,8 +134,13 @@
           "particle_lifetime": 1000,
           "maximum_particle_velocity": [  3, -7, 0.0 ],
           "minimum_particle_velocity": [ -3,   1, 0.0 ]
-        }
+      },
+      "PROJECTILE": {
+        "instance_def": "earth_projectile",
+        "instance_count": 1,
+        "spawn_offset": [ 0, 20, 0 ]
       }
+    }
   },
   "DEFAULT_STATE": "FIRE"
 }

@@ -30,6 +30,29 @@ class Collider;
 
 
 class Collider : public Component {
+private:
+	bool enabled;
+	Transform* p_owner_transform;
+	Movement* p_owner_movement;
+
+
+	/* Offset relative to transform component
+	 * x : offset from transform pos along x-axis
+	 * y : offset from transform pos along y-axis
+	 * z : width of collider box
+	 * w : height of collider box
+	 */
+	glm::vec4 pos_offset;
+
+	/* Stores the position of the collider.
+	 * This position = center of the collider box
+	 * x : x-coordinate of pos
+	 * y : y-coordinate of pos
+	 * z : half-width of collider box
+	 * w : half-height of collider box
+	 */
+	glm::vec4 col_pos;
+
 public:
 	// Default ctor
 	Collider();
@@ -65,26 +88,24 @@ public:
 	*/
 	//CollidersTouching colliders_touching;
 
-private:
-	Transform* p_owner_transform;
-	Movement* p_owner_movement;
+	/*Enable the collider
+	* Returns: void
+	*/
+	void Enable();
 
+	/*Disables the collider
+	* Returns: void
+	*/
+	void Disable();
 
-	/* Offset relative to transform component
-	 * x : offset from transform pos along x-axis
-	 * y : offset from transform pos along y-axis
-	 * z : width of collider box
-	 * w : height of collider box
-	 */
-	glm::vec4 pos_offset;
+	/*Checks if collider is enabled
+	* Returns: bool
+	*/
+	bool IsEnabled();
 
-	/* Stores the position of the collider.
-	 * This position = center of the collider box 
-	 * x : x-coordinate of pos
-	 * y : y-coordinate of pos
-	 * z : half-width of collider box
-	 * w : half-height of collider box
-	 */
-	glm::vec4 col_pos;
+	/*Reset the collider
+	* Returns: void
+	*/
+	virtual void Reset();
 };
 

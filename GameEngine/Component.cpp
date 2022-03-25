@@ -49,3 +49,11 @@ void Component::Link() {
 void Component::HandleEvent(TimedEvent* p_event) {
 
 }
+
+/*Resets the components attributes to its default values
+* Individuals components have logic to do this
+* Returns: void
+*/
+void Component::Reset() {
+
+}

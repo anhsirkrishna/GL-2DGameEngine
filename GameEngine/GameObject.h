@@ -69,6 +69,11 @@ public:
 	* Returns: void
 	*/
 	void DelayedDisable(double time_delay);
+
+	/*Calls the reset method on all components
+	* Returns: void
+	*/
+	void ResetComponents();
 private:
 	std::string name;
 	std::vector<Component*> component_list;
