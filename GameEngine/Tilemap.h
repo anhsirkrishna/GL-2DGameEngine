@@ -32,6 +32,12 @@ private:
 	int texture_mode;
 	std::vector<std::vector<std::vector<int>>> tile_index_map;
 
+	std::vector<float> vertices;
+	std::vector<float> colors;
+	std::vector<float> tex_coords;
+
+	json obj_map;
+
 	void GenerateTilemapVertices(std::vector<float> &vertices);
 	void GenerateTilemapTextureCoords(std::vector<float>& tex_coords);
 public:
@@ -40,4 +46,14 @@ public:
 	virtual void Link();
 	virtual void Draw(ShaderProgram* p_program);
 	void SetTextureMode(int _mode);
+	glm::vec4 GetDimensions();
+	int GetTileWidth();
+	int GetTileHeight();
+	int GetGridWidth();
+	int GetGridHeight();
+	std::vector<std::vector<std::vector<int>>>& GetTileIndexMap();
+	Texture* GetTexture();
+	std::vector<float> GetTexCoords();
+	void RegenTexCoords();
+	json& GetObjMap();
 };

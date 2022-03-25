@@ -26,5 +26,5 @@ public:
 	/*Creates all the game objects for a specific level.
 	* Adds each game object to the game object manager
 	*/
-	void CreateLevel(unsigned int level);
+	std::unordered_map<std::string, json> CreateLevel(unsigned int level);
 };
