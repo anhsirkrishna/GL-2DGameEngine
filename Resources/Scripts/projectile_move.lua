@@ -9,6 +9,8 @@ set_pos_coord(new_x_coord, 0)
 
 if received_event then
 	if impact_event then
-		disable_obj()
+		particle_burst(100)
+		--disable after half a second
+		delayed_disable_obj(500)
 	end
 end

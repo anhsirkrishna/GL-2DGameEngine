@@ -103,6 +103,9 @@ bool Hitbox::CheckCollision(glm::vec4 curr_position, GameObject*& collided_objec
 		if (hurtbox == nullptr)
 			continue;
 
+		if (!hurtbox->IsEnabled())
+			continue;
+
 		if (owner_obj == curr_obj)
 			continue;
 

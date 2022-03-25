@@ -21,6 +21,12 @@
 #include "Events.h"
 #include "Projectile.h"
 #include "GraphicsManager.h"
+#include "CameraController.h"
+#include "Camera.h"
+#include "Animation.h"
+#include "ParticleEffect.h"
+#include "EventManager.h"
+#include "DependantObjects.h"
 
 #include <SDL.h>
 
@@ -39,6 +45,11 @@ void LuaManager::RegGlobals(sol::state& state) {
 
 	state["WINDOW_WIDTH"] = p_graphics_manager->window_width;
 	state["WINDOW_HEIGHT"] = p_graphics_manager->window_height;
+
+	state.set_function("clamp_camera", &Camera::ClampCameraPosition, p_camera);
+
+	state.set("timer", 0);
+	state.set("adder", 1);
 }
 
 // registers player movement functions from the Movement component
@@ -49,17 +60,21 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 	state.set_function("change_state", &StateManager::ChangeState, &obj->state_manager);
 	state.set_function("enable_obj", &GameObject::Enable, obj);
 	state.set_function("disable_obj", &GameObject::Disable, obj);
+	state.set_function("delayed_disable_obj", &GameObject::DelayedDisable, obj);
 
-	Component* comp = obj->HasComponent("MOVEMENT");
+	Component* comp = obj->HasComponent("BEHAVIOR");
+	if (comp != nullptr) {
+		Behavior* behavior = dynamic_cast<Behavior*>(comp);
+		state.set_function("send_event", &Behavior::SendEvent, behavior);
+	}
 
+	comp = obj->HasComponent("MOVEMENT");
 	if (comp != nullptr) {
 		Movement* move = dynamic_cast<Movement*>(comp);
 
 		state.set_function("move", &Movement::MoveHorizontally, move);
 		state.set_function("jump", &Movement::Jump, move);
 		state.set_function("get_vertical_velocity", &Movement::GetVerticalVelocity, move);
-		state.set_function("get_downlock", &Movement::GetDownLock, move);
-		//state.set_function("set_grav", &Movement::SetGravityUsage, move);
 	}
 
 	comp = obj->HasComponent("TRANSFORM");
@@ -76,6 +91,37 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 		Projectile* projectile = dynamic_cast<Projectile*>(comp);
 		state.set_function("spawn_projectile", &Projectile::Spawn, projectile);
 	}
+
+	comp = obj->HasComponent("CAMERA_CONTROLLER");
+	if (comp != nullptr) {
+		CameraController* camera_c = dynamic_cast<CameraController*>(comp);
+		state.set_function("get_follow_obj_x", 
+			&CameraController::GetFollowObjectPosX, camera_c);
+		state.set_function("get_follow_obj_y",
+			&CameraController::GetFollowObjectPosY, camera_c);
+		state.set_function("set_camera_pos",
+			&CameraController::SetCameraPos, camera_c);
+	}
+
+	comp = obj->HasComponent("ANIMATION");
+	if (comp != nullptr) {
+		Animation* animation = dynamic_cast<Animation*>(comp);
+		state.set_function("is_animation_completed", &Animation::Completed, animation);
+	}
+
+	comp = obj->HasComponent("PARTICLE_EFFECT");
+	if (comp != nullptr) {
+		ParticleEffect* particle_effect = dynamic_cast<ParticleEffect*>(comp);
+		state.set_function("particle_burst", &ParticleEffect::BurstEffect, particle_effect);
+		state.set_function("reset_particles", &ParticleEffect::ResetParticles, particle_effect);
+	}
+
+	comp = obj->HasComponent("DEPENDANT_OBJECTS");
+	if (comp != nullptr) {
+		DependantObjects* dependant_objects = dynamic_cast<DependantObjects*>(comp);
+		state.set_function("get_dependant_obj_pos_x", &DependantObjects::GetDependantObjectPosX, dependant_objects);
+		state.set_function("get_dependant_obj_pos_y", &DependantObjects::GetDependantObjectPosY, dependant_objects);
+	}
 }
 
 void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
@@ -84,15 +130,21 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 	}
 	else {
 		state["received_event"] = true;
+		state["hit_event"] = false;
+		state["impact_event"] = false;
 		switch (p_event->event_id) {
 			case EventID::hit:
 				state["hit_event"] = true;
 				state["hit_direction"] = static_cast<HitEvent*>(p_event)->direction;
+				break;
 			case EventID::impact:
 				state["impact_event"] = true;
+				break;
 		}
 	}
 }
+
+
 
 // reads and loads scripts for all gameobjects with the behavior component
 void LuaManager::LoadBehaviorScripts() {
@@ -126,4 +178,3 @@ LuaManager::~LuaManager() {
 void LuaManager::LogMessage(std::string log_str) {
 	SDL_Log(log_str.c_str());
 }
-

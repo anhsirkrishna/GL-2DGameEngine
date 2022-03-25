@@ -34,11 +34,11 @@ private:
 	Texture* p_texture;
 	std::vector<Particle> particles;
 	std::vector<float> particle_vertex_list;
+	std::vector<float> particle_color_list;
 	std::vector<float> single_particle_vertices;
-	std::vector<float> particle_brightness_list;
 	GLuint vao_id;
 	GLuint vertex_buffer_id;
-	GLuint brightness_buffer_id;
+	GLuint color_buffer_id;
 	Transform* p_owner_transform;
 	unsigned int max_particle_count;
 	unsigned int texture_mode;
@@ -63,13 +63,6 @@ private:
 
 	//Get a random particle velocity
 	glm::vec4 GetRandomParticleVelocity();
-
-	/*Respawn a set of particles with
-	* faster velocities and larger lifetime
-	* to produce a "Burst" effect
-	* Returns: void
-	*/
-	void BurstEffect(int burst_size);
 public:
 
 	//Default ctor to create a Particle Effect
@@ -110,4 +103,29 @@ public:
 	* Returns: void
 	*/
 	virtual void HandleEvent(TimedEvent* p_event);
+
+	/*Respawn a set of particles with
+	* faster velocities and larger lifetime
+	* to produce a "Burst" effect
+	* Returns: void
+	*/
+	void BurstEffect(int burst_size);
+
+	/*Resets all the particles to their starting position
+	* Returns: void
+	*/
+	void ResetParticles();
+
+	/*Changes the state of the particle effect
+	* Expects a json dict with the following keys:
+	* texture_name : The filename of the texture present in the resources folder
+	* vertex_list: A 1D list of 3*4 floats. Usually 4 Vertices.
+				   Each group of 3 floats represents 1 vertexs x, y,and z values.
+	* color_list: A 1D list of 4*4 floats. Each group of 4 floats
+				  represents 1 vertexs r, g, b, and a color values.
+	* texture_list: A 1D list of 2*4 floats. Each group of 2 floats represents
+					the texture coordinates for each vertex.
+	* Returns : void
+	*/
+	virtual void ChangeState(json json_object);
 };

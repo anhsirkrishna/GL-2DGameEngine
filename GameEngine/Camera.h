@@ -67,11 +67,10 @@ public:
 	void ProcessKeyboardInput(CameraMovement direction, float dt);
 	void ProcessZoom(CameraMovement direction);
 	glm::vec4 Camera::ScreenToWorld(int x, int y);
-
+	void ClampCameraPosition();
 private:
 
 	void UpdateCameraVectors();
-
 };
 
 //Declared as an extern variable so it can be accessed throughout the project

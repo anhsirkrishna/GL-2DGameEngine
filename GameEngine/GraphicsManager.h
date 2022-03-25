@@ -83,9 +83,8 @@ public:
 	* and sends it to the GPU
 	* Returns: GLuint - The vao_id
 	*/
-	GLuint GenerateDynamicQuadVAO(GLuint &vertex_buffer_id, float const* colors,
-		float const* texture_coords,
-		unsigned int batch_size = 1);
+	GLuint GenerateDynamicQuadVAO(GLuint &vertex_buffer_id, GLuint& color_buffer_id,
+		float const* texture_coords, unsigned int batch_size = 1);
 
 	/*Dynamically set the data for a GL vertex buffer and send to the GPU
 	* Returns: void
@@ -199,6 +198,11 @@ public:
 
 	//Set color blending off
 	void SetColorBlendingOff();
+
+	/*Function to delete a vao
+	* Returns: void
+	*/
+	void DeleteVAO(GLuint vao_id);
 };
 
 extern GraphicsManager* p_graphics_manager;

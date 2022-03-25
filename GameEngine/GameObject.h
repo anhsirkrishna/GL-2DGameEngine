@@ -67,6 +67,11 @@ public:
 	//Enable game object
 	void Enable();
 
+	/*Disable the object after a time delay
+	* Returns: void
+	*/
+	void DelayedDisable(double time_delay);
+
 private:
 	std::string name;
 	std::vector<Component*> component_list;

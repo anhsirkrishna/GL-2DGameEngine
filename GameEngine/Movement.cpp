@@ -19,10 +19,8 @@
 #include <SDL.h>
 #include <glm.hpp>
 
-Movement::Movement() : Component("MOVEMENT"), p_owner_transform(nullptr),
-						p_owner_collider(nullptr), mass(5),
-						velocity(glm::vec4(0)), gravity_on(false),
-						dirLocks({false, false, false, false}) {
+Movement::Movement() : Component("MOVEMENT"), p_owner_transform(nullptr), mass(5),
+						velocity(glm::vec4(0)), gravity_on(false){
 }
 
 // Returns the mass value
@@ -36,6 +34,11 @@ glm::vec4 Movement::GetVelocity()
 	return velocity;
 }
 
+bool Movement::GetGravity()
+{
+	return gravity_on;
+}
+
 // Sets the new velocity value
 void Movement::SetVelocity(glm::vec4 new_velocity)
 {
@@ -45,12 +48,7 @@ void Movement::SetVelocity(glm::vec4 new_velocity)
 // Sets the x velocity
 void Movement::MoveHorizontally(float vel_x)
 {
-	// trying to move leftward and left lock is disabled and 
-	// trying to move rightward and right lock is disabled, then only set the velocity
-	if (!(vel_x < 0 && dirLocks.left_lock) && !(vel_x > 0 && dirLocks.right_lock)) {
-		velocity.x = vel_x;
-	}
-
+	velocity.x = vel_x;
 }
 
 
@@ -64,8 +62,6 @@ void Movement::Jump(float vel_y)
 	else {
 		velocity.y = vel_y;
 	}
-
-	dirLocks.down_lock = false;
 }
 
 // Serialize method. Nothing to do for the movement component
@@ -78,16 +74,10 @@ void Movement::Serialize(json json_object)
 void Movement::Link()
 {
 	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
-	p_owner_collider = static_cast<Collider*>(GetOwner()->HasComponent("COLLIDER"));
 }
 
 
 //Returns the velocity in the y direction
 float Movement::GetVerticalVelocity() {
 	return velocity.y;
-}
-
-//Returns downlock
-bool Movement::GetDownLock() {
-	return dirLocks.down_lock;
 }

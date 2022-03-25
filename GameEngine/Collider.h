@@ -24,9 +24,9 @@ class Collider;
 /* A reference to the colliders being touched from all directions.
 *  Needed to check if locks can be disabled back or not
 */
-struct CollidersTouching {
-	Collider* above, * beneath, * left, * right;
-};
+//struct CollidersTouching {
+//	Collider* above, * beneath, * left, * right;
+//};
 
 
 class Collider : public Component {
@@ -63,7 +63,7 @@ public:
 	/* Stores references to 
 	   colliders being touched above, beneath, on the left, and right
 	*/
-	CollidersTouching colliders_touching;
+	//CollidersTouching colliders_touching;
 
 private:
 	Transform* p_owner_transform;

@@ -1,5 +1,7 @@
 #include "GameObject.h"
 #include "Component.h"
+#include "Events.h"
+#include "EventManager.h"
 
 //Creates a named game object
 GameObject::GameObject(std::string object_name) : name(object_name), index(0), is_active(true) {
@@ -78,6 +80,9 @@ void GameObject::HandleEvent(TimedEvent* p_event) {
 			component->HandleEvent(p_event);
 		}
 	}
+
+	if (p_event->event_id == EventID::disable)
+		Disable();
 }
 
 //Disable game object
@@ -99,3 +104,12 @@ bool GameObject::IsActive() const
 {
 	return is_active;
 }
+
+//Disable game object after a time delay
+void GameObject::DelayedDisable(double time_delay) {
+	TimedEvent* new_event = new TimedEvent(EventID::disable, false, this);
+	new_event->SetTime(time_delay);
+	p_event_manager->QueueTimedEvent(new_event);
+}
+
+

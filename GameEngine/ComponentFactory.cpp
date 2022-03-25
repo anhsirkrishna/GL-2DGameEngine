@@ -24,6 +24,8 @@ ComponentFactory::ComponentFactory() {
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("PROJECTILE", new ProjectileCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("HITBOX", new HitboxCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("HURTBOX", new HurtboxCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("CAMERA_CONTROLLER", new CameraControllerCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("DEPENDANT_OBJECTS", new DependantObjectsCreator));
 }
 
 ComponentFactory::~ComponentFactory() {

@@ -36,6 +36,7 @@ enum class Action {
 	MOVE_RIGHT,
 	JUMP,
 	ATTACK,
+	ACTION1,
 	NUM
 };
 
