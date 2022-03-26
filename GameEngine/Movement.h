@@ -22,6 +22,12 @@ class Collider;
 using json = nlohmann::json;
 
 class Movement : public Component {
+private:
+	bool gravity_on;
+	float mass;
+	glm::vec4 velocity;
+	Transform* p_owner_transform;
+
 public:
 
 	// Default ctor for Rigidbody
@@ -54,10 +60,19 @@ public:
 	//Returns the velocity in the y direction
 	float GetVerticalVelocity();
 
-private:
-	bool gravity_on;
-	float mass;
-	glm::vec4 velocity;
-	Transform* p_owner_transform;
+	/*Enable gravity
+	* Returns: void
+	*/
+	void EnableGravity();
+
+	/*Disable gravity
+	* Returns: void
+	*/
+	void DisableGravity();
+
+	/*Reset the parameters for movement
+	* Returns: void
+	*/
+	virtual void Reset();
 };
 

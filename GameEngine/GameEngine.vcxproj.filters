@@ -428,7 +428,7 @@
       <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="..\Resources\Scripts\projectile_move_test.lua">
-          <Filter>Source Files\Scripts</Filter>
+      <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="Obj_defs\far_backdrop.json">
       <Filter>Source Files\Obj_defs</Filter>
@@ -448,11 +448,17 @@
     <None Include="Obj_defs\test_platform.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
-    <None Include="..\Resources\Scripts\fire_orb.lua">
-      <Filter>Source Files\Scripts</Filter>
-    </None>
     <None Include="Obj_defs\orb.json">
       <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\earth_projectile.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\orb.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\platform_projectile.lua">
+      <Filter>Source Files\Scripts</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -51,6 +51,7 @@ GameObject* GameObjectFactory::CreateGameObject(std::string object_name, std::st
 		state_name = state.first;
 		state_data = state.second;
 		new_object->state_manager.AddState(state_name, state_data);
+		new_object->state_manager.ChangeState(state_name);
 	}
 
 	std::string default_state = object_map.at("DEFAULT_STATE").get<std::string>();

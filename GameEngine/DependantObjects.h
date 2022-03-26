@@ -25,4 +25,6 @@ public:
 	virtual void Link();
 	float GetDependantObjectPosX(int obj_index);
 	float GetDependantObjectPosY(int obj_index);
+	float GetDependantObjectScaleX(int obj_index);
+	float GetDependantObjectScaleY(int obj_index);
 };

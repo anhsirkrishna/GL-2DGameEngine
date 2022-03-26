@@ -28,6 +28,9 @@ void StateManager::ChangeState(std::string next_state_) {
 	auto component_map = 
 		next_state_def_.get<std::unordered_map<std::string, json>>();
 
+	prev_state = current_state;
+	current_state = next_state_;
+
 	//Iterate through each component that needs to be changed
 	//Not all components of the game object need to have their state changed
 	for (auto component : component_map) {
@@ -35,9 +38,6 @@ void StateManager::ChangeState(std::string next_state_) {
 		(p_owner_game_object->HasComponent(component_name))
 			->ChangeState(component.second);
 	}
-
-	prev_state = current_state;
-	current_state = next_state_;
 }
 
 /*Adds a new state to the state manager

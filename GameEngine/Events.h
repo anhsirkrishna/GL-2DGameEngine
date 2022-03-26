@@ -19,6 +19,7 @@ enum class EventID
 	impact,
 	disable,
 	die,
+	activate,
 	NUM
 };
 
@@ -29,6 +30,7 @@ static const EventID all_events[] = {
 	EventID::impact,
 	EventID::disable,
 	EventID::die,
+	EventID::activate,
 	EventID::NUM };
 
 class GameObject;

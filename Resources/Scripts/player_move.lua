@@ -109,6 +109,6 @@ elseif get_vertical_velocity() == 0 then
 end
 
 if check_action_state(attack_action, triggered) then
-	ThrowProjectile()
+--	ThrowProjectile()
 	change_state("ATTACK")
 end

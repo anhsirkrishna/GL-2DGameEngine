@@ -105,6 +105,12 @@ bool GameObject::IsActive() const
 	return is_active;
 }
 
+void GameObject::ResetComponents() {
+	for (auto component : component_list) {
+		component->Reset();
+	}
+}
+
 //Disable game object after a time delay
 void GameObject::DelayedDisable(double time_delay) {
 	TimedEvent* new_event = new TimedEvent(EventID::disable, false, this);

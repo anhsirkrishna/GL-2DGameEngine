@@ -19,26 +19,12 @@ Projectile::Projectile() : Component("PROJECTILE"), p_instances(),
 							p_owner_transform(nullptr), instance_file() {
 }
 
-/*Serializes this component by creating all the required
-* number of instances of the projectile.
-* Expects a dict with the following key:values
-* "instance_def": "Obj_def" for the projectile object
-* "instance_count": the number of instances
+/*No action required here since serialization is 
+* being done during ChangeState()
 * Returns: void
 */
 void Projectile::Serialize(json json_object) {
-	instance_file = json_object["instance_def"].get<std::string>();
-	instance_count = json_object["instance_count"].get<int>();
-
-	std::string projectile_name = "_Projectile";
-	GameObjectFactory go_factory;
-	GameObject* new_object;
-	for (unsigned int i = 0; i < instance_count; i++) {
-		new_object = go_factory.CreateGameObject(projectile_name, instance_file);
-		new_object->SetActive(false);
-		p_game_obj_manager->AddGameObject(new_object);
-		p_instances.push_back(new_object);
-	}
+	
 }
 
 void Projectile::Link() {
@@ -46,35 +32,75 @@ void Projectile::Link() {
 }
 
 void Projectile::Spawn() {
-	GameObject* new_projectile = p_instances[GetLastUsedInstance()];
-	new_projectile->SetActive(true);
-	p_physics_world->AddPhysicsGameObject(new_projectile);
+	std::string current_state = GetOwner()->state_manager.GetCurrentState();
 
+	GameObject* new_projectile = p_instances[current_state][GetLastUsedInstance()];
+	if (new_projectile->IsActive())
+		return;
+	new_projectile->SetActive(true);
+	new_projectile->ResetComponents();
+	
 	Transform* projectile_transform = static_cast<Transform*>(new_projectile->HasComponent("TRANSFORM"));
 	projectile_transform->SetScale(p_owner_transform->GetScaleX(), p_owner_transform->GetScaleY());
 	glm::vec4 new_position = p_owner_transform->GetPosition();
-	new_position.x += 30;
-	new_position.y += 30;
+	new_position.x += spawn_offset[current_state].x;
+	new_position.y += spawn_offset[current_state].y;
+	new_position.z += spawn_offset[current_state].z;
 	projectile_transform->SetPosition(new_position);
 }
 
 int Projectile::GetLastUsedInstance() {
+	std::string current_state = GetOwner()->state_manager.GetCurrentState();
 	//Should usually return immediately 
-	for (unsigned int i = last_used_instance; i < instance_count; i++) {
-		if (!p_instances[i]->IsActive()) {
-			last_used_instance = i;
-			return last_used_instance;
+	for (unsigned int i = last_used_instance[current_state]; i < instance_count[current_state]; i++) {
+		if (!p_instances[current_state][i]->IsActive()) {
+			last_used_instance[current_state] = i;
+			return last_used_instance[current_state];
 		}
 	}
 
 	//Otherwise perform linear search
-	for (unsigned int i = 0; i < last_used_instance; i++) {
-		if (!p_instances[i]->IsActive()) {
-			last_used_instance = i;
-			return last_used_instance;
+	for (unsigned int i = 0; i < last_used_instance[current_state]; i++) {
+		if (!p_instances[current_state][i]->IsActive()) {
+			last_used_instance[current_state] = i;
+			return last_used_instance[current_state];
 		}
 	}
 
-	last_used_instance = 0;
-	return last_used_instance;
+	last_used_instance[current_state] = 0;
+	return last_used_instance[current_state];
+}
+
+/*Changes the state of the component
+* Checks if state has already been instantiated
+* If it hasn't then it creates game objects for 
+* the number of instances of the projectile.
+* Expects a dict with the following key:values
+* "instance_def": "Obj_def" for the projectile object
+* "instance_count": the number of instances
+* Returns: void
+*/
+void Projectile::ChangeState(json json_object) {
+	std::string current_state = GetOwner()->state_manager.GetCurrentState();
+
+	//State hasn't been instantiated
+	if (p_instances.find(current_state) == p_instances.end()) {
+		instance_file = json_object["instance_def"].get<std::string>();
+		instance_count[current_state] = json_object["instance_count"].get<int>();
+		auto offset = json_object["spawn_offset"].get<std::vector<float>>();
+		spawn_offset[current_state] = glm::vec3(offset[0], offset[1], offset[2]);
+
+		std::string projectile_name = "_Projectile";
+		GameObjectFactory go_factory;
+		GameObject* new_object;
+		for (unsigned int i = 0; i < instance_count[current_state]; i++) {
+			new_object = go_factory.CreateGameObject(projectile_name, instance_file);
+			new_object->SetActive(false);
+			p_game_obj_manager->AddGameObject(new_object);
+			p_instances[current_state].push_back(new_object);
+			p_physics_world->AddPhysicsGameObject(new_object);
+		}
+	}
+
+	
 }

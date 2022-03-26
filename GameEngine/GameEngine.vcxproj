@@ -260,7 +260,8 @@
   <ItemGroup>
     <None Include="..\Resources\Scripts\camera_controller.lua" />
     <None Include="..\Resources\Scripts\enemy_1.lua" />
-    <None Include="..\Resources\Scripts\fire_orb.lua" />
+    <None Include="..\Resources\Scripts\orb.lua" />
+    <None Include="..\Resources\Scripts\platform_projectile.lua" />
     <None Include="..\Resources\Scripts\player_move.lua" />
     <None Include="..\Resources\Scripts\projectile_move.lua" />
     <None Include="..\Resources\Scripts\projectile_move_test.lua" />
@@ -270,6 +271,7 @@
     <None Include="Levels\Level_0.json" />
     <None Include="Levels\Level_1.json" />
     <None Include="Obj_defs\camera_controller.json" />
+    <None Include="Obj_defs\earth_projectile.json" />
     <None Include="Obj_defs\enemy_obj.json" />
     <None Include="Obj_defs\far_backdrop.json" />
     <None Include="Obj_defs\fire_projectile.json" />

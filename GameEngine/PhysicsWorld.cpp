@@ -29,7 +29,7 @@ void PhysicsWorld::Reload() {
 	auto game_object_list = p_game_obj_manager->game_object_list;
 
 	for (int i = 0; i < game_object_list.size(); i++) {
-		if (game_object_list[i]->HasComponent("COLLIDER")) {
+		if (game_object_list[i]->HasComponent("COLLIDER") || game_object_list[i]->HasComponent("MOVEMENT")) {
 			physics_game_objects.push_back(game_object_list[i]);
 		}
 	}
@@ -56,7 +56,7 @@ void PhysicsWorld::Integrate()
 {
 	float dt = p_framerate_controller->GetPrevLoopDeltaTime() / 1000.0f;
 
-	for (GameObject* p : physics_game_objects) {
+	for (GameObject* p : p_game_obj_manager->game_object_list) {
 		if (!p->IsActive())
 			continue;
 		if (p->HasComponent("MOVEMENT")) {
@@ -152,6 +152,9 @@ void PhysicsWorld::DetectAndRecordCollisions()
 		 */
 		if ((*i)->HasComponent("MOVEMENT") && (*i)->HasComponent("COLLIDER")) {
 
+			if (static_cast<Collider*>((*i)->HasComponent("COLLIDER"))->IsEnabled() == false)
+				continue;
+
 			for (auto j = physics_game_objects.begin(); j != physics_game_objects.end(); j++) {
 
 				if (*i == *j) {
@@ -160,6 +163,9 @@ void PhysicsWorld::DetectAndRecordCollisions()
 				else {
 
 					if ((*j)->HasComponent("COLLIDER")) {
+
+						if (static_cast<Collider*>((*j)->HasComponent("COLLIDER"))->IsEnabled() == false)
+							continue;
 
 						Collider* collider_a = static_cast<Collider*>((*i)->HasComponent("COLLIDER"));
 						Collider* collider_b = static_cast<Collider*>((*j)->HasComponent("COLLIDER"));

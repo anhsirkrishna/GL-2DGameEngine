@@ -10,7 +10,8 @@ Collider::Collider() : Component("COLLIDER"),
 					   p_owner_transform(nullptr), 
 					   p_owner_movement(nullptr),
 					   pos_offset(glm::vec4(0)),
-					   col_pos(glm::vec4(0)) 
+					   col_pos(glm::vec4(0)),
+					   enabled(true)
 {}
 
 // Serializing Pos offset from JSON
@@ -78,4 +79,21 @@ void Collider::Update()
 void Collider::Link()
 {
 	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
+}
+
+
+void Collider::Enable() {
+	enabled = true;
+}
+
+void Collider::Disable() {
+	enabled = false;
+}
+
+bool Collider::IsEnabled() {
+	return enabled;
+}
+
+void Collider::Reset() {
+	enabled = true;
 }

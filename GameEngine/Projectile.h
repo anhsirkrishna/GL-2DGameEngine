@@ -10,16 +10,18 @@
 #pragma once
 
 #include "Component.h"
+#include <glm.hpp>
 
 class GameObject;
 class Transform;
 
 class Projectile : public Component {
 private:
-	std::vector<GameObject*> p_instances;
+	std::unordered_map<std::string, std::vector<GameObject*>> p_instances;
+	std::unordered_map<std::string, unsigned int> instance_count;
+	std::unordered_map<std::string, unsigned int> last_used_instance;
+	std::unordered_map<std::string, glm::vec3> spawn_offset;
 	std::string instance_file;
-	unsigned int instance_count;
-	unsigned int last_used_instance;
 	Transform* p_owner_transform;
 
 	/* Get the index of the instance that was last used
@@ -33,11 +35,8 @@ public:
 	//Link other components
 	virtual void Link();
 
-	/*Serializes this component by creating all the required
-	* number of instances of the projectile.
-	* Expects a dict with the following key:values
-	* "instance_def": "Obj_def" for the projectile object
-	* "instance_count": the number of instances
+	/*No action required here since serialization is
+	* being done during ChangeState()
 	* Returns: void
 	*/
 	void Serialize(json json_object);
@@ -46,4 +45,15 @@ public:
 	* currently disabled in the instance list
 	*/
 	void Spawn();
+
+	/*Changes the state of the component
+	* Checks if state has already been instantiated
+	* If it hasn't then it creates game objects for
+	* the number of instances of the projectile.
+	* Expects a dict with the following key:values
+	* "instance_def": "Obj_def" for the projectile object
+	* "instance_count": the number of instances
+	* Returns: void
+	*/
+	virtual void ChangeState(json json_object);
 };

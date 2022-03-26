@@ -47,6 +47,11 @@ public:
 	*/
 	virtual void HandleEvent(TimedEvent* p_event);
 
+	/*Resets the components attributes to its default values
+	* Returns: void
+	*/
+	virtual void Reset();
+
 	//Returns the name of the component
 	std::string GetName();
 private:

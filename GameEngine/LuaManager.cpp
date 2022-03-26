@@ -27,6 +27,7 @@
 #include "ParticleEffect.h"
 #include "EventManager.h"
 #include "DependantObjects.h"
+#include "Collider.h"
 
 #include <SDL.h>
 
@@ -75,6 +76,16 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 		state.set_function("move", &Movement::MoveHorizontally, move);
 		state.set_function("jump", &Movement::Jump, move);
 		state.set_function("get_vertical_velocity", &Movement::GetVerticalVelocity, move);
+		state.set_function("movement_enable_gravity", &Movement::EnableGravity, move);
+		state.set_function("movement_disable_gravity", &Movement::DisableGravity, move);
+	}
+
+	comp = obj->HasComponent("COLLIDER");
+	if (comp != nullptr) {
+		Collider* collider = dynamic_cast<Collider*>(comp);
+		state.set_function("collider_enable", &Collider::Enable, collider);
+		state.set_function("collider_disable", &Collider::Disable, collider);
+		state.set_function("collider_is_enabled", &Collider::IsEnabled, collider);
 	}
 
 	comp = obj->HasComponent("TRANSFORM");
@@ -121,6 +132,8 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 		DependantObjects* dependant_objects = dynamic_cast<DependantObjects*>(comp);
 		state.set_function("get_dependant_obj_pos_x", &DependantObjects::GetDependantObjectPosX, dependant_objects);
 		state.set_function("get_dependant_obj_pos_y", &DependantObjects::GetDependantObjectPosY, dependant_objects);
+		state.set_function("get_dependant_obj_scale_x", &DependantObjects::GetDependantObjectScaleX, dependant_objects);
+		state.set_function("get_dependant_obj_scale_y", &DependantObjects::GetDependantObjectScaleY, dependant_objects);
 	}
 }
 
@@ -132,6 +145,7 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 		state["received_event"] = true;
 		state["hit_event"] = false;
 		state["impact_event"] = false;
+		state["activate_event"] = false;
 		switch (p_event->event_id) {
 			case EventID::hit:
 				state["hit_event"] = true;
@@ -140,6 +154,8 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 			case EventID::impact:
 				state["impact_event"] = true;
 				break;
+			case EventID::activate:
+				state["activate_event"] = true;
 		}
 	}
 }
