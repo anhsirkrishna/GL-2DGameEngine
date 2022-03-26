@@ -249,9 +249,6 @@
     <ClCompile Include="Pathfinder.cpp">
       <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyProjectile.cpp">
-      <Filter>Source Files\Components\GameplayComponents</Filter>
-    </ClCompile>
     <ClCompile Include="JumpTriggerReceiverBox.cpp">
       <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClCompile>
@@ -446,9 +443,6 @@
     <ClInclude Include="Pathfinder.h">
       <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyProjectile.h">
-      <Filter>Source Files\Components\GameplayComponents</Filter>
-    </ClInclude>
     <ClInclude Include="JumpTriggerBox.h">
       <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClInclude>
@@ -570,10 +564,6 @@
     </None>
     <None Include="..\Resources\Scripts\enemy_1_test.lua">
       <Filter>Source Files\Scripts</Filter>
-    </None>
-    <None Include="..\Resources\Scripts\fire_orb.lua" />
-    <None Include="Obj_defs\enemy_projectile.json">
-      <Filter>Source Files\Obj_defs</Filter>
     </None>
     <None Include="Obj_defs\jump_trigger_box.json">
       <Filter>Source Files\Obj_defs</Filter>

@@ -60,14 +60,25 @@ void Hitbox::Serialize(json json_object) {
 
 }
 
+
 void Hitbox::Link() {
 	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
 }
 
-void Hitbox::DisableForABit()
+
+void Hitbox::Reset()
 {
 	enabled = false;
-	timer_till_enabled = 200.0f;
+	p_event_manager->QueueTimedEvent(
+		new TimedEvent(EventID::enable, false, GetOwner(), 300.0f));
+}
+
+
+void Hitbox::HandleEvent(TimedEvent* p_event)
+{
+	if (p_event->event_id == EventID::enable) {
+		enabled = true;
+	}
 }
 
 /*Update the component
@@ -93,15 +104,8 @@ void Hitbox::Update() {
 				new TimedEvent(EventID::impact, false, GetOwner()));
 		}
 	}
-	else {
-		if (timer_till_enabled > 0) {
-			timer_till_enabled -= 10.0f;
-		}
-		else {
-			enabled = true;
-		}
-	}
 }
+
 
 
 /*Checks collision between the hitbox and all other hurtboxes

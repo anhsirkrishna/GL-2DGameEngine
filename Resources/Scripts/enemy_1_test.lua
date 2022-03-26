@@ -46,55 +46,60 @@ if get_state() == "ATTACK" then
 	end
 end
 
+
+
+
+
 ---- If player is on left of the enemy
 
-if get_dependant_obj_pos_y(0) - get_pos_coord(1) < height_diff or
-   get_pos_coord(1) - get_dependant_obj_pos_y(0) < height_diff then 
-
-	-- If player is far enough but not too close, run towards player
-	if get_dependant_obj_pos_x(0) < get_pos_coord(0) and 
-	   get_pos_coord(0) - get_dependant_obj_pos_x(0) < walk_distance and
-	   get_pos_coord(0) - get_dependant_obj_pos_x(0) > attack_distance and get_state() == "IDLE" then
-			change_state("WALK")
-			set_transform_scale(-1, 1) 
-			move(-walk_speed)
-	end
-
-	-- If close enough to player, attack.
-	if get_dependant_obj_pos_x(0) < get_pos_coord(0) and 
-	   get_pos_coord(0) - get_dependant_obj_pos_x(0) < attack_distance and
-	   (get_state() == "IDLE" or  get_state() == "WALK") and timer >= time_between_shots then
-			change_state("ATTACK")
-			set_transform_scale(-1, 1) 
-			spawn_enemy_projectile()
-			move(0)
-	end
-
-	---- Same as above except when player is on the right
-	if get_dependant_obj_pos_x(0) > get_pos_coord(0) and 
-	   get_dependant_obj_pos_x(0) - get_pos_coord(0) < walk_distance and
-	   get_dependant_obj_pos_x(0) - get_pos_coord(0) > attack_distance and get_state() == "IDLE" then
-			change_state("WALK")
-			set_transform_scale(1, 1) 
-			move(walk_speed)
-	end
-
-	-- If close enough to player, attack.
-	if get_dependant_obj_pos_x(0) > get_pos_coord(0) and 
-	   get_dependant_obj_pos_x(0) - get_pos_coord(0) < attack_distance and
-	   (get_state() == "IDLE" or  get_state() == "WALK") and timer >= time_between_shots then
-			set_transform_scale(1, 1) 
-			change_state("ATTACK")
-			spawn_enemy_projectile()
-			move(0)
-	end
+-- If player is far enough but not too close, run towards player
+if get_dependant_obj_pos_x(0) < get_pos_coord(0) and 
+	get_pos_coord(0) - get_dependant_obj_pos_x(0) < walk_distance and
+	get_pos_coord(0) - get_dependant_obj_pos_x(0) > attack_distance and get_state() == "IDLE" then
+		change_state("WALK")
+		set_transform_scale(-1, 1) 
+		move(-walk_speed)
 end
 
+-- If close enough to player, attack.
+if get_dependant_obj_pos_x(0) < get_pos_coord(0) and 
+	get_pos_coord(0) - get_dependant_obj_pos_x(0) < attack_distance and
+	(get_state() == "IDLE" or  get_state() == "WALK") and timer >= time_between_shots then
+		spawn_projectile()
+		change_state("ATTACK")
+		set_transform_scale(-1, 1) 
+		move(0)
+end
+
+---- Same as above except when player is on the right
+if get_dependant_obj_pos_x(0) > get_pos_coord(0) and 
+	get_dependant_obj_pos_x(0) - get_pos_coord(0) < walk_distance and
+	get_dependant_obj_pos_x(0) - get_pos_coord(0) > attack_distance and get_state() == "IDLE" then
+		change_state("WALK")
+		set_transform_scale(1, 1) 
+		move(walk_speed)
+end
+
+-- If close enough to player, attack.
+if get_dependant_obj_pos_x(0) > get_pos_coord(0) and 
+	get_dependant_obj_pos_x(0) - get_pos_coord(0) < attack_distance and
+	(get_state() == "IDLE" or  get_state() == "WALK") and timer >= time_between_shots then
+		spawn_projectile()	
+		set_transform_scale(1, 1)
+		change_state("ATTACK")
+		--spawn_enemy_projectile()
+		move(0)
+end
+
+
 if received_event then
+	received_event = false
 	if hit_event then
+		hit_event = false
 		Die()
 	end
 	if jump_event then
+		jump_event = false
 		Jump()
 	end
 end

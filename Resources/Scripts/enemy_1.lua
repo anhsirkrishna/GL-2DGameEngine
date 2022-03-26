@@ -15,6 +15,6 @@ if received_event then
 	end
 end
 
-if check_action_state(4, 1) then
+if check_action_state(3, 1) then
 	spawn_projectile()
 end

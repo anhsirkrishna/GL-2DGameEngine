@@ -3,64 +3,33 @@
     "GLQUAD": {
       "texture_names": [ "player_sheet" ],
       "vertex_list": [
-        0,
-        0,
-        0,
-        0,
-        48,
-        0,
-        48,
-        48,
-        0,
-        48,
-        0,
-        0
+        0,  0,  0,
+        0,  48, 0,
+        48, 48, 0,
+        48, 0,  0
       ],
       "color_list": [
-        0,
-        255,
-        0,
-        255,
-        50,
-        255,
-        50,
-        255,
-        0,
-        0,
-        0,
-        255,
-        50,
-        255,
-        50,
-        255
+         0, 255,  0, 255,
+        50, 255, 50, 255,
+         0,   0,  0, 255,
+        50, 255, 50, 255
       ],
       "tex_coord_list": [
-        0,
-        0,
-        0,
-        84,
-        96,
-        84,
-        96,
-        0
+         0,  0,
+         0, 84,
+        96, 84,
+        96, 0
       ]
     },
     "ANIMATION": {
       "frames": [
-        0,
-        84,
-        96,
-        84,
-        192,
-        84,
-        288,
-        84,
-        384,
-        84,
-        480,
-        84,
-        576,
-        84
+          0, 84,
+         96, 84,
+        192, 84,
+        288, 84,
+        384, 84,
+        480, 84,
+        576, 84
       ],
       "looping": true,
       "interval": 8
@@ -87,7 +56,11 @@
     "PROJECTILE": {
       "instance_def": "fire_projectile",
       "instance_count": 10,
-      "spawn_offset": [ 10, 10, 0 ]
+      "spawn_offset": [ 20, 20, 0 ]
+    },
+    "JUMP_TRIGGER_RECEIVER_BOX": {
+      "offset": [ 20, 20 ],
+      "dimensions": [ 6, 15 ]
     }
   },
   "STATES": {
@@ -145,7 +118,6 @@
         "interval": 4
       }
     },
-
     "ATTACK": {
       "GLQUAD": {
         "texture_names": [ "player_sheet" ]

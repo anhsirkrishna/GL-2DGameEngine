@@ -21,6 +21,7 @@ timer = timer + adder
 function Die()
 	if get_state() ~= "DIE" then
 		change_state("DIE")
+		move(0)
 		set_transform_scale(1 * hit_direction, 1)  --Make sure the sprite is facing right
 		--Send an event id 5, with a delay of 0 ms, with broadcast=false
 		send_event(5, 0, false)
@@ -29,24 +30,20 @@ end
 
 function MoveCharacterRight()
 	--Only move if character is already walking or idle
-	--if get_state() == "IDLE" or get_state() == "WALK" then
-		move(walk_speed) --Move with a velocity of "walk_speed"
-		set_transform_scale(1, 1)  --Make sure the sprite is facing right
-		if get_state() == "WALK" or get_state() == "IDLE" then
-			change_state("WALK")
-		end
-	--end
+	move(walk_speed) --Move with a velocity of "walk_speed"
+	set_transform_scale(1, 1)  --Make sure the sprite is facing right
+	if get_state() == "WALK" or get_state() == "IDLE" then
+		change_state("WALK")
+	end
 end
 
 function MoveCharacterLeft()
 	--Only move if character is already walking or idle
-	--if get_state() == "IDLE" or get_state() == "WALK" then
-		move(-1*walk_speed) --Move with a velocity of "walk_speed"
-		set_transform_scale(-1, 1)  --Make sure the sprite is facing right
-		if get_state() == "WALK" or get_state() == "IDLE" then
-			change_state("WALK")
-		end
-	--end
+	move(-1*walk_speed) --Move with a velocity of "walk_speed"
+	set_transform_scale(-1, 1)  --Make sure the sprite is facing right
+	if get_state() == "WALK" or get_state() == "IDLE" then
+		change_state("WALK")
+	end
 end
 
 function JumpCharacter()
@@ -141,7 +138,9 @@ if get_state() ~= "DIE" then
 
 
 	if received_event then
+		received_event = false
 		if hit_event and timer <= 0 then
+			hit_event = false
 			decr_health()	
 			timer = time_till_health_disable
 			if get_health() == 0 then

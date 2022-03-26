@@ -45,5 +45,7 @@ public:
 
 	virtual void Link();
 
-	void DisableForABit();
+	virtual void Reset();
+
+	virtual void HandleEvent(TimedEvent* p_event);
 };

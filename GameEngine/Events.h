@@ -18,6 +18,7 @@ enum class EventID
 	hit,
 	impact,
 	disable,
+	enable,
 	die,
 	jump,
 	activate,
@@ -59,7 +60,3 @@ public:
 	unsigned int hit_damage;
 	int direction;
 };
-
-//class JumpEvent : public TimedEvent {
-//	JumpEvent(GameObject* _p_game_obj, bool _broadcast = false);
-//};

@@ -131,12 +131,6 @@ public:
 	virtual Component* Create(json json_object);
 };
 
-// Creates instance of EnemyProjectile component
-class EnemyProjectileCreator : public ComponentCreator {
-public:
-	virtual Component* Create(json json_object);
-};
-
 // Creates instance of JumpTriggerReceiverBox component
 class JumpTriggerReceiverBoxCreator : public ComponentCreator {
 public:

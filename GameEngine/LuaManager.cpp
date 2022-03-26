@@ -29,7 +29,6 @@
 #include "DependantObjects.h"
 #include "Collider.h"
 #include "StatestackManager.h"
-#include "EnemyProjectile.h"
 #include "Health.h"
 
 #include <SDL.h>
@@ -143,11 +142,11 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 		state.set_function("get_dependant_obj_scale_y", &DependantObjects::GetDependantObjectScaleY, dependant_objects);
 	}
 
-	comp = obj->HasComponent("ENEMYPROJECTILE");
-	if (comp != nullptr) {
-		EnemyProjectile* enemy_projectile = dynamic_cast<EnemyProjectile*>(comp);
-		state.set_function("spawn_enemy_projectile", &EnemyProjectile::SpawnProjectile, enemy_projectile);
-	}
+	//comp = obj->HasComponent("ENEMYPROJECTILE");
+	//if (comp != nullptr) {
+	//	EnemyProjectile* enemy_projectile = dynamic_cast<EnemyProjectile*>(comp);
+	//	state.set_function("spawn_enemy_projectile", &EnemyProjectile::SpawnProjectile, enemy_projectile);
+	//}
 
 	comp = obj->HasComponent("HEALTH");
 	if (comp != nullptr) {

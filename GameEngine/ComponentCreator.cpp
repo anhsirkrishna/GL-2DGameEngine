@@ -28,7 +28,6 @@
 #include "UIPanel.h"
 #include "UIText.h"
 #include "Pathfinder.h"
-#include "EnemyProjectile.h"
 #include "JumpTriggerReceiverBox.h"
 #include "JumpTriggerBox.h"
 #include "Health.h"
@@ -155,19 +154,11 @@ Component* PathfinderCreator::Create(json json_object) {
 	return static_cast<Component*>(new_pf);
 }
 
-Component* EnemyProjectileCreator::Create(json json_object)
-{
-	EnemyProjectile* new_ep = new EnemyProjectile;
-	new_ep->Serialize(json_object);
-	return static_cast<Component*>(new_ep);
-}
-
 Component* JumpTriggerReceiverBoxCreator::Create(json json_object)
 {
 	JumpTriggerReceiverBox* new_jtrb = new JumpTriggerReceiverBox;
 	new_jtrb->Serialize(json_object);
 	return static_cast<Component*>(new_jtrb);
-
 }
 
 Component* JumpTriggerBoxCreator::Create(json json_object)
