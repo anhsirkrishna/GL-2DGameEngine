@@ -5,7 +5,7 @@
 /*Email: krishna.pillai@digipen.edu
 /*Date   01/27/2022
 /*  GameObjectFactory implementation file
-/* DigiPen Institute of Technology © 2022
+/* DigiPen Institute of Technology ï¿½ 2022
 /******************************************************************************/
 
 #include "GameObjectManager.h"
@@ -56,6 +56,7 @@ GameObject* GameObjectFactory::CreateGameObject(std::string object_name, std::st
 
 	std::string default_state = object_map.at("DEFAULT_STATE").get<std::string>();
 	new_object->state_manager.ChangeState(default_state);
+	new_object->obj_def = obj_def;
 
 	return new_object;
 }
@@ -63,21 +64,24 @@ GameObject* GameObjectFactory::CreateGameObject(std::string object_name, std::st
 /*Creates all the game objects for a specific level.
 * Adds each game object to the game object manager
 */
-void GameObjectFactory::CreateLevel(unsigned int level) {
+std::unordered_map<std::string, json> GameObjectFactory::CreateLevel(unsigned int level) {
 	std::string level_file = ".\\Levels\\Level_" + std::to_string(level) + ".json";
+
 	std::ifstream level_data(level_file);
 
 	// missing level file check
 	if (!level_data.good())
 	{
 		level_data.close();
-		return;
+		std::unordered_map<std::string, json> empty;
+		return empty;
 	}
 
 	json json_object;
 	level_data >> json_object;
 
-	auto object_map = json_object.get<std::unordered_map<std::string, json>>();
+	std::unordered_map<std::string, json> object_map = 
+		json_object.get<std::unordered_map<std::string, json>>();
 
 	GameObject* new_object;
 	std::string obj_def;
@@ -96,4 +100,6 @@ void GameObjectFactory::CreateLevel(unsigned int level) {
 
 	for (auto game_obj : p_game_obj_manager->game_object_list)
 		game_obj->LinkComponents();
+
+	return object_map;
 }

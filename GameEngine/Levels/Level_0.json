@@ -1,4 +1,5 @@
 {
+
   "player_character": {
     "obj_def": "player_obj",
     "starting_position": [ 0, 0, -1, 0 ]
@@ -75,3 +76,4 @@
     "starting_position": [ 0, 0, -1, 0 ]
   }
 }
+

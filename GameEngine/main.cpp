@@ -147,9 +147,6 @@ int main(int argc, char* args[])
 
 	p_level_manager->LoadLevel(0);
 
-	// loads behavior scripts after all game objects have been created 
-	// (components have an assigned parent)
-	//p_lua_manager->LoadBehaviorScripts();
 
 	std::vector<GameObject*> new_go_list;
 	GameObject* test_game_object = nullptr;

@@ -1,0 +1,30 @@
+{
+  "demo_obj": {
+    "obj_def": "obj1",
+    "starting_position": [ 0, 0, 0, 0 ]
+  },
+  "demo_obj_1": {
+    "obj_def": "obj2",
+    "starting_position": [ 0, 150, 0, 0 ]
+  },
+  "demo_obj_2": {
+    "obj_def": "obj3",
+    "starting_position": [ 200, -300, 0, 0 ]
+  },
+  "demo_obj_3": {
+    "obj_def": "obj2",
+    "starting_position": [ 200, -150, 0, 0 ]
+  },
+  "demo_obj_4": {
+    "obj_def": "obj3",
+    "starting_position": [ -200, 400, 0, 0 ]
+  },
+  "demo_obj_5": {
+    "obj_def": "obj2",
+    "starting_position": [ -200, 500, 0, 0 ]
+  },
+  "iceball0": {
+    "obj_def": "ice_ball",
+    "starting_position": [ 100, -50, -1, 0 ]
+  }
+}
