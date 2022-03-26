@@ -166,6 +166,7 @@
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DependantObjects.cpp" />
+    <ClCompile Include="EditorState.cpp" />
     <ClCompile Include="FBO.cpp" />
     <ClCompile Include="ControlSchemeManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="GLQuad.cpp" />
     <ClCompile Include="GraphicsManager.cpp" />
     <ClCompile Include="Hitbox.cpp" />
@@ -199,6 +201,7 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="StatestackManager.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -207,6 +210,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AudioManager.h" />
+    <ClInclude Include="BaseState.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
@@ -216,6 +220,7 @@
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DependantObjects.h" />
+    <ClInclude Include="EditorState.h" />
     <ClInclude Include="FBO.h" />
     <ClInclude Include="ControlSchemeManager.h" />
     <ClInclude Include="EventManager.h" />
@@ -236,6 +241,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="PlayState.h" />
     <ClInclude Include="GLQuad.h" />
     <ClInclude Include="GraphicsManager.h" />
     <ClInclude Include="Hitbox.h" />
@@ -252,6 +258,7 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="StatestackManager.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Transform.h" />

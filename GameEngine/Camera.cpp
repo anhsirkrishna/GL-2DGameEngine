@@ -9,11 +9,12 @@
 /* DigiPen Institute of Technology © 2022
 /******************************************************************************/
 #include "Camera.h"
+#include "FrameRateController.h"
 
 // Updates the camera position based on the direction enum
-void Camera::ProcessKeyboardInput(CameraMovement direction, float dt)
+void Camera::ProcessKeyboardInput(CameraMovement direction)
 {
-	float velocity = movement_speed * dt;
+	float velocity = movement_speed * p_framerate_controller->GetPrevLoopDeltaTime();
 
 	switch (direction)
 	{
@@ -38,8 +39,6 @@ void Camera::ProcessKeyboardInput(CameraMovement direction, float dt)
 	default:
 		break;
 	}
-
-//	ClampCameraPosition();
 }
 
 // Updates the camera zoom based on a direction enum

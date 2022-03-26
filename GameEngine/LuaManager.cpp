@@ -48,6 +48,7 @@ void LuaManager::RegGlobals(sol::state& state) {
 	state["WINDOW_HEIGHT"] = p_graphics_manager->window_height;
 
 	state.set_function("clamp_camera", &Camera::ClampCameraPosition, p_camera);
+	state.set_function("move_camera", &Camera::ProcessKeyboardInput, p_camera);
 
 	state.set("timer", 0);
 	state.set("adder", 1);

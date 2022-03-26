@@ -93,17 +93,17 @@ void Editor::EditorCameraControls()
 {
 	// test camera movement lines
 	if (p_input_manager->isKeyPressed(SDL_SCANCODE_UP))
-		p_camera->ProcessKeyboardInput(CameraMovement::CAM_UP, p_framerate_controller->GetPrevLoopDeltaTime());
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_UP);
 	if (p_input_manager->isKeyPressed(SDL_SCANCODE_LEFT))
-		p_camera->ProcessKeyboardInput(CameraMovement::CAM_LEFT, p_framerate_controller->GetPrevLoopDeltaTime());
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_LEFT);
 	if (p_input_manager->isKeyPressed(SDL_SCANCODE_DOWN))
-		p_camera->ProcessKeyboardInput(CameraMovement::CAM_DOWN, p_framerate_controller->GetPrevLoopDeltaTime());
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_DOWN);
 	if (p_input_manager->isKeyPressed(SDL_SCANCODE_RIGHT))
-		p_camera->ProcessKeyboardInput(CameraMovement::CAM_RIGHT, p_framerate_controller->GetPrevLoopDeltaTime());
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_RIGHT);
 	if (p_input_manager->isKeyPressed(SDL_SCANCODE_Z))
-		p_camera->ProcessKeyboardInput(CameraMovement::CAM_FORWARD, p_framerate_controller->GetPrevLoopDeltaTime());
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_FORWARD);
 	if (p_input_manager->isKeyPressed(SDL_SCANCODE_X))
-		p_camera->ProcessKeyboardInput(CameraMovement::CAM_BACKWARD, p_framerate_controller->GetPrevLoopDeltaTime());
+		p_camera->ProcessKeyboardInput(CameraMovement::CAM_BACKWARD);
 }
 
 /* Debugging window implementation */
