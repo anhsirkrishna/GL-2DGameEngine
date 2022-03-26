@@ -30,12 +30,12 @@
     "MOVEMENT": {
       "gravity_on": false
     },
+    "BEHAVIOR": {
+      "script_filename": "projectile_move.lua"
+    },
     "HITBOX": {
       "offset": [ 0, 0 ],
       "dimensions": [ 5, 5 ]
-    },
-    "BEHAVIOR": {
-      "script_filename": "projectile_move.lua"
     }
    },
   "STATES": {

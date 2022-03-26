@@ -1,0 +1,10 @@
+{
+  "COMPONENTS": {
+    "TRANSFORM": {},
+    "JUMP_TRIGGER_BOX": {}
+  },
+  "STATES": {
+    "DEFAULT": {}
+  },
+  "DEFAULT_STATE": "DEFAULT"
+}

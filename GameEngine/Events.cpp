@@ -34,3 +34,8 @@ HitEvent::HitEvent(unsigned int _dmg, int _direction,
 				   GameObject* _p_game_obj, bool _broadcast) : 
 	TimedEvent(EventID::hit, _broadcast, _p_game_obj), 
 	hit_damage(_dmg), direction(_direction) {}
+
+
+//JumpEvent::JumpEvent(GameObject* _p_game_obj, bool _broadcast = false) :
+//	TimedEvent(EventID::jump, _broadcast, _p_game_obj)
+//{}

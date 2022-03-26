@@ -21,6 +21,8 @@ private:
 	glm::vec2 offset;
 	glm::vec2 dimensions;
 	Transform* p_owner_transform;
+	bool enabled;
+	float timer_till_enabled;
 	bool CheckCollision(glm::vec4 curr_position, GameObject*& collided_object);
 public:
 	Hitbox();
@@ -42,4 +44,6 @@ public:
 	virtual void Update();
 
 	virtual void Link();
+
+	void DisableForABit();
 };

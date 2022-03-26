@@ -29,6 +29,8 @@
 #include "DependantObjects.h"
 #include "Collider.h"
 #include "StatestackManager.h"
+#include "EnemyProjectile.h"
+#include "Health.h"
 
 #include <SDL.h>
 
@@ -55,6 +57,7 @@ void LuaManager::RegGlobals(sol::state& state) {
 	state.set("adder", 1);
 
 	state.set_function("statestack_pop", &StateStackManager::Pop, p_statestack_manager);
+	state.set("timer_2", 2);
 }
 
 // registers player movement functions from the Movement component
@@ -139,6 +142,19 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 		state.set_function("get_dependant_obj_scale_x", &DependantObjects::GetDependantObjectScaleX, dependant_objects);
 		state.set_function("get_dependant_obj_scale_y", &DependantObjects::GetDependantObjectScaleY, dependant_objects);
 	}
+
+	comp = obj->HasComponent("ENEMYPROJECTILE");
+	if (comp != nullptr) {
+		EnemyProjectile* enemy_projectile = dynamic_cast<EnemyProjectile*>(comp);
+		state.set_function("spawn_enemy_projectile", &EnemyProjectile::SpawnProjectile, enemy_projectile);
+	}
+
+	comp = obj->HasComponent("HEALTH");
+	if (comp != nullptr) {
+		Health* health = dynamic_cast<Health*>(comp);
+		state.set_function("get_health", &Health::GetHealth, health);
+		state.set_function("decr_health", &Health::DecrementHealth, health);
+	}
 }
 
 void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
@@ -150,6 +166,7 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 		state["hit_event"] = false;
 		state["impact_event"] = false;
 		state["activate_event"] = false;
+		state["jump_event"] = false;
 		switch (p_event->event_id) {
 			case EventID::hit:
 				state["hit_event"] = true;
@@ -160,6 +177,9 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 				break;
 			case EventID::activate:
 				state["activate_event"] = true;
+				break;
+			case EventID::jump:
+				state["jump_event"] = true;
 		}
 	}
 }

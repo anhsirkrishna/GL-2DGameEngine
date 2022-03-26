@@ -38,7 +38,7 @@ bool AABB(glm::vec4 hitbox, glm::vec4 hurtbox) {
 }
 
 Hitbox::Hitbox() : Component("HITBOX"), offset(0.0f), dimensions(0.0f),
-					p_owner_transform(nullptr) {
+					p_owner_transform(nullptr), enabled(false), timer_till_enabled(0) {
 }
 
 /*Inits a hitbox component
@@ -64,6 +64,12 @@ void Hitbox::Link() {
 	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
 }
 
+void Hitbox::DisableForABit()
+{
+	enabled = false;
+	timer_till_enabled = 200.0f;
+}
+
 /*Update the component
 * moves to the offset
 * checks owner tranform scale
@@ -78,11 +84,22 @@ void Hitbox::Update() {
 	curr_position.z = dimensions.x;
 	curr_position.w = dimensions.y;
 	GameObject* p_collided_object = nullptr;
-	if (CheckCollision(curr_position, p_collided_object)) {
-		p_event_manager->QueueTimedEvent(
-			new HitEvent(0, p_owner_transform->GetScaleX() * -1, p_collided_object));
-		p_event_manager->QueueTimedEvent(
-			new TimedEvent(EventID::impact, false, GetOwner()));
+	
+	if (enabled) {
+		if (CheckCollision(curr_position, p_collided_object)) {
+			p_event_manager->QueueTimedEvent(
+				new HitEvent(0, p_owner_transform->GetScaleX() * -1, p_collided_object));
+			p_event_manager->QueueTimedEvent(
+				new TimedEvent(EventID::impact, false, GetOwner()));
+		}
+	}
+	else {
+		if (timer_till_enabled > 0) {
+			timer_till_enabled -= 10.0f;
+		}
+		else {
+			enabled = true;
+		}
 	}
 }
 
