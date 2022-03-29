@@ -48,4 +48,9 @@ public:
 	* Returns: void
 	*/
 	void SendEvent(int event_id, int delay_time, bool broadcast);
+
+	/*Sets the script name
+	* Returns: void
+	*/
+	void SetScriptName(std::string script_name);
 };

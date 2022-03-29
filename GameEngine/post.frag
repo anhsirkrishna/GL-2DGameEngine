@@ -28,9 +28,9 @@ void main() {
 	}
 	fragColor += bloomColor;
 
-	//Convert color back into sRGB space
     fragColor.rgb = (exposure*fragColor.rgb)/(exposure*fragColor.rgb + 1);
 	//fragColor.rgb = vec3(1.0) - exp(-fragColor.rgb*exposure);
+	//Convert color back into sRGB space
 	fragColor.rgb = pow(fragColor.rgb, vec3(1.0f/gamma));
 	out_color = vec4(fragColor.rgb, 1.0);
 

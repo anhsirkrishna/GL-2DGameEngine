@@ -46,7 +46,8 @@ unsigned int DEFAULT_FRAMERATE = 60;
 * Global managers. These extern variables are decaled in their respective 
 * header files so they can be accessed anywhere in the project.
 */
-GameObjectManager* p_game_obj_manager;
+GameObjectManager* p_game_obj_manager; 
+GameObjectManager* p_ui_obj_manager;
 GameManager* p_game_manager;
 InputManager* p_input_manager;
 ControlSchemeManager* p_control_scheme_manager;
@@ -80,6 +81,7 @@ bool RUN_WITH_EDITOR = true;
 */
 void CreateManagers() {
 	p_game_obj_manager = new GameObjectManager();
+	p_ui_obj_manager = new GameObjectManager();
 	p_game_manager = new GameManager();
 	p_input_manager = new InputManager();
 	p_framerate_controller = new FrameRateController(DEFAULT_FRAMERATE);

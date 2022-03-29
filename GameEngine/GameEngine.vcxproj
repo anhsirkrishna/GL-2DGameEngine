@@ -158,6 +158,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="GLQuad.cpp" />
     <ClCompile Include="GraphicsManager.cpp" />
@@ -205,6 +207,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UIPanel.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +215,7 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BaseState.h" />
     <ClInclude Include="Behavior.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
     <ClInclude Include="Collider.h" />
@@ -241,6 +245,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="PauseState.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="GLQuad.h" />
     <ClInclude Include="GraphicsManager.h" />
@@ -262,9 +267,11 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UIPanel.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Resources\Scripts\button_action.lua" />
     <None Include="..\Resources\Scripts\camera_controller.lua" />
     <None Include="..\Resources\Scripts\enemy_1.lua" />
     <None Include="..\Resources\Scripts\orb.lua" />
@@ -277,6 +284,7 @@
     <None Include="horizontal_blur.comp" />
     <None Include="Levels\Level_0.json" />
     <None Include="Levels\Level_1.json" />
+    <None Include="Obj_defs\Pause_menu.json" />
     <None Include="Obj_defs\camera_controller.json" />
     <None Include="Obj_defs\earth_projectile.json" />
     <None Include="Obj_defs\enemy_obj.json" />
@@ -294,6 +302,8 @@
     <None Include="particles.vert" />
     <None Include="post.frag" />
     <None Include="post.vert" />
+    <None Include="ui.frag" />
+    <None Include="ui.vert" />
     <None Include="vertical_blur.comp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

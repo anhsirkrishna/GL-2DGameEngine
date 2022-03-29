@@ -106,3 +106,15 @@ class DependantObjectsCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
+
+//Creates instance of Button UI component
+class UIButtonCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
+
+//Creates instance of Panel UI component
+class UIPanelCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};

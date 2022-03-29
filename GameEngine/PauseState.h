@@ -1,10 +1,10 @@
 /******************************************************************************/
 /*!
-/*File   EditorState.h
+/*File   PauseState.h
 /*Author Krishna Pillai
 /*Email: krishna.pillai@digipen.edu
 /*Date   01/25/2022
-/*  EditorState header file
+/*  BaseState header file
 /* DigiPen Institute of Technology © 2022
 /******************************************************************************/
 
@@ -12,18 +12,18 @@
 #include "BaseState.h"
 #include <vector>
 
-class EditorState : public BaseState {
+class PauseState : public BaseState {
 public:
 	/*Initialize the play state
 	* Create the level and all the objects
 	* within the level
 	*/
-	EditorState();
+	PauseState();
 	/*Deletes the play state by
 	* clearing the level and cleaning
 	* up all the objects
 	*/
-	virtual ~EditorState();
+	virtual ~PauseState();
 	/*Enters the state from another state
 	* Doesn't need any special action
 	* Returns: void
@@ -34,7 +34,7 @@ public:
 	* Returns: void
 	*/
 	virtual void Exit();
-	/*Basic update call for the EditorState
+	/*Basic update call for the PauseState
 	* Calls Update on all the gameobjects
 	* Calls Update on all the required managers
 	* Returns: void

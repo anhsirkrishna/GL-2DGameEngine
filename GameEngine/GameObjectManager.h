@@ -10,6 +10,12 @@ public:
 	void AddGameObject(GameObject* game_object);
 
 	/*
+	* Adds a game object to the list of game objects
+	* in a specific order
+	*/
+	void AddGameObject(GameObject* game_object, int order);
+
+	/*
 	* Calls the Update() function for each game object
 	*/
 	void Update();
@@ -40,3 +46,4 @@ public:
 
 //Extern global variable defined so it can be accessed throughout the project
 extern GameObjectManager* p_game_obj_manager;
+extern GameObjectManager* p_ui_obj_manager;

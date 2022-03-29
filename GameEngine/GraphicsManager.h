@@ -84,7 +84,7 @@ public:
 	* Returns: GLuint - The vao_id
 	*/
 	GLuint GenerateDynamicQuadVAO(GLuint &vertex_buffer_id, GLuint& color_buffer_id,
-		float const* texture_coords, unsigned int batch_size = 1);
+		GLuint& texture_buffer_id, unsigned int batch_size = 1);
 
 	/*Dynamically set the data for a GL vertex buffer and send to the GPU
 	* Returns: void
@@ -114,7 +114,7 @@ public:
 	/*Sends the GL_Draw call after binding the specified vao
 	* Returns: void
 	*/
-	void DrawQuad(GLuint vao_id, unsigned int batch_size=1);
+	void DrawQuad(GLuint vao_id, unsigned int batch_size=1, bool gbuffer_draw=true);
 
 	/*Clear the currently active buffer
 	* Returns: void
@@ -162,6 +162,9 @@ public:
 
 	//Set view Matrix
 	void SetViewMatrix();
+	
+	//Set Orthographic Projection
+	void SetOrthographicMatrix();
 
 	//Performs all the post processing tasks required. 
 	void PostProcess();

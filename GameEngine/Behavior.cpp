@@ -14,7 +14,7 @@
 #include "EventManager.h"
 
 // default constructor
-Behavior::Behavior() : Component("BEHAVIOR") {
+Behavior::Behavior() : Component("BEHAVIOR"), script_result() {
 
 }
 
@@ -68,4 +68,8 @@ void Behavior::SendEvent(int event_id, int delay_time, bool broadcast) {
 			new TimedEvent(static_cast<EventID>(event_id), broadcast, GetOwner(), delay_time)
 		);
 	}
+}
+
+void Behavior::SetScriptName(std::string script_name_) {
+	script_name = script_name_;
 }

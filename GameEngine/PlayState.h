@@ -23,7 +23,7 @@ public:
 	* clearing the level and cleaning
 	* up all the objects
 	*/
-	~PlayState();
+	virtual ~PlayState();
 	/*Enters the state from another state
 	* Doesn't need any special action
 	* Returns: void

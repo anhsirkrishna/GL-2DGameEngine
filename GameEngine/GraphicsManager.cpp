@@ -50,6 +50,8 @@ GraphicsManager::GraphicsManager() : p_active_shader(nullptr), p_sdl_window(null
 	CHECKERROR;
 	p_resource_manager->add_shader("post");
 	CHECKERROR;
+	p_resource_manager->add_shader("ui");
+	CHECKERROR;
 
 	p_resource_manager->add_compute_shader("horizontal_blur");
 	CHECKERROR;
@@ -58,10 +60,15 @@ GraphicsManager::GraphicsManager() : p_active_shader(nullptr), p_sdl_window(null
 
 	SetActiveShader("post");
 	BindAttrib(0, "in_vertices");
+	
 	SetActiveShader("final");
 	BindDefaultAttribLocations();
 	BindOutputAttrib(0, "out_Color");
 	BindOutputAttrib(1, "post_Buffer");
+
+	SetActiveShader("ui");
+	BindDefaultAttribLocations();
+	BindOutputAttrib(0, "out_Color");
 
 	g_buffer = new FBO(window_width, window_height, 2);
 	ping_pong_buffer = new FBO(window_width, window_height, 2);
@@ -319,7 +326,7 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions,
 * Returns: GLuint - The vao_id
 */
 GLuint GraphicsManager::GenerateDynamicQuadVAO(GLuint& vertex_buffer_id, 
-	GLuint& color_buffer_id, float const* texture_coords, 
+	GLuint& color_buffer_id, GLuint& texture_buffer_id, 
 	unsigned int batch_size) {
 	int vertices_count = 4;
 	int positions_count = 3;
@@ -354,32 +361,43 @@ GLuint GraphicsManager::GenerateDynamicQuadVAO(GLuint& vertex_buffer_id,
 	CHECKERROR;
 
 	//Create another continguous buffer for all the textures for each vertex
-	GLuint tex_coord_buffer;
-	glGenBuffers(1, &tex_coord_buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, tex_coord_buffer);
+	glGenBuffers(1, &texture_buffer_id);
+	glBindBuffer(GL_ARRAY_BUFFER, texture_buffer_id);
 	glBufferData(GL_ARRAY_BUFFER,
 		sizeof(float) * vertices_count * tex_coords_count * batch_size,
-		texture_coords, GL_STATIC_DRAW);
+		NULL, GL_DYNAMIC_DRAW);
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	CHECKERROR;
 	//IBO data
 	std::vector<GLuint> indexData;
-	for (unsigned int i = batch_size - 1; i > 1; --i) {
-		indexData.push_back(0 + (i * 4));
-		indexData.push_back(2 + (i * 4));
-		indexData.push_back(3 + (i * 4));
+	for (unsigned int i = batch_size-1; i > 0; --i) {
 		indexData.push_back(0 + (i * 4));
 		indexData.push_back(1 + (i * 4));
 		indexData.push_back(2 + (i * 4));
+		indexData.push_back(0 + (i * 4));
+		indexData.push_back(2 + (i * 4));
+		indexData.push_back(3 + (i * 4));
 	}
-	indexData.push_back(0);
-	indexData.push_back(2);
-	indexData.push_back(3);
+
 	indexData.push_back(0);
 	indexData.push_back(1);
 	indexData.push_back(2);
+	indexData.push_back(0);
+	indexData.push_back(2);
+	indexData.push_back(3);
+	
+	/*
+	std::vector<GLuint> indexData = { 0, 1, 2, 0, 2, 3 };
+	for (unsigned int i = 1; i < batch_size; ++i) {
+		indexData.push_back(0 + (i * 4));
+		indexData.push_back(1 + (i * 4));
+		indexData.push_back(2 + (i * 4));
+		indexData.push_back(0 + (i * 4));
+		indexData.push_back(2 + (i * 4));
+		indexData.push_back(3 + (i * 4));
+	}*/
 
 	//Create IBO
 	GLuint indeces_buffer;
@@ -448,21 +466,27 @@ void GraphicsManager::SetDynamicBufferData(GLuint vao_id, GLuint vertex_buffer_i
 /*Sends the GL_Draw call after binding the specified vao
 * Returns: void
 */
-void GraphicsManager::DrawQuad(GLuint vao_id, unsigned int batch_size) {
-	g_buffer->Bind();
+void GraphicsManager::DrawQuad(GLuint vao_id, unsigned int batch_size, bool gbuffer_draw) {
+	if (gbuffer_draw)
+		g_buffer->Bind();
 
 	glBindVertexArray(vao_id);
 	CHECKERROR;
+	
+	SetUniformFloat(gamma, "gamma");
 
-	GLenum bufs[2] = { GL_COLOR_ATTACHMENT0_EXT , GL_COLOR_ATTACHMENT1_EXT };
-	glDrawBuffers(2, bufs);
-	CHECKERROR;
+	if (gbuffer_draw) {
+		GLenum bufs[2] = { GL_COLOR_ATTACHMENT0_EXT , GL_COLOR_ATTACHMENT1_EXT };
+		glDrawBuffers(2, bufs);
+		CHECKERROR;
+	}
 
 	glDrawElements(GL_TRIANGLES, 6 * batch_size, GL_UNSIGNED_INT, NULL);
 	CHECKERROR;
 	glBindVertexArray(0);
 
-	g_buffer->Unbind();
+	if (gbuffer_draw)
+		g_buffer->Unbind();
 }
 
 //Sets a uniform int
@@ -549,6 +573,13 @@ void GraphicsManager::SetViewMatrix() {
 	// set up view matrix for the camera
 	glm::mat4 view = p_camera->GetViewMatrix();
 	SetUniformMatrix4(view, "view");
+}
+
+void GraphicsManager::SetOrthographicMatrix() {
+	float right = window_width;
+	float bottom = window_height;
+	glm::mat4 ortho_proj = glm::ortho(0.0f, right, bottom, 0.0f, 0.0f, 1.0f);
+	SetUniformMatrix4(ortho_proj, "ortho_projection");
 }
 
 //Performs all the post processing tasks required. 
