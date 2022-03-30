@@ -44,7 +44,7 @@ void Tilemap::Serialize(json json_object) {
 
 	GenerateTilemapVertices(vertices);
 
-	for (unsigned int i = 0; i < grid_width * grid_width; ++i) {
+	for (unsigned int i = 0; i < grid_width * grid_height; ++i) {
 		//Green color for all tilemaps
 		//Top left vertex
 		colors.push_back(0.0f);

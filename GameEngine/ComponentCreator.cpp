@@ -24,6 +24,8 @@
 #include "Hurtbox.h"
 #include "CameraController.h"
 #include "DependantObjects.h"
+#include "Button.h"
+#include "UIPanel.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.
@@ -121,4 +123,16 @@ Component* DependantObjectsCreator::Create(json json_object) {
 	DependantObjects* new_dep_o = new DependantObjects;
 	new_dep_o->Serialize(json_object);
 	return static_cast<Component*>(new_dep_o);
+}
+
+Component* UIButtonCreator::Create(json json_object) {
+	Button* new_button_obj = new Button;
+	new_button_obj->Serialize(json_object);
+	return static_cast<Component*>(new_button_obj);
+}
+
+Component* UIPanelCreator::Create(json json_object) {
+	UIPanel* new_panel_obj = new UIPanel;
+	new_panel_obj->Serialize(json_object);
+	return static_cast<Component*>(new_panel_obj);
 }

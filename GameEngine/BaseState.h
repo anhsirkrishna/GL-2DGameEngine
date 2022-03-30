@@ -14,6 +14,7 @@ class ShaderProgram;
 
 class BaseState {
 public:
+	virtual ~BaseState() {}
 	virtual void Enter() {}
 	virtual void Exit() {}
 	virtual void Update() {}

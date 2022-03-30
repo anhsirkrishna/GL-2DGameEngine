@@ -28,6 +28,7 @@
 #include "EventManager.h"
 #include "DependantObjects.h"
 #include "Collider.h"
+#include "StatestackManager.h"
 
 #include <SDL.h>
 
@@ -52,6 +53,8 @@ void LuaManager::RegGlobals(sol::state& state) {
 
 	state.set("timer", 0);
 	state.set("adder", 1);
+
+	state.set_function("statestack_pop", &StateStackManager::Pop, p_statestack_manager);
 }
 
 // registers player movement functions from the Movement component

@@ -70,6 +70,12 @@
     <Filter Include="Source Files\GameStates">
       <UniqueIdentifier>{5f924a9e-2580-4cf1-8107-718232b608a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\GUIComponents">
+      <UniqueIdentifier>{b420e627-2c6d-458d-b833-3d6270e4127a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UI_defs">
+      <UniqueIdentifier>{858e2046-c1c6-40d8-a236-6a3fd28d1419}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -224,6 +230,15 @@
     </ClCompile>
     <ClCompile Include="EditorState.cpp">
       <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Components\GUIComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseState.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="UIPanel.cpp">
+      <Filter>Source Files\Components\GUIComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,6 +407,15 @@
     <ClInclude Include="EditorState.h">
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Source Files\Components\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="UIPanel.h">
+      <Filter>Source Files\Components\GUIComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -482,6 +506,18 @@
       <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="..\Resources\Scripts\platform_projectile.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="ui.vert">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="ui.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="Obj_defs\Pause_menu.json">
+      <Filter>Source Files\UI_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\button_action.lua">
       <Filter>Source Files\Scripts</Filter>
     </None>
   </ItemGroup>

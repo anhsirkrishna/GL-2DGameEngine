@@ -35,10 +35,12 @@ private:
 	std::vector<Particle> particles;
 	std::vector<float> particle_vertex_list;
 	std::vector<float> particle_color_list;
+	std::vector<float> particle_texture_list;
 	std::vector<float> single_particle_vertices;
 	GLuint vao_id;
 	GLuint vertex_buffer_id;
 	GLuint color_buffer_id;
+	GLuint texture_buffer_id;
 	Transform* p_owner_transform;
 	unsigned int max_particle_count;
 	unsigned int texture_mode;

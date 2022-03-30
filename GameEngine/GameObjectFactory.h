@@ -21,10 +21,29 @@ class GameObjectFactory {
 private:
 	ComponentFactory component_factory;
 public:
-	//Creates a game object
+	/*Create a game object based on the object definition
+	* Object definition is in a json format found in .\\Obj_defs\\<file_name>
+	* Obj defs is a dict with "COMPONENT" and "STATES" as keys.
+	* "COMPONENT" is another dict with the component names as keys
+	* "STATES" is another dict with the state names as keys
+	* Returns  *GameObject
+	*/
 	GameObject* CreateGameObject(std::string object_name, std::string obj_def);
+
 	/*Creates all the game objects for a specific level.
 	* Adds each game object to the game object manager
 	*/
 	std::unordered_map<std::string, json> CreateLevel(unsigned int level);
+
+	/*Create a UI object based on the object definition
+	* UI Obj defs is a dict with "UI_COMPONENT_NAMES" keys.
+	* "UI_COMPONENT_NAMES" is another dict with the component names as keys
+	* Returns  *GameObject
+	*/
+	GameObject* CreateUIObject(std::string object_name, json json_object);
+
+	/*Creates all the game objects for a specific level.
+	* Adds each game object to the game object manager
+	*/
+	std::unordered_map<std::string, json> CreateUI(std::string ui_def);
 };

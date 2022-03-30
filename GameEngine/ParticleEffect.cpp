@@ -114,8 +114,6 @@ void ParticleEffect::Serialize(json json_object) {
 	//Convert coords from image space to 0..1
 	ConvertTextureCoords(base_coord, p_texture->width, p_texture->height);
 
-	std::vector<float> coord;
-
 	for (int i = 0; i < max_particle_count; i++) {
 		particles.push_back(Particle(glm::vec4(origin_offset, -1.0f, 0.0f),
 			GetRandomParticleVelocity(), particle_lifetime));
@@ -162,21 +160,21 @@ void ParticleEffect::Serialize(json json_object) {
 		particle_color_list.push_back(base_colors[15]);
 
 
-		coord.push_back(base_coord[0]);
-		coord.push_back(base_coord[1]);
+		particle_texture_list.push_back(base_coord[0]);
+		particle_texture_list.push_back(base_coord[1]);
 
-		coord.push_back(base_coord[2]);
-		coord.push_back(base_coord[3]);
+		particle_texture_list.push_back(base_coord[2]);
+		particle_texture_list.push_back(base_coord[3]);
 
-		coord.push_back(base_coord[4]);
-		coord.push_back(base_coord[5]);
+		particle_texture_list.push_back(base_coord[4]);
+		particle_texture_list.push_back(base_coord[5]);
 
-		coord.push_back(base_coord[6]);
-		coord.push_back(base_coord[7]);
+		particle_texture_list.push_back(base_coord[6]);
+		particle_texture_list.push_back(base_coord[7]);
 	}
 
 	vao_id = p_graphics_manager->GenerateDynamicQuadVAO(
-		vertex_buffer_id, color_buffer_id, &coord[0], max_particle_count);
+		vertex_buffer_id, color_buffer_id, texture_buffer_id, max_particle_count);
 
 	p_graphics_manager->SetActiveShader("final");
 }
@@ -302,7 +300,10 @@ void ParticleEffect::Draw(ShaderProgram* program) {
 		sizeof(float) * particle_vertex_list.size());
 
 	p_graphics_manager->SetDynamicBufferData(vao_id, color_buffer_id, &particle_color_list[0],
-		sizeof(float) * particle_vertex_list.size());
+		sizeof(float) * particle_color_list.size());
+
+	p_graphics_manager->SetDynamicBufferData(vao_id, texture_buffer_id, &particle_texture_list[0],
+		sizeof(float) * particle_texture_list.size());
 
 	p_graphics_manager->DrawQuad(vao_id, max_particle_count);
 

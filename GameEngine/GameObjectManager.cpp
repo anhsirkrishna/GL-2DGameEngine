@@ -9,6 +9,16 @@ void GameObjectManager::AddGameObject(GameObject* game_object) {
 }
 
 /*
+* Adds a game object to the list of game objects
+* in a specific index
+*/
+void GameObjectManager::AddGameObject(GameObject* game_object, int index) {
+	if (index >= game_object_list.size())
+		game_object_list.resize(index+1);
+	game_object_list[index] = game_object;
+}
+
+/*
 * Calls the Update() function for each game object
 */
 

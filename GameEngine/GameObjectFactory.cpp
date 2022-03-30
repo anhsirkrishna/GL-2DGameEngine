@@ -103,3 +103,55 @@ std::unordered_map<std::string, json> GameObjectFactory::CreateLevel(unsigned in
 
 	return object_map;
 }
+
+GameObject* GameObjectFactory::CreateUIObject(std::string object_name, json json_object) {
+	GameObject* new_object = new GameObject(object_name);
+
+	auto component_map = json_object.get<std::unordered_map<std::string, json>>();
+	json component_data;
+	std::string component_name;
+	for (auto component : component_map) {
+		component_name = component.first;
+		component_data = component.second;
+		new_object->AddComponent(
+			component_factory.Create(component_name, component_data)
+		);
+	}
+
+	return new_object;
+}
+
+std::unordered_map<std::string, json> GameObjectFactory::CreateUI(std::string ui_def) {
+
+	std::string ui_def_file = ".\\Obj_defs\\" + ui_def + ".json";
+	std::ifstream UI_data(ui_def_file);
+
+	// missing level file check
+	if (!UI_data.good())
+	{
+		UI_data.close();
+		std::unordered_map<std::string, json> empty;
+		return empty;
+	}
+
+	json json_object;
+	UI_data >> json_object;
+
+	std::unordered_map<std::string, json> object_map =
+		json_object.get<std::unordered_map<std::string, json>>();
+
+	GameObject* new_object;
+	std::string obj_def;
+	std::string default_state;
+	for (auto element : object_map) {
+		auto component_map = element.second["COMPONENTS"].get<json>();
+		new_object = CreateUIObject(element.first, component_map);
+		auto draw_order = element.second["DRAW_ORDER"].get<int>();
+		p_ui_obj_manager->AddGameObject(new_object, draw_order);
+	}
+
+	for (auto ui_obj : p_ui_obj_manager->game_object_list)
+		ui_obj->LinkComponents();
+
+	return object_map;
+}
