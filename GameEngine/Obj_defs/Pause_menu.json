@@ -38,5 +38,31 @@
     "TRANSFORM": {}
     },
     "DRAW_ORDER": 0
+  },
+  "resume_text": {
+    "COMPONENTS": {
+      "UITEXT": {
+        "pixel_position": [ 480, 440 ],
+        "scale": [ 0.5, 0.5 ],
+        "font_name": "CompassPro",
+        "text_color": [ 0, 0, 0, 255 ],
+        "text": "Resume"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 2
+  },
+  "paused_text": {
+    "COMPONENTS": {
+      "UITEXT": {
+        "pixel_position": [ 600, 460 ],
+        "scale": [ 0.8, 0.8 ],
+        "font_name": "CompassPro",
+        "text_color": [ 0, 0, 0, 255 ],
+        "text": "PAUSED"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 3
   }
 }

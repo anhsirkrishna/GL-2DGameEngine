@@ -206,6 +206,11 @@ public:
 	* Returns: void
 	*/
 	void DeleteVAO(GLuint vao_id);
+
+	/*Makes a texture accessible to a active shader program
+	* Returns: void
+	*/
+	void BindTexture(const int unit, const GLuint tex_id, const std::string& name);
 };
 
 extern GraphicsManager* p_graphics_manager;

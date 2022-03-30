@@ -755,3 +755,18 @@ void GraphicsManager::DeleteVAO(GLuint vao_id) {
 	glDeleteVertexArrays(1, &vao_id);
 	CHECKERROR;
 }
+
+/*Makes a texture accessible to a active shader program
+* Returns: void
+*/
+void GraphicsManager::BindTexture(const int unit, const GLuint tex_id, const std::string& name)
+{
+	glActiveTexture((GLenum)((int)GL_TEXTURE0 + unit));
+	CHECKERROR;
+	glBindTexture(GL_TEXTURE_2D, tex_id);
+	CHECKERROR;
+	int loc = glGetUniformLocation(GetActiveShader()->program_id, name.c_str());
+	CHECKERROR;
+	glUniform1i(loc, unit);
+	CHECKERROR;
+}

@@ -28,6 +28,7 @@ ComponentFactory::ComponentFactory() {
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("DEPENDANT_OBJECTS", new DependantObjectsCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("BUTTON", new UIButtonCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("UIPANEL", new UIPanelCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("UITEXT", new UITextCreator));
 }
 
 ComponentFactory::~ComponentFactory() {

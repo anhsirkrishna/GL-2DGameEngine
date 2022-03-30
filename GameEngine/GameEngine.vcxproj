@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(SolutionDir)Build\Lua\$(Configuration);$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(SolutionDir)..\lua-master;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\freetype\win32;$(SolutionDir)Build\Lua\$(Configuration);$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\freetype\include;$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(SolutionDir)..\lua-master;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -101,7 +101,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Lua.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Lua.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -161,6 +161,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraController.cpp" />
+    <ClCompile Include="CharacterTextures.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentCreator.cpp" />
@@ -204,6 +205,7 @@
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="StatestackManager.cpp" />
+    <ClCompile Include="UIText.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -218,6 +220,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CameraController.h" />
+    <ClInclude Include="CharacterTextures.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentCreator.h" />
@@ -264,6 +267,7 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="StatestackManager.h" />
+    <ClInclude Include="UIText.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Transform.h" />

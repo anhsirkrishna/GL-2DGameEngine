@@ -269,6 +269,8 @@ void Button::Draw(ShaderProgram *p_shader_program) {
 
 	p_graphics_manager->SetUniformInt(texture_mode, "mode");
 
+	p_graphics_manager->SetUniformInt(0, "text");
+
 	p_texture->Bind(2, p_graphics_manager->GetActiveShader()->program_id,
 		"texture_map");
 

@@ -12,6 +12,7 @@
 #include "ShaderProgram.h"
 #include "Texture.h"
 #include "MemoryManager.h"
+#include "CharacterTextures.h"
 
 #include "SDL_image.h"
 #include <GL/glew.h>
@@ -125,4 +126,27 @@ void ResourceManager::add_compute_shader(std::string file_name) {
 		p_shader_program->LinkProgram();
 		shader_map.insert({ file_name, p_shader_program });
 	}
+}
+
+CharacterTextures* ResourceManager::get_font_textures(std::string ttf_file_name)
+{
+	try {
+		return font_map.at(ttf_file_name);
+	}// .at(key) throws an out_of_range exception if the key doesn't exist in the map
+	catch (const std::out_of_range& oor) {
+		return NULL;
+	};
+}
+
+/*Reads a ttf file and generates textures for the
+* first 128 ASCII characters according to the
+* font type
+* Returns: void
+*/
+void ResourceManager::add_font_textures(std::string ttf_file_name) {
+	std::string ttf_path = "..\\Resources\\Fonts\\" + ttf_file_name + ".ttf";
+
+	//Checking if Texture exists before re-loading it.
+	if (get_font_textures(ttf_file_name) == NULL)
+		font_map.insert({ ttf_file_name, new CharacterTextures(ttf_path) });
 }

@@ -47,6 +47,7 @@ glew*
 glm
 GameEngine/External
 Diagrams
+freetype
 
 # vcxproj.user file 
 *.vcxproj.user
