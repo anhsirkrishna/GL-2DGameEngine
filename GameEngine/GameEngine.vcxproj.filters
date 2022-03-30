@@ -240,6 +240,12 @@
     <ClCompile Include="UIPanel.cpp">
       <Filter>Source Files\Components\GUIComponents</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterTextures.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="UIText.cpp">
+      <Filter>Source Files\Components\GUIComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -414,6 +420,12 @@
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
     <ClInclude Include="UIPanel.h">
+      <Filter>Source Files\Components\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterTextures.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="UIText.h">
       <Filter>Source Files\Components\GUIComponents</Filter>
     </ClInclude>
   </ItemGroup>

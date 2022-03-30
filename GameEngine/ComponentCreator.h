@@ -118,3 +118,9 @@ class UIPanelCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
+
+//Creates instance of Text UI component
+class UITextCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};

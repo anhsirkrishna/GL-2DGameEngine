@@ -16,12 +16,14 @@
 
 class ShaderProgram;
 class Texture;
+class CharacterTextures;
 
 class ResourceManager {
 private:
 	std::unordered_map<std::string, SDL_Surface*> resource_map;
 	std::unordered_map<std::string, Texture*> textures_map;
 	std::unordered_map<std::string, ShaderProgram*> shader_map;
+	std::unordered_map<std::string, CharacterTextures*> font_map;
 public:
 	ResourceManager();
 	~ResourceManager();
@@ -55,6 +57,19 @@ public:
 	* Returns: void
 	*/
 	void add_compute_shader(std::string file_name);
+
+	/*Returns the CharacterTextures object created for a
+	* specific font
+	* Returns: CharacterTextures*
+	*/
+	CharacterTextures* get_font_textures(std::string ttf_file_name);
+
+	/*Reads a ttf file and generates textures for the
+	* first 128 ASCII characters according to the
+	* font type
+	* Returns: void
+	*/
+	void add_font_textures(std::string ttf_file_name);
 };
 
 extern ResourceManager * p_resource_manager;

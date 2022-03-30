@@ -63,8 +63,8 @@ void UIPanel::Serialize(json json_object) {
 	pixel_position[0] = json_object["pixel_position"].get<std::vector<int>>()[0];
 	pixel_position[1] = json_object["pixel_position"].get<std::vector<int>>()[1];
 
-	scale.x = json_object["scale"].get<std::vector<int>>()[0];
-	scale.y = json_object["scale"].get<std::vector<int>>()[1];
+	scale.x = json_object["scale"].get<std::vector<float>>()[0];
+	scale.y = json_object["scale"].get<std::vector<float>>()[1];
 
 	GenerateTilemapVertices();
 
@@ -205,6 +205,8 @@ void UIPanel::Draw(ShaderProgram* p_shader_program) {
 
 	p_texture->Bind(2, p_graphics_manager->GetActiveShader()->program_id,
 		"texture_map");
+
+	p_graphics_manager->SetUniformInt(0, "text");
 
 	p_graphics_manager->DrawQuad(vao_id, grid_width * grid_height, false);
 

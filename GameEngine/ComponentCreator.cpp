@@ -26,6 +26,7 @@
 #include "DependantObjects.h"
 #include "Button.h"
 #include "UIPanel.h"
+#include "UIText.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.
@@ -135,4 +136,10 @@ Component* UIPanelCreator::Create(json json_object) {
 	UIPanel* new_panel_obj = new UIPanel;
 	new_panel_obj->Serialize(json_object);
 	return static_cast<Component*>(new_panel_obj);
+}
+
+Component* UITextCreator::Create(json json_object) {
+	UIText* new_text_obj = new UIText;
+	new_text_obj->Serialize(json_object);
+	return static_cast<Component*>(new_text_obj);
 }
