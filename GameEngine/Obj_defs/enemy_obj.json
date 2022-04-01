@@ -61,6 +61,7 @@
     "JUMP_TRIGGER_RECEIVER_BOX": {
       "offset": [ 20, 20 ],
       "dimensions": [ 6, 15 ]
+      "spawn_offset": [ 10, 10, 0 ]
     }
   },
   "STATES": {
