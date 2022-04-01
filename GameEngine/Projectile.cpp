@@ -24,7 +24,26 @@ Projectile::Projectile() : Component("PROJECTILE"), p_instances(),
 * Returns: void
 */
 void Projectile::Serialize(json json_object) {
-	
+	std::string current_state = "DEFAULT";
+
+	//State hasn't been instantiated
+	if (p_instances.find(current_state) == p_instances.end()) {
+		instance_file = json_object["instance_def"].get<std::string>();
+		instance_count[current_state] = json_object["instance_count"].get<int>();
+		auto offset = json_object["spawn_offset"].get<std::vector<float>>();
+		spawn_offset[current_state] = glm::vec3(offset[0], offset[1], offset[2]);
+
+		std::string projectile_name = "_Projectile";
+		GameObjectFactory go_factory;
+		GameObject* new_object;
+		for (unsigned int i = 0; i < instance_count[current_state]; i++) {
+			new_object = go_factory.CreateGameObject(projectile_name, instance_file);
+			new_object->SetActive(false);
+			p_game_obj_manager->AddGameObject(new_object);
+			p_instances[current_state].push_back(new_object);
+			p_physics_world->AddPhysicsGameObject(new_object);
+		}
+	}
 }
 
 void Projectile::Link() {
@@ -33,6 +52,10 @@ void Projectile::Link() {
 
 void Projectile::Spawn() {
 	std::string current_state = GetOwner()->state_manager.GetCurrentState();
+
+	if (p_instances.find(current_state) == p_instances.end()) {
+		current_state = "DEFAULT";
+	}
 
 	GameObject* new_projectile = p_instances[current_state][GetLastUsedInstance()];
 	if (new_projectile->IsActive())
@@ -101,6 +124,4 @@ void Projectile::ChangeState(json json_object) {
 			p_physics_world->AddPhysicsGameObject(new_object);
 		}
 	}
-
-	
 }
