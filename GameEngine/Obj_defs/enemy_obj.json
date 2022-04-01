@@ -46,7 +46,12 @@
     },
     "HURTBOX": {
       "offset": [ 20, 20 ],
-      "dimensions": [6, 15]
+      "dimensions": [ 6, 15 ]
+    },
+    "PROJECTILE": {
+      "instance_def": "fire_projectile",
+      "instance_count": 10,
+      "spawn_offset": [ 10, 10, 0 ]
     }
   },
   "STATES": {

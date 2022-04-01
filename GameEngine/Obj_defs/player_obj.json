@@ -43,10 +43,6 @@
     },
     "MOVEMENT": {
       "gravity_on": true
-    },
-    "PROJECTILE": {
-      "instance_def": "fire_projectile",
-      "instance_count": 10
     }
   },
   "STATES": {
