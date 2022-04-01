@@ -51,10 +51,6 @@ new_x_coord = x_coord + ((timer - 90) / 16)
 set_pos_coord(new_x_coord, 0)
 set_pos_coord(y_coord, 1)
 
-new_z_coord = ((timer - 90) / 180) + 3
-
-set_pos_coord(new_z_coord * adder, 2)
-
 if check_action_state(fire_action, triggered) then
 	change_state("FIRE")
 elseif check_action_state(ice_action, triggered) then
@@ -65,5 +61,12 @@ end
 
 
 if check_action_state(attack_action, triggered) then
+	--Set the z coord to 0 before spawning projectile 
+	--to ensure that the projectile is spawned at z=0
+	set_pos_coord(0, 2)
 	ThrowProjectile()
 end
+
+--zaxis movement
+new_z_coord = ((timer - 90) / 180) + 3
+set_pos_coord(new_z_coord * adder, 2)

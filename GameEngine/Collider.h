@@ -107,5 +107,10 @@ public:
 	* Returns: void
 	*/
 	virtual void Reset();
+
+	/*Handles events
+	* Returns: void
+	*/
+	virtual void HandleEvent(TimedEvent* p_event);
 };
 

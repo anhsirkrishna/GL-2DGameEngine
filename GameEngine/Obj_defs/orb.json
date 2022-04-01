@@ -38,7 +38,8 @@
     "PROJECTILE": {
       "instance_def": "fire_projectile",
       "instance_count": 10,
-      "spawn_offset":  [10, 10, 0]
+      "spawn_offset": [ 0, 0, 0 ],
+      "recycle": true
     }
    },
   "STATES": {
@@ -72,7 +73,8 @@
       "PROJECTILE": {
         "instance_def": "fire_projectile",
         "instance_count": 10,
-        "spawn_offset": [ 10, 10, 0 ]
+        "spawn_offset": [ 0, 0, 0 ],
+        "recycle": true
       }
     },
     "ICE": {
@@ -103,9 +105,10 @@
         "minimum_particle_velocity": [ -3,   1, 0.0 ]
       },
       "PROJECTILE": {
-        "instance_def": "earth_projectile",
+        "instance_def": "ice_mirror",
         "instance_count": 1,
-        "spawn_offset": [ 0, 20, 0 ]
+        "spawn_offset": [ 10, -20, 0 ],
+        "recycle": true
       }
     },
     "EARTH": {
@@ -118,10 +121,10 @@
               5, 0, 0
           ],
           "color_list": [
-              120, 550, 100, 255,
-              120, 550, 100, 255,
-              120, 550, 100, 255,
-              120, 550, 100, 255
+              139,  69,  19, 255,
+              139,  69,  19, 255,
+              139,  69,  19, 255,
+              139,  69,  19, 255
           ],
           "tex_coord_list": [
                0,   0,
@@ -138,7 +141,8 @@
       "PROJECTILE": {
         "instance_def": "earth_projectile",
         "instance_count": 1,
-        "spawn_offset": [ 0, 20, 0 ]
+        "spawn_offset": [ 0, 20, 0 ],
+        "recycle": false
       }
     }
   },

@@ -63,9 +63,16 @@ void Hurtbox::HandleEvent(TimedEvent* p_event) {
 	case EventID::die:
 		enabled = false;
 		break;
+	case EventID::disable:
+		enabled = false;
+		break;
 	default:
 		break;
 	}
+}
+
+void Hurtbox::Reset() {
+	enabled = true;
 }
 
 //Returns enabled state

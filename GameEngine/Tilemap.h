@@ -29,6 +29,7 @@ private:
 	int tile_width;
 	int tile_height;
 	glm::vec4 dimensions;
+	glm::vec3 brightness;
 	int texture_mode;
 	std::vector<std::vector<std::vector<int>>> tile_index_map;
 

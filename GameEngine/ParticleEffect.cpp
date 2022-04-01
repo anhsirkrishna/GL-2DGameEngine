@@ -331,7 +331,6 @@ void ParticleEffect::SetTextureMode(int mode_) {
 * Returns: void
 */
 void ParticleEffect::BurstEffect(int burst_size) {
-	//Respawn a max of 2 new particles per frame
 	unsigned int particle_index;
 	glm::vec4 new_velocity;
 	for (unsigned int j = 0; j < burst_size; j++) {
@@ -347,8 +346,6 @@ void ParticleEffect::BurstEffect(int burst_size) {
 }
 
 /*Handle an event sent to this component
-* Temporary behavior of producing a "Burst"
-* effect
 * Returns: void
 */
 void ParticleEffect::HandleEvent(TimedEvent* p_event) {
