@@ -148,4 +148,8 @@ if get_state() ~= "DIE" then
 		end
 	end
 
+	if get_pos_coord(1) > 1200 then
+		Die()
+	end
+
 end
