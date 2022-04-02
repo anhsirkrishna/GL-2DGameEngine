@@ -292,7 +292,6 @@
     <None Include="..\Resources\Scripts\ice_mirror.lua" />
     <None Include="..\Resources\Scripts\orb.lua" />
     <None Include="..\Resources\Scripts\platform_projectile.lua" />
-    <None Include="..\Resources\Scripts\enemy_1.lua" />
     <None Include="..\Resources\Scripts\player_move.lua" />
     <None Include="..\Resources\Scripts\projectile_move.lua" />
     <None Include="..\Resources\Scripts\projectile_move_test.lua" />
