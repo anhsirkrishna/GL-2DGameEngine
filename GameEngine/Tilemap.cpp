@@ -22,7 +22,9 @@
 Tilemap::Tilemap() : Component("TILEMAP"), p_texture(NULL),
 					 p_owner_transform(NULL), grid_width(0),
 					 grid_height(0), tile_width(0), tile_height(0),
-					 dimensions(), vao_id(0), texture_mode(1) {}
+					 dimensions(), vao_id(0), texture_mode(1), 
+					 brightness(1.0) {
+}
 
 void Tilemap::Serialize(json json_object) {
 
@@ -116,6 +118,8 @@ void Tilemap::Draw(ShaderProgram* p_program) {
 		SetTextureMode(0);
 	else
 		SetTextureMode(1);
+
+	p_graphics_manager->SetUniformVec3(brightness, "brightness");
 
 	p_graphics_manager->SetUniformInt(texture_mode, "mode");
 

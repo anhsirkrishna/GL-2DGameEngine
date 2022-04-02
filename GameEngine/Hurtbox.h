@@ -51,6 +51,9 @@ public:
 	* Returns: void
 	*/
 	virtual void HandleEvent(TimedEvent* p_event);
+
+	/*Resets the hurtbox*/
+	virtual void Reset();
 	
 	//Returns enabled state
 	bool IsEnabled();

@@ -16,7 +16,8 @@
 
 Projectile::Projectile() : Component("PROJECTILE"), p_instances(), 
 						   instance_count(0), last_used_instance(0),
-							p_owner_transform(nullptr), instance_file() {
+							p_owner_transform(nullptr), instance_file(),
+							recycle() {
 }
 
 /*No action required here since serialization is 
@@ -58,7 +59,7 @@ void Projectile::Spawn() {
 	}
 
 	GameObject* new_projectile = p_instances[current_state][GetLastUsedInstance()];
-	if (new_projectile->IsActive())
+	if (new_projectile->IsActive() && !recycle[current_state])
 		return;
 	new_projectile->SetActive(true);
 	new_projectile->ResetComponents();
@@ -66,8 +67,14 @@ void Projectile::Spawn() {
 	Transform* projectile_transform = static_cast<Transform*>(new_projectile->HasComponent("TRANSFORM"));
 	projectile_transform->SetScale(p_owner_transform->GetScaleX(), p_owner_transform->GetScaleY());
 	glm::vec4 new_position = p_owner_transform->GetPosition();
-	new_position.x += spawn_offset[current_state].x;
-	new_position.y += spawn_offset[current_state].y;
+
+	if (p_owner_transform->GetScaleX() > 0)
+		new_position.x += (spawn_offset[current_state].x/2);
+	else
+		new_position.x -= (spawn_offset[current_state].x*4);
+
+	new_position.y += (spawn_offset[current_state].y * p_owner_transform->GetScaleY());
+
 	new_position.z += spawn_offset[current_state].z;
 	projectile_transform->SetPosition(new_position);
 }
@@ -112,6 +119,8 @@ void Projectile::ChangeState(json json_object) {
 		instance_count[current_state] = json_object["instance_count"].get<int>();
 		auto offset = json_object["spawn_offset"].get<std::vector<float>>();
 		spawn_offset[current_state] = glm::vec3(offset[0], offset[1], offset[2]);
+
+		recycle[current_state] = json_object["recycle"].get<bool>();
 
 		std::string projectile_name = "_Projectile";
 		GameObjectFactory go_factory;

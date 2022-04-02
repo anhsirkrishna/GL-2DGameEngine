@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Movement.h"
 #include "Util.h"
+#include "Events.h"
 
 #include <iostream>
 
@@ -96,4 +97,21 @@ bool Collider::IsEnabled() {
 
 void Collider::Reset() {
 	enabled = true;
+}
+
+/*Handles events
+* Returns: void
+*/
+void Collider::HandleEvent(TimedEvent* p_event) {
+	switch (p_event->event_id)
+	{
+	case EventID::die:
+		enabled = false;
+		break;
+	case EventID::disable:
+		enabled = false;
+		break;
+	default:
+		break;
+	}
 }

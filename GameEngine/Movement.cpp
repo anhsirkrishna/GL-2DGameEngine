@@ -95,3 +95,20 @@ void Movement::Reset() {
 	velocity = glm::vec4(0);
 	gravity_on = false;
 }
+
+/*Handles events
+* Returns: void
+*/
+void Movement::HandleEvent(TimedEvent* p_event) {
+	switch (p_event->event_id)
+	{
+	case EventID::die:
+		DisableGravity();
+		break;
+	case EventID::disable:
+		DisableGravity();
+		break;
+	default:
+		break;
+	}
+}

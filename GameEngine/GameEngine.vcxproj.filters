@@ -556,6 +556,15 @@
     <None Include="..\Resources\Scripts\button_action.lua">
       <Filter>Source Files\Scripts</Filter>
     </None>
+    <None Include="Obj_defs\ice_mirror.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\ice_mirror.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\tiled_platform.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
     <None Include="Obj_defs\flying_enemy_obj.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>

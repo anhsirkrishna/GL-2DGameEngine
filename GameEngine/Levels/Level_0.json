@@ -1,5 +1,4 @@
 {
-
   "player_character": {
     "obj_def": "player_obj",
     "starting_position": [ 0, 50, -1, 0 ]
@@ -37,32 +36,16 @@
     "starting_position": [ 50, 100, -1, 0 ]
   },
   "platform_1": {
-    "obj_def": "test_platform",
+    "obj_def": "tiled_platform",
     "starting_position": [ -20, 150, 0, 0 ]
   },
   "platform_2": {
-    "obj_def": "test_platform",
+    "obj_def": "tiled_platform",
     "starting_position": [ 450, 150, 0, 0 ]
   },
   "platform_3": {
-    "obj_def": "test_platform",
+    "obj_def": "tiled_platform",
     "starting_position": [ 900, 150, 0, 0 ]
-  },
-  "platform_4": {
-    "obj_def": "test_platform",
-    "starting_position": [ 200, 200, 0, 0 ]
-  },
-  "platform_5": {
-    "obj_def": "test_platform",
-    "starting_position": [ 700, 400, 0, 0 ]
-  },
-  "iceball0": {
-    "obj_def": "ice_ball",
-    "starting_position": [ 100, -50, -1, 0 ]
-  },
-  "iceball1": {
-    "obj_def": "ice_ball",
-    "starting_position": [ 200, -50, -1, 0 ]
   },
   "backdrop": {
     "obj_def": "far_backdrop",
@@ -80,4 +63,3 @@
     "starting_position": [ 0, 100, 3, 0 ]
   }
 }
-

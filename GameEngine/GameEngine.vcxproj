@@ -286,6 +286,7 @@
     <None Include="..\Resources\Scripts\button_action.lua" />
     <None Include="..\Resources\Scripts\camera_controller.lua" />
     <None Include="..\Resources\Scripts\enemy_1.lua" />
+    <None Include="..\Resources\Scripts\ice_mirror.lua" />
     <None Include="..\Resources\Scripts\orb.lua" />
     <None Include="..\Resources\Scripts\platform_projectile.lua" />
     <None Include="..\Resources\Scripts\enemy_1_test.lua" />
@@ -297,6 +298,7 @@
     <None Include="horizontal_blur.comp" />
     <None Include="Levels\Level_0.json" />
     <None Include="Levels\Level_1.json" />
+    <None Include="Obj_defs\ice_mirror.json" />
     <None Include="Obj_defs\Pause_menu.json" />
     <None Include="Obj_defs\camera_controller.json" />
     <None Include="Obj_defs\earth_projectile.json" />
@@ -311,6 +313,7 @@
     <None Include="Obj_defs\player_obj.json" />
     <None Include="Obj_defs\square.json" />
     <None Include="Obj_defs\test_platform.json" />
+    <None Include="Obj_defs\tiled_platform.json" />
     <None Include="Obj_defs\Tilemap.json" />
     <None Include="Obj_defs\Tilemap1.json" />
     <None Include="Settings\Control_Config.json" />
