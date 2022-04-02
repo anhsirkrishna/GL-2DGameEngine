@@ -27,6 +27,10 @@
 #include "Button.h"
 #include "UIPanel.h"
 #include "UIText.h"
+#include "Pathfinder.h"
+#include "JumpTriggerReceiverBox.h"
+#include "JumpTriggerBox.h"
+#include "Health.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.
@@ -142,4 +146,31 @@ Component* UITextCreator::Create(json json_object) {
 	UIText* new_text_obj = new UIText;
 	new_text_obj->Serialize(json_object);
 	return static_cast<Component*>(new_text_obj);
+}
+
+Component* PathfinderCreator::Create(json json_object) {
+	Pathfinder* new_pf = new Pathfinder;
+	new_pf->Serialize(json_object);
+	return static_cast<Component*>(new_pf);
+}
+
+Component* JumpTriggerReceiverBoxCreator::Create(json json_object)
+{
+	JumpTriggerReceiverBox* new_jtrb = new JumpTriggerReceiverBox;
+	new_jtrb->Serialize(json_object);
+	return static_cast<Component*>(new_jtrb);
+}
+
+Component* JumpTriggerBoxCreator::Create(json json_object)
+{
+	JumpTriggerBox* new_jtb = new JumpTriggerBox;
+	new_jtb->Serialize(json_object);
+	return static_cast<Component*>(new_jtb);
+}
+
+Component* HealthCreator::Create(json json_object)
+{
+	Health* new_health = new Health;
+	new_health->Serialize(json_object);
+	return static_cast<Component*>(new_health);
 }

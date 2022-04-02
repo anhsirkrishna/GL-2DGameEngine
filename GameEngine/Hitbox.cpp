@@ -38,7 +38,7 @@ bool AABB(glm::vec4 hitbox, glm::vec4 hurtbox) {
 }
 
 Hitbox::Hitbox() : Component("HITBOX"), offset(0.0f), dimensions(0.0f),
-					p_owner_transform(nullptr) {
+					p_owner_transform(nullptr), enabled(false), timer_till_enabled(0) {
 }
 
 /*Inits a hitbox component
@@ -60,8 +60,25 @@ void Hitbox::Serialize(json json_object) {
 
 }
 
+
 void Hitbox::Link() {
 	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
+}
+
+
+void Hitbox::Reset()
+{
+	enabled = false;
+	p_event_manager->QueueTimedEvent(
+		new TimedEvent(EventID::enable, false, GetOwner(), 300.0f));
+}
+
+
+void Hitbox::HandleEvent(TimedEvent* p_event)
+{
+	if (p_event->event_id == EventID::enable) {
+		enabled = true;
+	}
 }
 
 /*Update the component
@@ -78,13 +95,17 @@ void Hitbox::Update() {
 	curr_position.z = dimensions.x;
 	curr_position.w = dimensions.y;
 	GameObject* p_collided_object = nullptr;
-	if (CheckCollision(curr_position, p_collided_object)) {
-		p_event_manager->QueueTimedEvent(
-			new HitEvent(0, p_owner_transform->GetScaleX() * -1, p_collided_object));
-		p_event_manager->QueueTimedEvent(
-			new TimedEvent(EventID::impact, false, GetOwner()));
+	
+	if (enabled) {
+		if (CheckCollision(curr_position, p_collided_object)) {
+			p_event_manager->QueueTimedEvent(
+				new HitEvent(0, p_owner_transform->GetScaleX() * -1, p_collided_object));
+			p_event_manager->QueueTimedEvent(
+				new TimedEvent(EventID::impact, false, GetOwner()));
+		}
 	}
 }
+
 
 
 /*Checks collision between the hitbox and all other hurtboxes

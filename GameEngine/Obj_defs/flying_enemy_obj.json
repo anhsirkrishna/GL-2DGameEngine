@@ -1,0 +1,37 @@
+{
+  "COMPONENTS": {
+    "GLQUAD": {
+      "texture_names": [ "flying_enemy" ],
+      "vertex_list": [
+				 0,  0, 0,
+				 0, 20, 0,
+				20, 20, 0,
+				20,  0, 0
+      ],
+      "color_list": [
+				 0, 255,  0, 255,
+				50, 255, 50, 255,
+				 0,   0,  0, 255,
+				50, 255, 50, 255
+      ],
+      "tex_coord_list": [
+			   0,  0,
+		 	   0, 32,
+		    32, 32,
+			  32,  0
+      ]
+    },
+    "TRANSFORM": {},
+    "PATHFINDER": {},
+    "COLLIDER": {
+      "collider_offset_params": [ 0, 0, 20, 20 ]
+    },
+    "MOVEMENT": {
+      "gravity_on": false
+    }
+  },
+  "STATES": {
+    "DEFAULT" : {}
+  },
+  "DEFAULT_STATE": "DEFAULT"
+}

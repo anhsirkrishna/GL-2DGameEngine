@@ -1,0 +1,33 @@
+{
+   "COMPONENTS": {
+     "GLQUAD": {
+        "texture_names": [ "square_32" ],
+        "vertex_list": [
+				      0,   0, -1,
+				      0,  20, -1,
+				     20,  20, -1,
+				     20,   0, -1
+        ],
+        "color_list": [
+				    255,   0,  0,  255,
+				    50,   0, 50,  255,
+				    0,   0,  0,  255,
+				    0,   0, 255, 255
+        ],
+        "tex_coord_list": [
+     			   0,  0,
+		 	       0, 32,
+		        32, 32,
+			      32,  0
+        ]
+    },
+    "TRANSFORM": {},
+    "COLLIDER": {
+      "collider_offset_params": [ 0, 0, 20, 20 ]
+    }
+   },
+  "STATES": {
+    "DEFAULT": {}
+  },
+  "DEFAULT_STATE": "DEFAULT"
+}
