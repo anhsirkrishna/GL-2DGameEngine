@@ -36,11 +36,6 @@
     },
     "BEHAVIOR": {
       "script_filename": "projectile_move.lua"
-    },
-    "DEPENDANT_OBJECTS": {
-      "dependant_object_names": [
-        "player_character"
-      ]
     }
    },
   "STATES": {

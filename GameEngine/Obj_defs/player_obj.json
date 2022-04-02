@@ -44,9 +44,12 @@
     "MOVEMENT": {
       "gravity_on": true
     },
-    "PROJECTILE": {
-      "instance_def": "fire_projectile",
-      "instance_count": 10
+    "HURTBOX": {
+      "offset": [ 20, 20 ],
+      "dimensions": [ 6, 15 ]
+    },
+    "HEALTH": {
+      "health_val": 3
     }
   },
   "STATES": {
@@ -150,6 +153,22 @@
         ],
         "looping": false,
         "interval": 8
+      }
+    },
+    "DIE": {
+      "GLQUAD": {
+        "texture_names": [ "player_sheet" ]
+      },
+      "ANIMATION": {
+        "frames": [
+            0, 1428,
+           96, 1428,
+          192, 1428,
+          288, 1428,
+          384, 1428
+        ],
+        "looping": false,
+        "interval": 4
       }
     }
   },

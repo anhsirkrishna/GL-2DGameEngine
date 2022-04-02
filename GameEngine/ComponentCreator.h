@@ -77,31 +77,31 @@ public:
 	virtual Component* Create(json json_object);
 };
 
-//Creates instance of Behavior component
+//Creates instance of Projectile component
 class ProjectileCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
 
-//Creates instance of Behavior component
+//Creates instance of Hitbox component
 class HitboxCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
 
-//Creates instance of Behavior component
+//Creates instance of Hurtbox component
 class HurtboxCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
 
-//Creates instance of Behavior component
+//Creates instance of CameraController component
 class CameraControllerCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
 
-//Creates instance of Behavior component
+//Creates instance of DependentObjects component
 class DependantObjectsCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
@@ -121,6 +121,30 @@ public:
 
 //Creates instance of Text UI component
 class UITextCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
+
+// Creates instance of Pathfinder component
+class PathfinderCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
+
+// Creates instance of JumpTriggerReceiverBox component
+class JumpTriggerReceiverBoxCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
+
+// Creates instance of JumpTriggerBox component
+class JumpTriggerBoxCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};
+
+// Creates instance of Health component
+class HealthCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };

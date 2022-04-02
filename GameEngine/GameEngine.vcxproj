@@ -185,6 +185,9 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="Health.cpp" />
+    <ClCompile Include="JumpTriggerBox.cpp" />
+    <ClCompile Include="JumpTriggerReceiverBox.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="GLQuad.cpp" />
@@ -199,6 +202,7 @@
     <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="Movement.cpp" />
     <ClCompile Include="ParticleEffect.cpp" />
+    <ClCompile Include="Pathfinder.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -249,6 +253,9 @@
     <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="PauseState.h" />
+    <ClInclude Include="Health.h" />
+    <ClInclude Include="JumpTriggerBox.h" />
+    <ClInclude Include="JumpTriggerReceiverBox.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="GLQuad.h" />
     <ClInclude Include="GraphicsManager.h" />
@@ -261,6 +268,7 @@
     <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="Movement.h" />
     <ClInclude Include="ParticleEffect.h" />
+    <ClInclude Include="Pathfinder.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -281,6 +289,7 @@
     <None Include="..\Resources\Scripts\ice_mirror.lua" />
     <None Include="..\Resources\Scripts\orb.lua" />
     <None Include="..\Resources\Scripts\platform_projectile.lua" />
+    <None Include="..\Resources\Scripts\enemy_1_test.lua" />
     <None Include="..\Resources\Scripts\player_move.lua" />
     <None Include="..\Resources\Scripts\projectile_move.lua" />
     <None Include="..\Resources\Scripts\projectile_move_test.lua" />
@@ -296,10 +305,13 @@
     <None Include="Obj_defs\enemy_obj.json" />
     <None Include="Obj_defs\far_backdrop.json" />
     <None Include="Obj_defs\fire_projectile.json" />
+    <None Include="Obj_defs\flying_enemy_obj.json" />
     <None Include="Obj_defs\ice_ball.json" />
+    <None Include="Obj_defs\jump_trigger_box.json" />
     <None Include="Obj_defs\obj3.json" />
     <None Include="Obj_defs\orb.json" />
     <None Include="Obj_defs\player_obj.json" />
+    <None Include="Obj_defs\square.json" />
     <None Include="Obj_defs\test_platform.json" />
     <None Include="Obj_defs\tiled_platform.json" />
     <None Include="Obj_defs\Tilemap.json" />

@@ -18,7 +18,9 @@ enum class EventID
 	hit,
 	impact,
 	disable,
+	enable,
 	die,
+	jump,
 	activate,
 	NUM
 };

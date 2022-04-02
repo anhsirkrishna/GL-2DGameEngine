@@ -246,6 +246,18 @@
     <ClCompile Include="UIText.cpp">
       <Filter>Source Files\Components\GUIComponents</Filter>
     </ClCompile>
+    <ClCompile Include="Pathfinder.cpp">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpTriggerReceiverBox.cpp">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="Health.cpp">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="JumpTriggerBox.cpp">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -428,6 +440,18 @@
     <ClInclude Include="UIText.h">
       <Filter>Source Files\Components\GUIComponents</Filter>
     </ClInclude>
+    <ClInclude Include="Pathfinder.h">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpTriggerBox.h">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="JumpTriggerReceiverBox.h">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="Health.h">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -539,6 +563,18 @@
       <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="Obj_defs\tiled_platform.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\flying_enemy_obj.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\square.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\enemy_1_test.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\jump_trigger_box.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
   </ItemGroup>

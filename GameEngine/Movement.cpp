@@ -57,11 +57,11 @@ void Movement::MoveHorizontally(float vel_x)
 void Movement::Jump(float vel_y) 
 {
 	// Has to have a minimum upward velocity of 10.0f;
-	if (vel_y > -10.0f) {
+	if (vel_y < 10.0f) {
 		velocity.y = -100.0f;
 	}
 	else {
-		velocity.y = vel_y;
+		velocity.y = -vel_y;
 	}
 }
 
