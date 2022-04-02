@@ -1,0 +1,71 @@
+{
+  "x_Button": {
+    "COMPONENTS": {
+      "BUTTON": {
+        "pixel_position": [ 730, 520 ],
+        "scale": [ 2, 2 ],
+        "quad_pixel_dimensions": [ 16, 16 ],
+        "texture_name": "GUI",
+        "tile_map_index": [
+          [
+            [ 9, 5 ], [ 10, 5 ], [ 11, 5 ]
+          ]
+        ],
+        "clicked_tile_map_index": [
+          [
+            [ 9, 6 ], [ 10, 6 ], [ 11, 6 ]
+          ]
+        ],
+        "action_script": "restart_button.lua"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 1
+  },
+  "x_Panel1": {
+    "COMPONENTS": {
+      "UIPANEL": {
+        "pixel_position": [ 630, 400 ],
+        "scale": [ 2, 2 ],
+        "quad_pixel_dimensions": [ 16, 16 ],
+        "texture_name": "GUI",
+        "tile_map_index": [
+          [ [ 0, 2], [1, 2], [1, 2], [1, 2], [1, 2], [1, 2], [1, 2], [1, 2], [1, 2], [2, 2] ],
+          [ [ 0, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [2, 3] ],
+          [ [ 0, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [2, 3] ],
+          [ [ 0, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [2, 3] ],
+          [ [ 0, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [1, 3], [2, 3] ],
+          [ [ 0, 4], [1, 4], [1, 4], [1, 4], [1, 4], [1, 4], [1, 4], [1, 4], [1, 4], [2, 4] ]
+        ]
+      },
+    "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 0
+  },
+  "restart_text": {
+    "COMPONENTS": {
+      "UITEXT": {
+        "pixel_position": [ 740, 540 ],
+        "scale": [ 0.5, 0.5 ],
+        "font_name": "CompassPro",
+        "text_color": [ 0, 0, 0, 255 ],
+        "text": "Restart"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 2
+  },
+  "lose_text": {
+    "COMPONENTS": {
+      "UITEXT": {
+        "pixel_position": [ 720, 460 ],
+        "scale": [ 0.8, 0.8 ],
+        "font_name": "CompassPro",
+        "text_color": [ 255, 0, 0, 255 ],
+        "text": "YOU DIED"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 3
+  }
+}

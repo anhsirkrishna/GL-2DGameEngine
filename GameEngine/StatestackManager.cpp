@@ -11,6 +11,8 @@
 #include "StateStackManager.h"
 #include "BaseState.h"
 #include "GraphicsManager.h"
+#include "LoseState.h"
+#include "PlayState.h"
 
 void StateStackManager::Update() {
 	state_stack.back()->Update();
@@ -56,4 +58,19 @@ void StateStackManager::Pop() {
 
 StateStackManager::~StateStackManager() {
 	Clear();
+}
+
+void StateStackManager::PushLoseState() {
+	Push(new LoseState());
+}
+
+void StateStackManager::PushNewGameState() {
+	Push(new PlayState());
+}
+
+/*Reset the state at the top of the stack
+* Returns void
+*/
+void StateStackManager::Reset() {
+	state_stack.back()->Reset();
 }

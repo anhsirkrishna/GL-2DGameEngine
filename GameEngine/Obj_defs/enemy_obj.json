@@ -36,7 +36,7 @@
     },
     "TRANSFORM": {},
     "BEHAVIOR": {
-      "script_filename": "enemy_1_test.lua"
+      "script_filename": "enemy_1.lua"
     },
     "DEPENDANT_OBJECTS": {
       "dependant_object_names": [
@@ -56,11 +56,11 @@
     "PROJECTILE": {
       "instance_def": "fire_projectile",
       "instance_count": 10,
-      "spawn_offset": [ 20, 20, 0 ]
+      "spawn_offset": [ 0, 30, 0 ]
     },
     "JUMP_TRIGGER_RECEIVER_BOX": {
       "offset": [ 20, 20 ],
-      "dimensions": [ 6, 15 ]
+      "dimensions": [ 6, 15 ],
       "spawn_offset": [ 10, 10, 0 ]
     }
   },

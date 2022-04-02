@@ -258,6 +258,9 @@
     <ClCompile Include="JumpTriggerBox.cpp">
       <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClCompile>
+    <ClCompile Include="LoseState.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -452,6 +455,9 @@
     <ClInclude Include="Health.h">
       <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClInclude>
+    <ClInclude Include="LoseState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -571,11 +577,29 @@
     <None Include="Obj_defs\square.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
-    <None Include="..\Resources\Scripts\enemy_1_test.lua">
+    <None Include="..\Resources\Scripts\enemy_1.lua">
       <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="Obj_defs\jump_trigger_box.json">
       <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\win_lose_check.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\Lose_UI.json">
+      <Filter>Source Files\UI_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\restart_button.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\win_lose_check.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\enemy_obj_no_ai.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\enemy_2.lua">
+      <Filter>Source Files\Scripts</Filter>
     </None>
   </ItemGroup>
 </Project>

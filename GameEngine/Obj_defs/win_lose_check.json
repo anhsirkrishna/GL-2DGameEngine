@@ -1,0 +1,11 @@
+{
+  "COMPONENTS": {
+    "BEHAVIOR": {
+      "script_filename": "win_lose_check.lua"
+    }
+  },
+  "STATES": {
+    "DEFAULT": {}
+  },
+  "DEFAULT_STATE": "DEFAULT"
+}

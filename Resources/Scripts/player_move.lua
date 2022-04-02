@@ -14,7 +14,8 @@ inactive = 3
 walk_speed = 100;
 jump_speed = -120;
 
-die_event_id = 5
+die_event_id = 6
+lose_event_id = 10
 
 timer = timer + adder
 
@@ -24,7 +25,9 @@ function Die()
 		move(0)
 		set_transform_scale(1 * hit_direction, 1)  --Make sure the sprite is facing right
 		--Send an event id 5, with a delay of 0 ms, with broadcast=false
-		send_event(5, 0, false)
+		send_event(die_event_id, 0, false)
+		--Send an event id 10, with a delay of 1000 ms, with broadcast=true
+		send_event(lose_event_id, 1000, true)
 	end
 end
 
@@ -110,10 +113,6 @@ if get_state() ~= "DIE" then
 	--If jump button was triggered
 	if check_action_state(jump_action, triggered) then
 		JumpCharacter()
-	end
-
-	if check_action_state(burst_jump_action, triggered) then
-		BurstJump()
 	end
 
 

@@ -14,6 +14,7 @@
 #include "GameObject.h"
 #include "GameObjectManager.h"
 #include "EventManager.h"
+#include "DependantObjects.h"
 
 // Check for AABB collisions between hitbox and hurtbox
 bool AABB(glm::vec4 hitbox, glm::vec4 hurtbox) {
@@ -76,8 +77,14 @@ void Hitbox::Reset()
 
 void Hitbox::HandleEvent(TimedEvent* p_event)
 {
-	if (p_event->event_id == EventID::enable) {
+	switch (p_event->event_id)
+	{
+	case EventID::enable:
 		enabled = true;
+		break;
+	case EventID::disable:
+		enabled = false;
+		break;
 	}
 }
 
@@ -117,9 +124,12 @@ bool Hitbox::CheckCollision(glm::vec4 curr_position, GameObject*& collided_objec
 	GameObject* curr_obj;
 	Hurtbox* hurtbox;
 	glm::vec4 hurtbox_pos;
+	DependantObjects* p_dependants = static_cast<DependantObjects*>(GetOwner()->HasComponent("DEPENDANT_OBJECTS"));
 	for (unsigned int i = 0; i < p_game_obj_manager->game_object_list.size(); ++i) {
 		curr_obj = p_game_obj_manager->game_object_list[i];
-
+		
+		if (p_dependants != NULL && p_dependants->IsObjectDependant(curr_obj))
+			continue;
 		hurtbox = static_cast<Hurtbox*>(curr_obj->HasComponent("HURTBOX"));
 		if (hurtbox == nullptr)
 			continue;

@@ -64,3 +64,12 @@ float DependantObjects::GetDependantObjectScaleY(int obj_index) {
 		static_cast<Transform*>(p_dependant_objects[obj_index]->HasComponent("TRANSFORM"));
 	return follow_transform->GetScaleY();
 }
+
+bool DependantObjects::IsObjectDependant(GameObject* dependant_obj) {
+	for (auto& p_obj : p_dependant_objects)
+	{
+		if (dependant_obj == p_obj)
+			return true;
+	}
+	return false;
+}

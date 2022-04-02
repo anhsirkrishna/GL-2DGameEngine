@@ -22,6 +22,20 @@ public:
 	void Push(BaseState* p_state);
 	void Pop();
 	~StateStackManager();
+
+	/*Method to push the lose state onto the stack
+	* for access from scripts
+	*/
+	void PushLoseState();
+	/*Method to push the new game state onto the stack
+	* for access from scripts
+	*/
+	void PushNewGameState();
+
+	/*Reset the state at the top of the stack
+	* Returns void
+	*/
+	void Reset();
 private:
 	std::vector<BaseState*> state_stack;
 	std::vector<BaseState*> to_delete;
