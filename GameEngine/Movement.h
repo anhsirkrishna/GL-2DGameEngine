@@ -57,6 +57,9 @@ public:
 	// Stores references to other components
 	void Link();
 
+	//Returns the velocity in the x direction
+	float GetHorizontalVelocity();
+
 	//Returns the velocity in the y direction
 	float GetVerticalVelocity();
 
@@ -74,5 +77,8 @@ public:
 	* Returns: void
 	*/
 	virtual void Reset();
+
+	float GetVelocityX();
+	float GetVelocityY();
 };
 

@@ -79,6 +79,7 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 
 		state.set_function("move", &Movement::MoveHorizontally, move);
 		state.set_function("jump", &Movement::Jump, move);
+		state.set_function("get_horizontal_velocity", &Movement::GetHorizontalVelocity, move);
 		state.set_function("get_vertical_velocity", &Movement::GetVerticalVelocity, move);
 		state.set_function("movement_enable_gravity", &Movement::EnableGravity, move);
 		state.set_function("movement_disable_gravity", &Movement::DisableGravity, move);
@@ -114,8 +115,20 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 			&CameraController::GetFollowObjectPosX, camera_c);
 		state.set_function("get_follow_obj_y",
 			&CameraController::GetFollowObjectPosY, camera_c);
+		state.set_function("change_cam_z",
+			&CameraController::ChangeCameraZ, camera_c);
 		state.set_function("set_camera_pos",
 			&CameraController::SetCameraPos, camera_c);
+		state.set_function("lerp_cam_x",
+			&CameraController::LerpX, camera_c);
+		state.set_function("lerp_cam_y",
+			&CameraController::LerpY, camera_c);
+		state.set_function("get_follow_obj_velx",
+			&CameraController::GetFollowObjectVelX, camera_c);
+		state.set_function("get_follow_obj_vely",
+			&CameraController::GetFollowObjectVelY, camera_c);
+		state.set_function("get_follow_obj_scalex",
+			&CameraController::GetFollowObjectScaleX, camera_c);
 	}
 
 	comp = obj->HasComponent("ANIMATION");
