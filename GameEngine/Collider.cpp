@@ -70,6 +70,14 @@ glm::vec4 Collider::GetColliderPosition()
 	return col_pos;
 }
 
+void Collider::SetPositionOffset(glm::vec4 new_pos) {
+	pos_offset = new_pos;
+}
+
+glm::vec4 Collider::GetPositionOffset() {
+	return pos_offset;
+}
+
 // Update function for Collider
 void Collider::Update()
 {

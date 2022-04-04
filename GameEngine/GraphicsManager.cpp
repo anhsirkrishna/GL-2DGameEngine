@@ -254,6 +254,8 @@ void GraphicsManager::SwapBuffers() {
 */
 GLuint GraphicsManager::GenerateQuadVAO(float const* positions, 
 	float const* colors, float const* texture_coords, unsigned int batch_size) {
+	std::vector<GLuint> temp_id_list;
+
 	int vertices_count = 4;
 	int positions_count = 3;
 	int colors_count = 4;
@@ -275,6 +277,7 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions,
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	CHECKERROR;
+	temp_id_list.push_back(point_buffer);
 
 	//Create another continuguous buffer for all the colors for each vertex
 	GLuint color_buffer;
@@ -287,6 +290,7 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions,
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	CHECKERROR;
+	temp_id_list.push_back(color_buffer);
 
 	//Create another continguous buffer for all the textures for each vertex
 	GLuint tex_coord_buffer;
@@ -299,6 +303,8 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions,
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	CHECKERROR;
+	temp_id_list.push_back(tex_coord_buffer);
+
 	//IBO data
 	std::vector<GLuint> indexData = { 0, 1, 2, 0, 2, 3 };
 	for (unsigned int i = 1; i < batch_size; ++i) {
@@ -317,6 +323,10 @@ GLuint GraphicsManager::GenerateQuadVAO(float const* positions,
 				 &indexData[0], GL_STATIC_DRAW);
 	CHECKERROR;
 	glBindVertexArray(0);
+	temp_id_list.push_back(indeces_buffer);
+
+	//Store the vao_id with the buffer ids for deletion later.
+	vao_map[vao_id] = temp_id_list;
 
 	return vao_id;
 }
@@ -752,8 +762,17 @@ void GraphicsManager::BindBlockBinding(GLuint bind_point, std::string block_name
 * Returns: void
 */
 void GraphicsManager::DeleteVAO(GLuint vao_id) {
+	//Bind the vao before deleting the buffers that are part of the vao
+	glBindVertexArray(vao_id);
+	for (auto buffer_id : vao_map[vao_id])
+		DeleteBufferObject(buffer_id);
+	glBindVertexArray(0);
 	glDeleteVertexArrays(1, &vao_id);
 	CHECKERROR;
+}
+
+void GraphicsManager::DeleteBufferObject(GLuint buffer_id) {
+	glDeleteBuffers(1, &buffer_id);
 }
 
 /*Makes a texture accessible to a active shader program

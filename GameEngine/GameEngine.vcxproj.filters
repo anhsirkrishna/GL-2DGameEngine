@@ -601,5 +601,8 @@
     <None Include="..\Resources\Scripts\enemy_2.lua">
       <Filter>Source Files\Scripts</Filter>
     </None>
+    <None Include="Obj_defs\tiled_platform_2.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
   </ItemGroup>
 </Project>
