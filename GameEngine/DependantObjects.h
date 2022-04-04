@@ -27,4 +27,9 @@ public:
 	float GetDependantObjectPosY(int obj_index);
 	float GetDependantObjectScaleX(int obj_index);
 	float GetDependantObjectScaleY(int obj_index);
+	/*Checks if a particular object is part 
+	* of the dependant object list
+	* Returns: void
+	*/
+	bool IsObjectDependant(GameObject* dependant_obj);
 };

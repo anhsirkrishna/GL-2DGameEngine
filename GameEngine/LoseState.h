@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-/*File   GamePlayState.h
+/*File   LoseState.h
 /*Author Krishna Pillai
 /*Email: krishna.pillai@digipen.edu
 /*Date   01/25/2022
@@ -12,18 +12,14 @@
 #include "BaseState.h"
 #include <vector>
 
-class PlayState : public BaseState {
+class LoseState : public BaseState {
 public:
-	/*Initialize the play state
-	* Create the level and all the objects 
-	* within the level
+	/*Initialize the Lose state
 	*/
-	PlayState();
-	/*Deletes the play state by
-	* clearing the level and cleaning
-	* up all the objects
+	LoseState();
+	/*Deletes the Lose state
 	*/
-	virtual ~PlayState();
+	virtual ~LoseState();
 	/*Enters the state from another state
 	* Doesn't need any special action
 	* Returns: void
@@ -34,7 +30,7 @@ public:
 	* Returns: void
 	*/
 	virtual void Exit();
-	/*Basic update call for the PlayState
+	/*Basic update call for the LoseState
 	* Calls Update on all the gameobjects
 	* Calls Update on all the required managers
 	* Returns: void
@@ -44,9 +40,4 @@ public:
 	* Returns: void
 	*/
 	virtual void Render();
-
-	/*Restart the level
-	* Returns void
-	*/
-	virtual void Reset();
 };

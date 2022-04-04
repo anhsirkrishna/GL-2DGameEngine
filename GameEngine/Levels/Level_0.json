@@ -12,16 +12,12 @@
     "starting_position": [ 750, 0, -1, 0 ]
   },
   "enemy_obj_2": {
-    "obj_def": "enemy_obj",
+    "obj_def": "enemy_obj_no_ai",
     "starting_position": [ 900, 0, -1, 0 ]
   },
   "enemy_obj_3": {
     "obj_def": "enemy_obj",
     "starting_position": [ 500, 0, -1, 0 ]
-  },
-  "flying_enemy": {
-    "obj_def": "flying_enemy_obj",
-    "starting_position": [ 100, 70, -1, 0 ]
   },
   "jump_trig_box": {
     "obj_def": "jump_trigger_box",
@@ -30,10 +26,6 @@
   "jump_trig_box_2": {
     "obj_def": "jump_trigger_box",
     "starting_position": [ 850, 120, 10, 5 ]
-  },
-  "square": {
-    "obj_def": "square",
-    "starting_position": [ 50, 100, -1, 0 ]
   },
   "platform_1": {
     "obj_def": "tiled_platform",
@@ -45,7 +37,15 @@
   },
   "platform_3": {
     "obj_def": "tiled_platform",
-    "starting_position": [ 900, 150, 0, 0 ]
+    "starting_position": [ 980, 120, 0, 0 ]
+  },
+  "platform_4": {
+    "obj_def": "tiled_platform",
+    "starting_position": [ 820, 340, 0, 0 ]
+  },
+  "platform_5": {
+    "obj_def": "tiled_platform",
+    "starting_position": [ 1380, 380, 0, 0 ]
   },
   "backdrop": {
     "obj_def": "far_backdrop",
@@ -58,8 +58,7 @@
     "obj_def": "orb",
     "starting_position": [ 0, 0, -1, 0 ]
   },
-  "tilemap_obj": {
-    "obj_def": "Tilemap1",
-    "starting_position": [ 0, 100, 3, 0 ]
+  "win_lose_condition": {
+    "obj_def": "win_lose_check"
   }
 }

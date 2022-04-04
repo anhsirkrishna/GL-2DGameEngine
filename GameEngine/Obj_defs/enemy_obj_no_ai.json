@@ -3,10 +3,10 @@
     "GLQUAD": {
       "texture_names": [ "player_sheet" ],
       "vertex_list": [
-         0,  0, 0,
-         0, 48, 0,
+        0,  0,  0,
+        0,  48, 0,
         48, 48, 0,
-        48,  0, 0
+        48, 0,  0
       ],
       "color_list": [
          0, 255,  0, 255,
@@ -36,7 +36,12 @@
     },
     "TRANSFORM": {},
     "BEHAVIOR": {
-      "script_filename": "player_move.lua"
+      "script_filename": "enemy_2.lua"
+    },
+    "DEPENDANT_OBJECTS": {
+      "dependant_object_names": [
+        "player_character"
+      ]
     },
     "COLLIDER": {
       "collider_offset_params": [ 18, 18, 12, 30 ]
@@ -45,11 +50,18 @@
       "gravity_on": true
     },
     "HURTBOX": {
-      "offset": [ 20, 30 ],
+      "offset": [ 20, 20 ],
       "dimensions": [ 6, 15 ]
     },
-    "HEALTH": {
-      "health_val": 3
+    "PROJECTILE": {
+      "instance_def": "fire_projectile",
+      "instance_count": 10,
+      "spawn_offset": [ 0, 30, 0 ]
+    },
+    "JUMP_TRIGGER_RECEIVER_BOX": {
+      "offset": [ 20, 20 ],
+      "dimensions": [ 6, 15 ],
+      "spawn_offset": [ 10, 10, 0 ]
     }
   },
   "STATES": {
@@ -107,6 +119,22 @@
         "interval": 4
       }
     },
+    "ATTACK": {
+      "GLQUAD": {
+        "texture_names": [ "player_sheet" ]
+      },
+      "ANIMATION": {
+        "frames": [
+          96,
+          168,
+          0,
+          168
+        ],
+        "looping": false,
+        "interval": 4
+      }
+    },
+
     "FALL": {
       "GLQUAD": {
         "texture_names": [ "player_sheet" ]
@@ -118,41 +146,6 @@
         ],
         "looping": false,
         "interval": 2
-      }
-    },
-    "ATTACK": {
-      "GLQUAD": {
-        "texture_names": [ "player_sheet" ]
-      },
-      "ANIMATION": {
-        "frames": [
-          96, 168,
-           0, 168
-        ],
-        "looping": false,
-        "interval": 4
-      }
-    },
-    "BURST_JUMP": {
-      "GLQUAD": {
-        "texture_names": [ "player_sheet" ]
-      },
-      "ANIMATION": {
-        "frames": [
-            0, 672,
-           96, 672,
-          192, 672,
-          288, 672,
-          384, 672,
-          480, 672,
-          672, 672,
-          576, 672,
-          672, 672,
-          768, 672,
-          864, 672
-        ],
-        "looping": false,
-        "interval": 8
       }
     },
     "DIE": {

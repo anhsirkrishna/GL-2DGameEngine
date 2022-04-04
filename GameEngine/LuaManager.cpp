@@ -53,10 +53,13 @@ void LuaManager::RegGlobals(sol::state& state) {
 	state.set_function("move_camera", &Camera::ProcessKeyboardInput, p_camera);
 
 	state.set("timer", 0);
+	state.set("timer_2", 2);
 	state.set("adder", 1);
 
 	state.set_function("statestack_pop", &StateStackManager::Pop, p_statestack_manager);
-	state.set("timer_2", 2);
+	state.set_function("statestack_push_lose", &StateStackManager::PushLoseState, p_statestack_manager);
+	state.set_function("statestack_push_play", &StateStackManager::PushNewGameState, p_statestack_manager);
+	state.set_function("statestack_reset_top", &StateStackManager::Reset, p_statestack_manager);
 }
 
 // registers player movement functions from the Movement component
@@ -166,6 +169,7 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 		state["impact_event"] = false;
 		state["activate_event"] = false;
 		state["jump_event"] = false;
+		state["lose_event"] = false;
 		switch (p_event->event_id) {
 			case EventID::hit:
 				state["hit_event"] = true;
@@ -179,6 +183,10 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 				break;
 			case EventID::jump:
 				state["jump_event"] = true;
+				break;
+			case EventID::lose:
+				state["lose_event"] = true;
+				break;
 		}
 	}
 }
