@@ -9,6 +9,7 @@
 /******************************************************************************/
 #pragma once
 #include <string>
+#include <unordered_map>
 #include <glm.hpp>
 
 typedef unsigned int GLuint;
@@ -25,6 +26,7 @@ private:
 	FBO* g_buffer;
 	GLuint full_screen_quad_vao;
 	FBO* ping_pong_buffer;
+	std::unordered_map<GLuint, std::vector<GLuint>> vao_map;
 
 	//variable for gamma correction
 	float gamma;
@@ -206,6 +208,12 @@ public:
 	* Returns: void
 	*/
 	void DeleteVAO(GLuint vao_id);
+
+	/*Function to delete a Buffer 
+	* created with glGenBuffers
+	* Returns: void
+	*/
+	void DeleteBufferObject(GLuint buffer_id);
 
 	/*Makes a texture accessible to a active shader program
 	* Returns: void

@@ -78,6 +78,14 @@ public:
 	// Getter to get Collider Box Position
 	glm::vec4 GetColliderPosition();
 
+	//Set the offset position and dimensions
+	void SetPositionOffset(glm::vec4 new_pos);
+
+	/*Get the offset positionand dimensions
+	* Returns: glm::vec4
+	*/
+	glm::vec4 GetPositionOffset();
+
 	void Update();
 
 	// Link other components

@@ -28,7 +28,7 @@
     "starting_position": [ 850, 120, 10, 5 ]
   },
   "platform_1": {
-    "obj_def": "tiled_platform",
+    "obj_def": "tiled_platform_2",
     "starting_position": [ -20, 150, 0, 0 ]
   },
   "platform_2": {

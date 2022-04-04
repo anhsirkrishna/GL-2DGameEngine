@@ -127,6 +127,8 @@ void Tilemap::Draw(ShaderProgram* p_program) {
 }
 
 void Tilemap::GenerateTilemapVertices(std::vector<float> &vertices) {
+	vertices.clear();
+
 	for (unsigned int i = 0; i < grid_height; ++i) {
 		for (unsigned int j = 0; j < grid_width; ++j) {
 			//4 vertices per quad
@@ -149,7 +151,40 @@ void Tilemap::GenerateTilemapVertices(std::vector<float> &vertices) {
 	}
 }
 
+void Tilemap::GenerateTilemapColorCoords(std::vector<float>& color_coords) {
+	color_coords.clear();
+
+	for (unsigned int i = 0; i < grid_width * grid_height; ++i) {
+		//Green color for all tilemaps
+		//Top left vertex
+		color_coords.push_back(0.0f);
+		color_coords.push_back(1.0f);
+		color_coords.push_back(0.0f);
+		color_coords.push_back(1.0f);
+
+		//Top right vertex
+		color_coords.push_back(0.0f);
+		color_coords.push_back(1.0f);
+		color_coords.push_back(0.0f);
+		color_coords.push_back(1.0f);
+
+		//Bottom left vertex
+		color_coords.push_back(0.0f);
+		color_coords.push_back(1.0f);
+		color_coords.push_back(0.0f);
+		color_coords.push_back(1.0f);
+
+		//Bottom right vertex
+		color_coords.push_back(0.0f);
+		color_coords.push_back(1.0f);
+		color_coords.push_back(0.0f);
+		color_coords.push_back(1.0f);
+	}
+}
+
 void Tilemap::GenerateTilemapTextureCoords(std::vector<float>& tex_coords) {
+	tex_coords.clear();
+
 	for (unsigned int i = 0; i < grid_height; ++i) {
 		for (unsigned int j = 0; j < grid_width; ++j) {
 			//4 vertices per quad
@@ -196,6 +231,40 @@ int Tilemap::GetGridHeight() {
 	return grid_height;
 }
 
+void Tilemap::IncrementGridWidth() {
+	std::vector<int> temp_tile = tile_index_map[0][grid_width-1];
+	for (auto &row : tile_index_map) {
+		row.push_back(temp_tile);
+	}
+	grid_width = tile_index_map[0].size(); //Number of columns in the tile_index_map
+	dimensions.z = grid_width * tile_width;
+}
+
+void Tilemap::DecrementGridWidth() {
+	for (auto& row : tile_index_map) {
+		row.pop_back();
+	}
+	grid_width = tile_index_map[0].size(); //Number of columns in the tile_index_map
+	dimensions.z = grid_width * tile_width;
+}
+
+void Tilemap::IncrementGridHeight() {
+	std::vector<int> temp_tile = tile_index_map[grid_height-1][0];
+	std::vector<std::vector<int>> temp_row;
+	for (unsigned int i = 0; i < grid_width; ++i)
+		temp_row.push_back(temp_tile);
+	tile_index_map.push_back(temp_row);
+
+	grid_height = tile_index_map.size(); //Number of rows in the tile_index_map
+	dimensions.w = grid_height * tile_height;
+}
+
+void Tilemap::DecrementGridHeight() {
+	tile_index_map.pop_back();
+	grid_height = tile_index_map.size(); //Number of rows in the tile_index_map
+	dimensions.w = grid_height * tile_height;
+}
+
 std::vector<std::vector<std::vector<int>>>& Tilemap::GetTileIndexMap() {
 	return tile_index_map;
 }
@@ -210,14 +279,15 @@ std::vector<float> Tilemap::GetTexCoords() {
 }
 
 void Tilemap::RegenTexCoords() {
-
-	tex_coords.clear();
-
+	GenerateTilemapVertices(vertices);
+	GenerateTilemapColorCoords(colors);
 	GenerateTilemapTextureCoords(tex_coords);
 
 	//Convert coords from image space to 0..1
 	ConvertTextureCoords(tex_coords, p_texture->width, p_texture->height);
-
+	
+	//Delete and regen the vao
+	p_graphics_manager->DeleteVAO(vao_id);
 	vao_id = p_graphics_manager->GenerateQuadVAO(
 		&vertices[0], &colors[0], &tex_coords[0], grid_width * grid_height);
 }

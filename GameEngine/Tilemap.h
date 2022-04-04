@@ -41,6 +41,7 @@ private:
 
 	void GenerateTilemapVertices(std::vector<float> &vertices);
 	void GenerateTilemapTextureCoords(std::vector<float>& tex_coords);
+	void GenerateTilemapColorCoords(std::vector<float>& color_coords);
 public:
 	Tilemap();
 	void Serialize(json json_object);
@@ -52,6 +53,12 @@ public:
 	int GetTileHeight();
 	int GetGridWidth();
 	int GetGridHeight();
+
+	void IncrementGridWidth();
+	void DecrementGridWidth();
+	void IncrementGridHeight();
+	void DecrementGridHeight();
+
 	std::vector<std::vector<std::vector<int>>>& GetTileIndexMap();
 	Texture* GetTexture();
 	std::vector<float> GetTexCoords();

@@ -320,6 +320,7 @@
     <None Include="Obj_defs\square.json" />
     <None Include="Obj_defs\test_platform.json" />
     <None Include="Obj_defs\tiled_platform.json" />
+    <None Include="Obj_defs\tiled_platform_2.json" />
     <None Include="Obj_defs\Tilemap.json" />
     <None Include="Obj_defs\Tilemap1.json" />
     <None Include="Obj_defs\win_lose_check.json" />

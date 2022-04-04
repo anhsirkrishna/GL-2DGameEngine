@@ -23,7 +23,6 @@ function Die()
 	if get_state() ~= "DIE" then
 		change_state("DIE")
 		move(0)
-		set_transform_scale(1 * hit_direction, 1)  --Make sure the sprite is facing right
 		--Send an event id 5, with a delay of 0 ms, with broadcast=false
 		send_event(die_event_id, 0, false)
 		--Send an event id 10, with a delay of 1000 ms, with broadcast=true
@@ -143,11 +142,13 @@ if get_state() ~= "DIE" then
 			decr_health()	
 			timer = time_till_health_disable
 			if get_health() == 0 then
+				set_transform_scale(1 * hit_direction, 1)  --Make sure the sprite is facing right
 				Die()
 			end
 		end
 	end
 
+	log_msg("POS Y "..get_pos_coord(1))
 	if get_pos_coord(1) > 1200 then
 		Die()
 	end
