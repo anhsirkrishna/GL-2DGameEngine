@@ -1,64 +1,134 @@
 {
-  "player_character": {
-    "obj_def": "player_obj",
-    "starting_position": [ 0, 50, -1, 0 ]
-  },
-  "enemy_obj": {
-    "obj_def": "enemy_obj",
-    "starting_position": [ 800, 0, -1, 0 ]
-  },
-  "enemy_obj_1": {
-    "obj_def": "enemy_obj",
-    "starting_position": [ 750, 0, -1, 0 ]
-  },
-  "enemy_obj_2": {
-    "obj_def": "enemy_obj_no_ai",
-    "starting_position": [ 900, 0, -1, 0 ]
-  },
-  "enemy_obj_3": {
-    "obj_def": "enemy_obj",
-    "starting_position": [ 500, 0, -1, 0 ]
-  },
-  "jump_trig_box": {
-    "obj_def": "jump_trigger_box",
-    "starting_position": [ 390, 120, 10, 5 ]
-  },
-  "jump_trig_box_2": {
-    "obj_def": "jump_trigger_box",
-    "starting_position": [ 850, 120, 10, 5 ]
-  },
-  "platform_1": {
-    "obj_def": "tiled_platform_2",
-    "starting_position": [ -20, 150, 0, 0 ]
-  },
-  "platform_2": {
-    "obj_def": "tiled_platform",
-    "starting_position": [ 450, 150, 0, 0 ]
-  },
-  "platform_3": {
-    "obj_def": "tiled_platform",
-    "starting_position": [ 980, 120, 0, 0 ]
-  },
-  "platform_4": {
-    "obj_def": "tiled_platform",
-    "starting_position": [ 820, 340, 0, 0 ]
-  },
-  "platform_5": {
-    "obj_def": "tiled_platform",
-    "starting_position": [ 1380, 380, 0, 0 ]
-  },
-  "backdrop": {
-    "obj_def": "far_backdrop",
-    "starting_position": [ -100, -100, 100, 0 ]
-  },
-  "camera_controller": {
-    "obj_def": "camera_controller"
-  },
-  "xfire_orb": {
-    "obj_def": "orb",
-    "starting_position": [ 0, 0, -1, 0 ]
-  },
-  "win_lose_condition": {
-    "obj_def": "win_lose_check"
-  }
+    "backdrop": {
+        "obj_def": "far_backdrop",
+        "starting_position": [
+            -100,
+            -100,
+            100,
+            0
+        ]
+    },
+    "camera_controller": {
+        "obj_def": "camera_controller"
+    },
+    "enemy_obj": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            800,
+            0,
+            -1,
+            0
+        ]
+    },
+    "enemy_obj_1": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            750,
+            0,
+            -1,
+            0
+        ]
+    },
+    "enemy_obj_2": {
+        "obj_def": "enemy_obj_no_ai",
+        "starting_position": [
+            900,
+            0,
+            -1,
+            0
+        ]
+    },
+    "enemy_obj_3": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            500,
+            0,
+            -1,
+            0
+        ]
+    },
+    "jump_trig_box": {
+        "obj_def": "jump_trigger_box",
+        "starting_position": [
+            390,
+            120,
+            10,
+            5
+        ]
+    },
+    "jump_trig_box_2": {
+        "obj_def": "jump_trigger_box",
+        "starting_position": [
+            850,
+            120,
+            10,
+            5
+        ]
+    },
+    "platform_1": {
+        "obj_def": "tiled_platform_2",
+        "starting_position": [
+            -20,
+            150,
+            0,
+            0
+        ]
+    },
+    "platform_2": {
+        "obj_def": "tiled_platform",
+        "starting_position": [
+            450.0,
+            -11.600000381469727,
+            0.0,
+            0.0
+        ]
+    },
+    "platform_3": {
+        "obj_def": "tiled_platform",
+        "starting_position": [
+            980,
+            120,
+            0,
+            0
+        ]
+    },
+    "platform_4": {
+        "obj_def": "tiled_platform",
+        "starting_position": [
+            820,
+            340,
+            0,
+            0
+        ]
+    },
+    "platform_5": {
+        "obj_def": "tiled_platform",
+        "starting_position": [
+            1380,
+            380,
+            0,
+            0
+        ]
+    },
+    "player_character": {
+        "obj_def": "player_obj",
+        "starting_position": [
+            0,
+            50,
+            -1,
+            0
+        ]
+    },
+    "win_lose_condition": {
+        "obj_def": "win_lose_check"
+    },
+    "xfire_orb": {
+        "obj_def": "orb",
+        "starting_position": [
+            0,
+            0,
+            -1,
+            0
+        ]
+    }
 }

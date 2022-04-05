@@ -604,5 +604,11 @@
     <None Include="Obj_defs\tiled_platform_2.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
+    <None Include="..\Resources\Scripts\quit_action.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\fullscreen_action.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -106,3 +106,8 @@ void Camera::ClampCameraPosition() {
 	position.y = glm::min(glm::max(position.y, lower_limit_y), upper_limit_y);
 	position.z = static_z;
 }
+
+void Camera::SetWindowDimensions(int width, int height) {
+	window_width = width;
+	window_height = height;
+}

@@ -51,6 +51,11 @@ void PauseState::Update() {
 	p_lua_manager->Update();
 	p_event_manager->Update();
 
+	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_ESCAPE)) {
+		p_statestack_manager->Pop();
+		return;
+	}
+
 	p_ui_obj_manager->Update();
 
 	if (p_input_manager->isQuit())

@@ -148,7 +148,6 @@ if get_state() ~= "DIE" then
 		end
 	end
 
-	log_msg("POS Y "..get_pos_coord(1))
 	if get_pos_coord(1) > 1200 then
 		Die()
 	end

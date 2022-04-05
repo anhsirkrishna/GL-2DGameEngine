@@ -20,6 +20,7 @@ private:
     GLuint color_attachment_count;
 public:
     GLuint fboID = 0;
+    GLuint depthBufferID = 0;
     GLuint textureID[4] = { 0, 0, 0, 0 };
     /*Constructor for the FBO object
     * Creates an FBO with a specified width, height and 

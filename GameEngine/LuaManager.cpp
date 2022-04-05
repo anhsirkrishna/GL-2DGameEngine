@@ -30,6 +30,7 @@
 #include "Collider.h"
 #include "StatestackManager.h"
 #include "Health.h"
+#include "GameManager.h"
 
 #include <SDL.h>
 
@@ -46,11 +47,15 @@ void LuaManager::RegGlobals(sol::state& state) {
 		&ControlSchemeManager::CheckActionState, p_control_scheme_manager);
 	state.set_function("log_msg", &LuaManager::LogMessage, this);
 
+	state.set_function("fullscreen_mode", &GraphicsManager::EnterFullScreenMode, p_graphics_manager);
+	state.set_function("windowed_mode", &GraphicsManager::EnterWindowedMode, p_graphics_manager);
 	state["WINDOW_WIDTH"] = p_graphics_manager->window_width;
 	state["WINDOW_HEIGHT"] = p_graphics_manager->window_height;
+	state["WINDOW_MODE"] = p_graphics_manager->window_mode;
 
 	state.set_function("clamp_camera", &Camera::ClampCameraPosition, p_camera);
 	state.set_function("move_camera", &Camera::ProcessKeyboardInput, p_camera);
+	state.set_function("set_window_dimensions", &Camera::SetWindowDimensions, p_camera);
 
 	state.set("timer", 0);
 	state.set("timer_2", 2);
@@ -60,6 +65,8 @@ void LuaManager::RegGlobals(sol::state& state) {
 	state.set_function("statestack_push_lose", &StateStackManager::PushLoseState, p_statestack_manager);
 	state.set_function("statestack_push_play", &StateStackManager::PushNewGameState, p_statestack_manager);
 	state.set_function("statestack_reset_top", &StateStackManager::Reset, p_statestack_manager);
+
+	state.set_function("quit_game", &GameManager::Quit, p_game_manager);
 }
 
 // registers player movement functions from the Movement component
@@ -207,10 +214,16 @@ void LuaManager::LoadBehaviorScripts() {
 	}
 }
 
+void LuaManager::UpdateLuaState(sol::state& update_state) {
+	update_state["WINDOW_WIDTH"] = p_graphics_manager->window_width;
+	update_state["WINDOW_HEIGHT"] = p_graphics_manager->window_height;
+	update_state["WINDOW_MODE"] = p_graphics_manager->window_mode;
+}
+
 // update
 void LuaManager::Update() {
-
 }
+
 
 // cleanup
 void LuaManager::Cleanup() {

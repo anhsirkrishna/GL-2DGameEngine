@@ -12,6 +12,7 @@
 #pragma once
 #include <sol/sol.hpp>
 #include <string>
+#include <vector>
 
 class GameObject;
 class TimedEvent;
@@ -30,6 +31,7 @@ public:
 	void RegGlobals(sol::state& state);
 	void RegEvents(sol::state& state, TimedEvent* p_event);
 	void LoadBehaviorScripts();
+	void UpdateLuaState(sol::state& update_state);
 	void Cleanup();
 
 	/*Call SDL_Log

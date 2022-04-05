@@ -1,4 +1,7 @@
 
+--Set the window width and height
+set_window_dimensions(WINDOW_WIDTH, WINDOW_HEIGHT)
+
 --player characters x position
 follow_obj_x = get_follow_obj_x()
 

@@ -140,7 +140,7 @@ bool GraphicsManager::GL_Initialize() {
 		SDL_Log("Could not create window: %s\n", SDL_GetError());
 		return false;
 	}
-
+	window_mode = 0;
 	//Create context
 	p_gl_context = SDL_GL_CreateContext(p_sdl_window);
 	if (p_gl_context == NULL)
@@ -635,6 +635,8 @@ void GraphicsManager::DrawGBuffer() {
 * Returns: GLuint - vao_id of the quad
 */
 GLuint GraphicsManager::GenerateFullScreenQuad() {
+	std::vector<GLuint> temp_id_list;
+
 	float vertices[12] = {
 		-1,  1, 0,
 		-1, -1, 0,
@@ -657,7 +659,7 @@ GLuint GraphicsManager::GenerateFullScreenQuad() {
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	CHECKERROR;
-
+	temp_id_list.push_back(point_buffer);
 	//IBO data
 	GLuint indeces[6] = {0, 1, 2, 0, 2, 3};
 	//Create IBO
@@ -667,8 +669,11 @@ GLuint GraphicsManager::GenerateFullScreenQuad() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(GLuint), indeces, 
 				 GL_STATIC_DRAW);
 	CHECKERROR;
+	temp_id_list.push_back(indeces_buffer);
+
 	glBindVertexArray(0);
 
+	vao_map[vao_id] = temp_id_list;
 	return vao_id;
 }
 
@@ -788,4 +793,54 @@ void GraphicsManager::BindTexture(const int unit, const GLuint tex_id, const std
 	CHECKERROR;
 	glUniform1i(loc, unit);
 	CHECKERROR;
+}
+
+/*Change from windowed mode with fixed resolution
+* to fullscreen mode
+* Returns: void
+*/
+void GraphicsManager::EnterFullScreenMode() {
+	SDL_SetWindowFullscreen(p_sdl_window, SDL_WINDOW_FULLSCREEN);
+	SDL_DisplayMode mode;
+	
+	SDL_assert(SDL_GetWindowDisplayMode(p_sdl_window, &mode) == 0);
+
+	window_width = mode.w;
+	window_height = mode.h;
+	window_mode = SDL_WINDOW_FULLSCREEN;
+
+	glViewport(0, 0, window_width, window_height);
+	RegenFBOs();
+}
+
+/*Change from full screen mode to windowed mode
+* Returns: void
+*/
+void GraphicsManager::EnterWindowedMode() {
+	SDL_SetWindowFullscreen(p_sdl_window, 0);
+	SDL_DisplayMode mode;
+
+	SDL_assert(SDL_GetWindowDisplayMode(p_sdl_window, &mode) == 0);
+
+	window_width = WINDOW_WIDTH;
+	window_height = WINDOW_HEIGHT;
+
+	window_mode = 0;
+
+	glViewport(0, 0, window_width, window_height);
+	RegenFBOs();
+}
+
+/*Deletes and recreates FBOs with the new
+* window width and height
+* Also re-creates the fullscreen quad
+*/
+void GraphicsManager::RegenFBOs() {
+	delete g_buffer;
+	delete ping_pong_buffer;
+	g_buffer = new FBO(window_width, window_height, 2);
+	ping_pong_buffer = new FBO(window_width, window_height, 2);
+
+	DeleteVAO(full_screen_quad_vao);
+	full_screen_quad_vao = GenerateFullScreenQuad();
 }
