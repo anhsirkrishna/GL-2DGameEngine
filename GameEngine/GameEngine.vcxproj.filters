@@ -76,6 +76,9 @@
     <Filter Include="Source Files\UI_defs">
       <UniqueIdentifier>{858e2046-c1c6-40d8-a236-6a3fd28d1419}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Obj_defs\Room_Tilemaps">
+      <UniqueIdentifier>{aec5a7a2-3fc6-4a7f-a7af-e07921ba1361}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -603,6 +606,21 @@
     </None>
     <None Include="Obj_defs\tiled_platform_2.json">
       <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\ceiling_1.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\floor_1.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\left_wall_1.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\right_wall_1.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\right_wall_2.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
     </None>
   </ItemGroup>
 </Project>

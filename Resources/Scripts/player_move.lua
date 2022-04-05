@@ -12,7 +12,7 @@ released = 2
 inactive = 3
 
 walk_speed = 100;
-jump_speed = -120;
+jump_speed = 120;
 
 die_event_id = 6
 lose_event_id = 10
@@ -148,7 +148,6 @@ if get_state() ~= "DIE" then
 		end
 	end
 
-	log_msg("POS Y "..get_pos_coord(1))
 	if get_pos_coord(1) > 1200 then
 		Die()
 	end

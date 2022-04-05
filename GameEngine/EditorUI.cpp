@@ -231,9 +231,9 @@ void Editor::GameObjectWindow() {
 						scaleY = obj_transform->GetScaleY();
 					}
 
-					ImGui::DragFloat("Sca.X", &scaleX, 0.2f, 1.0f, 100000.0f, "%.3f");
+					ImGui::DragFloat("Sca.X", &scaleX, 0.2f, -100000.0f, 100000.0f, "%.3f");
 					ImGui::SameLine;
-					ImGui::DragFloat("Sca.Y", &scaleY, 0.2f, 1.0f, 100000.0f, "%.3f");
+					ImGui::DragFloat("Sca.Y", &scaleY, 0.2f, -100000.0f, 100000.0f, "%.3f");
 
 					// save new values
 					obj_transform->SetScale(scaleX, scaleY);
@@ -259,15 +259,29 @@ void Editor::GameObjectWindow() {
 					if (ImGui::Button("Revert"))
 					{
 						// revert to previous values
+						auto obj_def = p_level_manager->curr_obj_map[curr_obj->GetName()];
+						if (obj_def.contains("starting_position")) {
+							auto saved_pos = obj_def["starting_position"]
+								.get<std::vector<float>>();
 
-						auto saved_pos = p_level_manager->curr_obj_map[curr_obj->GetName()]["starting_position"]
-							.get<std::vector<float>>();
+							posX = saved_pos[0];
+							posY = saved_pos[1];
+							posZ = saved_pos[2];
 
-						posX = saved_pos[0];
-						posY = saved_pos[1];
+							obj_transform->SetPosition(glm::vec4(saved_pos[0], saved_pos[1], saved_pos[2], saved_pos[3]));
+						}
+						
+						if (obj_def.contains("starting_scale")) {
+							auto saved_scale = obj_def["starting_scale"]
+								.get<std::vector<float>>();
 
-						obj_transform->SetPosition(glm::vec4(saved_pos[0], saved_pos[1], saved_pos[2], saved_pos[3]));
+							scaleX = saved_scale[0];
+							scaleY = saved_scale[1];
 
+							obj_transform->SetScale(saved_scale[0], saved_scale[1]);
+						}
+
+						obj_transform->Update();
 					}
 					ImGui::SameLine();
 					if (ImGui::Button("Save"))
@@ -275,15 +289,18 @@ void Editor::GameObjectWindow() {
 						// save new values
 						std::vector<float> f_vector = { posX,
 														posY,
-														obj_transform->GetPosCoord(2),
+														posZ,
 														obj_transform->GetPosCoord(3) };
 
 						p_level_manager->curr_obj_map[curr_obj->GetName()]["starting_position"]
 							= json(f_vector);
 
-
+						std::vector<float> scale_vector = { scaleX, scaleY };
+						p_level_manager->curr_obj_map[curr_obj->GetName()]["starting_scale"]
+							= json(scale_vector);
 						p_level_manager->SaveSingle();
 
+						obj_transform->Update();
 					}
 
 					ImGui::EndTabItem();
@@ -384,6 +401,7 @@ void Editor::GameObjectWindow() {
 
 						collider_comp->SetPositionOffset(glm::vec4(pos_vec[0], pos_vec[1], pos_vec[2], pos_vec[3]));
 
+						collider->Update();
 					}
 					ImGui::SameLine();
 					if (ImGui::Button("Save"))
@@ -409,6 +427,7 @@ void Editor::GameObjectWindow() {
 						o << std::setw(4) << json_object << std::endl;
 						o.close();
 
+						collider->Update();
 					}
 
 					ImGui::EndTabItem();
