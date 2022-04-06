@@ -1,30 +1,96 @@
 {
-  "demo_obj": {
-    "obj_def": "obj1",
-    "starting_position": [ 0, 0, 0, 0 ]
-  },
-  "demo_obj_1": {
-    "obj_def": "obj2",
-    "starting_position": [ 0, 150, 0, 0 ]
-  },
-  "demo_obj_2": {
-    "obj_def": "obj3",
-    "starting_position": [ 200, -300, 0, 0 ]
-  },
-  "demo_obj_3": {
-    "obj_def": "obj2",
-    "starting_position": [ 200, -150, 0, 0 ]
-  },
-  "demo_obj_4": {
-    "obj_def": "obj3",
-    "starting_position": [ -200, 400, 0, 0 ]
-  },
-  "demo_obj_5": {
-    "obj_def": "obj2",
-    "starting_position": [ -200, 500, 0, 0 ]
-  },
-  "iceball0": {
-    "obj_def": "ice_ball",
-    "starting_position": [ 100, -50, -1, 0 ]
-  }
+    "backdrop": {
+        "obj_def": "far_backdrop",
+        "starting_position": [
+            -100.0,
+            -100.0,
+            100.0,
+            0.0
+        ]
+    },
+    "camera_controller": {
+        "obj_def": "camera_controller"
+    },
+    "ceiling_1": {
+        "obj_def": "ceiling_1",
+        "starting_position": [
+            0.0,
+            96.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            -1.0
+        ]
+    },
+    "floor_1": {
+        "obj_def": "floor_1",
+        "starting_position": [
+            0.0,
+            288.0,
+            0.0,
+            0.0
+        ]
+    },
+    "left_wall_1": {
+        "obj_def": "left_wall_1",
+        "starting_position": [
+            -64.0,
+            32.0,
+            0.0,
+            0.0
+        ]
+    },
+    "player_character": {
+        "obj_def": "player_obj",
+        "starting_position": [
+            331.60052490234375,
+            240.0,
+            -1.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "right_wall_1": {
+        "obj_def": "right_wall_1",
+        "starting_position": [
+            448.0,
+            32.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "right_wall_2": {
+        "obj_def": "right_wall_2",
+        "starting_position": [
+            448.0,
+            256.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "win_lose_condition": {
+        "obj_def": "win_lose_check"
+    },
+    "xfire_orb": {
+        "obj_def": "orb",
+        "starting_position": [
+            353.53802490234375,
+            270.0,
+            3.172222137451172,
+            0.0
+        ]
+    }
 }
