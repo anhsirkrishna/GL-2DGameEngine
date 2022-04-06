@@ -48,7 +48,7 @@ public:
 	SDL_GLContext p_gl_context;
 	GLuint window_width;
 	GLuint window_height;
-
+	GLuint window_mode;
 	/*Initializes the graphics manager
 	* Creates all the shader programs necessary
 	*/
@@ -219,6 +219,23 @@ public:
 	* Returns: void
 	*/
 	void BindTexture(const int unit, const GLuint tex_id, const std::string& name);
+
+	/*Change from windowed mode with fixed resolution
+	* to fullscreen mode
+	* Returns: void
+	*/
+	void EnterFullScreenMode();
+
+	/*Change from full screen mode to windowed mode
+	* Returns: void
+	*/
+	void EnterWindowedMode();
+
+	/*Deletes and recreates FBOs with the new
+	* window width and height
+	* Also re-creates the fullscreen quad
+	*/
+	void RegenFBOs();
 };
 
 extern GraphicsManager* p_graphics_manager;

@@ -68,6 +68,7 @@ public:
 	void ProcessZoom(CameraMovement direction);
 	glm::vec4 Camera::ScreenToWorld(int x, int y);
 	void ClampCameraPosition();
+	void SetWindowDimensions(int width, int height);
 private:
 
 	void UpdateCameraVectors();

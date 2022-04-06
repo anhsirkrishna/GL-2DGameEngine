@@ -26,13 +26,12 @@ FBO::FBO(const int w, const int h, const int _color_attachment_count) : width(w)
     glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboID);
 
     // Create a render buffer, and attach it to FBO's depth attachment
-    unsigned int depthBuffer;
-    glGenRenderbuffersEXT(1, &depthBuffer);
-    glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depthBuffer);
+    glGenRenderbuffersEXT(1, &depthBufferID);
+    glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depthBufferID);
     glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT,
         width, height);
     glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT,
-        GL_RENDERBUFFER_EXT, depthBuffer);
+        GL_RENDERBUFFER_EXT, depthBufferID);
 
     // Create a texture and attach FBO's color 0 attachment.  The
     // GL_RGBA32F and GL_RGBA constants set this texture to be 32 bit
@@ -69,6 +68,7 @@ FBO::~FBO() {
         return;
 
     glDeleteTextures(color_attachment_count, textureID);
+    glDeleteRenderbuffers(1, &depthBufferID);
     glDeleteFramebuffers(1, &fboID);
 }
 
@@ -86,3 +86,4 @@ void FBO::UnbindTexture(const int texture_unit) {
     glActiveTexture((GLenum)(int)GL_TEXTURE0 + texture_unit);
     glBindTexture(GL_TEXTURE_2D, 0); // Load texture into it
 }
+

@@ -32,6 +32,7 @@ void Behavior::LoadScript() {
 // runs the current script once per frame
 void Behavior::Update()
 {
+	p_lua_manager->UpdateLuaState(lua_state);
 	script_result();
 	p_lua_manager->RegEvents(lua_state, nullptr);
 }

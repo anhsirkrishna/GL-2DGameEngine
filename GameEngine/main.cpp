@@ -34,8 +34,6 @@
 * Few default global values. These extern variables are declared in GameDefs.h
 * so they can be accessed anywhere in the project
 */
-unsigned int WORLD_WIDTH = 720;
-unsigned int WORLD_HEIGHT = 480;
 
 unsigned int WINDOW_WIDTH = 1480;
 unsigned int WINDOW_HEIGHT = 960;
