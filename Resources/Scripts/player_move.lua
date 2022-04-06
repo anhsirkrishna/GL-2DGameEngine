@@ -12,7 +12,7 @@ released = 2
 inactive = 3
 
 walk_speed = 100;
-jump_speed = -120;
+jump_speed = 120;
 
 die_event_id = 6
 lose_event_id = 10

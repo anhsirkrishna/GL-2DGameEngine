@@ -96,6 +96,10 @@ std::unordered_map<std::string, json> GameObjectFactory::CreateLevel(unsigned in
 			glm::vec4 new_position(start_pos[0], start_pos[1], start_pos[2], start_pos[3]);
 			static_cast<Transform*>(new_object->HasComponent("TRANSFORM"))->SetPosition(new_position);
 		}
+		if (element.second.contains("starting_scale")) {
+			auto start_scale = element.second["starting_scale"].get<std::vector<float>>();
+			static_cast<Transform*>(new_object->HasComponent("TRANSFORM"))->SetScale(start_scale[0], start_scale[1]);
+		}
 	}
 
 	for (auto game_obj : p_game_obj_manager->game_object_list)

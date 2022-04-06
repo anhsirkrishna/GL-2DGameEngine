@@ -304,8 +304,11 @@
     <None Include="horizontal_blur.comp" />
     <None Include="Levels\Level_0.json" />
     <None Include="Levels\Level_1.json" />
+    <None Include="Obj_defs\ceiling_1.json" />
     <None Include="Obj_defs\enemy_obj_no_ai.json" />
+    <None Include="Obj_defs\floor_1.json" />
     <None Include="Obj_defs\ice_mirror.json" />
+    <None Include="Obj_defs\left_wall_1.json" />
     <None Include="Obj_defs\Lose_UI.json" />
     <None Include="Obj_defs\Pause_menu.json" />
     <None Include="Obj_defs\camera_controller.json" />
@@ -319,6 +322,8 @@
     <None Include="Obj_defs\obj3.json" />
     <None Include="Obj_defs\orb.json" />
     <None Include="Obj_defs\player_obj.json" />
+    <None Include="Obj_defs\right_wall_1.json" />
+    <None Include="Obj_defs\right_wall_2.json" />
     <None Include="Obj_defs\square.json" />
     <None Include="Obj_defs\test_platform.json" />
     <None Include="Obj_defs\tiled_platform.json" />
