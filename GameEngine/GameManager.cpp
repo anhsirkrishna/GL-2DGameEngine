@@ -1,7 +1,7 @@
 #include "GameManager.h"
 
 //Default Constructor
-GameManager::GameManager() : is_running(true), level(0), debug_mode(false) {
+GameManager::GameManager() : is_running(true), level(1), debug_mode(false) {
 }
 
 //Sets the run status to false

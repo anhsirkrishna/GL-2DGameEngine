@@ -24,6 +24,71 @@
             -1.0
         ]
     },
+    "ceiling_b1": {
+        "obj_def": "ceiling_b1",
+        "starting_position": [
+            873.2000122070313,
+            -133.1999969482422,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "fireblock_1": {
+        "obj_def": "fire_block",
+        "starting_position": [
+            1932.0,
+            64.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "fireblock_2": {
+        "obj_def": "fire_block",
+        "starting_position": [
+            860.4000244140625,
+            328.20001220703125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "fireblock_3": {
+        "obj_def": "fire_block",
+        "starting_position": [
+            2180.39990234375,
+            301.3999938964844,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "fireblock_4": {
+        "obj_def": "fire_block",
+        "starting_position": [
+            2235.39990234375,
+            -64.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "floor_1": {
         "obj_def": "floor_1",
         "starting_position": [
@@ -31,6 +96,32 @@
             288.0,
             0.0,
             0.0
+        ]
+    },
+    "floor_bottomb": {
+        "obj_def": "floor_bottomb",
+        "starting_position": [
+            922.0,
+            357.20001220703125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "killzone": {
+        "obj_def": "kill_zone",
+        "starting_position": [
+            1536.800048828125,
+            263.79998779296875,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
         ]
     },
     "left_wall_1": {
@@ -42,10 +133,192 @@
             0.0
         ]
     },
+    "left_wall_b1": {
+        "obj_def": "left_wall_b1",
+        "starting_position": [
+            511.3999938964844,
+            -146.60000610351563,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "left_wall_b2": {
+        "obj_def": "left_wall_b2",
+        "starting_position": [
+            1931.800048828125,
+            -61.400001525878906,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b1": {
+        "obj_def": "platform5x2",
+        "starting_position": [
+            956.2000122070313,
+            258.6000061035156,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b10": {
+        "obj_def": "platformb2",
+        "starting_position": [
+            2235.39990234375,
+            -12.399999618530273,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b2": {
+        "obj_def": "platform5x2",
+        "starting_position": [
+            1144.5999755859375,
+            188.39999389648438,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b3": {
+        "obj_def": "platform5x2",
+        "starting_position": [
+            895.2000122070313,
+            109.5999984741211,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b4": {
+        "obj_def": "platform3x2",
+        "starting_position": [
+            895.4000244140625,
+            45.599998474121094,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b5": {
+        "obj_def": "floor_1",
+        "starting_position": [
+            1095.0,
+            -19.600000381469727,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b6": {
+        "obj_def": "platform5x2",
+        "starting_position": [
+            1542.800048828125,
+            -19.600000381469727,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b7": {
+        "obj_def": "floor_1",
+        "starting_position": [
+            1853.0,
+            -125.19999694824219,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b8": {
+        "obj_def": "platformb",
+        "starting_position": [
+            2044.800048828125,
+            -250.1999969482422,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b9": {
+        "obj_def": "platformb1",
+        "starting_position": [
+            1931.4000244140625,
+            110.4000015258789,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_tall": {
+        "obj_def": "platform_tall",
+        "starting_position": [
+            1479.800048828125,
+            -496.20001220703125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_tall2": {
+        "obj_def": "platform_tall2",
+        "starting_position": [
+            2682.60009765625,
+            -363.6000061035156,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "player_character": {
         "obj_def": "player_obj",
         "starting_position": [
-            331.60052490234375,
+            327.9993896484375,
             240.0,
             -1.0,
             0.0
@@ -81,15 +354,67 @@
             1.0
         ]
     },
+    "right_wall_b1": {
+        "obj_def": "right_wall_b1",
+        "starting_position": [
+            1479.4000244140625,
+            -116.19999694824219,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "right_wall_b2": {
+        "obj_def": "right_wall_b1",
+        "starting_position": [
+            1482.0,
+            196.8000030517578,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "right_wall_b3": {
+        "obj_def": "right_wall_b1",
+        "starting_position": [
+            1786.5999755859375,
+            209.39999389648438,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "right_wall_b4": {
+        "obj_def": "right_wall_b1",
+        "starting_position": [
+            1786.5999755859375,
+            116.80000305175781,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "win_lose_condition": {
         "obj_def": "win_lose_check"
     },
     "xfire_orb": {
         "obj_def": "orb",
         "starting_position": [
-            353.53802490234375,
+            353.2493896484375,
             270.0,
-            3.172222137451172,
+            -3.4666666984558105,
             0.0
         ]
     }
