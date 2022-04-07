@@ -71,6 +71,11 @@ void Movement::Link()
 	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
 }
 
+//Returns the velocity in the y direction
+float Movement::GetHorizontalVelocity() {
+	return velocity.x;
+}
+
 
 //Returns the velocity in the y direction
 float Movement::GetVerticalVelocity() {
