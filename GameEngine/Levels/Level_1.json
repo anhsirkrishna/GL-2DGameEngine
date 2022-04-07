@@ -1,18 +1,9 @@
 {
-    "backdrop": {
-        "obj_def": "far_backdrop",
-        "starting_position": [
-            -100.0,
-            -100.0,
-            100.0,
-            0.0
-        ]
-    },
     "block_1": {
         "obj_def": "block_1",
         "starting_position": [
             448.79998779296875,
-            444.3999938964844,
+            604.0,
             0.0,
             0.0
         ],
@@ -345,6 +336,32 @@
             1.0
         ]
     },
+    "left_wall_b1": {
+        "obj_def": "left_wall_b1",
+        "starting_position": [
+            511.3999938964844,
+            -146.60000610351563,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "left_wall_b2": {
+        "obj_def": "left_wall_b2",
+        "starting_position": [
+            1931.800048828125,
+            -61.400001525878906,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "platform 3_1": {
         "obj_def": "tiled_platform_3",
         "starting_position": [
@@ -480,32 +497,6 @@
         "starting_position": [
             901.0,
             1090.4000244140625,
-            0.0,
-            0.0
-        ],
-        "starting_scale": [
-            1.0,
-            1.0
-        ]
-    },
-    "left_wall_b1": {
-        "obj_def": "left_wall_b1",
-        "starting_position": [
-            511.3999938964844,
-            -146.60000610351563,
-            0.0,
-            0.0
-        ],
-        "starting_scale": [
-            1.0,
-            1.0
-        ]
-    },
-    "left_wall_b2": {
-        "obj_def": "left_wall_b2",
-        "starting_position": [
-            1931.800048828125,
-            -61.400001525878906,
             0.0,
             0.0
         ],
@@ -673,8 +664,8 @@
     "player_character": {
         "obj_def": "player_obj",
         "starting_position": [
-            327.9993896484375,
-            240.0,
+            42.998741149902344,
+            171.1315460205078,
             -1.0,
             0.0
         ],

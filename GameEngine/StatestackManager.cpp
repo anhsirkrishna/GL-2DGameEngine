@@ -24,7 +24,7 @@ void StateStackManager::Update() {
 }
 
 void StateStackManager::Render() {
-	p_graphics_manager->ClearBuffer(glm::vec4(0.1f));
+	p_graphics_manager->ClearBuffer(glm::vec4(0.0/255, 0.0/255, 1.0/255, 1));
 
 	for (auto state : state_stack) {
 		state->Render();

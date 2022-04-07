@@ -122,6 +122,10 @@ if get_state() ~= "DIE" then
 		if get_state() == "FALL" then
 			change_state("IDLE")
 		end
+	elseif get_vertical_velocity() < 0 then
+		if get_state() ~= "JUMP" then
+			change_state("JUMP")
+		end
 	end
 
 	if check_action_state(attack_action, triggered) then
@@ -146,10 +150,6 @@ if get_state() ~= "DIE" then
 				Die()
 			end
 		end
-	end
-
-	if get_pos_coord(1) > 1200 then
-		Die()
 	end
 
 end
