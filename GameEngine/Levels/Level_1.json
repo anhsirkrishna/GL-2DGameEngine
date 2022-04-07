@@ -8,6 +8,214 @@
             0.0
         ]
     },
+    "block_1": {
+        "obj_def": "block_1",
+        "starting_position": [
+            448.79998779296875,
+            444.3999938964844,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_10": {
+        "obj_def": "block_10",
+        "starting_position": [
+            3420.39990234375,
+            932.7999877929688,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_11": {
+        "obj_def": "block_11",
+        "starting_position": [
+            1474.800048828125,
+            430.20001220703125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_1_2": {
+        "obj_def": "block_1",
+        "starting_position": [
+            64.19999694824219,
+            924.4000244140625,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_1_3": {
+        "obj_def": "block_1",
+        "starting_position": [
+            64.19999694824219,
+            1404.199951171875,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_1_4": {
+        "obj_def": "block_1",
+        "starting_position": [
+            3488.39990234375,
+            387.20001220703125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_2_test": {
+        "obj_def": "block_2",
+        "starting_position": [
+            1093.0,
+            860.4000244140625,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_3": {
+        "obj_def": "block_3",
+        "starting_position": [
+            1088.199951171875,
+            431.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_3_2": {
+        "obj_def": "block_3",
+        "starting_position": [
+            3424.60009765625,
+            1540.5999755859375,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_4": {
+        "obj_def": "block_4",
+        "starting_position": [
+            1472.199951171875,
+            1116.5999755859375,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_4_2": {
+        "obj_def": "block_4",
+        "starting_position": [
+            2496.0,
+            429.6000061035156,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_5": {
+        "obj_def": "block_5",
+        "starting_position": [
+            2496.199951171875,
+            828.5999755859375,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_6": {
+        "obj_def": "block_6",
+        "starting_position": [
+            64.19999694824219,
+            1882.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_7": {
+        "obj_def": "block_7",
+        "starting_position": [
+            2272.199951171875,
+            1432.4000244140625,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_8": {
+        "obj_def": "block_8",
+        "starting_position": [
+            3808.0,
+            796.2000122070313,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "block_9": {
+        "obj_def": "block_9",
+        "starting_position": [
+            2812.39990234375,
+            1244.199951171875,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "camera_controller": {
         "obj_def": "camera_controller"
     },
@@ -36,17 +244,164 @@
     "left_wall_1": {
         "obj_def": "left_wall_1",
         "starting_position": [
-            -64.0,
-            32.0,
+            -64.80000305175781,
+            32.20000076293945,
             0.0,
             0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform 3_1": {
+        "obj_def": "tiled_platform_3",
+        "starting_position": [
+            533.7999877929688,
+            1394.800048828125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform 3_2": {
+        "obj_def": "tiled_platform_3",
+        "starting_position": [
+            765.0,
+            1212.800048828125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_1": {
+        "obj_def": "tiled_platform",
+        "starting_position": [
+            1570.4000244140625,
+            860.2000122070313,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_2": {
+        "obj_def": "tiled_platform",
+        "starting_position": [
+            2025.0,
+            860.2000122070313,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_2_1": {
+        "obj_def": "tiled_platform_2",
+        "starting_position": [
+            1769.0,
+            1589.800048828125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_2_2": {
+        "obj_def": "tiled_platform_2",
+        "starting_position": [
+            1286.4000244140625,
+            1589.800048828125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_2_3": {
+        "obj_def": "tiled_platform_2",
+        "starting_position": [
+            797.0,
+            1589.199951171875,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_3": {
+        "obj_def": "tiled_platform",
+        "starting_position": [
+            2933.0,
+            948.5999755859375,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_4": {
+        "obj_def": "tiled_platform",
+        "starting_position": [
+            2870.199951171875,
+            1548.199951171875,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_4_1": {
+        "obj_def": "tiled_platform_4",
+        "starting_position": [
+            972.7999877929688,
+            989.2000122070313,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_4_2": {
+        "obj_def": "tiled_platform_4",
+        "starting_position": [
+            901.0,
+            1090.4000244140625,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
         ]
     },
     "player_character": {
         "obj_def": "player_obj",
         "starting_position": [
-            331.60052490234375,
-            240.0,
+            898.6932983398438,
+            285.94024658203125,
             -1.0,
             0.0
         ],
@@ -71,8 +426,21 @@
     "right_wall_2": {
         "obj_def": "right_wall_2",
         "starting_position": [
-            448.0,
-            256.0,
+            448.3999938964844,
+            288.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "right_wall_3": {
+        "obj_def": "right_wall_3",
+        "starting_position": [
+            448.79998779296875,
+            381.3999938964844,
             0.0,
             0.0
         ],
@@ -87,9 +455,9 @@
     "xfire_orb": {
         "obj_def": "orb",
         "starting_position": [
-            353.53802490234375,
-            270.0,
-            3.172222137451172,
+            914.0057983398438,
+            315.94024658203125,
+            2.5833332538604736,
             0.0
         ]
     }

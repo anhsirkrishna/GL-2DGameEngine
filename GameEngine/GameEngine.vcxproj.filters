@@ -628,5 +628,44 @@
     <None Include="Obj_defs\right_wall_2.json">
       <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
     </None>
+    <None Include="Obj_defs\right_wall_3.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\block_1.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\block_2.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\block_3.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\block_5.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\block_6.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\block_7.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\block_8.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\block_9.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\block_10.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\block_11.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="Obj_defs\tiled_platform_3.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="Obj_defs\tiled_platform_4.json">
+      <Filter>Source Files\Obj_defs</Filter>
+    </None>
   </ItemGroup>
 </Project>
