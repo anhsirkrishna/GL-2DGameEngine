@@ -102,8 +102,8 @@ void Camera::ClampCameraPosition() {
 	float static_z = -500;
 
 	//Clamp the x and y values between upper and lower limits
-	position.x = glm::min(glm::max(position.x, lower_limit_x), upper_limit_x);
-	position.y = glm::min(glm::max(position.y, lower_limit_y), upper_limit_y);
+	//position.x = glm::min(glm::max(position.x, lower_limit_x), upper_limit_x);
+	//position.y = glm::min(glm::max(position.y, lower_limit_y), upper_limit_y);
 	position.z = static_z;
 }
 
