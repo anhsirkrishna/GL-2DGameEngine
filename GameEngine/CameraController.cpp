@@ -109,9 +109,12 @@ float CameraController::LerpX(float x_, float step)
 		tX += step;
 
 		if (tX > 1.0f)
+		{
 			lerpingX = false;
+			doneLerping = true;
+		}
 
-		return lerp(start_x, x_, tX);
+		return lerp(p_camera->position.x, x_, tX);
 	}
 }
 
@@ -134,4 +137,29 @@ float CameraController::LerpY(float y_, float step)
 
 		return lerp(start_y, y_, tY);
 	}
+}
+
+bool CameraController::FlippedX()
+{
+	SDL_assert(p_follow_object != nullptr);
+
+	Transform* follow_transform = static_cast<Transform*>(p_follow_object->HasComponent("TRANSFORM"));
+
+	bool curr_right = follow_transform->GetScaleX() > 0.0f;
+
+	if (curr_right == faceRight)
+	{
+		return false;
+	}
+	else
+	{
+		faceRight = curr_right;
+		doneLerping = false;
+		return true;
+	}
+}
+
+bool CameraController::DoneLerping()
+{
+	return doneLerping;
 }

@@ -27,6 +27,8 @@ private:
 	float goal_y;
 	bool lerpingX = false;
 	bool lerpingY = false;
+	bool faceRight = true;
+	bool doneLerping = false;
 public:
 	CameraController();
 	virtual void Serialize(json json_object);
@@ -40,4 +42,6 @@ public:
 	float GetFollowObjectVelX();
 	float GetFollowObjectVelY();
 	float GetFollowObjectScaleX();
+	bool FlippedX();
+	bool DoneLerping();
 };

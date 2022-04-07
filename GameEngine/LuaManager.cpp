@@ -129,6 +129,10 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 			&CameraController::GetFollowObjectVelY, camera_c);
 		state.set_function("get_follow_obj_scalex",
 			&CameraController::GetFollowObjectScaleX, camera_c);
+		state.set_function("is_flipped_scalex",
+			&CameraController::FlippedX, camera_c);
+		state.set_function("is_done_lerping",
+			&CameraController::DoneLerping, camera_c);
 	}
 
 	comp = obj->HasComponent("ANIMATION");

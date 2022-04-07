@@ -77,8 +77,5 @@ public:
 	* Returns: void
 	*/
 	virtual void Reset();
-
-	float GetVelocityX();
-	float GetVelocityY();
 };
 
