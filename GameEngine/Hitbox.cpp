@@ -19,19 +19,19 @@
 // Check for AABB collisions between hitbox and hurtbox
 bool AABB(glm::vec4 hitbox, glm::vec4 hurtbox) {
 
-	if ((hitbox.x - hitbox.z) > (hurtbox.x + hurtbox.z)) {
+	if ((hitbox.x) > (hurtbox.x + hurtbox.z)) {
 		return false;
 	}
 
-	if ((hitbox.x + hitbox.z) < (hurtbox.x - hurtbox.z)) {
+	if ((hitbox.x + hitbox.z) < (hurtbox.x)) {
 		return false;
 	}
 
-	if ((hitbox.y + hitbox.w) < (hurtbox.y - hurtbox.w)) {
+	if ((hitbox.y + hitbox.w) < (hurtbox.y)) {
 		return false;
 	}
 
-	if ((hitbox.y - hitbox.w) > (hurtbox.y + hurtbox.w)) {
+	if ((hitbox.y) > (hurtbox.y + hurtbox.w)) {
 		return false;
 	}
 
