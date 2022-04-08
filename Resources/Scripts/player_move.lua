@@ -5,6 +5,7 @@ jump_action = 2
 attack_action = 3
 burst_jump_action = 4
 time_till_health_disable = 120
+time_till_can_shoot = 120
 
 pressed = 0
 triggered = 1
@@ -18,6 +19,7 @@ die_event_id = 6
 lose_event_id = 10
 
 timer = timer + adder
+timer_2 = timer_2 + adder -- for shooting
 
 function Die()
 	if get_state() ~= "DIE" then
@@ -128,14 +130,19 @@ if get_state() ~= "DIE" then
 		end
 	end
 
-	if check_action_state(attack_action, triggered) then
+	if check_action_state(attack_action, triggered) and timer_2 <= 0 then
 	--	ThrowProjectile()
 		change_state("ATTACK")
+		timer_2 = time_till_can_shoot
 	end
 
 	-- timer till health can be decremented again
 	if timer > 0 then
 		timer = timer - 5
+	end
+
+	if timer_2 > 0 then
+		timer_2 = timer_2 - 5
 	end
 
 

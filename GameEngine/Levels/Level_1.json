@@ -2,7 +2,7 @@
     "block_1": {
         "obj_def": "block_1",
         "starting_position": [
-            448.79998779296875,
+            448.0,
             604.0,
             0.0,
             0.0
@@ -236,6 +236,110 @@
             1.0
         ]
     },
+    "enemy_1": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            2134.2509765625,
+            62.226585388183594,
+            -3.4666666984558105,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "enemy_2": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            1644.550048828125,
+            812.0265502929688,
+            -3.4666666984558105,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "enemy_3": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            2104.64990234375,
+            812.0265502929688,
+            -3.4666666984558105,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "enemy_4": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            1250.398681640625,
+            1746.420166015625,
+            -3.4666666984558105,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "enemy_5": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            2937.14990234375,
+            1500.0264892578125,
+            -3.4666666984558105,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "enemy_6": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            1883.050048828125,
+            1541.6265869140625,
+            -3.4666666984558105,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "enemy_7": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            1507.050048828125,
+            1541.77001953125,
+            -3.4666666984558105,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "enemy_8": {
+        "obj_def": "enemy_obj",
+        "starting_position": [
+            2007.75,
+            1541.6265869140625,
+            -3.4666666984558105,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "fireblock_1": {
         "obj_def": "fire_block",
         "starting_position": [
@@ -288,6 +392,19 @@
             1.0
         ]
     },
+    "fireblock_5": {
+        "obj_def": "fire_block",
+        "starting_position": [
+            1010.4000244140625,
+            860.2000122070313,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "floor_1": {
         "obj_def": "floor_1",
         "starting_position": [
@@ -303,6 +420,32 @@
             922.0,
             357.20001220703125,
             0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "jump_trig_box_1": {
+        "obj_def": "jump_trigger_box",
+        "starting_position": [
+            1477.4000244140625,
+            860.2000122070313,
+            128.0,
+            10.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "jump_trig_box_2": {
+        "obj_def": "jump_trigger_box",
+        "starting_position": [
+            1831.0,
+            860.2000122070313,
+            128.0,
             0.0
         ],
         "starting_scale": [
@@ -664,8 +807,8 @@
     "player_character": {
         "obj_def": "player_obj",
         "starting_position": [
-            42.998741149902344,
-            171.1315460205078,
+            67.9990005493164,
+            239.82656860351563,
             -1.0,
             0.0
         ],
@@ -771,9 +914,9 @@
     "xfire_orb": {
         "obj_def": "orb",
         "starting_position": [
-            353.2493896484375,
-            270.0,
-            -3.4666666984558105,
+            84.3740005493164,
+            269.8265686035156,
+            2.6777777671813965,
             0.0
         ]
     }
