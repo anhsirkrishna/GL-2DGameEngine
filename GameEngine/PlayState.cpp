@@ -55,7 +55,7 @@ void PlayState::Update() {
 		return;
 	}
 
-	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_ESCAPE)) {
+	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_ESCAPE) || p_input_manager->isControllerButtonTriggered(SDL_CONTROLLER_BUTTON_START)) {
 		p_statestack_manager->Push(new PauseState());
 		return;
 	}

@@ -21,31 +21,31 @@
   "Attack": {
     "enum_key": 3,
     "control_codes": [
-      [ 44, 1, -1, -1 ]
+      [ 44, 10, -1, -1 ]
     ]
   },
   "Action1": {
     "enum_key": 4,
     "control_codes": [
-      [ 225, 2, -1, -1 ]
+      [ 225, 4, -1, -1 ]
     ]
   },
   "Fire_Orb": {
     "enum_key": 5,
     "control_codes": [
-      [ 30, 3, -1, -1 ]
+      [ 30, 2, -1, -1 ]
     ]
   },
   "Ice_Orb": {
     "enum_key": 6,
     "control_codes": [
-      [ 31, 4, -1, -1 ]
+      [ 31, 3, -1, -1 ]
     ]
   },
   "Earth_Orb": {
     "enum_key": 7,
     "control_codes": [
-      [ 32, 5, -1, -1 ]
+      [ 32, 1, -1, -1 ]
     ]
   }
 }
