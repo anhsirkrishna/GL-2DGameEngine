@@ -5,7 +5,7 @@ walk_speed = 50
 time_between_shots = 60
 time_till_can_switch_state = 30
 
-jump_speed = 150
+jump_speed = 200
 
 die_event_id = 6
 
