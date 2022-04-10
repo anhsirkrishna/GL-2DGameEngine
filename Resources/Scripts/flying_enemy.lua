@@ -1,4 +1,4 @@
-time_till_health_disable = 120
+time_till_health_disable = 20
 
 timer = timer + adder
 
