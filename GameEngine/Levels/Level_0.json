@@ -14,10 +14,14 @@
     "enemy_obj": {
         "obj_def": "enemy_obj",
         "starting_position": [
-            800,
-            0,
-            -1,
-            0
+            432.0,
+            604.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
         ]
     },
     "enemy_obj_1": {
@@ -32,17 +36,34 @@
     "enemy_obj_2": {
         "obj_def": "enemy_obj_no_ai",
         "starting_position": [
-            900,
-            0,
-            -1,
-            0
+            977.5999755859375,
+            27.638999938964844,
+            -1.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
         ]
     },
     "enemy_obj_3": {
         "obj_def": "enemy_obj",
         "starting_position": [
-            500,
-            0,
+            439.3999938964844,
+            49.638999938964844,
+            -1.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "flying_enemy_0": {
+        "obj_def": "flying_enemy_obj",
+        "starting_position": [
+            50,
+            20,
             -1,
             0
         ]
@@ -50,10 +71,14 @@
     "jump_trig_box": {
         "obj_def": "jump_trigger_box",
         "starting_position": [
-            390,
-            120,
-            10,
-            5
+            325.3999938964844,
+            121.80000305175781,
+            5.0,
+            128.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
         ]
     },
     "jump_trig_box_2": {
@@ -68,28 +93,40 @@
     "platform_1": {
         "obj_def": "tiled_platform_2",
         "starting_position": [
-            -20,
-            150,
-            0,
-            0
+            -27.200000762939453,
+            121.80000305175781,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
         ]
     },
     "platform_2": {
         "obj_def": "tiled_platform",
         "starting_position": [
-            450.0,
-            -11.600000381469727,
+            397.20001220703125,
+            117.0,
             0.0,
             0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
         ]
     },
     "platform_3": {
         "obj_def": "tiled_platform",
         "starting_position": [
-            980,
-            120,
-            0,
-            0
+            971.7999877929688,
+            120.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
         ]
     },
     "platform_4": {

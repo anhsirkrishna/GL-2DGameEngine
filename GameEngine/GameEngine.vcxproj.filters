@@ -700,5 +700,8 @@
     <None Include="..\Resources\Scripts\fireblock.lua">
       <Filter>Source Files\Scripts</Filter>
     </None>
+    <None Include="..\Resources\Scripts\flying_enemy.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
   </ItemGroup>
 </Project>
