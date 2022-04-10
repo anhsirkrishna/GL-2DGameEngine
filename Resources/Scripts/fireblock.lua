@@ -2,7 +2,7 @@
 
 
 function Destroy()
-	set_pos_coord(-100000, 1)  --Make sure the sprite is facing right
+	delayed_disable_obj(0)
 end
 
 

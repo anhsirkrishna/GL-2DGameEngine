@@ -4,7 +4,7 @@
 Component::Component(std::string _name) : name(_name), p_owner_object(NULL) {}
 
 //Returns the name of the component
-std::string Component::GetName() {
+const std::string& Component::GetName() {
 	return name;
 }
 

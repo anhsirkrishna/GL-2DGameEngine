@@ -55,7 +55,7 @@
     },
     "PROJECTILE": {
       "instance_def": "fire_projectile",
-      "instance_count": 10,
+      "instance_count": 1,
       "spawn_offset": [ 0, 30, 0 ]
     },
     "JUMP_TRIGGER_RECEIVER_BOX": {

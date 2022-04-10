@@ -26,7 +26,6 @@ private:
 	bool gravity_on;
 	float mass;
 	glm::vec4 velocity;
-	Transform* p_owner_transform;
 
 public:
 
@@ -82,5 +81,7 @@ public:
 	* Returns: void
 	*/
 	virtual void HandleEvent(TimedEvent* p_event);
+
+	Transform* p_owner_transform;
 };
 

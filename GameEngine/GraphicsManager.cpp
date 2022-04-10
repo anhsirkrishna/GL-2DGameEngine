@@ -195,7 +195,7 @@ bool GraphicsManager::GL_Initialize() {
 * will be used by the Graphics Manager for all subsequent operations
 * Returns: void
 */
-void GraphicsManager::SetActiveShader(std::string shader_name) {
+void GraphicsManager::SetActiveShader(const std::string& shader_name) {
 	p_active_shader->Unuse();
 	CHECKERROR;
 	p_active_shader = p_resource_manager->get_shader(shader_name);
@@ -456,13 +456,13 @@ GLuint GraphicsManager::GenerateDynamicArrayBuffer(GLuint vao_id, GLuint array_c
 * for the given variable
 * Returns: void
 */
-void GraphicsManager::BindAttrib(GLuint attrib, std::string var_name) {
+void GraphicsManager::BindAttrib(GLuint attrib, const std::string& var_name) {
 	//Attrib location 0 will always be used for position coordinates
 	glBindAttribLocation(p_active_shader->program_id, attrib, var_name.c_str());
 	CHECKERROR;
 }
 
-void GraphicsManager::BindOutputAttrib(GLuint attrib, std::string var_name) {
+void GraphicsManager::BindOutputAttrib(GLuint attrib, const std::string& var_name) {
 	glBindFragDataLocation(p_active_shader->program_id, attrib, var_name.c_str());
 	CHECKERROR;
 }
@@ -507,7 +507,7 @@ void GraphicsManager::DrawQuad(GLuint vao_id, unsigned int batch_size, bool gbuf
 }
 
 //Sets a uniform int
-void GraphicsManager::SetUniformInt(int var, std::string var_name) {
+void GraphicsManager::SetUniformInt(int var, const std::string& var_name) {
 	CHECKERROR;
 	GLuint loc = glGetUniformLocation(p_active_shader->program_id, var_name.c_str());
 	glUniform1i(loc, var);
@@ -515,28 +515,28 @@ void GraphicsManager::SetUniformInt(int var, std::string var_name) {
 }
 
 //Sets a uniform float
-void GraphicsManager::SetUniformFloat(float var, std::string var_name) {
+void GraphicsManager::SetUniformFloat(float var, const std::string& var_name) {
 	GLuint loc = glGetUniformLocation(p_active_shader->program_id, var_name.c_str());
 	glUniform1f(loc, var);
 	CHECKERROR;
 }
 
 //Sets a uniform matrix4
-void GraphicsManager::SetUniformMatrix4(glm::mat4 const &var, std::string var_name) {
+void GraphicsManager::SetUniformMatrix4(glm::mat4 const &var, const std::string& var_name) {
 	GLuint loc = glGetUniformLocation(p_active_shader->program_id, var_name.c_str());
 	glUniformMatrix4fv(loc, 1, GL_FALSE, getMat4Pointer(var));
 	CHECKERROR;
 }
 
 //Sets a uniform vec2
-void GraphicsManager::SetUniformVec2(glm::vec2 const& var, std::string var_name) {
+void GraphicsManager::SetUniformVec2(glm::vec2 const& var, const std::string& var_name) {
 	GLuint loc = glGetUniformLocation(p_active_shader->program_id, var_name.c_str());
 	glUniform2fv(loc, 1, &(var[0]));
 	CHECKERROR;
 }
 
 //Sets a uniform vec3
-void GraphicsManager::SetUniformVec3(glm::vec3 const& var, std::string var_name) {
+void GraphicsManager::SetUniformVec3(glm::vec3 const& var, const std::string& var_name) {
 	GLuint loc = glGetUniformLocation(p_active_shader->program_id, var_name.c_str());
 	glUniform3fv(loc, 1, &(var[0]));
 	CHECKERROR;
@@ -765,7 +765,7 @@ GLuint GraphicsManager::GenerateUniformBlock(float const* block_data, size_t blo
 /* Bind a block to a bindpoint for the active shader
 * Returns: void
 */
-void GraphicsManager::BindBlockBinding(GLuint bind_point, std::string block_name) {
+void GraphicsManager::BindBlockBinding(GLuint bind_point, const std::string& block_name) {
 	GLuint loc = glGetUniformBlockIndex(GetActiveShader()->program_id, block_name.c_str());
 	glUniformBlockBinding(GetActiveShader()->program_id, loc, bind_point);
 }

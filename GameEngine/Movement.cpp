@@ -56,6 +56,7 @@ void Movement::MoveHorizontally(float vel_x)
 // Gives a -ve y velocity.
 void Movement::Jump(float vel_y) 
 {
+	EnableGravity();
 	velocity.y = -vel_y;
 }
 

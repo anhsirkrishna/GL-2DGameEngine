@@ -16,7 +16,7 @@ GameObject::~GameObject() {
 }
 
 //Returns the name of the Game object
-std::string GameObject::GetName() {
+const std::string& GameObject::GetName() {
 	return name;
 }
 
@@ -26,7 +26,7 @@ const std::string& GameObject::GetNameRef() const
 }
 
 //Checks if the game object has a particular component. Returns it if present
-Component* GameObject::HasComponent(std::string component_name) const {
+Component* GameObject::HasComponent(const std::string& component_name) const {
 	for (auto component : component_list) {
 		if (component->GetName() == component_name)
 			return component;

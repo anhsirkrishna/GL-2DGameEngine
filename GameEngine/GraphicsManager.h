@@ -60,7 +60,7 @@ public:
 	* will be used by the Graphics Manager for all subsequent operations
 	* Returns: void
 	*/
-	void SetActiveShader(std::string shader_name);
+	void SetActiveShader(const std::string& shader_name);
 
 	/*Function to get the a shader program which
 	* is used by the Graphics Manager
@@ -105,13 +105,13 @@ public:
 	* for the given variable
 	* Returns: void
 	*/
-	void BindAttrib(GLuint attrib, std::string var_name);
+	void BindAttrib(GLuint attrib, const std::string& var_name);
 
 	/*Function to bind an attribute location for output
 	* for a given variable
 	* Returns: void
 	*/
-	void BindOutputAttrib(GLuint attrib, std::string var_name);
+	void BindOutputAttrib(GLuint attrib, const std::string& var_name);
 
 	/*Sends the GL_Draw call after binding the specified vao
 	* Returns: void
@@ -127,19 +127,19 @@ public:
 	void SwapBuffers();
 
 	//Sets a uniform int
-	void SetUniformInt(int var, std::string var_name);
+	void SetUniformInt(int var, const std::string& var_name);
 
 	//Sets a uniform float
-	void SetUniformFloat(float var, std::string var_name);
+	void SetUniformFloat(float var, const std::string& var_name);
 
 	//Sets a uniform matrix4
-	void SetUniformMatrix4(glm::mat4 const &var, std::string var_name);
+	void SetUniformMatrix4(glm::mat4 const &var, const std::string& var_name);
 
 	//Sets a uniform vec2
-	void SetUniformVec2(glm::vec2 const &var, std::string var_name);
+	void SetUniformVec2(glm::vec2 const &var, const std::string& var_name);
 
 	//Sets a uniform vec3
-	void SetUniformVec3(glm::vec3 const& var, std::string var_name);
+	void SetUniformVec3(glm::vec3 const& var, const std::string& var_name);
 
 	//Set blending on
 	void SetBlendingOn();
@@ -191,7 +191,7 @@ public:
 	/* Bind a block to a bindpoint for the active shader
 	* Returns: void
 	*/
-	void BindBlockBinding(GLuint bind_point, std::string block_name);
+	void BindBlockBinding(GLuint bind_point, const std::string& block_name);
 
 	/*Create a uniform block and send data to it
 	* Returns: GLuint - block_id for the created block

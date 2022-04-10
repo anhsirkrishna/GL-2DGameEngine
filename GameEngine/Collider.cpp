@@ -81,13 +81,13 @@ glm::vec4 Collider::GetPositionOffset() {
 // Update function for Collider
 void Collider::Update()
 {
-	UpdateColliderPosition();
 }
 
 // Link other components to this one
 void Collider::Link()
 {
 	p_owner_transform = static_cast<Transform*>(GetOwner()->HasComponent("TRANSFORM"));
+	UpdateColliderPosition();
 }
 
 

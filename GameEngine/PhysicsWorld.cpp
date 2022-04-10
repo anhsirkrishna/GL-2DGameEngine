@@ -1,6 +1,9 @@
 #include "PhysicsWorld.h"
 #include "FrameRateController.h"
 #include "GameObjectManager.h"
+#include "Collider.h"
+#include "Movement.h"
+#include "Transform.h"
 #include <iostream>
 
 glm::vec4 gravity = glm::vec4(0, 200, 0, 0);
@@ -19,10 +22,6 @@ void PhysicsWorld::Init()
 }
 
 void PhysicsWorld::Reload() {
-
-	/*for (int i = 0; i < physics_game_objects.size(); i++) {
-		delete physics_game_objects[i];
-	}*/
 
 	physics_game_objects.clear();
 	
@@ -59,10 +58,9 @@ void PhysicsWorld::Integrate()
 	for (GameObject* p : p_game_obj_manager->game_object_list) {
 		if (!p->IsActive())
 			continue;
-		if (p->HasComponent("MOVEMENT")) {
-
-			Transform* p_transf = static_cast<Transform*>(p->HasComponent("TRANSFORM"));
-			Movement* p_mov = static_cast<Movement*>(p->HasComponent("MOVEMENT"));
+		Movement* p_mov = static_cast<Movement*>(p->HasComponent("MOVEMENT"));
+		if (p_mov) {
+			Transform* p_transf = p_mov->p_owner_transform;
 
 			auto p_pos = p_transf->GetPosition();
 			auto p_vel = p_mov->GetVelocity();
@@ -93,43 +91,43 @@ AABBResult PhysicsWorld::AABB(Collider* collider_0, Collider* collider_1) {
 
 	// If col box 0 is on the right of col box 1
 	if ((col_pos_0.x - col_pos_0.z) > (col_pos_1.x + col_pos_1.z)) {
-		return { false, "", FLT_MAX};
+		return { false, NONE, FLT_MAX};
 	}
 	else {
 		// Colliding! on the RIGHT of col box 1
-		collision_info.push_back({ true, "RIGHT", (col_pos_1.x + col_pos_1.z) - (col_pos_0.x - col_pos_0.z)});
+		collision_info.push_back({ true, RIGHT, (col_pos_1.x + col_pos_1.z) - (col_pos_0.x - col_pos_0.z)});
 	}
 		
 	// If col box 0 is on the left of col box 1
 	if ((col_pos_0.x + col_pos_0.z) < (col_pos_1.x - col_pos_1.z)) {
-		return { false, "", FLT_MAX};
+		return { false, NONE, FLT_MAX};
 	}
 	else {
 		// Colliding! on the LEFT of col box 1
-		collision_info.push_back({ true, "LEFT", (col_pos_0.x + col_pos_0.z) - (col_pos_1.x - col_pos_1.z)});
+		collision_info.push_back({ true, LEFT, (col_pos_0.x + col_pos_0.z) - (col_pos_1.x - col_pos_1.z)});
 	}
 
 	// If col box 0 is above col box 1
 	if ((col_pos_0.y + col_pos_0.w) < (col_pos_1.y - col_pos_1.w)) {
-		return { false, "", FLT_MAX};
+		return { false, NONE, FLT_MAX};
 	}
 	else {
 		// Colliding! on the TOP of col box 1
-		collision_info.push_back({ true, "TOP", (col_pos_0.y + col_pos_0.w) - (col_pos_1.y - col_pos_1.w) });
+		collision_info.push_back({ true, TOP, (col_pos_0.y + col_pos_0.w) - (col_pos_1.y - col_pos_1.w) });
 	}
 
 	// If col box 0 is below col box 1
 	if ((col_pos_0.y - col_pos_0.w) > (col_pos_1.y + col_pos_1.w)) {
-		return { false, "", FLT_MAX};
+		return { false, NONE, FLT_MAX};
 	}
 	else {
 		// Colliding! on the BOTTOM of col box 1
-		collision_info.push_back({ true, "BOTTOM", (col_pos_1.y + col_pos_1.w) - (col_pos_0.y - col_pos_0.w)});
+		collision_info.push_back({ true, BOTTOM, (col_pos_1.y + col_pos_1.w) - (col_pos_0.y - col_pos_0.w)});
 	}
 
 	// Collected info on collisions on all sides. 
 	// Store and resolve for the side where the penetration depth is the least
-	AABBResult result = { true, "", FLT_MAX};
+	AABBResult result = { true, NONE, FLT_MAX};
 	float min_pen_depth = FLT_MAX;
 	for (int i = 0; i < collision_info.size(); i++) {
 		if (collision_info[i].penetration_depth < min_pen_depth) {
@@ -145,33 +143,41 @@ AABBResult PhysicsWorld::AABB(Collider* collider_0, Collider* collider_1) {
 // Detect any possible collision between two objects
 void PhysicsWorld::DetectAndRecordCollisions()
 {
+	Movement* movement_a;
+	Collider* collider_a;
+	Collider* collider_b;
 	for (auto i = physics_game_objects.begin(); i != physics_game_objects.end(); i++) {
 
+		if (!(*i)->IsActive())
+			continue;
 		/* Only check for a collision with another object
 		 * if the game object has a movement component 
 		 */
-		if ((*i)->HasComponent("MOVEMENT") && (*i)->HasComponent("COLLIDER")) {
 
-			if (static_cast<Collider*>((*i)->HasComponent("COLLIDER"))->IsEnabled() == false)
+		movement_a = static_cast<Movement*>((*i)->HasComponent("MOVEMENT"));
+		if (movement_a == NULL)
+			continue;
+
+		collider_a = static_cast<Collider*>((*i)->HasComponent("COLLIDER"));
+		if ( collider_a) {
+
+			if (collider_a->IsEnabled() == false)
 				continue;
 
+			collider_a->UpdateColliderPosition();
 			for (auto j = physics_game_objects.begin(); j != physics_game_objects.end(); j++) {
+				if (!(*j)->IsActive())
+					continue;
 
 				if (*i == *j) {
 					continue;
 				}
 				else {
+					collider_b = static_cast<Collider*>((*j)->HasComponent("COLLIDER"));
+					if (collider_b) {
 
-					if ((*j)->HasComponent("COLLIDER")) {
-
-						if (static_cast<Collider*>((*j)->HasComponent("COLLIDER"))->IsEnabled() == false)
+						if (collider_b->IsEnabled() == false)
 							continue;
-
-						Collider* collider_a = static_cast<Collider*>((*i)->HasComponent("COLLIDER"));
-						Collider* collider_b = static_cast<Collider*>((*j)->HasComponent("COLLIDER"));
-
-						collider_a->UpdateColliderPosition();
-						collider_b->UpdateColliderPosition();
 
 						AABBResult collision_result = AABB(collider_a, collider_b);
 
@@ -179,6 +185,7 @@ void PhysicsWorld::DetectAndRecordCollisions()
 
 							Collision* collision = new Collision();
 							collision->collider_a = collider_a;
+							collision->movement_a = movement_a;
 							collision->collider_b = collider_b;
 							collision->penetration_depth = collision_result.penetration_depth;
 							collision->side_of_b = collision_result.side_of_b;
@@ -200,41 +207,35 @@ void PhysicsWorld::ResolveCollisions()
 		/* This is the one whose velocity is going to be reset and 
 		 * position (collider position and hence also transform pos) will be updated
 		 */
-		Movement* mov_a = static_cast<Movement*>(c->collider_a->GetOwner()->HasComponent("MOVEMENT"));
-		Transform* transf_a = static_cast<Transform*>(c->collider_a->GetOwner()->HasComponent("TRANSFORM"));
+		Movement* mov_a = c->movement_a;
+		Transform* transf_a = mov_a->p_owner_transform;
 
 		glm::vec4 vel = mov_a->GetVelocity();
 
 		glm::vec4 col_pos_a = c->collider_a->GetColliderPosition();
 		glm::vec4 col_pos_b = c->collider_b->GetColliderPosition();
 
+		float min_depth = std::max(c->penetration_depth - 0.1f, 0.0f);
 
 		// Moving object touches the BOTTOM of the other object
-		if (c->side_of_b == "BOTTOM") {
-
-			col_pos_a.y = col_pos_b.y + col_pos_b.w + col_pos_a.w + std::max(c->penetration_depth - 0.1f, 0.0f);
+		switch (c->side_of_b)
+		{
+		case BOTTOM:
+			col_pos_a.y = col_pos_b.y + col_pos_b.w + col_pos_a.w + min_depth;
 			vel.y = 0;
-		}
-
-		// Moving object touches the TOP of the other object
-		if (c->side_of_b == "TOP") {
-
-			col_pos_a.y = col_pos_b.y - col_pos_b.w - col_pos_a.w - std::max(c->penetration_depth - 0.1f, 0.0f);
+			break;
+		case TOP:
+			col_pos_a.y = col_pos_b.y - col_pos_b.w - col_pos_a.w - min_depth;
 			vel.y = 0;
-		}
-
-		// Moving object touches the LEFT of the other object
-		if (c->side_of_b == "LEFT") {
-
-			col_pos_a.x = col_pos_b.x - col_pos_b.z - col_pos_a.z - std::max(c->penetration_depth - 0.1f, 0.0f);
+			break;
+		case LEFT:
+			col_pos_a.x = col_pos_b.x - col_pos_b.z - col_pos_a.z - min_depth;
 			vel.x = 0;
-		}
-
-		// Moving object touches the RIGHT of the other object
-		if (c->side_of_b == "RIGHT") {
-
-			col_pos_a.x = col_pos_b.x + col_pos_b.z + col_pos_a.z + std::max(c->penetration_depth - 0.1f, 0.0f);
+			break;
+		case RIGHT:
+			col_pos_a.x = col_pos_b.x + col_pos_b.z + col_pos_a.z + min_depth;
 			vel.x = 0;
+			break;
 		}
 
 		c->collider_a->SetColliderPosition(col_pos_a);

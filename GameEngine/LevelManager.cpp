@@ -13,6 +13,7 @@
 #include "GameObjectFactory.h"
 #include "PhysicsWorld.h"
 #include "LuaManager.h"
+#include "Transform.h"
 #include <fstream>
 #include <algorithm>
 #include <iterator>

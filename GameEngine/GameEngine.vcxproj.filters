@@ -82,6 +82,9 @@
     <Filter Include="Source Files\Obj_defs\Enemy_Defs">
       <UniqueIdentifier>{ef086718-5f58-46d1-a126-9000e4ba575f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Obj_defs\Doors">
+      <UniqueIdentifier>{5ba13080-8e01-41d7-86e6-a6857acb86fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -690,6 +693,12 @@
     </None>
     <None Include="Obj_defs\kill_zone.json">
       <Filter>Source Files\Obj_defs\Enemy_Defs</Filter>
+    </None>
+    <None Include="Obj_defs\fire_block.json">
+      <Filter>Source Files\Obj_defs\Doors</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\fireblock.lua">
+      <Filter>Source Files\Scripts</Filter>
     </None>
   </ItemGroup>
 </Project>

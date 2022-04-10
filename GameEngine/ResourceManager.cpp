@@ -24,7 +24,7 @@ ResourceManager::~ResourceManager() {
 	free_resources();
 }
 
-void ResourceManager::add_resource(std::string file_name) {
+void ResourceManager::add_resource(const std::string& file_name) {
 	/*Statically assigning the resource folder path.
 	  Could potentially change this if we expect to get resources from other locations*/
 	std::string file_path = "..\\Resources\\";
@@ -49,7 +49,7 @@ void ResourceManager::free_resources() {
 		delete shader.second;
 }
 
-SDL_Surface* ResourceManager::get_resource(std::string file_name) {
+SDL_Surface* ResourceManager::get_resource(const std::string& file_name) {
 	try {
 		return resource_map.at(file_name);
 	}// .at(key) throws an out_of_range exception if the key doesn't exist in the map
@@ -59,7 +59,7 @@ SDL_Surface* ResourceManager::get_resource(std::string file_name) {
 }
 
 //Function to add a new texture. The texture will be loaded onto H/w
-void ResourceManager::add_texture(std::string file_name) {
+void ResourceManager::add_texture(const std::string& file_name) {
 	/*Statically assigning the resource folder path.
 	  Could potentially change this if we expect to get textures from other locations*/
 	std::string file_path = "..\\Resources\\";
@@ -75,7 +75,7 @@ void ResourceManager::add_texture(std::string file_name) {
 }
 
 //Returns the pointer to texture object which has access to its texture id
-Texture* ResourceManager::get_texture(std::string name) {
+Texture* ResourceManager::get_texture(const std::string& name) {
 	try {
 		return textures_map.at(name);
 	}// .at(key) throws an out_of_range exception if the key doesn't exist in the map
@@ -85,7 +85,7 @@ Texture* ResourceManager::get_texture(std::string name) {
 }
 
 //Returns pointer to the shader program with the name specified
-ShaderProgram* ResourceManager::get_shader(std::string name) {
+ShaderProgram* ResourceManager::get_shader(const std::string& name) {
 	try {
 		return shader_map.at(name);
 	}
@@ -100,7 +100,7 @@ ShaderProgram* ResourceManager::get_shader(std::string name) {
 * Requires the .vert and .frag files to have the same starting prefix filename
 * Returns: void
 */
-void ResourceManager::add_shader(std::string file_name) {
+void ResourceManager::add_shader(const std::string& file_name) {
 	if (get_shader(file_name) == NULL) {
 		std::string vertex_shader_name = file_name + ".vert";
 		std::string frag_shader_name = file_name + ".frag";
@@ -118,7 +118,7 @@ void ResourceManager::add_shader(std::string file_name) {
 * Requires the .comp file to have the same starting prefix filename
 * Returns: void
 */
-void ResourceManager::add_compute_shader(std::string file_name) {
+void ResourceManager::add_compute_shader(const std::string& file_name) {
 	if (get_shader(file_name) == NULL) {
 		std::string compute_shader_name = file_name + ".comp";
 		ShaderProgram* p_shader_program = new ShaderProgram();
@@ -128,7 +128,7 @@ void ResourceManager::add_compute_shader(std::string file_name) {
 	}
 }
 
-CharacterTextures* ResourceManager::get_font_textures(std::string ttf_file_name)
+CharacterTextures* ResourceManager::get_font_textures(const std::string& ttf_file_name)
 {
 	try {
 		return font_map.at(ttf_file_name);
@@ -143,7 +143,7 @@ CharacterTextures* ResourceManager::get_font_textures(std::string ttf_file_name)
 * font type
 * Returns: void
 */
-void ResourceManager::add_font_textures(std::string ttf_file_name) {
+void ResourceManager::add_font_textures(const std::string& ttf_file_name) {
 	std::string ttf_path = "..\\Resources\\Fonts\\" + ttf_file_name + ".ttf";
 
 	//Checking if Texture exists before re-loading it.

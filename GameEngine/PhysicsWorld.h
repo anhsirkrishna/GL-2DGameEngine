@@ -7,11 +7,20 @@
 /* Physics World class encapsulation header file
 /* DigiPen Institute of Technology © 2022
 /******************************************************************************/
+#include <string>
+#include <vector>
 
-#include "GameObjectManager.h"
-#include "Collider.h"
-#include "Movement.h"
-#include "Transform.h"
+class Collider;
+class Movement;
+class GameObject;
+
+enum side {
+	BOTTOM = 0,
+	TOP,
+	LEFT,
+	RIGHT,
+	NONE
+};
 
 /* Struct that stores
    1) pointers to the two colliding bodies 
@@ -20,15 +29,16 @@
 */
 struct Collision {
 	Collider* collider_a;
+	Movement* movement_a;
 	Collider* collider_b;
-	std::string side_of_b;
+	side side_of_b;
 	float penetration_depth;
 };
 
 // Info needed to be returned after AABB collision check
 struct AABBResult {
 	bool colliding;
-	std::string side_of_b;
+	side side_of_b;
 	float penetration_depth;
 };
 

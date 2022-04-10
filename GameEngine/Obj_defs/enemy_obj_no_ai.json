@@ -53,11 +53,6 @@
       "offset": [ 20, 20 ],
       "dimensions": [ 6, 15 ]
     },
-    "PROJECTILE": {
-      "instance_def": "fire_projectile",
-      "instance_count": 10,
-      "spawn_offset": [ 0, 30, 0 ]
-    },
     "JUMP_TRIGGER_RECEIVER_BOX": {
       "offset": [ 20, 20 ],
       "dimensions": [ 6, 15 ],

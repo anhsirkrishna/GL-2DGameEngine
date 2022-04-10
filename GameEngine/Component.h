@@ -53,7 +53,7 @@ public:
 	virtual void Reset();
 
 	//Returns the name of the component
-	std::string GetName();
+	const std::string& GetName();
 private:
 	std::string name;
 	GameObject* p_owner_object;

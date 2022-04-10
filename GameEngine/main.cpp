@@ -147,6 +147,7 @@ int main(int argc, char* args[])
 	p_statestack_manager->Push(new PlayState());
 	p_statestack_manager->PushNewFadeOutState();
 
+	std::string fps_string;
 	while (p_game_manager->Status())
 	{
 		p_framerate_controller->start_game_loop();
@@ -155,6 +156,8 @@ int main(int argc, char* args[])
 		p_statestack_manager->Render();
 
 		p_framerate_controller->end_game_loop();
+		fps_string = "FPS" + std::to_string(p_editor->last_frame_fps);
+		SDL_Log(fps_string.c_str());
 	}
 
 	if (RUN_WITH_EDITOR)
