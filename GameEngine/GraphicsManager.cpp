@@ -53,6 +53,9 @@ GraphicsManager::GraphicsManager() : p_active_shader(nullptr), p_sdl_window(null
 	p_resource_manager->add_shader("ui");
 	CHECKERROR;
 
+	p_resource_manager->add_shader("fade");
+	CHECKERROR;
+
 	p_resource_manager->add_compute_shader("horizontal_blur");
 	CHECKERROR;
 	p_resource_manager->add_compute_shader("vertical_blur");
@@ -67,6 +70,10 @@ GraphicsManager::GraphicsManager() : p_active_shader(nullptr), p_sdl_window(null
 	BindOutputAttrib(1, "post_Buffer");
 
 	SetActiveShader("ui");
+	BindDefaultAttribLocations();
+	BindOutputAttrib(0, "out_Color");
+
+	SetActiveShader("fade");
 	BindDefaultAttribLocations();
 	BindOutputAttrib(0, "out_Color");
 

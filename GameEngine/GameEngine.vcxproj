@@ -169,6 +169,8 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DependantObjects.cpp" />
     <ClCompile Include="EditorState.cpp" />
+    <ClCompile Include="FadeOutScreen.cpp" />
+    <ClCompile Include="FadeOutState.cpp" />
     <ClCompile Include="FBO.cpp" />
     <ClCompile Include="ControlSchemeManager.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -233,6 +235,8 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DependantObjects.h" />
     <ClInclude Include="EditorState.h" />
+    <ClInclude Include="FadeOutScreen.h" />
+    <ClInclude Include="FadeOutState.h" />
     <ClInclude Include="FBO.h" />
     <ClInclude Include="ControlSchemeManager.h" />
     <ClInclude Include="EventManager.h" />
@@ -299,6 +303,8 @@
     <None Include="..\Resources\Scripts\quit_action.lua" />
     <None Include="..\Resources\Scripts\restart_button.lua" />
     <None Include="..\Resources\Scripts\win_lose_check.lua" />
+    <None Include="fade.frag" />
+    <None Include="fade.vert" />
     <None Include="final.frag" />
     <None Include="final.vert" />
     <None Include="horizontal_blur.comp" />
@@ -317,6 +323,7 @@
     <None Include="Obj_defs\enemy_obj_no_ai.json" />
     <None Include="Obj_defs\floor_1.json" />
     <None Include="Obj_defs\ice_mirror.json" />
+    <None Include="Obj_defs\kill_zone.json" />
     <None Include="Obj_defs\left_wall_1.json" />
     <None Include="Obj_defs\Lose_UI.json" />
     <None Include="Obj_defs\Pause_menu.json" />

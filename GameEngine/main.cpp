@@ -145,6 +145,7 @@ int main(int argc, char* args[])
 		p_editor->Init();
   
 	p_statestack_manager->Push(new PlayState());
+	p_statestack_manager->PushNewFadeOutState();
 
 	while (p_game_manager->Status())
 	{

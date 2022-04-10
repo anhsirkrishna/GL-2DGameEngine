@@ -13,6 +13,7 @@
 #include "GraphicsManager.h"
 #include "LoseState.h"
 #include "PlayState.h"
+#include "FadeOutState.h"
 
 void StateStackManager::Update() {
 	state_stack.back()->Update();
@@ -66,6 +67,10 @@ void StateStackManager::PushLoseState() {
 
 void StateStackManager::PushNewGameState() {
 	Push(new PlayState());
+}
+
+void StateStackManager::PushNewFadeOutState() {
+	Push(new FadeOutState());
 }
 
 /*Reset the state at the top of the stack

@@ -79,6 +79,9 @@
     <Filter Include="Source Files\Obj_defs\Room_Tilemaps">
       <UniqueIdentifier>{aec5a7a2-3fc6-4a7f-a7af-e07921ba1361}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Obj_defs\Enemy_Defs">
+      <UniqueIdentifier>{ef086718-5f58-46d1-a126-9000e4ba575f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -262,6 +265,12 @@
       <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClCompile>
     <ClCompile Include="LoseState.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeOutScreen.cpp">
+      <Filter>Source Files\Components\GUIComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeOutState.cpp">
       <Filter>Source Files\GameStates</Filter>
     </ClCompile>
   </ItemGroup>
@@ -461,6 +470,12 @@
     <ClInclude Include="LoseState.h">
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
+    <ClInclude Include="FadeOutScreen.h">
+      <Filter>Source Files\Components\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeOutState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -513,9 +528,6 @@
     </None>
     <None Include="..\Resources\Scripts\projectile_move.lua">
       <Filter>Source Files\Scripts</Filter>
-    </None>
-    <None Include="Obj_defs\enemy_obj.json">
-      <Filter>Source Files\Obj_defs</Filter>
     </None>
     <None Include="..\Resources\Scripts\enemy_1.lua">
       <Filter>Source Files\Scripts</Filter>
@@ -574,9 +586,6 @@
     <None Include="Obj_defs\tiled_platform.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
-    <None Include="Obj_defs\flying_enemy_obj.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
     <None Include="Obj_defs\square.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
@@ -597,9 +606,6 @@
     </None>
     <None Include="..\Resources\Scripts\win_lose_check.lua">
       <Filter>Source Files\Scripts</Filter>
-    </None>
-    <None Include="Obj_defs\enemy_obj_no_ai.json">
-      <Filter>Source Files\Obj_defs</Filter>
     </None>
     <None Include="..\Resources\Scripts\enemy_2.lua">
       <Filter>Source Files\Scripts</Filter>
@@ -666,6 +672,24 @@
     </None>
     <None Include="Obj_defs\tiled_platform_4.json">
       <Filter>Source Files\Obj_defs</Filter>
+    </None>
+    <None Include="fade.vert">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="fade.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="Obj_defs\flying_enemy_obj.json">
+      <Filter>Source Files\Obj_defs\Enemy_Defs</Filter>
+    </None>
+    <None Include="Obj_defs\enemy_obj_no_ai.json">
+      <Filter>Source Files\Obj_defs\Enemy_Defs</Filter>
+    </None>
+    <None Include="Obj_defs\enemy_obj.json">
+      <Filter>Source Files\Obj_defs\Enemy_Defs</Filter>
+    </None>
+    <None Include="Obj_defs\kill_zone.json">
+      <Filter>Source Files\Obj_defs\Enemy_Defs</Filter>
     </None>
   </ItemGroup>
 </Project>

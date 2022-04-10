@@ -59,6 +59,10 @@ void Hitbox::Serialize(json json_object) {
 	dimensions.x = dimension_vals[0];
 	dimensions.y = dimension_vals[1];
 
+	if (json_object.contains("enabled")) {
+		enabled = json_object["enabled"].get<bool>();
+	}
+
 }
 
 

@@ -3,7 +3,7 @@
         "COLLIDER": {
             "collider_offset_params": [
                 0.0,
-                0.0,
+                10,
                 256,
                 90
             ]
@@ -14,9 +14,10 @@
                 96
             ],
             "offset": [
-                0,
-                0
-            ]
+              0,
+              0
+            ],
+            "enabled":  true
         },
         "TILEMAP": {
             "texture_name": "tileset",

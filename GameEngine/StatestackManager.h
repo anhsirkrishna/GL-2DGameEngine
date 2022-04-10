@@ -32,6 +32,11 @@ public:
 	*/
 	void PushNewGameState();
 
+	/*Method to push the new game state onto the stack
+	* for access from scripts
+	*/
+	void PushNewFadeOutState();
+
 	/*Reset the state at the top of the stack
 	* Returns void
 	*/
