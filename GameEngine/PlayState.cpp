@@ -12,6 +12,7 @@
 #include "StatestackManager.h"
 #include "EditorState.h"
 #include "PauseState.h"
+#include "Transform.h"
 
 #include <SDL.h>
 
@@ -22,6 +23,10 @@
 PlayState::PlayState() {
 	p_physics_world->Init();
 	p_level_manager->LoadLevel(p_game_manager->Level());
+	for (auto& go : p_game_obj_manager->game_object_list) {
+		if (go->GetName() == "player_character")
+			player_obj = go;
+	}
 }
 
 /*Deletes the play state by
@@ -90,6 +95,13 @@ void PlayState::Render() {
 
 void PlayState::Reset() {
 	p_level_manager->ReloadLevel();
+	for (auto& go : p_game_obj_manager->game_object_list) {
+		if (go->GetName() == "player_character")
+			player_obj = go;
+	}
+	Transform* transform_comp = static_cast<Transform*>(player_obj->HasComponent("TRANSFORM"));
+	glm::vec4 new_position(68, 104, -1, 0);
+	transform_comp->SetPosition(new_position);
 }
 
 /*Exits the state into another state

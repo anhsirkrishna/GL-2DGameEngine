@@ -12,7 +12,11 @@
 #include "BaseState.h"
 #include <vector>
 
+class GameObject;
+
 class PlayState : public BaseState {
+private:
+	GameObject* player_obj;
 public:
 	/*Initialize the play state
 	* Create the level and all the objects 

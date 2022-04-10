@@ -145,7 +145,6 @@ int main(int argc, char* args[])
 		p_editor->Init();
   
 	p_statestack_manager->Push(new PlayState());
-	p_statestack_manager->PushNewFadeOutState();
 
 	std::string fps_string;
 	while (p_game_manager->Status())
