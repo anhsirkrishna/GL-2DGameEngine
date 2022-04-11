@@ -30,6 +30,10 @@
     "BEHAVIOR": {
       "script_filename": "orb.lua"
     },
+    "HURTBOX": {
+      "offset": [ 0, 0 ],
+      "dimensions": [ 16, 16 ]
+    },
     "DEPENDANT_OBJECTS": {
       "dependant_object_names": [
         "player_character"
@@ -144,7 +148,35 @@
         "spawn_offset": [ 0, 20, 0 ],
         "recycle": false
       }
+    },
+    "NONE" : {  
+      "PARTICLE_EFFECT": {
+          "texture_name": "flame_particle",
+            "vertex_list": [
+                0, 0, 0,
+                0, 5, 0,
+                5, 5, 0,
+                5, 0, 0
+            ],
+            "color_list": [
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0,
+                0, 0, 0, 0
+            ],
+            "tex_coord_list": [
+                 0, 0,
+                 0, 0,
+                 0, 0,
+                 0, 0
+            ],
+            "particle_offset": [0, 0],
+            "max_particle_count": 5,
+            "particle_lifetime": 0,
+            "maximum_particle_velocity": [  0.0, 0.0, 0.0 ],
+            "minimum_particle_velocity": [  0.0, 0.0, 0.0 ]
+        }
     }
   },
-  "DEFAULT_STATE": "FIRE"
+  "DEFAULT_STATE": "NONE"
 }

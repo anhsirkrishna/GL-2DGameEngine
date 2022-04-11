@@ -85,6 +85,15 @@
     <Filter Include="Source Files\Obj_defs\Doors">
       <UniqueIdentifier>{5ba13080-8e01-41d7-86e6-a6857acb86fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Obj_defs\Projectiles">
+      <UniqueIdentifier>{b992018f-68c5-48c6-872d-234d9a6dc2b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Obj_defs\Pickups">
+      <UniqueIdentifier>{6867935c-b4af-41c8-9c71-b35b8e2b549e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Obj_defs\Platforms">
+      <UniqueIdentifier>{0e7adff3-4b8d-4b14-b3ff-07292716a22d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -275,6 +284,9 @@
     </ClCompile>
     <ClCompile Include="FadeOutState.cpp">
       <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Pickup.cpp">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -479,6 +491,9 @@
     <ClInclude Include="FadeOutState.h">
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
+    <ClInclude Include="Pickup.h">
+      <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="final.vert">
@@ -491,12 +506,6 @@
       <Filter>Source Files\Levels</Filter>
     </None>
     <None Include="Obj_defs\obj3.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
-    <None Include="Obj_defs\Tilemap.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
-    <None Include="Obj_defs\Tilemap1.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
     <None Include="Settings\Control_Config.json">
@@ -514,9 +523,6 @@
     <None Include="post.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="Obj_defs\ice_ball.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
     <None Include="horizontal_blur.comp">
       <Filter>Source Files\Shaders</Filter>
     </None>
@@ -525,9 +531,6 @@
     </None>
     <None Include="..\Resources\Scripts\player_move.lua">
       <Filter>Source Files\Scripts</Filter>
-    </None>
-    <None Include="Obj_defs\fire_projectile.json">
-      <Filter>Source Files\Obj_defs</Filter>
     </None>
     <None Include="..\Resources\Scripts\projectile_move.lua">
       <Filter>Source Files\Scripts</Filter>
@@ -553,13 +556,7 @@
     <None Include="Obj_defs\player_obj.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
-    <None Include="Obj_defs\test_platform.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
     <None Include="Obj_defs\orb.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
-    <None Include="Obj_defs\earth_projectile.json">
       <Filter>Source Files\Obj_defs</Filter>
     </None>
     <None Include="..\Resources\Scripts\orb.lua">
@@ -580,14 +577,8 @@
     <None Include="..\Resources\Scripts\button_action.lua">
       <Filter>Source Files\Scripts</Filter>
     </None>
-    <None Include="Obj_defs\ice_mirror.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
     <None Include="..\Resources\Scripts\ice_mirror.lua">
       <Filter>Source Files\Scripts</Filter>
-    </None>
-    <None Include="Obj_defs\tiled_platform.json">
-      <Filter>Source Files\Obj_defs</Filter>
     </None>
     <None Include="Obj_defs\square.json">
       <Filter>Source Files\Obj_defs</Filter>
@@ -612,9 +603,6 @@
     </None>
     <None Include="..\Resources\Scripts\enemy_2.lua">
       <Filter>Source Files\Scripts</Filter>
-    </None>
-    <None Include="Obj_defs\tiled_platform_2.json">
-      <Filter>Source Files\Obj_defs</Filter>
     </None>
     <None Include="..\Resources\Scripts\quit_action.lua">
       <Filter>Source Files\Scripts</Filter>
@@ -670,12 +658,6 @@
     <None Include="Obj_defs\block_11.json">
       <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
     </None>
-    <None Include="Obj_defs\tiled_platform_3.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
-    <None Include="Obj_defs\tiled_platform_4.json">
-      <Filter>Source Files\Obj_defs</Filter>
-    </None>
     <None Include="fade.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
@@ -702,6 +684,69 @@
     </None>
     <None Include="..\Resources\Scripts\flying_enemy.lua">
       <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\earth_projectile.json">
+      <Filter>Source Files\Obj_defs\Projectiles</Filter>
+    </None>
+    <None Include="Obj_defs\fire_projectile.json">
+      <Filter>Source Files\Obj_defs\Projectiles</Filter>
+    </None>
+    <None Include="Obj_defs\fire_projectile_enemy.json">
+      <Filter>Source Files\Obj_defs\Projectiles</Filter>
+    </None>
+    <None Include="Obj_defs\ice_ball.json">
+      <Filter>Source Files\Obj_defs\Projectiles</Filter>
+    </None>
+    <None Include="Obj_defs\ice_mirror.json">
+      <Filter>Source Files\Obj_defs\Projectiles</Filter>
+    </None>
+    <None Include="Obj_defs\earth_pickup.json">
+      <Filter>Source Files\Obj_defs\Pickups</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\pickup.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\test_platform.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\tiled_platform_4.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\tiled_platform.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\tiled_platform_2.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\tiled_platform_3.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\Tilemap.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\Tilemap1.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\platform3x2.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\platform5x2.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\platformb.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\platformb1.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\platformb2.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\platform8x2.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
+    </None>
+    <None Include="Obj_defs\platform2x1.json">
+      <Filter>Source Files\Obj_defs\Platforms</Filter>
     </None>
   </ItemGroup>
 </Project>

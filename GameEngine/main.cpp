@@ -156,7 +156,7 @@ int main(int argc, char* args[])
 
 		p_framerate_controller->end_game_loop();
 		fps_string = "FPS" + std::to_string(p_editor->last_frame_fps);
-		SDL_Log(fps_string.c_str());
+		//SDL_Log(fps_string.c_str());
 	}
 
 	if (RUN_WITH_EDITOR)
