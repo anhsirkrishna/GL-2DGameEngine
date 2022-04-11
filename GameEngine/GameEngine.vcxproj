@@ -296,6 +296,7 @@
     <None Include="..\Resources\Scripts\enemy_1.lua" />
     <None Include="..\Resources\Scripts\enemy_2.lua" />
     <None Include="..\Resources\Scripts\fireblock.lua" />
+    <None Include="..\Resources\Scripts\flying_enemy.lua" />
     <None Include="..\Resources\Scripts\fullscreen_action.lua" />
     <None Include="..\Resources\Scripts\ice_mirror.lua" />
     <None Include="..\Resources\Scripts\orb.lua" />

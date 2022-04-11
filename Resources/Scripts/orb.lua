@@ -9,6 +9,8 @@ triggered = 1
 released = 2
 inactive = 3
 
+timer_till_can_shoot = 20
+
 timer = timer + adder
 
 if timer == 60*3 then

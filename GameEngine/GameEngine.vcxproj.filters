@@ -682,6 +682,9 @@
     <None Include="..\Resources\Scripts\fireblock.lua">
       <Filter>Source Files\Scripts</Filter>
     </None>
+    <None Include="..\Resources\Scripts\flying_enemy.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
     <None Include="Obj_defs\earth_projectile.json">
       <Filter>Source Files\Obj_defs\Projectiles</Filter>
     </None>

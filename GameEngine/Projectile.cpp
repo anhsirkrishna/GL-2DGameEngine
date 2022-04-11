@@ -33,6 +33,7 @@ void Projectile::Serialize(json json_object) {
 		instance_count[current_state] = json_object["instance_count"].get<int>();
 		auto offset = json_object["spawn_offset"].get<std::vector<float>>();
 		spawn_offset[current_state] = glm::vec3(offset[0], offset[1], offset[2]);
+		recycle[current_state] = json_object["recycle"].get<bool>();
 
 		std::string projectile_name = "_Projectile";
 		GameObjectFactory go_factory;

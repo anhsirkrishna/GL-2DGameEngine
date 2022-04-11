@@ -4,8 +4,8 @@ right_action = 1
 jump_action = 2
 attack_action = 3
 burst_jump_action = 4
-time_till_health_disable = 120
-time_till_can_shoot = 120
+time_till_health_disable = 20
+time_till_can_shoot = 20
 
 pressed = 0
 triggered = 1
@@ -130,28 +130,17 @@ if get_state() ~= "DIE" then
 		end
 	end
 
-	if check_action_state(attack_action, triggered) and timer_2 <= 0 then
-	--	ThrowProjectile()
+	if check_action_state(attack_action, triggered) and timer_2 > time_till_can_shoot then
 		change_state("ATTACK")
-		timer_2 = time_till_can_shoot
+		timer_2 = 0
 	end
-
-	-- timer till health can be decremented again
-	if timer > 0 then
-		timer = timer - 5
-	end
-
-	if timer_2 > 0 then
-		timer_2 = timer_2 - 5
-	end
-
 
 	if received_event then
 		received_event = false
-		if hit_event and timer <= 0 then
+		if hit_event and timer > time_till_health_disable then
 			hit_event = false
 			decr_health()	
-			timer = time_till_health_disable
+			timer = 0
 			if get_health() == 0 then
 				set_transform_scale(1 * hit_direction, 1)  --Make sure the sprite is facing right
 				Die()
