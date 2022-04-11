@@ -1,0 +1,49 @@
+{
+   "COMPONENTS": {
+    "TRANSFORM": {},
+    "PARTICLE_EFFECT": {
+        "texture_name": "flame_particle",
+          "vertex_list": [
+              0, 0, 0,
+              0, 5, 0,
+              5, 5, 0,
+              5, 0, 0
+          ],
+          "color_list": [
+              550, 100, 30, 255,
+              550, 100, 30, 255,
+              550, 100, 30, 255,
+              550, 100, 30, 255
+          ],
+          "tex_coord_list": [
+               0,   0,
+               0, 512,
+             512, 512,
+             512,  0
+          ],
+          "particle_offset": [0, 0],
+          "max_particle_count": 200,
+          "particle_lifetime": 1000,
+          "maximum_particle_velocity": [  3, -7, 0.0 ],
+          "minimum_particle_velocity": [ -3,   1, 0.0 ]
+      },
+    "BEHAVIOR": {
+      "script_filename": "pickup.lua"
+    },
+    "DEPENDANT_OBJECTS": {
+      "dependant_object_names": [
+        "xelement_orb"
+      ]
+    },
+    "PICKUP": {
+      "offset": [ 0, 0 ],
+      "dimensions": [ 32, 32 ],
+      "enabled":  true
+    }
+   },
+  "STATES": {
+    "DEFAULT": {
+    }
+  },
+  "DEFAULT_STATE": "DEFAULT"
+}

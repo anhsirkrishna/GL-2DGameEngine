@@ -353,6 +353,19 @@
             1.0
         ]
     },
+    "fire_pickup": {
+        "obj_def": "fire_pickup",
+        "starting_position": [
+            2634.0,
+            -58.0,
+            -1.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "fireblock_1": {
         "obj_def": "fire_block",
         "starting_position": [
@@ -433,6 +446,19 @@
             922.0,
             357.20001220703125,
             0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "ice_pickup": {
+        "obj_def": "ice_pickup",
+        "starting_position": [
+            3568.0,
+            898.0,
+            -1.0,
             0.0
         ],
         "starting_scale": [
@@ -739,6 +765,58 @@
             1.0
         ]
     },
+    "platform_b15": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            1600.0,
+            226.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b16": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            1722.0,
+            172.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b17": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            1698.0,
+            32.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b18": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            1756.0,
+            -82.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "platform_b2": {
         "obj_def": "platform3x2",
         "starting_position": [
@@ -820,8 +898,8 @@
     "platform_b8": {
         "obj_def": "platformb",
         "starting_position": [
-            2044.800048828125,
-            -250.1999969482422,
+            2042.0,
+            -182.0,
             0.0,
             0.0
         ],
