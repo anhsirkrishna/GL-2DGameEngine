@@ -24,6 +24,8 @@ enum class EventID
 	activate,
 	win,
 	lose,
+	pickup,
+	picked_up,
 	NUM
 };
 
@@ -39,6 +41,8 @@ static const EventID all_events[] = {
 	EventID::activate,
 	EventID::win,
 	EventID::lose,
+	EventID::pickup,
+	EventID::picked_up,
 	EventID::NUM };
 
 class GameObject;

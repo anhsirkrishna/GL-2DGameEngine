@@ -31,6 +31,7 @@
 #include "JumpTriggerReceiverBox.h"
 #include "JumpTriggerBox.h"
 #include "Health.h"
+#include "Pickup.h"
 
 /*Componentcreator create method
 * Creates a new instance of the component in question.
@@ -173,4 +174,10 @@ Component* HealthCreator::Create(json json_object)
 	Health* new_health = new Health;
 	new_health->Serialize(json_object);
 	return static_cast<Component*>(new_health);
+}
+
+Component* PickupCreator::Create(json json_object) {
+	Pickup* new_pickup = new Pickup;
+	new_pickup->Serialize(json_object);
+	return static_cast<Component*>(new_pickup);
 }

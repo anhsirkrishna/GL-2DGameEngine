@@ -39,7 +39,7 @@
       "script_filename": "player_move.lua"
     },
     "COLLIDER": {
-      "collider_offset_params": [ 18, 18, 12, 30 ]
+      "collider_offset_params": [ 18, 26, 12, 22 ]
     },
     "MOVEMENT": {
       "gravity_on": true

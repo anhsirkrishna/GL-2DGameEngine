@@ -52,19 +52,44 @@ set_pos_coord(new_x_coord, 0)
 set_pos_coord(y_coord, 1)
 
 if check_action_state(fire_action, triggered) then
-	change_state("FIRE")
+	--Only enable fire power if powerup is collected
+	if power_count > 1 then
+		change_state("FIRE")
+	end
 elseif check_action_state(ice_action, triggered) then
-	change_state("ICE")
+	--Only enable ice power if powerup is collected
+	if power_count > 2 then
+		change_state("ICE")
+	end
 elseif check_action_state(earth_action, triggered) then
-	change_state("EARTH")
+	--Only enable earth power if powerup is collected
+	if power_count > 0 then
+		change_state("EARTH")
+	end
 end
 
-
 if check_action_state(attack_action, triggered) then
-	--Set the z coord to 0 before spawning projectile 
-	--to ensure that the projectile is spawned at z=0
-	set_pos_coord(0, 2)
-	ThrowProjectile()
+	if get_state() ~= "NONE" then
+		--Set the z coord to 0 before spawning projectile 
+		--to ensure that the projectile is spawned at z=0
+		set_pos_coord(0, 2)
+		ThrowProjectile()
+	end
+end
+
+if received_event then
+	received_event = false
+	if pickup_event then
+		pickup_event = false
+		power_count = power_count + 1
+		if power_count == 1 then
+			change_state("EARTH")
+		elseif power_count == 2 then
+			change_state("FIRE")
+		elseif power_count == 3 then
+			change_state("ICE")
+		end
+	end
 end
 
 --zaxis movement

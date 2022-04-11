@@ -148,3 +148,9 @@ class HealthCreator : public ComponentCreator {
 public:
 	virtual Component* Create(json json_object);
 };
+
+// Creates instance of Health component
+class PickupCreator : public ComponentCreator {
+public:
+	virtual Component* Create(json json_object);
+};

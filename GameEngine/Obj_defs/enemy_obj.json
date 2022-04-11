@@ -54,7 +54,7 @@
       "dimensions": [ 6, 15 ]
     },
     "PROJECTILE": {
-      "instance_def": "fire_projectile",
+      "instance_def": "fire_projectile_enemy",
       "instance_count": 1,
       "spawn_offset": [ 0, 30, 0 ]
     },
