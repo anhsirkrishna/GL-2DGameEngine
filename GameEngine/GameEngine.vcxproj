@@ -328,9 +328,11 @@
     <None Include="Obj_defs\earth_pickup.json" />
     <None Include="Obj_defs\enemy_obj_no_ai.json" />
     <None Include="Obj_defs\fire_block.json" />
+    <None Include="Obj_defs\fire_pickup.json" />
     <None Include="Obj_defs\fire_projectile_enemy.json" />
     <None Include="Obj_defs\floor_1.json" />
     <None Include="Obj_defs\ice_mirror.json" />
+    <None Include="Obj_defs\ice_pickup.json" />
     <None Include="Obj_defs\kill_zone.json" />
     <None Include="Obj_defs\left_wall_1.json" />
     <None Include="Obj_defs\Lose_UI.json" />

@@ -748,5 +748,11 @@
     <None Include="Obj_defs\platform2x1.json">
       <Filter>Source Files\Obj_defs\Platforms</Filter>
     </None>
+    <None Include="Obj_defs\fire_pickup.json">
+      <Filter>Source Files\Obj_defs\Pickups</Filter>
+    </None>
+    <None Include="Obj_defs\ice_pickup.json">
+      <Filter>Source Files\Obj_defs\Pickups</Filter>
+    </None>
   </ItemGroup>
 </Project>
