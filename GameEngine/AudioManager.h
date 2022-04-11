@@ -25,8 +25,10 @@ public:
 	AudioManager();
 	~AudioManager();
 	void CreateSound(std::string filename);
+	void CreateLoopingSound(std::string filename);
 	void Play(std::string sound_name) const;
 	void SetMasterVolume(float volume);
+	void StopAllSounds();
 	void Update();
 	void Cleanup();
 };

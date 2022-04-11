@@ -25,6 +25,7 @@ end
 
 function Die()
 	if get_state() ~= "DIE" then
+		play_sound("hurt.wav")
 		change_state("DIE")
 		move(0)
 		set_transform_scale(1 * hit_direction, 1)  --Make sure the sprite is facing right
@@ -35,6 +36,7 @@ end
 
 function Jump()
 	if get_state() ~= "JUMP" and get_state() ~= "DIE" then
+		play_sound("jump.wav")
 		change_state("JUMP")
 		jump(jump_speed)
 	end
@@ -42,6 +44,7 @@ end
 
 if get_state() == "ATTACK" then
 	if is_animation_completed() == true then
+		--play_sound("fireball.wav")
 		change_state("IDLE")
 	end
 end

@@ -23,6 +23,7 @@ timer_2 = timer_2 + adder -- for shooting
 
 function Die()
 	if get_state() ~= "DIE" then
+		play_sound("hurt.wav")
 		change_state("DIE")
 		move(0)
 		--Send an event id 5, with a delay of 0 ms, with broadcast=false

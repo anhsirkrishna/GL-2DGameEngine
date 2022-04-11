@@ -15,6 +15,7 @@ timer_2 = timer_2 + adder
 
 function Die()
 	if get_state() ~= "DIE" then
+		play_sound("hurt.wav")
 		change_state("DIE")
 		move(0)
 		set_transform_scale(1 * hit_direction, 1)  --Make sure the sprite is facing right
@@ -26,12 +27,12 @@ end
 
 if received_event then
 	received_event = false
-	if hit_event then
-		hit_event = false
+	if hit_event thend
 		Die()
 	end
 	if jump_event then
 		jump_event = false
+		play_sound("jump.wav")
 		Jump()
 	end
 end
