@@ -27,7 +27,7 @@ end
 
 if received_event then
 	received_event = false
-	if hit_event thend
+	if hit_event then
 		Die()
 	end
 	if jump_event then
