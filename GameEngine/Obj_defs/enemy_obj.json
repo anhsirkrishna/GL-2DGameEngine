@@ -54,14 +54,14 @@
       "dimensions": [ 6, 15 ]
     },
     "PROJECTILE": {
-      "instance_def": "fire_projectile",
+      "instance_def": "fire_projectile_enemy",
       "instance_count": 1,
-      "spawn_offset": [ 0, 30, 0 ]
+      "spawn_offset": [ 0, 30, 0 ],
+      "recycle": true
     },
     "JUMP_TRIGGER_RECEIVER_BOX": {
-      "offset": [ 20, 20 ],
-      "dimensions": [ 6, 15 ],
-      "spawn_offset": [ 10, 10, 0 ]
+      "offset": [ 0, 0 ],
+      "dimensions": [ 12, 30 ]
     }
   },
   "STATES": {

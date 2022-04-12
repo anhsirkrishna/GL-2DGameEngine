@@ -236,11 +236,24 @@
             1.0
         ]
     },
+    "earth_pickup": {
+        "obj_def": "earth_pickup",
+        "starting_position": [
+            1408.0,
+            -67,
+            -1.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "enemy_1": {
         "obj_def": "enemy_obj",
         "starting_position": [
             2134.2509765625,
-            62.226585388183594,
+            62.399993896484375,
             -3.4666666984558105,
             0.0
         ],
@@ -253,7 +266,7 @@
         "obj_def": "enemy_obj",
         "starting_position": [
             1644.550048828125,
-            812.0265502929688,
+            812.2000122070313,
             -3.4666666984558105,
             0.0
         ],
@@ -266,7 +279,7 @@
         "obj_def": "enemy_obj",
         "starting_position": [
             2104.64990234375,
-            812.0265502929688,
+            812.2000122070313,
             -3.4666666984558105,
             0.0
         ],
@@ -279,7 +292,7 @@
         "obj_def": "enemy_obj",
         "starting_position": [
             1250.398681640625,
-            1746.420166015625,
+            1834.0,
             -3.4666666984558105,
             0.0
         ],
@@ -292,7 +305,7 @@
         "obj_def": "enemy_obj",
         "starting_position": [
             2937.14990234375,
-            1500.0264892578125,
+            1500.199951171875,
             -3.4666666984558105,
             0.0
         ],
@@ -305,7 +318,7 @@
         "obj_def": "enemy_obj",
         "starting_position": [
             1883.050048828125,
-            1541.6265869140625,
+            1541.800048828125,
             -3.4666666984558105,
             0.0
         ],
@@ -318,7 +331,7 @@
         "obj_def": "enemy_obj",
         "starting_position": [
             1507.050048828125,
-            1541.77001953125,
+            1541.800048828125,
             -3.4666666984558105,
             0.0
         ],
@@ -331,8 +344,21 @@
         "obj_def": "enemy_obj",
         "starting_position": [
             2007.75,
-            1541.6265869140625,
+            1541.800048828125,
             -3.4666666984558105,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "fire_pickup": {
+        "obj_def": "fire_pickup",
+        "starting_position": [
+            2634.0,
+            -58.0,
+            -1.0,
             0.0
         ],
         "starting_scale": [
@@ -420,6 +446,19 @@
             922.0,
             357.20001220703125,
             0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "ice_pickup": {
+        "obj_def": "ice_pickup",
+        "starting_position": [
+            3568.0,
+            898.0,
+            -1.0,
             0.0
         ],
         "starting_scale": [
@@ -649,10 +688,10 @@
         ]
     },
     "platform_b1": {
-        "obj_def": "platform5x2",
+        "obj_def": "platform8x2",
         "starting_position": [
-            956.2000122070313,
-            258.6000061035156,
+            980.0,
+            258.0,
             0.0,
             0.0
         ],
@@ -674,11 +713,115 @@
             1.0
         ]
     },
-    "platform_b2": {
-        "obj_def": "platform5x2",
+    "platform_b11": {
+        "obj_def": "platform2x1",
         "starting_position": [
-            1144.5999755859375,
-            188.39999389648438,
+            1046.0,
+            132.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b12": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            1112.0,
+            176.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b13": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            1032.0,
+            14.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b14": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            895.0,
+            32.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b15": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            1600.0,
+            226.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b16": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            1722.0,
+            172.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b17": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            1698.0,
+            32.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b18": {
+        "obj_def": "platform2x1",
+        "starting_position": [
+            1756.0,
+            -82.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_b2": {
+        "obj_def": "platform3x2",
+        "starting_position": [
+            1260.0,
+            224.0,
             0.0,
             0.0
         ],
@@ -704,7 +847,7 @@
         "obj_def": "platform3x2",
         "starting_position": [
             895.4000244140625,
-            45.599998474121094,
+            64.0,
             0.0,
             0.0
         ],
@@ -755,8 +898,8 @@
     "platform_b8": {
         "obj_def": "platformb",
         "starting_position": [
-            2044.800048828125,
-            -250.1999969482422,
+            2042.0,
+            -182.0,
             0.0,
             0.0
         ],
@@ -807,8 +950,8 @@
     "player_character": {
         "obj_def": "player_obj",
         "starting_position": [
-            68.1989974975586,
-            103.427001953125,
+            68.1989,
+            103.427,
             -1.0,
             0.0
         ],
@@ -911,12 +1054,12 @@
     "win_lose_condition": {
         "obj_def": "win_lose_check"
     },
-    "xfire_orb": {
+    "xelement_orb": {
         "obj_def": "orb",
         "starting_position": [
-            84.3740005493164,
-            269.8265686035156,
-            2.6777777671813965,
+            84.374,
+            269.8265,
+            2.67777,
             0.0
         ]
     }

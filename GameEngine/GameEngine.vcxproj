@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Behavior.cpp" />
@@ -220,6 +221,7 @@
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Pickup.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="BaseState.h" />
@@ -294,9 +296,11 @@
     <None Include="..\Resources\Scripts\enemy_1.lua" />
     <None Include="..\Resources\Scripts\enemy_2.lua" />
     <None Include="..\Resources\Scripts\fireblock.lua" />
+    <None Include="..\Resources\Scripts\flying_enemy.lua" />
     <None Include="..\Resources\Scripts\fullscreen_action.lua" />
     <None Include="..\Resources\Scripts\ice_mirror.lua" />
     <None Include="..\Resources\Scripts\orb.lua" />
+    <None Include="..\Resources\Scripts\pickup.lua" />
     <None Include="..\Resources\Scripts\platform_projectile.lua" />
     <None Include="..\Resources\Scripts\player_move.lua" />
     <None Include="..\Resources\Scripts\projectile_move.lua" />
@@ -321,10 +325,14 @@
     <None Include="Obj_defs\block_8.json" />
     <None Include="Obj_defs\block_9.json" />
     <None Include="Obj_defs\ceiling_1.json" />
+    <None Include="Obj_defs\earth_pickup.json" />
     <None Include="Obj_defs\enemy_obj_no_ai.json" />
     <None Include="Obj_defs\fire_block.json" />
+    <None Include="Obj_defs\fire_pickup.json" />
+    <None Include="Obj_defs\fire_projectile_enemy.json" />
     <None Include="Obj_defs\floor_1.json" />
     <None Include="Obj_defs\ice_mirror.json" />
+    <None Include="Obj_defs\ice_pickup.json" />
     <None Include="Obj_defs\kill_zone.json" />
     <None Include="Obj_defs\left_wall_1.json" />
     <None Include="Obj_defs\Lose_UI.json" />
@@ -339,6 +347,13 @@
     <None Include="Obj_defs\jump_trigger_box.json" />
     <None Include="Obj_defs\obj3.json" />
     <None Include="Obj_defs\orb.json" />
+    <None Include="Obj_defs\platform2x1.json" />
+    <None Include="Obj_defs\platform3x2.json" />
+    <None Include="Obj_defs\platform5x2.json" />
+    <None Include="Obj_defs\platform8x2.json" />
+    <None Include="Obj_defs\platformb.json" />
+    <None Include="Obj_defs\platformb1.json" />
+    <None Include="Obj_defs\platformb2.json" />
     <None Include="Obj_defs\player_obj.json" />
     <None Include="Obj_defs\right_wall_1.json" />
     <None Include="Obj_defs\right_wall_2.json" />

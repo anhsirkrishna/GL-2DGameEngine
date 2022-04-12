@@ -23,15 +23,25 @@
     },
     "TRANSFORM": {},
     "PATHFINDER": {},
+    "HURTBOX": {
+        "dimensions": [ 20, 20 ],
+        "offset": [0, 0]
+    },
     "COLLIDER": {
       "collider_offset_params": [ 0, 0, 20, 20 ]
     },
     "MOVEMENT": {
       "gravity_on": false
+    },
+    "HEALTH": {
+      "health_val": 2
+    },
+    "BEHAVIOR": {
+      "script_filename": "flying_enemy.lua"
     }
   },
   "STATES": {
-    "DEFAULT" : {}
+    "DEFAULT": {}
   },
   "DEFAULT_STATE": "DEFAULT"
 }

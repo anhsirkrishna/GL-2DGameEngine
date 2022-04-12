@@ -21,7 +21,7 @@
 * Create the level and all the objects
 * within the level
 */
-PlayState::PlayState() {
+PlayState::PlayState() : player_obj(nullptr) {
 	p_physics_world->Init();
 	p_level_manager->LoadLevel(p_game_manager->Level());
 	for (auto& go : p_game_obj_manager->game_object_list) {

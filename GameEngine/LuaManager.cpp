@@ -61,6 +61,7 @@ void LuaManager::RegGlobals(sol::state& state) {
 	state.set("timer", 0);
 	state.set("timer_2", 2);
 	state.set("adder", 1);
+	state.set("power_count", 0);
 
 	state.set_function("statestack_pop", &StateStackManager::Pop, p_statestack_manager);
 	state.set_function("statestack_push_lose", &StateStackManager::PushLoseState, p_statestack_manager);
@@ -173,12 +174,6 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 		state.set_function("get_dependant_obj_scale_y", &DependantObjects::GetDependantObjectScaleY, dependant_objects);
 	}
 
-	//comp = obj->HasComponent("ENEMYPROJECTILE");
-	//if (comp != nullptr) {
-	//	EnemyProjectile* enemy_projectile = dynamic_cast<EnemyProjectile*>(comp);
-	//	state.set_function("spawn_enemy_projectile", &EnemyProjectile::SpawnProjectile, enemy_projectile);
-	//}
-
 	comp = obj->HasComponent("HEALTH");
 	if (comp != nullptr) {
 		Health* health = dynamic_cast<Health*>(comp);
@@ -198,6 +193,8 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 		state["activate_event"] = false;
 		state["jump_event"] = false;
 		state["lose_event"] = false;
+		state["pickedup_event"] = false;
+		state["pickup_event"] = false;
 		switch (p_event->event_id) {
 			case EventID::hit:
 				state["hit_event"] = true;
@@ -214,6 +211,12 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 				break;
 			case EventID::lose:
 				state["lose_event"] = true;
+				break;
+			case EventID::picked_up:
+				state["pickedup_event"] = true;
+				break;
+			case EventID::pickup:
+				state["pickup_event"] = true;
 				break;
 		}
 	}

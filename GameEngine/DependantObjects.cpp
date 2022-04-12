@@ -65,6 +65,11 @@ float DependantObjects::GetDependantObjectScaleY(int obj_index) {
 	return follow_transform->GetScaleY();
 }
 
+GameObject* DependantObjects::GetDependtantObjectPointer(int obj_index) {
+	SDL_assert(p_dependant_objects[obj_index] != nullptr);
+	return p_dependant_objects[obj_index];
+}
+
 bool DependantObjects::IsObjectDependant(GameObject* dependant_obj) {
 	for (auto& p_obj : p_dependant_objects)
 	{

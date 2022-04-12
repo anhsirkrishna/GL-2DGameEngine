@@ -33,6 +33,7 @@ ComponentFactory::ComponentFactory() {
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("JUMP_TRIGGER_RECEIVER_BOX", new JumpTriggerReceiverBoxCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("JUMP_TRIGGER_BOX", new JumpTriggerBoxCreator));
 	creator_map.insert(std::pair<std::string, ComponentCreator*>("HEALTH", new HealthCreator));
+	creator_map.insert(std::pair<std::string, ComponentCreator*>("PICKUP", new PickupCreator));
 }
 
 ComponentFactory::~ComponentFactory() {
