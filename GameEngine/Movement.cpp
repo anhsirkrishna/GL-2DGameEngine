@@ -11,6 +11,7 @@
 
 #include "Movement.h"
 #include "InputManager.h"
+#include "AudioManager.h"
 #include "FrameRateController.h"
 #include "GameObject.h"
 #include "Transform.h"
@@ -58,6 +59,9 @@ void Movement::Jump(float vel_y)
 {
 	EnableGravity();
 	velocity.y = -vel_y;
+
+	p_audio_manager->Play("jumping.wav");
+
 }
 
 // Serialize method. Nothing to do for the movement component

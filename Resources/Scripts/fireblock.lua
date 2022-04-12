@@ -2,6 +2,9 @@
 
 
 function Destroy()
+
+	play_sound("fireball_hit.wav")
+
 	delayed_disable_obj(0)
 end
 

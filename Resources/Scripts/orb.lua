@@ -23,6 +23,16 @@ end
 
 function ThrowProjectile()
 	spawn_projectile()
+
+	if get_state() == "FIRE" then
+		play_sound("fireball.wav")
+	elseif get_state() == "EARTH" then
+		play_sound("dirt.wav")
+	elseif get_state() == "ICE" then
+		play_sound("shield.wav")
+	end
+
+
 end
 
 --player characters scale. object_index = 0

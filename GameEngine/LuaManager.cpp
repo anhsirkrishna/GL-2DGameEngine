@@ -31,6 +31,7 @@
 #include "StatestackManager.h"
 #include "Health.h"
 #include "GameManager.h"
+#include "AudioManager.h"
 
 #include <SDL.h>
 
@@ -69,6 +70,8 @@ void LuaManager::RegGlobals(sol::state& state) {
 	state.set_function("statestack_push_fade_out", &StateStackManager::PushNewFadeOutState, p_statestack_manager);
 
 	state.set_function("quit_game", &GameManager::Quit, p_game_manager);
+
+	state.set_function("play_sound", &AudioManager::Play, p_audio_manager);
 }
 
 // registers player movement functions from the Movement component

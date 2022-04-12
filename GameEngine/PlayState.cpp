@@ -10,6 +10,7 @@
 #include "GraphicsManager.h"
 #include "ShaderProgram.h"
 #include "StatestackManager.h"
+#include "AudioManager.h"
 #include "EditorState.h"
 #include "PauseState.h"
 #include "Transform.h"
@@ -27,6 +28,8 @@ PlayState::PlayState() : player_obj(nullptr) {
 		if (go->GetName() == "player_character")
 			player_obj = go;
 	}
+
+	p_audio_manager->Play("bass.wav");
 }
 
 /*Deletes the play state by
@@ -94,6 +97,11 @@ void PlayState::Render() {
 }
 
 void PlayState::Reset() {
+
+	p_audio_manager->StopAllSounds();
+
+	p_audio_manager->Play("bass.wav");
+
 	p_level_manager->ReloadLevel();
 	for (auto& go : p_game_obj_manager->game_object_list) {
 		if (go->GetName() == "player_character")

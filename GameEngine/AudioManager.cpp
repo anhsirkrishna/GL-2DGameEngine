@@ -38,7 +38,14 @@ AudioManager::AudioManager() {
 
 	SetMasterVolume(0.1f);
 
-	CreateSound("bass.wav");
+	CreateLoopingSound("bass.wav");
+	CreateSound("fireball.wav");
+	CreateSound("jumping.wav");
+	CreateSound("dirt.wav");
+	CreateSound("shield.wav");
+	CreateSound("hurt.wav");
+	CreateSound("fireball_hit.wav");
+	
 }
 
 // creates a sounds from a .wav file
@@ -52,6 +59,7 @@ void AudioManager::CreateSound(std::string filename) {
 
 	result = system->createSound(file_path.c_str(), FMOD_DEFAULT, 0, &sample);
 
+
 #if DEBUG
 
 	if (result != FMOD_OK)
@@ -63,6 +71,31 @@ void AudioManager::CreateSound(std::string filename) {
 	sound_map[filename] = sample;
 
 }
+
+// creates a sounds from a .wav file
+void AudioManager::CreateLoopingSound(std::string filename) {
+
+	std::string file_path = "..\\Resources\\";
+	file_path = file_path + filename;
+
+	FMOD::Sound* sample;
+	FMOD_RESULT result;
+
+	result = system->createSound(file_path.c_str(), FMOD_LOOP_NORMAL, 0, &sample);
+
+#if DEBUG
+
+	if (result != FMOD_OK)
+		printf("FMOD error! (%d) \n", result);
+
+#endif
+
+	// puts the sound pointer in the map, with the filename as a key
+	sound_map[filename] = sample;
+
+}
+
+
 
 // plays a sound, if it's already loaded in the sound map
 void AudioManager::Play(std::string sound_name) const {
@@ -89,6 +122,12 @@ void AudioManager::SetMasterVolume(float volume) {
 
 	master_channel->setVolume(volume);
 }
+
+void AudioManager::StopAllSounds() {
+
+	master_channel->stop();
+}
+
 
 // updates FMOD::System
 void AudioManager::Update() {
