@@ -14,6 +14,7 @@
 #include "LoseState.h"
 #include "PlayState.h"
 #include "FadeOutState.h"
+#include "WinState.h"
 
 void StateStackManager::Update() {
 	state_stack.back()->Update();
@@ -52,9 +53,10 @@ void StateStackManager::Push(BaseState* p_state) {
 }
 
 void StateStackManager::Pop() {
-	state_stack.back()->Exit();
-	to_delete.push_back(state_stack.back());
+	BaseState* popped_state = state_stack.back();
+	to_delete.push_back(popped_state);
 	state_stack.pop_back();
+	popped_state->Exit();
 }
 
 StateStackManager::~StateStackManager() {
@@ -63,6 +65,10 @@ StateStackManager::~StateStackManager() {
 
 void StateStackManager::PushLoseState() {
 	Push(new LoseState());
+}
+
+void StateStackManager::PushWinState() {
+	Push(new WinState());
 }
 
 void StateStackManager::PushNewGameState() {

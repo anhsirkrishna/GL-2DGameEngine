@@ -153,7 +153,7 @@ if get_state() ~= "DIE" then
 		received_event = false
 		if hit_event and timer > time_till_health_disable then
 			hit_event = false
-			decr_health()	
+			decr_health()
 			timer = 0
 			if get_health() == 0 then
 				set_transform_scale(1 * hit_direction, 1)  --Make sure the sprite is facing right

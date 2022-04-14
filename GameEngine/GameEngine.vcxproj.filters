@@ -288,6 +288,12 @@
     <ClCompile Include="Pickup.cpp">
       <Filter>Source Files\Components\GameplayComponents</Filter>
     </ClCompile>
+    <ClCompile Include="WinState.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="StartState.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -493,6 +499,12 @@
     </ClInclude>
     <ClInclude Include="Pickup.h">
       <Filter>Source Files\Components\GameplayComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="WinState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="StartState.h">
+      <Filter>Source Files\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -753,6 +765,12 @@
     </None>
     <None Include="Obj_defs\ice_pickup.json">
       <Filter>Source Files\Obj_defs\Pickups</Filter>
+    </None>
+    <None Include="Obj_defs\Win_UI.json">
+      <Filter>Source Files\UI_defs</Filter>
+    </None>
+    <None Include="Obj_defs\StartScreen_UI.json">
+      <Filter>Source Files\UI_defs</Filter>
     </None>
   </ItemGroup>
 </Project>

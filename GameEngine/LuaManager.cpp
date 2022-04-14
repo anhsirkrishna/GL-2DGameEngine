@@ -68,6 +68,7 @@ void LuaManager::RegGlobals(sol::state& state) {
 	state.set_function("statestack_push_play", &StateStackManager::PushNewGameState, p_statestack_manager);
 	state.set_function("statestack_reset_top", &StateStackManager::Reset, p_statestack_manager);
 	state.set_function("statestack_push_fade_out", &StateStackManager::PushNewFadeOutState, p_statestack_manager);
+	state.set_function("statestack_push_win", &StateStackManager::PushWinState, p_statestack_manager);
 
 	state.set_function("quit_game", &GameManager::Quit, p_game_manager);
 
@@ -185,6 +186,7 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 		Health* health = dynamic_cast<Health*>(comp);
 		state.set_function("get_health", &Health::GetHealth, health);
 		state.set_function("decr_health", &Health::DecrementHealth, health);
+		state.set_function("die_health", &Health::Die, health);
 	}
 }
 
@@ -199,6 +201,7 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 		state["activate_event"] = false;
 		state["jump_event"] = false;
 		state["lose_event"] = false;
+		state["win_event"] = false;
 		state["pickedup_event"] = false;
 		state["pickup_event"] = false;
 		switch (p_event->event_id) {
@@ -217,6 +220,9 @@ void LuaManager::RegEvents(sol::state& state, TimedEvent* p_event) {
 				break;
 			case EventID::lose:
 				state["lose_event"] = true;
+				break;
+			case EventID::win:
+				state["win_event"] = true;
 				break;
 			case EventID::picked_up:
 				state["pickedup_event"] = true;

@@ -1,6 +1,6 @@
 /******************************************************************************/
 /*!
-/*File   GamePlayState.h
+/*File   StartState.h
 /*Author Krishna Pillai
 /*Email: krishna.pillai@digipen.edu
 /*Date   01/25/2022
@@ -12,24 +12,14 @@
 #include "BaseState.h"
 #include <vector>
 
-class GameObject;
-class Health;
-
-class PlayState : public BaseState {
-private:
-	GameObject* player_obj;
-	std::vector<Health*> enemy_obj_health_list;
+class StartState : public BaseState {
 public:
-	/*Initialize the play state
-	* Create the level and all the objects 
-	* within the level
+	/*Initialize the Lose state
 	*/
-	PlayState();
-	/*Deletes the play state by
-	* clearing the level and cleaning
-	* up all the objects
+	StartState();
+	/*Deletes the Lose state
 	*/
-	virtual ~PlayState();
+	virtual ~StartState();
 	/*Enters the state from another state
 	* Doesn't need any special action
 	* Returns: void
@@ -40,7 +30,7 @@ public:
 	* Returns: void
 	*/
 	virtual void Exit();
-	/*Basic update call for the PlayState
+	/*Basic update call for the StartState
 	* Calls Update on all the gameobjects
 	* Calls Update on all the required managers
 	* Returns: void
@@ -50,15 +40,4 @@ public:
 	* Returns: void
 	*/
 	virtual void Render();
-
-	/*Restart the level
-	* Returns void
-	*/
-	virtual void Reset();
-
-	/*Check if all the enemy objects are dead
-	* if they are dead then mark as win
-	* Return : bool
-	*/
-	bool CheckWinCondition();
 };

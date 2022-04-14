@@ -34,6 +34,9 @@
       "looping": true,
       "interval": 8
     },
+    "HEALTH": {
+      "health_val": 1
+    },
     "TRANSFORM": {},
     "BEHAVIOR": {
       "script_filename": "enemy_2.lua"

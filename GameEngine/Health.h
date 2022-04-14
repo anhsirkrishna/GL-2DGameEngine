@@ -22,5 +22,7 @@ public:
 
     void DecrementHealth();
     int GetHealth();
+    bool IsDead();
+    void Die();
 };
 
