@@ -27,6 +27,8 @@ private:
 	float mass;
 	glm::vec4 velocity;
 
+	bool infinite_jump = false;
+
 public:
 
 	// Default ctor for Rigidbody
@@ -81,6 +83,10 @@ public:
 	* Returns: void
 	*/
 	virtual void HandleEvent(TimedEvent* p_event);
+
+	void ToggleInfiniteJump();
+
+	bool CanInfiniteJump();
 
 	Transform* p_owner_transform;
 };

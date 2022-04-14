@@ -1,8 +1,19 @@
 up_arrow_scancode = 82
 down_arrow_scancode = 81
+scancode_9 = 38
 
 --Set the window width and height
 set_window_dimensions(WINDOW_WIDTH, WINDOW_HEIGHT)
+
+if is_released(scancode_9) then
+	toggle_unlocked()
+end
+
+
+if is_unlocked() then
+	goto exit
+end
+
 
 --player characters x position
 follow_obj_x = get_follow_obj_x(20.0)
@@ -44,3 +55,5 @@ end
 
 --Clamp the camera to the limits of the scene
 clamp_camera()
+
+::exit::

@@ -4,6 +4,7 @@
 #include "ControlSchemeManager.h"
 #include "LuaManager.h"
 #include "StatestackManager.h"
+#include "GameObjectManager.h"
 
 #include <SDL.h>
 
@@ -46,6 +47,8 @@ void EditorState::Update() {
 	p_lua_manager->Update();
 
 	p_editor->NewFrame();
+
+	p_game_obj_manager->Update();
 }
 
 /*Calls the render/draw call for all the objects

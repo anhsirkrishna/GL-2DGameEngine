@@ -116,3 +116,13 @@ void Movement::HandleEvent(TimedEvent* p_event) {
 		break;
 	}
 }
+
+void Movement::ToggleInfiniteJump()
+{
+	infinite_jump = !infinite_jump;
+}
+
+bool Movement::CanInfiniteJump()
+{
+	return infinite_jump;
+}

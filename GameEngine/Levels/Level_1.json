@@ -505,6 +505,58 @@
             1.0
         ]
     },
+    "killzone5": {
+        "obj_def": "kill_zone5",
+        "starting_position": [
+            606.0,
+            1655.800048828125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "killzone_2": {
+        "obj_def": "kill_zone2",
+        "starting_position": [
+            1474.800048828125,
+            957.5999755859375,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "killzone_3": {
+        "obj_def": "kill_zone3",
+        "starting_position": [
+            2813.60009765625,
+            1047.800048828125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "killzone_4": {
+        "obj_def": "kill_zone4",
+        "starting_position": [
+            2653.199951171875,
+            1651.800048828125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "left_wall_1": {
         "obj_def": "left_wall_1",
         "starting_position": [
@@ -635,6 +687,32 @@
             1.0
         ]
     },
+    "platform_2a": {
+        "obj_def": "tiled_platform_small",
+        "starting_position": [
+            984.7999877929688,
+            1508.800048828125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_2b": {
+        "obj_def": "tiled_platform_small",
+        "starting_position": [
+            901.5999755859375,
+            1434.800048828125,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
     "platform_3": {
         "obj_def": "tiled_platform",
         "starting_position": [
@@ -679,6 +757,19 @@
         "starting_position": [
             901.0,
             1090.4000244140625,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
+        ]
+    },
+    "platform_4a": {
+        "obj_def": "tiled_platform_small",
+        "starting_position": [
+            2729.39990234375,
+            1490.199951171875,
             0.0,
             0.0
         ],

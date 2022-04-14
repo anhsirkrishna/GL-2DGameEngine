@@ -29,6 +29,7 @@ private:
 	bool lerpingY = false;
 	bool faceRight = true;
 	bool doneLerping = false;
+	bool unlockCamera = false;
 public:
 	CameraController();
 	virtual void Serialize(json json_object);
@@ -44,4 +45,6 @@ public:
 	float GetFollowObjectScaleX();
 	bool FlippedX();
 	bool DoneLerping();
+	bool IsUnlocked();
+	void ToggleUnlocked();
 };

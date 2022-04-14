@@ -163,3 +163,13 @@ bool CameraController::DoneLerping()
 {
 	return doneLerping;
 }
+
+bool CameraController::IsUnlocked()
+{
+	return unlockCamera;
+}
+
+void CameraController::ToggleUnlocked()
+{
+	unlockCamera = !unlockCamera;
+}
