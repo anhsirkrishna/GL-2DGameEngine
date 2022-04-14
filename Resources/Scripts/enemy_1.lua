@@ -24,6 +24,7 @@ end
 
 function Die()
 	if get_state() ~= "DIE" then
+		die_health()
 		play_sound("hurt.wav")
 		change_state("DIE")
 		move(0)

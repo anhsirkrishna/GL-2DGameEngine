@@ -27,6 +27,11 @@ public:
 	* for access from scripts
 	*/
 	void PushLoseState();
+	
+	/*Method to push the win state onto the stack
+	* for access from scripts
+	*/
+	void PushWinState();
 	/*Method to push the new game state onto the stack
 	* for access from scripts
 	*/

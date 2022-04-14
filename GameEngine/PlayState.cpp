@@ -14,6 +14,7 @@
 #include "EditorState.h"
 #include "PauseState.h"
 #include "Transform.h"
+#include "Health.h"
 
 #include <SDL.h>
 
@@ -25,8 +26,14 @@ PlayState::PlayState() : player_obj(nullptr) {
 	p_physics_world->Init();
 	p_level_manager->LoadLevel(p_game_manager->Level());
 	for (auto& go : p_game_obj_manager->game_object_list) {
-		if (go->GetName() == "player_character")
+		if (go->GetName() == "player_character") {
 			player_obj = go;
+			continue;
+		}
+			
+		if (go->GetName().find("enemy") != std::string::npos)
+			enemy_obj_health_list.push_back(static_cast<Health*>(go->HasComponent("HEALTH")));
+
 	}
 
 	p_audio_manager->Play("bass.wav");
@@ -37,6 +44,7 @@ PlayState::PlayState() : player_obj(nullptr) {
 * up all the objects
 */
 PlayState::~PlayState() {
+	enemy_obj_health_list.clear();
 	p_event_manager->ClearSubscribeList();
 	p_game_obj_manager->Cleanup();
 }
@@ -76,6 +84,15 @@ void PlayState::Update() {
 	p_event_manager->Update();
 
 	p_game_obj_manager->Update();
+	
+	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_K)) {
+		for (auto& enemy_health : enemy_obj_health_list) {
+			enemy_health->Die();
+		}
+	}
+
+	if (CheckWinCondition())
+		p_event_manager->QueueTimedEvent(new TimedEvent(EventID::win, true));
 
 	if (p_input_manager->isQuit())
 		p_game_manager->Quit();
@@ -97,7 +114,7 @@ void PlayState::Render() {
 }
 
 void PlayState::Reset() {
-
+	enemy_obj_health_list.clear();
 	p_audio_manager->StopAllSounds();
 
 	p_audio_manager->Play("bass.wav");
@@ -106,6 +123,9 @@ void PlayState::Reset() {
 	for (auto& go : p_game_obj_manager->game_object_list) {
 		if (go->GetName() == "player_character")
 			player_obj = go;
+
+		if (go->GetName().find("enemy") != std::string::npos)
+			enemy_obj_health_list.push_back(static_cast<Health*>(go->HasComponent("HEALTH")));
 	}
 	Transform* transform_comp = static_cast<Transform*>(player_obj->HasComponent("TRANSFORM"));
 	glm::vec4 new_position(68, 104, -1, 0);
@@ -118,4 +138,17 @@ void PlayState::Reset() {
 */
 void PlayState::Exit() {
 	
+}
+
+/*Check if all the enemy objects are dead
+* if they are dead then mark as win
+* Return : bool
+*/
+bool PlayState::CheckWinCondition() {
+	bool win = true;
+	for (auto& enemy_health : enemy_obj_health_list) {
+		win &= enemy_health->IsDead();
+	}
+
+	return win;
 }
