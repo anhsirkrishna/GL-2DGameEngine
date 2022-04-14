@@ -82,6 +82,7 @@ void PlayState::Update() {
 	
 	p_lua_manager->Update();
 	p_event_manager->Update();
+	p_audio_manager->Update();
 
 	p_game_obj_manager->Update();
 	
@@ -93,6 +94,7 @@ void PlayState::Update() {
 
 	if (CheckWinCondition())
 		p_event_manager->QueueTimedEvent(new TimedEvent(EventID::win, true));
+
 
 	if (p_input_manager->isQuit())
 		p_game_manager->Quit();

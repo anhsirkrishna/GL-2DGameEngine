@@ -101,6 +101,8 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 		state.set_function("get_vertical_velocity", &Movement::GetVerticalVelocity, move);
 		state.set_function("movement_enable_gravity", &Movement::EnableGravity, move);
 		state.set_function("movement_disable_gravity", &Movement::DisableGravity, move);
+		state.set_function("toggle_inf_jump", &Movement::ToggleInfiniteJump, move);
+		state.set_function("can_inf_jump", &Movement::CanInfiniteJump, move);
 	}
 
 	comp = obj->HasComponent("COLLIDER");
@@ -151,6 +153,10 @@ void LuaManager::RegObjectFunctions(sol::state& state, GameObject* obj) {
 			&CameraController::FlippedX, camera_c);
 		state.set_function("is_done_lerping",
 			&CameraController::DoneLerping, camera_c);
+		state.set_function("is_unlocked",
+			&CameraController::IsUnlocked, camera_c);
+		state.set_function("toggle_unlocked",
+			&CameraController::ToggleUnlocked, camera_c);
 	}
 
 	comp = obj->HasComponent("ANIMATION");

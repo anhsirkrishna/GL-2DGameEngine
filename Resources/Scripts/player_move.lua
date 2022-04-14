@@ -6,6 +6,7 @@ attack_action = 3
 burst_jump_action = 4
 time_till_health_disable = 20
 time_till_can_shoot = 20
+scancode_8 = 37
 
 pressed = 0
 triggered = 1
@@ -52,8 +53,12 @@ function MoveCharacterLeft()
 end
 
 function JumpCharacter()
-	--Cannot double jump so make sure character not jumping/falling
-	if get_state() ~= "JUMP" and get_state() ~= "FALL" then
+	
+	--Check if inf jump cheat is enabled
+	if can_inf_jump() then
+		jump(jump_speed)
+		change_state("JUMP")
+	elseif get_state() ~= "JUMP" and get_state() ~= "FALL" then
 		jump(jump_speed)
 		change_state("JUMP")
 	end
@@ -72,6 +77,14 @@ function ThrowProjectile()
 		spawn_projectile()
 	end
 end
+
+-- cheat enablers
+if is_released(scancode_8) then
+	toggle_inf_jump()
+	log_msg("inf jump enabled")
+end
+
+
 
 -- You can only do stuff - if you're not dead
 if get_state() ~= "DIE" then
