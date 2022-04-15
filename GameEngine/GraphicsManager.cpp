@@ -56,6 +56,9 @@ GraphicsManager::GraphicsManager() : p_active_shader(nullptr), p_sdl_window(null
 	p_resource_manager->add_shader("fade");
 	CHECKERROR;
 
+	p_resource_manager->add_shader("logo");
+	CHECKERROR;
+
 	p_resource_manager->add_compute_shader("horizontal_blur");
 	CHECKERROR;
 	p_resource_manager->add_compute_shader("vertical_blur");
@@ -74,6 +77,10 @@ GraphicsManager::GraphicsManager() : p_active_shader(nullptr), p_sdl_window(null
 	BindOutputAttrib(0, "out_Color");
 
 	SetActiveShader("fade");
+	BindDefaultAttribLocations();
+	BindOutputAttrib(0, "out_Color");
+
+	SetActiveShader("logo");
 	BindDefaultAttribLocations();
 	BindOutputAttrib(0, "out_Color");
 
@@ -216,6 +223,9 @@ ShaderProgram* GraphicsManager::GetActiveShader() {
 * for position, color and tex_coords.
 * Returns: void
 */
+GLuint GraphicsManager::GetActiveShaderId() {
+	return p_active_shader->program_id;
+}
 void GraphicsManager::BindDefaultAttribLocations() {
 	//Attrib location 0 will always be used for position coordinates
 	glBindAttribLocation(p_active_shader->program_id, ATTRIB_POSITION, "in_position");

@@ -30,6 +30,7 @@
 #include "StatestackManager.h"
 #include "PlayState.h"
 #include "StartState.h"
+#include "LogoState.h"
 
 /*
 * Few default global values. These extern variables are declared in GameDefs.h
@@ -147,6 +148,7 @@ int main(int argc, char* args[])
   
 	p_statestack_manager->Push(new PlayState());
 	p_statestack_manager->Push(new StartState());
+	p_statestack_manager->Push(new LogoState());
 
 	std::string fps_string;
 	while (p_game_manager->Status())

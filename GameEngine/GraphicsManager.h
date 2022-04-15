@@ -68,6 +68,13 @@ public:
 	*/
 	ShaderProgram* GetActiveShader();
 
+	/*Function to get the program id of the
+	* shader program which
+	* is used by the Graphics Manager
+	* Returns: ShaderProgram*
+	*/
+	GLuint GetActiveShaderId();
+
 	/*Function to bind the default attribute locations
 	* for position, color and tex_coords.
 	* Returns: void

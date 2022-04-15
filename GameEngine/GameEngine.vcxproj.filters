@@ -294,6 +294,12 @@
     <ClCompile Include="StartState.cpp">
       <Filter>Source Files\GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="LogoScreen.cpp">
+      <Filter>Source Files\Components\GUIComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoState.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -504,6 +510,12 @@
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
     <ClInclude Include="StartState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoScreen.h">
+      <Filter>Source Files\Components\GUIComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoState.h">
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
@@ -774,6 +786,12 @@
     </None>
     <None Include="Obj_defs\block_12.json">
       <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
+    <None Include="logo.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="logo.vert">
+      <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

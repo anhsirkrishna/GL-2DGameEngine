@@ -155,6 +155,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LogoScreen.cpp" />
+    <ClCompile Include="LogoState.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AudioManager.cpp" />
@@ -223,6 +225,8 @@
     <ClCompile Include="WinState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LogoScreen.h" />
+    <ClInclude Include="LogoState.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AudioManager.h" />
@@ -319,6 +323,8 @@
     <None Include="horizontal_blur.comp" />
     <None Include="Levels\Level_0.json" />
     <None Include="Levels\Level_1.json" />
+    <None Include="logo.frag" />
+    <None Include="logo.vert" />
     <None Include="Obj_defs\block_10.json" />
     <None Include="Obj_defs\block_11.json" />
     <None Include="Obj_defs\block_12.json" />
