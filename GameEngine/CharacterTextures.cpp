@@ -24,14 +24,14 @@
 * specified in the argument
 */
 CharacterTextures::CharacterTextures(std::string ttf_filepath) {
-    FT_Library ft;
-    FT_Face face;
+    FT_Library *ft=nullptr;
+    FT_Face *face=nullptr;
 
-    SDL_assert(FT_Init_FreeType(&ft) == 0);
+    SDL_assert(FT_Init_FreeType(ft) == 0);
 
-    SDL_assert(FT_New_Face(ft, ttf_filepath.c_str(), 0, &face) == 0);
+    SDL_assert(FT_New_Face(*ft, ttf_filepath.c_str(), 0, face) == 0);
 
-    FT_Set_Pixel_Sizes(face, 0, 48);
+    FT_Set_Pixel_Sizes(*face, 0, 48);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -39,7 +39,7 @@ CharacterTextures::CharacterTextures(std::string ttf_filepath) {
     for (unsigned char c = 0; c < 128; c++)
     {
         //Load glyph onto face
-        SDL_assert(FT_Load_Char(face, c, FT_LOAD_RENDER) == 0);
+        SDL_assert(FT_Load_Char(*face, c, FT_LOAD_RENDER) == 0);
 
         //Generate texture for character and ship to GPU
         GLuint tex_id;
@@ -49,12 +49,12 @@ CharacterTextures::CharacterTextures(std::string ttf_filepath) {
             GL_TEXTURE_2D,
             0,
             GL_RED,
-            face->glyph->bitmap.width,
-            face->glyph->bitmap.rows,
+            (*face)->glyph->bitmap.width,
+            (*face)->glyph->bitmap.rows,
             0,
             GL_RED,
             GL_UNSIGNED_BYTE,
-            face->glyph->bitmap.buffer
+            (*face)->glyph->bitmap.buffer
         );
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -65,14 +65,14 @@ CharacterTextures::CharacterTextures(std::string ttf_filepath) {
         //Save the tex_id and tex information in the map
         Character character = {
             tex_id,
-            glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-            glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-            face->glyph->advance.x
+            glm::ivec2((*face)->glyph->bitmap.width, (*face)->glyph->bitmap.rows),
+            glm::ivec2((*face)->glyph->bitmap_left, (*face)->glyph->bitmap_top),
+            (*face)->glyph->advance.x
         };
         character_map.insert(std::pair<char, Character>(c, character));
     }
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-    FT_Done_Face(face);
-    FT_Done_FreeType(ft);
+    FT_Done_Face(*face);
+    FT_Done_FreeType(*ft);
 }

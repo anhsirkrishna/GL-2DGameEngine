@@ -77,8 +77,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)Build\Lua\$(Configuration);$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(SolutionDir)..\lua-master;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\freetype\win32_release;$(SolutionDir)Build\Lua\$(Configuration);$(SolutionDir)..\SDL2-2.0.16\lib\x86;$(SolutionDir)..\SDL2_image-2.0.5\lib\x86;$(SolutionDir)..\glew-2.2.0\lib\Release\Win32;$(SolutionDir)..\FMOD\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\freetype\include;$(SolutionDir)..\Json\include;$(SolutionDir)..\SDL2_image-2.0.5\include;$(SolutionDir)..\glew-2.2.0\include;$(SolutionDir)..\GameEngine\External\imgui;$(SolutionDir)..\SDL2-2.0.16\include;$(SolutionDir)..\glm\glm;$(SolutionDir)..\FMOD\inc;$(SolutionDir)..\sol2-develop\include;$(SolutionDir)..\lua-master;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -119,7 +119,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Lua.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>freetype.lib;opengl32.lib;SDL2_image.lib;glew32s.lib;glew32.lib;SDL2.lib;SDL2main.lib;fmod_vc.lib;fmodL_vc.lib;Lua.lib;Shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
