@@ -1,12 +1,12 @@
 {
   "COMPONENTS": {
     "GLQUAD": {
-      "texture_names": [ "player_sheet" ],
+      "texture_names": [ "enemy_sheet" ],
       "vertex_list": [
-        0,  0,  0,
-        0,  48, 0,
-        48, 48, 0,
-        48, 0,  0
+         0,  0, 0,
+         0, 32, 0,
+        32, 32, 0,
+        32,  0, 0
       ],
       "color_list": [
          0, 255,  0, 255,
@@ -16,23 +16,18 @@
       ],
       "tex_coord_list": [
          0,  0,
-         0, 84,
-        96, 84,
-        96, 0
+         0, 32,
+        32, 32,
+        32, 0
       ]
     },
     "ANIMATION": {
       "frames": [
-          0, 84,
-         96, 84,
-        192, 84,
-        288, 84,
-        384, 84,
-        480, 84,
-        576, 84
+        416, 0,
+        448, 0
       ],
       "looping": true,
-      "interval": 8
+      "interval": 4
     },
     "HEALTH": {
       "health_val": 1
@@ -47,19 +42,19 @@
       ]
     },
     "COLLIDER": {
-      "collider_offset_params": [ 18, 18, 12, 30 ]
+      "collider_offset_params": [ 6, 2, 20, 28 ]
     },
     "MOVEMENT": {
       "gravity_on": true
     },
     "HURTBOX": {
-      "offset": [ 20, 20 ],
-      "dimensions": [ 6, 15 ]
+      "offset": [ 6, 2 ],
+      "dimensions": [ 16, 26 ]
     },
     "PROJECTILE": {
       "instance_def": "fire_projectile_enemy",
       "instance_count": 1,
-      "spawn_offset": [ 0, 30, 0 ],
+      "spawn_offset": [ 0, 12, 0 ],
       "recycle": true
     },
     "JUMP_TRIGGER_RECEIVER_BOX": {
@@ -70,36 +65,26 @@
   "STATES": {
     "IDLE": {
       "GLQUAD": {
-        "texture_names": [ "player_sheet" ]
+        "texture_names": [ "enemy_sheet" ]
       },
       "ANIMATION": {
         "frames": [
-           0, 84,
-          96, 84,
-         192, 84,
-         288, 84,
-         384, 84,
-         480, 84,
-         576, 84
+           416, 0,
+           448, 0
         ],
         "looping": true,
-        "interval": 8
+        "interval": 12
       }
     },
     "WALK": {
       "GLQUAD": {
-        "texture_names": [ "player_sheet" ]
+        "texture_names": [ "enemy_sheet" ]
       },
       "ANIMATION": {
         "frames": [
-          0,  252,
-          96, 252,
-         192, 252,
-         288, 252,
-         384, 252,
-         480, 252,
-         576, 252,
-         672, 252
+          32, 0,
+          64, 0,
+          96, 0
         ],
         "looping": true,
         "interval": 8
@@ -107,45 +92,39 @@
     },
     "JUMP": {
       "GLQUAD": {
-        "texture_names": [ "player_sheet" ]
+        "texture_names": [ "enemy_sheet" ]
       },
       "ANIMATION": {
         "frames": [
-          0,  672,
-          96, 672,
-         192, 672,
-         288, 672,
-         384, 672,
-         480, 672
+          352, 0,
+          384, 0
         ],
         "looping": false,
-        "interval": 4
+        "interval": 8
       }
     },
     "ATTACK": {
       "GLQUAD": {
-        "texture_names": [ "player_sheet" ]
+        "texture_names": [ "enemy_sheet" ]
       },
       "ANIMATION": {
         "frames": [
-          96,
-          168,
-          0,
-          168
+          256, 0,
+          288, 0,
+          320, 0
         ],
         "looping": false,
-        "interval": 4
+        "interval": 12
       }
     },
-
     "FALL": {
       "GLQUAD": {
-        "texture_names": [ "player_sheet" ]
+        "texture_names": [ "enemy_sheet" ]
       },
       "ANIMATION": {
         "frames": [
-          0, 420,
-          0, 504
+            0, 0,
+          480, 0
         ],
         "looping": false,
         "interval": 2
@@ -153,18 +132,17 @@
     },
     "DIE": {
       "GLQUAD": {
-        "texture_names": [ "player_sheet" ]
+        "texture_names": [ "enemy_sheet" ]
       },
       "ANIMATION": {
         "frames": [
-            0, 1428,
-           96, 1428,
-          192, 1428,
-          288, 1428,
-          384, 1428
+           96, 0,
+          128, 0,
+          160, 0,
+          160, 0
         ],
         "looping": false,
-        "interval": 4
+        "interval": 12
       }
     }
   },

@@ -47,8 +47,8 @@ follow_obj_x = get_dependant_obj_pos_x(0)
 follow_obj_y = get_dependant_obj_pos_y(0)
 
 --Get the current xpos
-x_coord = follow_obj_x + 20
-y_coord = follow_obj_y + 30
+x_coord = follow_obj_x + 10
+y_coord = follow_obj_y + 12
 
 --Move offset a little bit more when character is facing left
 if follow_obj_scale_x < 0 then

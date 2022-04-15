@@ -909,9 +909,9 @@
         ]
     },
     "platform_b2": {
-        "obj_def": "platform3x2",
+        "obj_def": "platform2x1",
         "starting_position": [
-            1260.0,
+            1250.5999755859375,
             224.0,
             0.0,
             0.0
@@ -1041,8 +1041,8 @@
     "player_character": {
         "obj_def": "player_obj",
         "starting_position": [
-            68.1989,
-            103.427,
+            68.19889831542969,
+            200.02699279785156,
             -1.0,
             0.0
         ],

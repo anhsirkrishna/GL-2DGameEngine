@@ -133,7 +133,7 @@ void PlayState::Reset() {
 			enemy_obj_health_list.push_back(static_cast<Health*>(go->HasComponent("HEALTH")));
 	}
 	Transform* transform_comp = static_cast<Transform*>(player_obj->HasComponent("TRANSFORM"));
-	glm::vec4 new_position(68, 104, -1, 0);
+	glm::vec4 new_position(68, 200, -1, 0);
 	transform_comp->SetPosition(new_position);
 }
 
