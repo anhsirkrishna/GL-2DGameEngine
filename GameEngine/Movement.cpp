@@ -67,7 +67,8 @@ void Movement::Jump(float vel_y)
 // Serialize method. Nothing to do for the movement component
 void Movement::Serialize(json json_object)
 {
-	gravity_on = json_object["gravity_on"].get<bool>();
+	gravity_capable = json_object["gravity_on"].get<bool>();
+	gravity_on = gravity_capable;
 }
 
 // Stores references to other components
@@ -97,7 +98,11 @@ void Movement::DisableGravity() {
 
 void Movement::Reset() {
 	velocity = glm::vec4(0);
-	gravity_on = false;
+	gravity_on = gravity_capable;
+}
+
+bool Movement::IsGravityCapable() {
+	return gravity_capable;
 }
 
 /*Handles events

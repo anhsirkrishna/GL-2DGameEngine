@@ -24,6 +24,7 @@ using json = nlohmann::json;
 class Movement : public Component {
 private:
 	bool gravity_on;
+	bool gravity_capable;
 	float mass;
 	glm::vec4 velocity;
 
@@ -78,6 +79,8 @@ public:
 	* Returns: void
 	*/
 	virtual void Reset();
+
+	bool IsGravityCapable();
 
 	/*Handles events
 	* Returns: void

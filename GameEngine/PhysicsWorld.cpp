@@ -146,6 +146,8 @@ void PhysicsWorld::DetectAndRecordCollisions()
 	Movement* movement_a;
 	Collider* collider_a;
 	Collider* collider_b;
+
+	bool enable_gravity;
 	for (auto i = physics_game_objects.begin(); i != physics_game_objects.end(); i++) {
 
 		if (!(*i)->IsActive())
@@ -164,6 +166,9 @@ void PhysicsWorld::DetectAndRecordCollisions()
 			if (collider_a->IsEnabled() == false)
 				continue;
 
+			enable_gravity = false;
+			if (movement_a->IsGravityCapable())
+				enable_gravity = true;
 			collider_a->UpdateColliderPosition();
 			for (auto j = physics_game_objects.begin(); j != physics_game_objects.end(); j++) {
 				if (!(*j)->IsActive())
@@ -192,9 +197,15 @@ void PhysicsWorld::DetectAndRecordCollisions()
 
 							collision_list.push_back(collision);
 						}
+
+						if (enable_gravity)
+							enable_gravity &= CheckFalling(collider_a, collider_b);
 					}
 				}
 			}
+
+			if (enable_gravity)
+				movement_a->EnableGravity();
 		}
 	}
 }
@@ -217,7 +228,6 @@ void PhysicsWorld::ResolveCollisions()
 
 		float min_depth = std::max(c->penetration_depth - 0.1f, 0.0f);
 
-		// Moving object touches the BOTTOM of the other object
 		switch (c->side_of_b)
 		{
 		case BOTTOM:
@@ -227,6 +237,7 @@ void PhysicsWorld::ResolveCollisions()
 		case TOP:
 			col_pos_a.y = col_pos_b.y - col_pos_b.w - col_pos_a.w - min_depth;
 			vel.y = 0;
+			mov_a->DisableGravity();
 			break;
 		case LEFT:
 			col_pos_a.x = col_pos_b.x - col_pos_b.z - col_pos_a.z - min_depth;
@@ -253,4 +264,25 @@ void PhysicsWorld::ResolveCollisions()
 	}
 
 	collision_list.clear();
+}
+
+bool PhysicsWorld::CheckFalling(Collider* collider_top, Collider* collider_bot) {
+	auto col_pos_0 = collider_top->GetColliderPosition();
+	auto col_pos_1 = collider_bot->GetColliderPosition();
+
+	float fall_threshold = 8;
+	float distance;
+	if ((col_pos_0.x > col_pos_1.x - col_pos_1.z) && (col_pos_0.x < col_pos_1.x + col_pos_1.z)) {
+		//Negative sign since y values increase as you go down the screen
+		distance = (col_pos_0.y + col_pos_0.w) - (col_pos_1.y - col_pos_1.w);
+		if (distance < 0)
+			if (-distance > fall_threshold)
+				return true;
+			else
+				return false;
+		else
+			return true;
+	}
+
+	return true;
 }

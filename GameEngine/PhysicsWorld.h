@@ -75,6 +75,8 @@ public:
 	// Resolve all recorded collisions
 	void ResolveCollisions();
 
+	bool CheckFalling(Collider* collider_0, Collider* collider_1);
+
 	// Reloads physics objects on new level load
 	void Reload();
 };

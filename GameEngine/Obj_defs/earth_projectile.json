@@ -25,10 +25,6 @@
     "MOVEMENT": {
       "gravity_on": false
     },
-    "HITBOX": {
-      "offset": [ 0, 10 ],
-      "dimensions": [ 16, 6 ]
-    },
     "COLLIDER": {
       "collider_offset_params":  [0, 10, 16, 6]
     },

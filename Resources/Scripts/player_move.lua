@@ -53,7 +53,7 @@ function MoveCharacterLeft()
 end
 
 function JumpCharacter()
-	
+	movement_enable_gravity()
 	--Check if inf jump cheat is enabled
 	if can_inf_jump() then
 		jump(jump_speed)
