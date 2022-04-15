@@ -1040,12 +1040,12 @@
     },
     "player_character": {
         "obj_def": "player_obj",
-      "starting_position": [
+        "starting_position": [
             68.19889831542969,
             200.02699279785156,
             -1.0,
             0.0
-      ],
+        ],
         "starting_scale": [
             1.0,
             1.0
@@ -1142,16 +1142,172 @@
             1.0
         ]
     },
+    "torch_1": {
+        "obj_def": "torch",
+        "starting_position": [
+            765.5999755859375,
+            145.39999389648438,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_10": {
+        "obj_def": "torch",
+        "starting_position": [
+            2575.0,
+            1316.199951171875,
+            -0.20000000298023224,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_11": {
+        "obj_def": "torch",
+        "starting_position": [
+            1358.199951171875,
+            1429.4000244140625,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_12": {
+        "obj_def": "torch",
+        "starting_position": [
+            1477.0,
+            712.4000244140625,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_2": {
+        "obj_def": "torch",
+        "starting_position": [
+            1169.5999755859375,
+            28.399999618530273,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_3": {
+        "obj_def": "torch",
+        "starting_position": [
+            1605.800048828125,
+            46.0,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_4": {
+        "obj_def": "torch",
+        "starting_position": [
+            1782.0,
+            -244.8000030517578,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_5": {
+        "obj_def": "torch",
+        "starting_position": [
+            1973.4000244140625,
+            -87.80000305175781,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_6": {
+        "obj_def": "torch",
+        "starting_position": [
+            946.5999755859375,
+            435.6000061035156,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_7": {
+        "obj_def": "torch",
+        "starting_position": [
+            1477.0,
+            712.4000244140625,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_8": {
+        "obj_def": "torch",
+        "starting_position": [
+            2186.199951171875,
+            712.4000244140625,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
+    "torch_9": {
+        "obj_def": "torch",
+        "starting_position": [
+            3395.0,
+            794.5999755859375,
+            0.0,
+            0.0
+        ],
+        "starting_scale": [
+            0.6000000238418579,
+            0.6000000238418579
+        ]
+    },
     "win_lose_condition": {
         "obj_def": "win_lose_check"
     },
     "xelement_orb": {
         "obj_def": "orb",
-      "starting_position": [
+        "starting_position": [
             84.374,
             269.8265,
             2.67777,
             0.0
-      ]
+        ]
     }
 }

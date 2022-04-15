@@ -461,3 +461,28 @@ void ParticleEffect::ChangeState(json json_object) {
 		particle_color_list.push_back(base_colors[15]);
 	}
 }
+
+unsigned int ParticleEffect::GetMaxParticleCount()
+{
+	return max_particle_count;
+}
+
+int ParticleEffect::GetParticleLifetime()
+{
+	return particle_lifetime;
+}
+
+glm::vec2 ParticleEffect::GetOriginOffset()
+{
+	return origin_offset;
+}
+
+glm::vec4 ParticleEffect::GetMaximumVelocity()
+{
+	return maximum_velocity;
+}
+
+glm::vec4 ParticleEffect::GetMinimumVelocity()
+{
+	return minimum_velocity;
+}

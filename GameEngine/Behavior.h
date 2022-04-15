@@ -19,6 +19,7 @@ class Behavior : public Component {
 	std::string script_name;
 	sol::state lua_state;
 	sol::load_result script_result;
+	std::string script_string;
 
 public:
 
@@ -53,4 +54,7 @@ public:
 	* Returns: void
 	*/
 	void SetScriptName(std::string script_name);
+
+	std::string GetScriptName();
+	std::string GetScriptString();
 };

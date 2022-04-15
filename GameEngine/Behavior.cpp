@@ -12,6 +12,8 @@
 #include "LuaManager.h"
 #include "Events.h"
 #include "EventManager.h"
+#include <sstream>
+#include <fstream>
 
 // default constructor
 Behavior::Behavior() : Component("BEHAVIOR"), script_result() {
@@ -27,6 +29,13 @@ void Behavior::LoadScript() {
 	std::string file = "..\\Resources\\Scripts\\";
 	file += script_name;
 	script_result = lua_state.load_file(file);
+
+	std::ifstream t(file);
+	std::stringstream buffer;
+	buffer << t.rdbuf();
+	script_string = buffer.str();
+	t.close();
+	
 }
 
 // runs the current script once per frame
@@ -73,4 +82,14 @@ void Behavior::SendEvent(int event_id, int delay_time, bool broadcast) {
 
 void Behavior::SetScriptName(std::string script_name_) {
 	script_name = script_name_;
+}
+
+std::string Behavior::GetScriptName()
+{
+	return script_name;
+}
+
+std::string Behavior::GetScriptString()
+{
+	return script_string;
 }

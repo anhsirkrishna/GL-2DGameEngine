@@ -118,3 +118,8 @@ void Animation::ChangeState(json json_object) {
 	interval = json_object["interval"].get<int>();
 	Refresh();
 }
+
+unsigned int Animation::GetCurrentFrame()
+{
+	return current_frame;
+}
