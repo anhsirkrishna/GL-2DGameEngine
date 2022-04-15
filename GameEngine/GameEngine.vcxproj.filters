@@ -772,5 +772,8 @@
     <None Include="Obj_defs\StartScreen_UI.json">
       <Filter>Source Files\UI_defs</Filter>
     </None>
+    <None Include="Obj_defs\block_12.json">
+      <Filter>Source Files\Obj_defs\Room_Tilemaps</Filter>
+    </None>
   </ItemGroup>
 </Project>

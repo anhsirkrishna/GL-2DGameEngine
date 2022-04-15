@@ -321,6 +321,7 @@
     <None Include="Levels\Level_1.json" />
     <None Include="Obj_defs\block_10.json" />
     <None Include="Obj_defs\block_11.json" />
+    <None Include="Obj_defs\block_12.json" />
     <None Include="Obj_defs\block_2.json" />
     <None Include="Obj_defs\block_3.json" />
     <None Include="Obj_defs\block_5.json" />
