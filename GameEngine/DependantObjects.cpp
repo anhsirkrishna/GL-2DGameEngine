@@ -26,7 +26,7 @@ void DependantObjects::Serialize(json json_object) {
 void DependantObjects::Link() {
 	for (unsigned int i = 0; i < p_game_obj_manager->game_object_list.size(); ++i) {
 		for (auto& object_name : dependant_object_names) {
-			if (p_game_obj_manager->game_object_list[i]->GetName() == object_name) {
+			if (p_game_obj_manager->game_object_list[i]->GetName().find(object_name) != std::string::npos) {
 				p_dependant_objects.push_back(p_game_obj_manager->game_object_list[i]);
 			}
 		}

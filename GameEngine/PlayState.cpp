@@ -92,9 +92,12 @@ void PlayState::Update() {
 		}
 	}
 
-	if (CheckWinCondition())
+	if (CheckWinCondition()) {
+		for (auto& enemy_health : enemy_obj_health_list) {
+			enemy_health->Reset();
+		}
 		p_event_manager->QueueTimedEvent(new TimedEvent(EventID::win, true));
-
+	}
 
 	if (p_input_manager->isQuit())
 		p_game_manager->Quit();

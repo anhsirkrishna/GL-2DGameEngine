@@ -11,7 +11,8 @@ void Health::DecrementHealth()
 
 void Health::Serialize(json json_object)
 {
-	health = json_object["health_val"].get<int>();
+	starting_health = json_object["health_val"].get<int>();
+	health = starting_health;
 }
 
 int Health::GetHealth()
@@ -25,4 +26,8 @@ bool Health::IsDead() {
 
 void Health::Die() {
 	health = 0;
+}
+
+void Health::Reset() {
+	health = starting_health;
 }

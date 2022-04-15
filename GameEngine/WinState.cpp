@@ -70,5 +70,6 @@ void WinState::Render() {
 * Returns: void
 */
 void WinState::Exit() {
-
+	p_statestack_manager->Reset();
+	p_statestack_manager->PushNewFadeOutState();
 }

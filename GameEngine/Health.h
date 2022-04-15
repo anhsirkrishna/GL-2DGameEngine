@@ -15,7 +15,7 @@ class Health : public Component
 {
 private:
     int health;
-
+	int starting_health;
 public:
     Health();
     void Serialize(json json_object);
@@ -24,5 +24,6 @@ public:
     int GetHealth();
     bool IsDead();
     void Die();
+	virtual void Reset();
 };
 

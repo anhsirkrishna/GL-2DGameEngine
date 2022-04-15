@@ -70,5 +70,6 @@ void LoseState::Render() {
 * Returns: void
 */
 void LoseState::Exit() {
-
+	p_statestack_manager->Reset();
+	p_statestack_manager->PushNewFadeOutState();
 }

@@ -1,8 +1,5 @@
 --pop the lose state
 statestack_pop()
 
---reset the play state
-statestack_reset_top()
-
---Push a fade out state
+--Fadeout screen
 statestack_push_fade_out()
