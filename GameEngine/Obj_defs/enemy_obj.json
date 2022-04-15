@@ -34,7 +34,7 @@
     },
     "TRANSFORM": {},
     "BEHAVIOR": {
-      "script_filename": "enemy_1.lua"
+      "script_filename": "enemy_1_new.lua"
     },
     "DEPENDANT_OBJECTS": {
       "dependant_object_names": [
@@ -139,7 +139,8 @@
            96, 0,
           128, 0,
           160, 0,
-          160, 0
+          192, 0,
+          224, 0
         ],
         "looping": false,
         "interval": 12

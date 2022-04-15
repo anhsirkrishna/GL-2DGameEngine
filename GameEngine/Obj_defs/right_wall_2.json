@@ -2,10 +2,10 @@
     "COMPONENTS": {
         "COLLIDER": {
             "collider_offset_params": [
-                0,
-                0,
-                420,
-                130
+                0.0,
+                0.0,
+                416.3999938964844,
+                320.3999938964844
             ]
         },
         "TILEMAP": {

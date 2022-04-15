@@ -41,6 +41,8 @@ struct Node {
 class Pathfinder : public Component {
 	
 private:
+	float timerTillStart;
+
 	std::vector<std::vector<GridCellInfo>> grid;
 	std::vector<glm::vec4> path;
 

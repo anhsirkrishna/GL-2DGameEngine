@@ -62,17 +62,21 @@
     "flying_enemy_0": {
         "obj_def": "flying_enemy_obj",
         "starting_position": [
-            50,
-            20,
-            -1,
-            0
+            197.27099609375,
+            20.49772071838379,
+            -0.5041207671165466,
+            0.0
+        ],
+        "starting_scale": [
+            1.0,
+            1.0
         ]
     },
     "jump_trig_box": {
         "obj_def": "jump_trigger_box",
         "starting_position": [
             325.3999938964844,
-            100.80000305175781,
+            64.80000305175781,
             128.0,
             10.0
         ],
