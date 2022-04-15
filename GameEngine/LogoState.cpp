@@ -2,6 +2,9 @@
 #include "LogoScreen.h"
 #include "GameObject.h"
 #include "StatestackManager.h"
+#include "InputManager.h"
+
+#include <SDL.h>
 
 LogoState::LogoState() {
 	GameObject* p_logo_screen = new GameObject("fmod_logo_screen");
@@ -25,6 +28,14 @@ LogoState::~LogoState() {
 void LogoState::Update() {
 	if (logo_screen.size() == 0) {
 		p_statestack_manager->Pop();
+		return;
+	}
+	p_input_manager->Update();
+
+	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_ESCAPE) || p_input_manager->isControllerButtonTriggered(SDL_CONTROLLER_BUTTON_START)) {
+		delete_objs.push_back(logo_screen.back());
+		logo_screen.pop_back();
+		logo_screen_comp.pop_back();
 		return;
 	}
 
