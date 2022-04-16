@@ -10,6 +10,7 @@
 
 #include "Pathfinder.h"
 #include "GameObjectManager.h"
+#include "FrameRateController.h"
 
 
 #include "Collider.h"
@@ -17,9 +18,9 @@
 
 
 Pathfinder::Pathfinder() : Component("PATHFINDER"), p_owner_transform(nullptr), p_owner_movement(nullptr),
-    player_transform(nullptr), player_pos(glm::vec4(0)), result(PathResult::ISNULL), grid_width(800.0f), grid_height(800.0f),
+    player_transform(nullptr), player_pos(glm::vec4(0)), result(PathResult::ISNULL), grid_width(500.0f), grid_height(500.0f),
     grid_dimension_in_cells(20), curr_point(glm::vec4(0)), next_point(glm::vec4(0)), path_vec_index(0), 
-    grid_center_pos(glm::vec4(0)), go_back_to_center(false), marked_pos(glm::vec4(0)) {
+    grid_center_pos(glm::vec4(0)), go_back_to_center(false), marked_pos(glm::vec4(0)), timerTillStart(4.0f) {
 }
 
 // Stores a reference to the player character
@@ -344,82 +345,92 @@ void Pathfinder::ResetVariables()
 
 void Pathfinder::Update()
 {
-    // If player transform isn't kept -- basically the beginning of the game
-    if (player_transform == nullptr) {
-        
-        StorePlayerRef();
-
-        // Create the grid. Do this one time only
-        CreateGrid();
+    if (timerTillStart > 0) {
+        timerTillStart -= p_framerate_controller->GetPrevLoopDeltaTime()/1000.0f;
     }
 
-    // Owner goes back to center if it must 
-    if (go_back_to_center) {
-        marked_pos = p_owner_transform->GetPosition();
-        p_owner_movement->SetVelocity(glm::normalize(grid_center_pos - marked_pos) * 50.0f);
-        go_back_to_center = false;
-    }
+    else {
 
-    // If player leaves grid bounds - owner is told to go back to center
-    if ((fabs(grid_center_pos.x - player_transform->GetPosition().x) > (grid_width / 2.0f) ||
-        fabs(grid_center_pos.y - player_transform->GetPosition().y) > (grid_height / 2.0f) &&
-         !go_back_to_center)) {
+        // If player transform isn't kept -- basically the beginning of the game
+        if (player_transform == nullptr) {
 
-        ResetVariables();
-        go_back_to_center = true;
-    }
+            StorePlayerRef();
 
-    // If player is in grid bounds and player has moved then only recalculate path
-    if (fabs(grid_center_pos.x - player_transform->GetPosition().x) < (grid_width / 2.0f) &&
-        fabs(grid_center_pos.y - player_transform->GetPosition().y) < (grid_height / 2.0f) &&
-        DistanceSquared(player_transform->GetPosition(), player_pos) > 200.0f) {
+            // Create the grid. Do this one time only
+            CreateGrid();
+        }
 
+        // Owner goes back to center if it must 
         if (go_back_to_center) {
-            go_back_to_center = false;
-        }
-
-        ResetVariables();
-
-        // Mark new player position
-        player_pos = player_transform->GetPosition();
-
-        // Calculate path
-        FindPath();
-    }
-
-    // Only if a path is calculated
-    if (result == PathResult::COMPLETE) {
-
-        // if not initialized or reset
-        if (curr_point == glm::vec4(0)) {
-
-            if (path.size() > 1) {
-                curr_point = path[path_vec_index++];
-                next_point = path[path_vec_index];
+            marked_pos = p_owner_transform->GetPosition();
+            p_owner_movement->SetVelocity(glm::normalize(grid_center_pos - marked_pos) * 50.0f);
+            if (DistanceSquared(marked_pos, grid_center_pos) <= 100) {
+                p_owner_movement->SetVelocity(glm::vec4(0));
+                go_back_to_center = false;
             }
         }
 
-         // -------- Movement from one waypoint to another -------- 
-        
-        // If reached next point
-        if (DistanceSquared(p_owner_transform->GetPosition(), next_point) <= 0.01f) {
+        // If player leaves grid bounds - owner is told to go back to center
+        if ((fabs(grid_center_pos.x - player_transform->GetPosition().x) > (grid_width / 2.0f) ||
+            fabs(grid_center_pos.y - player_transform->GetPosition().y) > (grid_height / 2.0f) &&
+            !go_back_to_center)) {
 
-            // If path comeplete - reset
-            if (path_vec_index == path.size() - 1) {
-                ResetVariables();
-            }
-            else { // Move to next point
-                curr_point = path[path_vec_index++];
-                next_point = path[path_vec_index];
-            }
+            ResetVariables();
+            go_back_to_center = true;
         }
-        else {
-            // Get going!
-            if (next_point != curr_point) {
-                p_owner_movement->SetVelocity(glm::normalize(next_point - curr_point) * 50.0f);
+
+        // If player is in grid bounds and player has moved then only recalculate path
+        if (fabs(grid_center_pos.x - player_transform->GetPosition().x) < (grid_width / 2.0f) &&
+            fabs(grid_center_pos.y - player_transform->GetPosition().y) < (grid_height / 2.0f) &&
+            DistanceSquared(player_transform->GetPosition(), player_pos) > 200.0f) {
+
+            if (go_back_to_center) {
+                go_back_to_center = false;
+            }
+
+            ResetVariables();
+
+            // Mark new player position
+            player_pos = player_transform->GetPosition();
+
+            // Calculate path
+            FindPath();
+        }
+
+        // Only if a path is calculated
+        if (result == PathResult::COMPLETE) {
+
+            // if not initialized or reset
+            if (curr_point == glm::vec4(0)) {
+
+                if (path.size() > 1) {
+                    curr_point = path[path_vec_index++];
+                    next_point = path[path_vec_index];
+                }
+            }
+
+            // -------- Movement from one waypoint to another -------- 
+
+           // If reached next point
+            if (DistanceSquared(p_owner_transform->GetPosition(), next_point) <= 0.01f) {
+
+                // If path comeplete - reset
+                if (path_vec_index == path.size() - 1) {
+                    ResetVariables();
+                }
+                else { // Move to next point
+                    curr_point = path[path_vec_index++];
+                    next_point = path[path_vec_index];
+                }
             }
             else {
-                p_owner_movement->SetVelocity(glm::vec4(0));
+                // Get going!
+                if (next_point != curr_point) {
+                    p_owner_movement->SetVelocity(glm::normalize(next_point - curr_point) * 50.0f);
+                }
+                else {
+                    p_owner_movement->SetVelocity(glm::vec4(0));
+                }
             }
         }
     }

@@ -799,6 +799,9 @@
     <None Include="logo.vert">
       <Filter>Source Files\Shaders</Filter>
     </None>
+    <None Include="..\Resources\Scripts\enemy_1_new.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
     <None Include="Obj_defs\Confirm_UI.json">
       <Filter>Source Files\UI_defs</Filter>
     </None>
