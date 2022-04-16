@@ -9,13 +9,13 @@
 LogoState::LogoState() {
 	GameObject* p_logo_screen = new GameObject("fmod_logo_screen");
 	logo_screen.push_back(p_logo_screen);
-	LogoScreen* p_logo_screen_comp = new LogoScreen(1000, 5000, glm::vec4(0, 0, 0, 1), "FMOD Logo White - Black Background");
+	LogoScreen* p_logo_screen_comp = new LogoScreen(1000, 2000, glm::vec4(0, 0, 0, 1), "FMOD Logo White - Black Background");
 	p_logo_screen->AddComponent(p_logo_screen_comp);
 	logo_screen_comp.push_back(p_logo_screen_comp);
 
 	p_logo_screen = new GameObject("digipen_logo_screen");
 	logo_screen.push_back(p_logo_screen);
-	p_logo_screen_comp = new LogoScreen(1000, 5000, glm::vec4(0, 0, 0, 1), "DigiPen_RGB_White");
+	p_logo_screen_comp = new LogoScreen(1000, 2000, glm::vec4(0, 0, 0, 1), "DigiPen_RGB_White");
 	p_logo_screen->AddComponent(p_logo_screen_comp);
 	logo_screen_comp.push_back(p_logo_screen_comp);
 }
