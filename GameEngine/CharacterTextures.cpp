@@ -27,9 +27,11 @@ CharacterTextures::CharacterTextures(std::string ttf_filepath) {
     FT_Library ft = nullptr;
     FT_Face face = nullptr;
 
-    SDL_assert(FT_Init_FreeType(&ft) == 0);
+    FT_Error err = FT_Init_FreeType(&ft);
+    SDL_assert(err == 0);
 
-    SDL_assert(FT_New_Face(ft, ttf_filepath.c_str(), 0, &face) == 0);
+    err = FT_New_Face(ft, ttf_filepath.c_str(), 0, &face);
+    SDL_assert(err == 0);
 
     FT_Set_Pixel_Sizes(face, 0, 48);
 
@@ -39,7 +41,8 @@ CharacterTextures::CharacterTextures(std::string ttf_filepath) {
     for (unsigned char c = 0; c < 128; c++)
     {
         //Load glyph onto face
-        SDL_assert(FT_Load_Char(face, c, FT_LOAD_RENDER) == 0);
+        err = FT_Load_Char(face, c, FT_LOAD_RENDER);
+        SDL_assert(err == 0);
 
         //Generate texture for character and ship to GPU
         GLuint tex_id;

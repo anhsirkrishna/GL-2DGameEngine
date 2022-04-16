@@ -8,8 +8,6 @@
 /* DigiPen Institute of Technology © 2022
 /******************************************************************************/
 
-#include <assert.h>
-
 #include "GraphicsManager.h"
 #include "GameDefs.h"
 #include "ResourceManager.h"
@@ -43,7 +41,8 @@ GLuint ATTRIB_TEX_COORD = 2;
 GraphicsManager::GraphicsManager() : p_active_shader(nullptr), p_sdl_window(nullptr), 
 									 p_gl_context(nullptr), window_width(WINDOW_WIDTH), 
 									 window_height(WINDOW_HEIGHT), gamma(2.2f) {
-	assert(GL_Initialize() == true);
+	bool status = GL_Initialize();
+	SDL_assert(status == true);
 
 	//ShaderProgram is a util class to encapsulate common methods and attributes for ShaderPrograms
 	p_resource_manager->add_shader("final");
