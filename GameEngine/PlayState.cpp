@@ -77,13 +77,6 @@ void PlayState::Update() {
 		return;
 	}
 
-	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_0)) {
-		p_statestack_manager->Push(new CreditsState());
-		return;
-	}
-
-
-
 	p_physics_world->Integrate();
 	p_physics_world->DetectAndRecordCollisions();
 	p_physics_world->ResolveCollisions();

@@ -20,7 +20,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 10
+    "DRAW_ORDER": 11
   },
   "no_Button": {
     "COMPONENTS": {
@@ -43,7 +43,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 9
+    "DRAW_ORDER": 12
   },
   "x_Panel1": {
     "COMPONENTS": {
@@ -63,7 +63,7 @@
       },
     "TRANSFORM": {}
     },
-    "DRAW_ORDER": 8
+    "DRAW_ORDER": 10
   },
   "yes_text": {
     "COMPONENTS": {
@@ -76,7 +76,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 11
+    "DRAW_ORDER": 13
   },
   "no_text": {
     "COMPONENTS": {
@@ -89,7 +89,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 12
+    "DRAW_ORDER": 14
   },
   "confirm_text": {
     "COMPONENTS": {
@@ -102,6 +102,6 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 13
+    "DRAW_ORDER": 15
   }
 }

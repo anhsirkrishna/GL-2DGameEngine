@@ -16,6 +16,8 @@
 #include "FadeOutState.h"
 #include "WinState.h"
 #include "ConfirmState.h"
+#include "CreditsState.h"
+#include "OptionsState.h"
 
 void StateStackManager::Update() {
 	state_stack.back()->Update();
@@ -82,6 +84,14 @@ void StateStackManager::PushNewFadeOutState() {
 
 void StateStackManager::PushConfirmState() {
 	Push(new ConfirmState());
+}
+
+void StateStackManager::PushCreditsState() {
+	Push(new CreditsState());
+}
+
+void StateStackManager::PushOptionsState() {
+	Push(new OptionsState());
 }
 
 /*Reset the state at the top of the stack

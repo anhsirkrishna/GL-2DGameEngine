@@ -22,10 +22,9 @@ CreditsState::~CreditsState() {
 
 void CreditsState::Update() {
 	if (logo_screen.size() == 0) {
-
 		p_statestack_manager->Pop();
+		p_statestack_manager->Reset();
 		p_statestack_manager->Push(new StartState());
-		
 
 		return;
 	}

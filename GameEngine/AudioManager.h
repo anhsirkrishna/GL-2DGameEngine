@@ -19,7 +19,7 @@ class AudioManager
 	FMOD::System* system;
 	FMOD::ChannelGroup* master_channel;
 	std::map<std::string, FMOD::Sound*> sound_map;
-
+	float master_volume;
 public:
 
 	AudioManager();
@@ -29,6 +29,7 @@ public:
 	void Play(std::string sound_name) const;
 	void SetMasterVolume(float volume);
 	void StopAllSounds();
+	void ToggleMute();
 	void Update();
 	void Cleanup();
 };

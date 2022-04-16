@@ -159,6 +159,7 @@
     <ClCompile Include="CreditsState.cpp" />
     <ClCompile Include="LogoScreen.cpp" />
     <ClCompile Include="LogoState.cpp" />
+    <ClCompile Include="OptionsState.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AudioManager.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="CreditsState.h" />
     <ClInclude Include="LogoScreen.h" />
     <ClInclude Include="LogoState.h" />
+    <ClInclude Include="OptionsState.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AudioManager.h" />
@@ -306,6 +308,7 @@
     <None Include="..\Resources\Scripts\button_action.lua" />
     <None Include="..\Resources\Scripts\camera_controller.lua" />
     <None Include="..\Resources\Scripts\confirm_action.lua" />
+    <None Include="..\Resources\Scripts\credits_action.lua" />
     <None Include="..\Resources\Scripts\enemy_1.lua" />
     <None Include="..\Resources\Scripts\enemy_1_new.lua" />
     <None Include="..\Resources\Scripts\enemy_2.lua" />
@@ -313,6 +316,8 @@
     <None Include="..\Resources\Scripts\flying_enemy.lua" />
     <None Include="..\Resources\Scripts\fullscreen_action.lua" />
     <None Include="..\Resources\Scripts\ice_mirror.lua" />
+    <None Include="..\Resources\Scripts\mute_action.lua" />
+    <None Include="..\Resources\Scripts\options_action.lua" />
     <None Include="..\Resources\Scripts\orb.lua" />
     <None Include="..\Resources\Scripts\pickup.lua" />
     <None Include="..\Resources\Scripts\platform_projectile.lua" />
@@ -354,6 +359,7 @@
     <None Include="Obj_defs\kill_zone.json" />
     <None Include="Obj_defs\left_wall_1.json" />
     <None Include="Obj_defs\Lose_UI.json" />
+    <None Include="Obj_defs\Options_UI.json" />
     <None Include="Obj_defs\Pause_menu.json" />
     <None Include="Obj_defs\camera_controller.json" />
     <None Include="Obj_defs\earth_projectile.json" />

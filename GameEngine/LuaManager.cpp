@@ -70,10 +70,13 @@ void LuaManager::RegGlobals(sol::state& state) {
 	state.set_function("statestack_push_fade_out", &StateStackManager::PushNewFadeOutState, p_statestack_manager);
 	state.set_function("statestack_push_win", &StateStackManager::PushWinState, p_statestack_manager);
 	state.set_function("statestack_push_confirm", &StateStackManager::PushConfirmState, p_statestack_manager);
+	state.set_function("statestack_push_credits", &StateStackManager::PushCreditsState, p_statestack_manager);
+	state.set_function("statestack_push_options", &StateStackManager::PushOptionsState, p_statestack_manager);
 
 	state.set_function("quit_game", &GameManager::Quit, p_game_manager);
 
 	state.set_function("play_sound", &AudioManager::Play, p_audio_manager);
+	state.set_function("toggle_mute", &AudioManager::ToggleMute, p_audio_manager);
 }
 
 // registers player movement functions from the Movement component

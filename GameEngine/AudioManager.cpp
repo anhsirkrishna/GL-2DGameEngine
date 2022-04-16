@@ -120,7 +120,7 @@ void AudioManager::Play(std::string sound_name) const {
 
 // sets master volume in [0,1] range
 void AudioManager::SetMasterVolume(float volume) {
-
+	master_volume = volume;
 	master_channel->setVolume(volume);
 }
 
@@ -129,6 +129,14 @@ void AudioManager::StopAllSounds() {
 	master_channel->stop();
 }
 
+void AudioManager::ToggleMute() {
+	if (master_volume < 0.1f)
+		SetMasterVolume(0.1f);
+	else
+		SetMasterVolume(0.0f);
+
+	system->update();
+}
 
 // updates FMOD::System
 void AudioManager::Update() {

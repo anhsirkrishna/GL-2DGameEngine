@@ -44,6 +44,10 @@ public:
 
 	void PushConfirmState();
 
+	void PushCreditsState();
+
+	void PushOptionsState();
+
 	/*Reset the state at the top of the stack
 	* Returns void
 	*/

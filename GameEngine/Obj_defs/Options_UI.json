@@ -1,8 +1,80 @@
 {
-  "resume_button": {
+  "mute_button": {
     "COMPONENTS": {
       "BUTTON": {
         "pixel_position": [ 556, 450 ],
+        "scale": [ 2, 2 ],
+        "quad_pixel_dimensions": [ 16, 16 ],
+        "texture_name": "GUI",
+        "tile_map_index": [
+          [
+            [ 9, 5 ], [ 10, 5 ], [ 10, 5 ], [ 10, 5 ], [ 11, 5 ]
+          ]
+        ],
+        "clicked_tile_map_index": [
+          [
+            [ 9, 6 ], [ 10, 6 ], [ 10, 6 ], [ 10, 6 ], [ 11, 6 ]
+          ]
+        ],
+        "action_script": "mute_action.lua"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 12
+  },
+  "mute_text": {
+    "COMPONENTS": {
+      "UITEXT": {
+        "pixel_position": [ 586, 472 ],
+        "scale": [ 0.5, 0.5 ],
+        "font_name": "CompassPro",
+        "text_color": [ 0, 0, 0, 255 ],
+        "text": "Toggle Sound"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 13
+  },
+  "window_toggle_button": {
+    "COMPONENTS": {
+      "BUTTON": {
+        "pixel_position": [ 556, 490 ],
+        "scale": [ 2, 2 ],
+        "quad_pixel_dimensions": [ 16, 16 ],
+        "texture_name": "GUI",
+        "tile_map_index": [
+          [
+            [ 9, 5 ], [ 10, 5 ], [ 10, 5 ], [ 10, 5 ], [ 11, 5 ]
+          ]
+        ],
+        "clicked_tile_map_index": [
+          [
+            [ 9, 6 ], [ 10, 6 ], [ 10, 6 ], [ 10, 6 ], [ 11, 6 ]
+          ]
+        ],
+        "action_script": "fullscreen_action.lua"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 14
+  },
+  "window_toggle_text": {
+    "COMPONENTS": {
+      "UITEXT": {
+        "pixel_position": [ 600, 512 ],
+        "scale": [ 0.5, 0.5 ],
+        "font_name": "CompassPro",
+        "text_color": [ 0, 0, 0, 255 ],
+        "text": "Fullscreen"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 15
+  },
+  "back_button": {
+    "COMPONENTS": {
+      "BUTTON": {
+        "pixel_position": [ 556, 530 ],
         "scale": [ 2, 2 ],
         "quad_pixel_dimensions": [ 16, 16 ],
         "texture_name": "GUI",
@@ -20,128 +92,20 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 1
+    "DRAW_ORDER": 16
   },
-  "resume_text": {
-    "COMPONENTS": {
-      "UITEXT": {
-        "pixel_position": [ 600, 472 ],
-        "scale": [ 0.5, 0.5 ],
-        "font_name": "CompassPro",
-        "text_color": [ 0, 0, 0, 255 ],
-        "text": "Resume"
-      },
-      "TRANSFORM": {}
-    },
-    "DRAW_ORDER": 2
-  },
-  "options_button": {
-    "COMPONENTS": {
-      "BUTTON": {
-        "pixel_position": [ 556, 490 ],
-        "scale": [ 2, 2 ],
-        "quad_pixel_dimensions": [ 16, 16 ],
-        "texture_name": "GUI",
-        "tile_map_index": [
-          [
-            [ 9, 5 ], [ 10, 5 ], [ 10, 5 ], [ 10, 5 ], [ 11, 5 ]
-          ]
-        ],
-        "clicked_tile_map_index": [
-          [
-            [ 9, 6 ], [ 10, 6 ], [ 10, 6 ], [ 10, 6 ], [ 11, 6 ]
-          ]
-        ],
-        "action_script": "options_action.lua"
-      },
-      "TRANSFORM": {}
-    },
-    "DRAW_ORDER": 6
-  },
-  "options_text": {
-    "COMPONENTS": {
-      "UITEXT": {
-        "pixel_position": [ 600, 512 ],
-        "scale": [ 0.5, 0.5 ],
-        "font_name": "CompassPro",
-        "text_color": [ 0, 0, 0, 255 ],
-        "text": "Options"
-      },
-      "TRANSFORM": {}
-    },
-    "DRAW_ORDER": 7
-  },
-  "credits_button": {
-    "COMPONENTS": {
-      "BUTTON": {
-        "pixel_position": [ 556, 530 ],
-        "scale": [ 2, 2 ],
-        "quad_pixel_dimensions": [ 16, 16 ],
-        "texture_name": "GUI",
-        "tile_map_index": [
-          [
-            [ 9, 5 ], [ 10, 5 ], [ 10, 5 ], [ 10, 5 ], [ 11, 5 ]
-          ]
-        ],
-        "clicked_tile_map_index": [
-          [
-            [ 9, 6 ], [ 10, 6 ], [ 10, 6 ], [ 10, 6 ], [ 11, 6 ]
-          ]
-        ],
-        "action_script": "credits_action.lua"
-      },
-      "TRANSFORM": {}
-    },
-    "DRAW_ORDER": 4
-  },
-  "credits_text": {
+  "back_text": {
     "COMPONENTS": {
       "UITEXT": {
         "pixel_position": [ 600, 552 ],
         "scale": [ 0.5, 0.5 ],
         "font_name": "CompassPro",
         "text_color": [ 0, 0, 0, 255 ],
-        "text": "Credits"
+        "text": "Back"
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 5
-  },
-  "quit_button": {
-    "COMPONENTS": {
-      "BUTTON": {
-        "pixel_position": [ 556, 570 ],
-        "scale": [ 2, 2 ],
-        "quad_pixel_dimensions": [ 16, 16 ],
-        "texture_name": "GUI",
-        "tile_map_index": [
-          [
-            [ 9, 5 ], [ 10, 5 ], [ 10, 5 ], [ 10, 5 ], [ 11, 5 ]
-          ]
-        ],
-        "clicked_tile_map_index": [
-          [
-            [ 9, 6 ], [ 10, 6 ], [ 10, 6 ], [ 10, 6 ], [ 11, 6 ]
-          ]
-        ],
-        "action_script": "confirm_action.lua"
-      },
-      "TRANSFORM": {}
-    },
-    "DRAW_ORDER": 8
-  },
-  "quit_text": {
-    "COMPONENTS": {
-      "UITEXT": {
-        "pixel_position": [ 600, 592 ],
-        "scale": [ 0.5, 0.5 ],
-        "font_name": "CompassPro",
-        "text_color": [ 0, 0, 0, 255 ],
-        "text": "Quit"
-      },
-      "TRANSFORM": {}
-    },
-    "DRAW_ORDER": 9
+    "DRAW_ORDER": 17
   },
   "x_Panel1": {
     "COMPONENTS": {
@@ -162,19 +126,19 @@
       },
     "TRANSFORM": {}
     },
-    "DRAW_ORDER": 0
+    "DRAW_ORDER": 10
   },
-  "paused_text": {
+  "options_text": {
     "COMPONENTS": {
       "UITEXT": {
         "pixel_position": [ 580, 440 ],
         "scale": [ 0.8, 0.8 ],
         "font_name": "CompassPro",
         "text_color": [ 0, 0, 0, 255 ],
-        "text": "PAUSED"
+        "text": "OPTIONS"
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 3
+    "DRAW_ORDER": 11
   }
 }
