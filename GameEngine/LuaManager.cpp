@@ -72,6 +72,7 @@ void LuaManager::RegGlobals(sol::state& state) {
 	state.set_function("statestack_push_confirm", &StateStackManager::PushConfirmState, p_statestack_manager);
 	state.set_function("statestack_push_credits", &StateStackManager::PushCreditsState, p_statestack_manager);
 	state.set_function("statestack_push_options", &StateStackManager::PushOptionsState, p_statestack_manager);
+	state.set_function("statestack_push_controls", &StateStackManager::PushControlsState, p_statestack_manager);
 
 	state.set_function("quit_game", &GameManager::Quit, p_game_manager);
 

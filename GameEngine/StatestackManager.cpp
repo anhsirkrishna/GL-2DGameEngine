@@ -18,6 +18,7 @@
 #include "ConfirmState.h"
 #include "CreditsState.h"
 #include "OptionsState.h"
+#include "ControlsState.h"
 
 void StateStackManager::Update() {
 	state_stack.back()->Update();
@@ -92,6 +93,10 @@ void StateStackManager::PushCreditsState() {
 
 void StateStackManager::PushOptionsState() {
 	Push(new OptionsState());
+}
+
+void StateStackManager::PushControlsState() {
+	Push(new ControlsState());
 }
 
 /*Reset the state at the top of the stack

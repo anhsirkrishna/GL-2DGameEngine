@@ -1,7 +1,7 @@
 {
   "COMPONENTS": {
     "GLQUAD": {
-      "texture_names": [ "flying_enemy" ],
+      "texture_names": [ "flying_enemy_sheet" ],
       "vertex_list": [
 				 0,  0, 0,
 				 0, 20, 0,
@@ -20,6 +20,16 @@
 		    32, 32,
 			  32,  0
       ]
+    },
+    "ANIMATION": {
+      "frames": [
+        0, 0,
+        32, 0,
+        64, 0,
+        96, 0
+      ],
+      "looping": true,
+      "interval": 8
     },
     "TRANSFORM": {},
     "PATHFINDER": {},

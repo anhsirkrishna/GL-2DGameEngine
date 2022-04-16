@@ -107,10 +107,46 @@
     },
     "DRAW_ORDER": 5
   },
-  "quit_button": {
+  "controls_button": {
     "COMPONENTS": {
       "BUTTON": {
         "pixel_position": [ 556, 570 ],
+        "scale": [ 2, 2 ],
+        "quad_pixel_dimensions": [ 16, 16 ],
+        "texture_name": "GUI",
+        "tile_map_index": [
+          [
+            [ 9, 5 ], [ 10, 5 ], [ 10, 5 ], [ 10, 5 ], [ 11, 5 ]
+          ]
+        ],
+        "clicked_tile_map_index": [
+          [
+            [ 9, 6 ], [ 10, 6 ], [ 10, 6 ], [ 10, 6 ], [ 11, 6 ]
+          ]
+        ],
+        "action_script": "controls_action.lua"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 8
+  },
+  "controls_text": {
+    "COMPONENTS": {
+      "UITEXT": {
+        "pixel_position": [ 600, 592 ],
+        "scale": [ 0.5, 0.5 ],
+        "font_name": "CompassPro",
+        "text_color": [ 0, 0, 0, 255 ],
+        "text": "Controls"
+      },
+      "TRANSFORM": {}
+    },
+    "DRAW_ORDER": 9
+  },
+  "quit_button": {
+    "COMPONENTS": {
+      "BUTTON": {
+        "pixel_position": [ 556, 610 ],
         "scale": [ 2, 2 ],
         "quad_pixel_dimensions": [ 16, 16 ],
         "texture_name": "GUI",
@@ -128,12 +164,12 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 8
+    "DRAW_ORDER": 10
   },
   "quit_text": {
     "COMPONENTS": {
       "UITEXT": {
-        "pixel_position": [ 600, 592 ],
+        "pixel_position": [ 600, 632 ],
         "scale": [ 0.5, 0.5 ],
         "font_name": "CompassPro",
         "text_color": [ 0, 0, 0, 255 ],
@@ -141,7 +177,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 9
+    "DRAW_ORDER": 11
   },
   "x_Panel1": {
     "COMPONENTS": {

@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConfirmState.cpp" />
+    <ClCompile Include="ControlsState.cpp" />
     <ClCompile Include="CreditsState.cpp" />
     <ClCompile Include="LogoScreen.cpp" />
     <ClCompile Include="LogoState.cpp" />
@@ -229,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConfirmState.h" />
+    <ClInclude Include="ControlsState.h" />
     <ClInclude Include="CreditsState.h" />
     <ClInclude Include="LogoScreen.h" />
     <ClInclude Include="LogoState.h" />
@@ -308,6 +310,7 @@
     <None Include="..\Resources\Scripts\button_action.lua" />
     <None Include="..\Resources\Scripts\camera_controller.lua" />
     <None Include="..\Resources\Scripts\confirm_action.lua" />
+    <None Include="..\Resources\Scripts\controls_action.lua" />
     <None Include="..\Resources\Scripts\credits_action.lua" />
     <None Include="..\Resources\Scripts\enemy_1.lua" />
     <None Include="..\Resources\Scripts\enemy_1_new.lua" />

@@ -20,7 +20,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 12
+    "DRAW_ORDER": 14
   },
   "mute_text": {
     "COMPONENTS": {
@@ -33,7 +33,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 13
+    "DRAW_ORDER": 15
   },
   "window_toggle_button": {
     "COMPONENTS": {
@@ -56,7 +56,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 14
+    "DRAW_ORDER": 16
   },
   "window_toggle_text": {
     "COMPONENTS": {
@@ -69,7 +69,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 15
+    "DRAW_ORDER": 17
   },
   "back_button": {
     "COMPONENTS": {
@@ -92,7 +92,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 16
+    "DRAW_ORDER": 18
   },
   "back_text": {
     "COMPONENTS": {
@@ -105,7 +105,7 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 17
+    "DRAW_ORDER": 19
   },
   "x_Panel1": {
     "COMPONENTS": {
@@ -126,7 +126,7 @@
       },
     "TRANSFORM": {}
     },
-    "DRAW_ORDER": 10
+    "DRAW_ORDER": 12
   },
   "options_text": {
     "COMPONENTS": {
@@ -139,6 +139,6 @@
       },
       "TRANSFORM": {}
     },
-    "DRAW_ORDER": 11
+    "DRAW_ORDER": 13
   }
 }

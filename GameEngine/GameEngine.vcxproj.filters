@@ -309,6 +309,9 @@
     <ClCompile Include="OptionsState.cpp">
       <Filter>Source Files\GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="ControlsState.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -534,6 +537,9 @@
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
     <ClInclude Include="OptionsState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlsState.h">
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
@@ -830,6 +836,9 @@
       <Filter>Source Files\Scripts</Filter>
     </None>
     <None Include="..\Resources\Scripts\options_action.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\controls_action.lua">
       <Filter>Source Files\Scripts</Filter>
     </None>
   </ItemGroup>

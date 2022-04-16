@@ -1,4 +1,4 @@
-#include "LogoState.h"
+#include "ControlsState.h"
 #include "LogoScreen.h"
 #include "GameObject.h"
 #include "StatestackManager.h"
@@ -6,27 +6,20 @@
 
 #include <SDL.h>
 
-LogoState::LogoState() {
-
-	GameObject* p_logo_screen = new GameObject("fmod_logo_screen");
+ControlsState::ControlsState() {
+	GameObject* p_logo_screen = new GameObject("controls_screen");
 	logo_screen.push_back(p_logo_screen);
-	LogoScreen* p_logo_screen_comp = new LogoScreen(1000, 3000, glm::vec4(0, 0, 0, 1), "FMOD Logo White - Black Background");
-	p_logo_screen->AddComponent(p_logo_screen_comp);
-	logo_screen_comp.push_back(p_logo_screen_comp);
-
-	p_logo_screen = new GameObject("digipen_logo_screen");
-	logo_screen.push_back(p_logo_screen);
-	p_logo_screen_comp = new LogoScreen(1000, 3000, glm::vec4(0, 0, 0, 1), "DigiPen_RGB_White");
+	LogoScreen* p_logo_screen_comp = new LogoScreen(1000, 30000, glm::vec4(0, 0, 0, 1), "controls", true, true);
 	p_logo_screen->AddComponent(p_logo_screen_comp);
 	logo_screen_comp.push_back(p_logo_screen_comp);
 }
 
-LogoState::~LogoState() {
+ControlsState::~ControlsState() {
 	for (auto& obj : delete_objs)
 		delete obj;
 }
 
-void LogoState::Update() {
+void ControlsState::Update() {
 	if (logo_screen.size() == 0) {
 		p_statestack_manager->Pop();
 		return;
@@ -48,7 +41,7 @@ void LogoState::Update() {
 	}
 }
 
-void LogoState::Render() {
+void ControlsState::Render() {
 	if (logo_screen.size() == 0)
 		return;
 

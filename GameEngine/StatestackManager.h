@@ -48,6 +48,8 @@ public:
 
 	void PushOptionsState();
 
+	void PushControlsState();
+
 	/*Reset the state at the top of the stack
 	* Returns void
 	*/

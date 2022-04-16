@@ -146,10 +146,11 @@ int main(int argc, char* args[])
 	if (RUN_WITH_EDITOR)
 		p_editor->Init();
   
+	p_graphics_manager->EnterFullScreenMode();
 	p_statestack_manager->Push(new PlayState());
 	p_statestack_manager->Push(new StartState());
 	p_statestack_manager->Push(new LogoState());
-	p_graphics_manager->EnterFullScreenMode();
+	
 	std::string fps_string;
 	while (p_game_manager->Status())
 	{
