@@ -45,6 +45,7 @@ AudioManager::AudioManager() {
 	CreateSound("shield.wav");
 	CreateSound("hurt.wav");
 	CreateSound("fireball_hit.wav");
+	CreateSound("press.wav");
 	
 }
 

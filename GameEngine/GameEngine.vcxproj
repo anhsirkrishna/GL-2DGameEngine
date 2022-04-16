@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConfirmState.cpp" />
+    <ClCompile Include="CreditsState.cpp" />
     <ClCompile Include="LogoScreen.cpp" />
     <ClCompile Include="LogoState.cpp" />
     <ClCompile Include="Pickup.cpp" />
@@ -227,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConfirmState.h" />
+    <ClInclude Include="CreditsState.h" />
     <ClInclude Include="LogoScreen.h" />
     <ClInclude Include="LogoState.h" />
     <ClInclude Include="Pickup.h" />

@@ -6,7 +6,7 @@
 #include "Texture.h"
 
 LogoScreen::LogoScreen(unsigned int _fade_time, unsigned int _screen_time, 
-						glm::vec4 _color, std::string tex_name, bool _fade_out) :
+						glm::vec4 _color, std::string tex_name, bool _fade_out, bool _full_screen) :
 	Component("LOGOSCREEN"),
 	fade_time(_fade_time), screen_time(_screen_time), back_color(_color), 
 	background_vao_id(0), completed(false), timer(0), back_vertex_buffer_id(0), 
@@ -39,13 +39,30 @@ LogoScreen::LogoScreen(unsigned int _fade_time, unsigned int _screen_time,
 
 	background_vao_id = p_graphics_manager->GenerateQuadVAO(&back_vertex_coords[0], &back_color_coords[0], &tex_coords[0]);
 
-	//Logo image
-	vertex_coords = {
-		-0.70,  0.3, 0,
-		-0.70, -0.3, 0,
-		 0.70, -0.3, 0,
-		 0.70,  0.3, 0
-	};
+	if (!_full_screen)
+	{
+		//Logo image
+		vertex_coords = {
+			-0.70,  0.3, 0,
+			-0.70, -0.3, 0,
+			 0.70, -0.3, 0,
+			 0.70,  0.3, 0
+		};
+	}
+	else
+	{
+		//Logo image
+		vertex_coords = {
+			-1,  1, 0,
+			-1, -1, 0,
+			 1, -1, 0,
+			 1,  1, 0
+		};
+	}
+
+	
+
+	
 
 	for (unsigned int i = 0; i < 4; ++i) {
 		color_coords.push_back(back_color.x);

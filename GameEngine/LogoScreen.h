@@ -45,7 +45,7 @@ private:
 public:
 	LogoScreen(unsigned int _fade_time, unsigned int _screen_time, 
 				glm::vec4 _color, std::string tex_name, 
-				bool _fade_out = true);
+				bool _fade_out = true, bool _full_screen = false);
 
 	virtual void Draw(ShaderProgram* p_program);
 	/*Update function called once per loop

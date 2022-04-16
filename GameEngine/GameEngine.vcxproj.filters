@@ -303,6 +303,9 @@
     <ClCompile Include="ConfirmState.cpp">
       <Filter>Source Files\GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="CreditsState.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -522,6 +525,9 @@
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
     <ClInclude Include="ConfirmState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditsState.h">
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
   </ItemGroup>

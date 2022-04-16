@@ -15,6 +15,7 @@
 #include "PauseState.h"
 #include "Transform.h"
 #include "Health.h"
+#include "CreditsState.h"
 
 #include <SDL.h>
 
@@ -75,6 +76,13 @@ void PlayState::Update() {
 		p_statestack_manager->Push(new PauseState());
 		return;
 	}
+
+	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_0)) {
+		p_statestack_manager->Push(new CreditsState());
+		return;
+	}
+
+
 
 	p_physics_world->Integrate();
 	p_physics_world->DetectAndRecordCollisions();

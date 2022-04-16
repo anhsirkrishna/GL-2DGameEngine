@@ -19,6 +19,7 @@
 #include "ShaderProgram.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "AudioManager.h"
 
 #include <SDL.h>
 
@@ -221,6 +222,9 @@ void Button::Update() {
 void Button::Click() {
 	if (button_action != nullptr)
 		button_action();
+
+	p_audio_manager->Play("press.wav");
+
 	p_behavior->Update();
 }
 
