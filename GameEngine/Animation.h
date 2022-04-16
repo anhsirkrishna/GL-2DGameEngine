@@ -72,4 +72,6 @@ public:
 	* Returns : void
 	*/
 	void ChangeState(json json_object);
+
+	unsigned int GetCurrentFrame();
 };

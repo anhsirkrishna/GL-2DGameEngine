@@ -130,4 +130,10 @@ public:
 	* Returns : void
 	*/
 	virtual void ChangeState(json json_object);
+
+	unsigned int GetMaxParticleCount();
+	int GetParticleLifetime();
+	glm::vec2 GetOriginOffset();
+	glm::vec4 GetMaximumVelocity();
+	glm::vec4 GetMinimumVelocity();
 };

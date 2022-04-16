@@ -1,0 +1,45 @@
+{
+   "COMPONENTS": {
+     "GLQUAD": {
+        "texture_names": [ "light" ],
+        "vertex_list": [
+				      0,   0, 0,
+				      0, 128, 0,
+				    128, 128, 0,
+				    128,   0, 0
+        ],
+        "color_list": [
+				    10, 38, 128,  255,
+				    10, 38, 128,  255,
+				    10, 38, 128,  255,
+				    10, 38, 128,  255
+        ],
+        "tex_coord_list": [
+             0,   0,
+             0, 128,
+           128, 128,
+           128,   0
+        ],
+      "brightness": [ 100.0, 100.0, 10.0]
+     },
+    "TRANSFORM": {},
+    "ANIMATION": {
+        "frames": [
+          0,   0,
+          0, 128,
+          0, 256,
+          0, 384
+        ],
+        "looping": true,
+        "interval": 12
+    }
+   },
+  "STATES": {
+    "DEFAULT": {
+      "GLQUAD": {
+        "texture_names": [ "light" ]
+      }
+    }
+  },
+  "DEFAULT_STATE": "DEFAULT"
+}
