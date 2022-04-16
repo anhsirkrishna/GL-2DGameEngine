@@ -818,12 +818,12 @@ void GraphicsManager::BindTexture(const int unit, const GLuint tex_id, const std
 */
 void GraphicsManager::EnterFullScreenMode() {
 	SDL_SetWindowFullscreen(p_sdl_window, SDL_WINDOW_FULLSCREEN);
-	SDL_DisplayMode *mode=nullptr;
+	SDL_DisplayMode mode;
 	
-	SDL_assert(SDL_GetWindowDisplayMode(p_sdl_window, mode) == 0);
+	SDL_GetWindowDisplayMode(p_sdl_window, &mode);
 
-	window_width = mode->w;
-	window_height = mode->h;
+	window_width = mode.w;
+	window_height = mode.h;
 	window_mode = SDL_WINDOW_FULLSCREEN;
 
 	glViewport(0, 0, window_width, window_height);
@@ -837,7 +837,7 @@ void GraphicsManager::EnterWindowedMode() {
 	SDL_SetWindowFullscreen(p_sdl_window, 0);
 	SDL_DisplayMode mode;
 
-	SDL_assert(SDL_GetWindowDisplayMode(p_sdl_window, &mode) == 0);
+	SDL_GetWindowDisplayMode(p_sdl_window, &mode);
 
 	window_width = WINDOW_WIDTH;
 	window_height = WINDOW_HEIGHT;

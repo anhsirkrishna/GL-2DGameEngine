@@ -29,6 +29,13 @@ void GameObjectManager::Update() {
 	}
 }
 
+void GameObjectManager::Update(unsigned int start_index) {
+	for (unsigned i = start_index; i < game_object_list.size(); ++i) {
+		if (game_object_list[i]->IsActive())
+			game_object_list[i]->Update();
+	}
+}
+
 /*
 * Calls the Draw() function for each game object
 */

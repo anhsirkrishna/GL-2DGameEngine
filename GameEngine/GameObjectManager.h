@@ -21,6 +21,12 @@ public:
 	void Update();
 
 	/*
+	* Calls the Update() function for each game object
+	* starting from the start_index
+	*/
+	void Update(unsigned int start_index);
+
+	/*
 	* Calls the Draw() function for each game object
 	*/
 	void Draw(ShaderProgram* program);

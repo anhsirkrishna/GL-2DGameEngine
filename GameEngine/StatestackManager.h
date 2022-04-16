@@ -42,6 +42,8 @@ public:
 	*/
 	void PushNewFadeOutState();
 
+	void PushConfirmState();
+
 	/*Reset the state at the top of the stack
 	* Returns void
 	*/

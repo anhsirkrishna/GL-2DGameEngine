@@ -88,7 +88,7 @@
             [ 9, 6 ], [ 10, 6 ], [ 10, 6 ], [ 10, 6 ], [ 11, 6 ]
           ]
         ],
-        "action_script": "quit_action.lua"
+        "action_script": "confirm_action.lua"
       },
       "TRANSFORM": {}
     },
