@@ -39,7 +39,6 @@
 #include "Health.h"
 #include "Behavior.h"
 #include "Animation.h"
-#include "ParticleEffect.h"
 
 std::vector<const char*> obj_def_list = {
 	"enemy_obj",
@@ -474,41 +473,12 @@ void Editor::GameObjectWindow() {
 				if (ImGui::BeginTabItem("Animation"))
 				{
 					unsigned int frame = obj_anim->GetCurrentFrame();
-					ImGui::Text(std::to_string(frame).c_str());
+					ImGui::Text(obj_beh->GetScriptString().c_str());
 					ImGui::EndTabItem();
 				}
 			}
 
-			// Particle Effect
-			if (comp_part)
-			{
-				ParticleEffect* obj_part = static_cast<ParticleEffect*>(comp_part);
-				if (ImGui::BeginTabItem("Particle Effect"))
-				{
-					unsigned int particle_count = obj_part->GetMaxParticleCount();
-					int particle_lifetime = obj_part->GetParticleLifetime();
-					glm::vec2 origin_offset = obj_part->GetOriginOffset();
-					glm::vec4 max_velocity = obj_part->GetMaximumVelocity();
-					glm::vec4 min_velocity = obj_part->GetMinimumVelocity();
 
-					std::string pcString = "Max Particle Count: " + std::to_string(particle_count);
-					ImGui::Text(pcString.c_str());
-
-					std::string ooString = "Origin Offset : ( " + std::to_string(origin_offset.x)
-						+ ", " + std::to_string(origin_offset.y) + ")";
-					ImGui::Text(ooString.c_str());
-
-					std::string maxVelString = "Max. Velocity : ( " + std::to_string(max_velocity.x)
-						+ ", " + std::to_string(max_velocity.y) + ")";
-					ImGui::Text(maxVelString.c_str());
-
-					std::string minVelString = "Min. Velocity : ( " + std::to_string(min_velocity.x)
-						+ ", " + std::to_string(min_velocity.y) + ")";
-					ImGui::Text(minVelString.c_str());
-
-					ImGui::EndTabItem();
-				}
-			}
 
 			// JSON obj_def Tab
 			if (ImGui::BeginTabItem("OBJ_DEF"))
