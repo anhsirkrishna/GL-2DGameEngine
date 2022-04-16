@@ -1,5 +1,6 @@
 --Constants
 projectile_speed = 100;
+projectile_life = 1500;
 
 --Move the projectile in the correct direction
 if impact_event then

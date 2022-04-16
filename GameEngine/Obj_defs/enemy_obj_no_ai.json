@@ -55,7 +55,8 @@
       "instance_def": "fire_projectile_enemy",
       "instance_count": 1,
       "spawn_offset": [ 0, 30, 0 ],
-      "recycle": true
+      "recycle": true,
+      "lifetime": 2000
     },
     "JUMP_TRIGGER_RECEIVER_BOX": {
       "offset": [ 0, 0 ],

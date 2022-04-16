@@ -35,6 +35,11 @@ void Projectile::Serialize(json json_object) {
 		spawn_offset[current_state] = glm::vec3(offset[0], offset[1], offset[2]);
 		recycle[current_state] = json_object["recycle"].get<bool>();
 
+		lifetime[current_state] = 0;
+		if (json_object.contains("lifetime")) {
+			lifetime[current_state] = json_object["lifetime"].get<int>();
+		}
+
 		std::string projectile_name = "_Projectile";
 		GameObjectFactory go_factory;
 		GameObject* new_object;
@@ -65,6 +70,11 @@ void Projectile::Spawn() {
 	new_projectile->SetActive(true);
 	new_projectile->ResetComponents();
 	
+	if (lifetime[current_state] > 0) {
+		p_event_manager->QueueTimedEvent(
+			new TimedEvent(EventID::impact, false, new_projectile, lifetime[current_state]));
+	}
+
 	Transform* projectile_transform = static_cast<Transform*>(new_projectile->HasComponent("TRANSFORM"));
 	projectile_transform->SetScale(p_owner_transform->GetScaleX(), p_owner_transform->GetScaleY());
 	glm::vec4 new_position = p_owner_transform->GetPosition();
@@ -122,6 +132,11 @@ void Projectile::ChangeState(json json_object) {
 		spawn_offset[current_state] = glm::vec3(offset[0], offset[1], offset[2]);
 
 		recycle[current_state] = json_object["recycle"].get<bool>();
+
+		lifetime[current_state] = 0;
+		if (json_object.contains("lifetime")) {
+			lifetime[current_state] = json_object["lifetime"].get<int>();
+		}
 
 		std::string projectile_name = "_Projectile";
 		GameObjectFactory go_factory;

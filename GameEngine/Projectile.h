@@ -22,6 +22,7 @@ private:
 	std::unordered_map<std::string, unsigned int> last_used_instance;
 	std::unordered_map<std::string, glm::vec3> spawn_offset;
 	std::unordered_map<std::string, bool> recycle;
+	std::unordered_map<std::string, int> lifetime;
 	std::string instance_file;
 	Transform* p_owner_transform;
 

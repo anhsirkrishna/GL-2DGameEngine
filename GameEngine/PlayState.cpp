@@ -92,6 +92,10 @@ void PlayState::Update() {
 		}
 	}
 
+	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_PERIOD)) {
+		p_event_manager->QueueTimedEvent(new TimedEvent(EventID::pickup, true));
+	}
+
 	if (CheckWinCondition()) {
 		for (auto& enemy_health : enemy_obj_health_list) {
 			enemy_health->Reset();
