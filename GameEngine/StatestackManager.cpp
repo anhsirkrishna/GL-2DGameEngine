@@ -15,6 +15,7 @@
 #include "PlayState.h"
 #include "FadeOutState.h"
 #include "WinState.h"
+#include "ConfirmState.h"
 
 void StateStackManager::Update() {
 	state_stack.back()->Update();
@@ -77,6 +78,10 @@ void StateStackManager::PushNewGameState() {
 
 void StateStackManager::PushNewFadeOutState() {
 	Push(new FadeOutState());
+}
+
+void StateStackManager::PushConfirmState() {
+	Push(new ConfirmState());
 }
 
 /*Reset the state at the top of the stack

@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConfirmState.cpp" />
     <ClCompile Include="LogoScreen.cpp" />
     <ClCompile Include="LogoState.cpp" />
     <ClCompile Include="Pickup.cpp" />
@@ -225,6 +226,7 @@
     <ClCompile Include="WinState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConfirmState.h" />
     <ClInclude Include="LogoScreen.h" />
     <ClInclude Include="LogoState.h" />
     <ClInclude Include="Pickup.h" />
@@ -301,6 +303,7 @@
   <ItemGroup>
     <None Include="..\Resources\Scripts\button_action.lua" />
     <None Include="..\Resources\Scripts\camera_controller.lua" />
+    <None Include="..\Resources\Scripts\confirm_action.lua" />
     <None Include="..\Resources\Scripts\enemy_1.lua" />
     <None Include="..\Resources\Scripts\enemy_1_new.lua" />
     <None Include="..\Resources\Scripts\enemy_2.lua" />
@@ -337,6 +340,7 @@
     <None Include="Obj_defs\block_8.json" />
     <None Include="Obj_defs\block_9.json" />
     <None Include="Obj_defs\ceiling_1.json" />
+    <None Include="Obj_defs\Confirm_UI.json" />
     <None Include="Obj_defs\earth_pickup.json" />
     <None Include="Obj_defs\enemy_obj_no_ai.json" />
     <None Include="Obj_defs\fire_block.json" />

@@ -1,4 +1,4 @@
-#include "PauseState.h"
+#include "ConfirmState.h"
 #include "PhysicsWorld.h"
 #include "EventManager.h"
 #include "GameObjectManager.h"
@@ -19,32 +19,32 @@
 * Create the level and all the objects
 * within the level
 */
-PauseState::PauseState() {
-	
+ConfirmState::ConfirmState() {
+	start_index = p_ui_obj_manager->game_object_list.size();
+	GameObjectFactory().CreateUI("Confirm_UI");
 }
 
 /*Deletes the play state by
 * clearing the level and cleaning
 * up all the objects
 */
-PauseState::~PauseState() {
-	p_ui_obj_manager->Cleanup();
+ConfirmState::~ConfirmState() {
 }
 
 /*Enters the state from another state
 * Doesn't need any special action
 * Returns: void
 */
-void PauseState::Enter() {
-	GameObjectFactory().CreateUI("Pause_menu");
+void ConfirmState::Enter() {
+	
 }
 
-/*Basic update call for the PauseState
+/*Basic update call for the ConfirmState
 * Calls Update on all the gameobjects
 * Calls Update on all the required managers
 * Returns: void
 */
-void PauseState::Update() {
+void ConfirmState::Update() {
 	p_input_manager->Update();
 	p_control_scheme_manager->Update();
 
@@ -56,7 +56,7 @@ void PauseState::Update() {
 		return;
 	}
 
-	p_ui_obj_manager->Update();
+	p_ui_obj_manager->Update(start_index);
 
 	if (p_input_manager->isQuit())
 		p_game_manager->Quit();
@@ -65,7 +65,7 @@ void PauseState::Update() {
 /*Calls the render/draw call for all the objects
 * Returns: void
 */
-void PauseState::Render() {
+void ConfirmState::Render() {
 	ShaderProgram* p_shader_program = p_graphics_manager->GetActiveShader();
 	p_ui_obj_manager->Draw(p_shader_program);
 }
@@ -74,6 +74,6 @@ void PauseState::Render() {
 * Doesn't need any special action
 * Returns: void
 */
-void PauseState::Exit() {
-
+void ConfirmState::Exit() {
+	p_statestack_manager->Pop();
 }

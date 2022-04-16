@@ -300,6 +300,9 @@
     <ClCompile Include="LogoState.cpp">
       <Filter>Source Files\GameStates</Filter>
     </ClCompile>
+    <ClCompile Include="ConfirmState.cpp">
+      <Filter>Source Files\GameStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameDefs.h">
@@ -516,6 +519,9 @@
       <Filter>Source Files\Components\GUIComponents</Filter>
     </ClInclude>
     <ClInclude Include="LogoState.h">
+      <Filter>Source Files\GameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfirmState.h">
       <Filter>Source Files\GameStates</Filter>
     </ClInclude>
   </ItemGroup>
@@ -794,6 +800,12 @@
       <Filter>Source Files\Shaders</Filter>
     </None>
     <None Include="..\Resources\Scripts\enemy_1_new.lua">
+      <Filter>Source Files\Scripts</Filter>
+    </None>
+    <None Include="Obj_defs\Confirm_UI.json">
+      <Filter>Source Files\UI_defs</Filter>
+    </None>
+    <None Include="..\Resources\Scripts\confirm_action.lua">
       <Filter>Source Files\Scripts</Filter>
     </None>
   </ItemGroup>
