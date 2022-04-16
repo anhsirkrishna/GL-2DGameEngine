@@ -139,7 +139,7 @@ bool GraphicsManager::GL_Initialize() {
 		return false;
 	}
 
-	p_sdl_window = SDL_CreateWindow("GameEngine",		// window title
+	p_sdl_window = SDL_CreateWindow("Elements",		// window title
 		SDL_WINDOWPOS_UNDEFINED,					// initial x position
 		SDL_WINDOWPOS_UNDEFINED,					// initial y position
 		window_width,								// width, in pixels
