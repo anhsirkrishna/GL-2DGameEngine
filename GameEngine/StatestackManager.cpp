@@ -19,6 +19,7 @@
 #include "CreditsState.h"
 #include "OptionsState.h"
 #include "ControlsState.h"
+#include "CreditsMenuState.h"
 
 void StateStackManager::Update() {
 	state_stack.back()->Update();
@@ -88,7 +89,7 @@ void StateStackManager::PushConfirmState() {
 }
 
 void StateStackManager::PushCreditsState() {
-	Push(new CreditsState());
+	Push(new CreditsMenuState());
 }
 
 void StateStackManager::PushOptionsState() {

@@ -36,7 +36,7 @@ WinState::~WinState() {
 * Returns: void
 */
 void WinState::Enter() {
-
+	SDL_ShowCursor(SDL_ENABLE);
 }
 
 /*Basic update call for the WinState

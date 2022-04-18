@@ -40,4 +40,6 @@ public:
 	* Returns: void
 	*/
 	virtual void Render();
+
+	virtual void Enter();
 };

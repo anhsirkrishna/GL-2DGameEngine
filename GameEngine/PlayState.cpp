@@ -64,6 +64,9 @@ void PlayState::Enter() {
 * Returns: void
 */
 void PlayState::Update() {
+
+	SDL_ShowCursor(SDL_DISABLE);
+
 	p_input_manager->Update();
 	p_control_scheme_manager->Update();
 
@@ -76,6 +79,22 @@ void PlayState::Update() {
 		p_statestack_manager->Push(new PauseState());
 		return;
 	}
+
+	
+	int flag = SDL_GetWindowFlags(p_graphics_manager->p_sdl_window);
+
+	if (!(flag & SDL_WINDOW_INPUT_FOCUS))
+	{
+		p_statestack_manager->Push(new PauseState());
+		return;
+	}
+
+	if (flag & SDL_WINDOW_MINIMIZED)
+	{
+		p_statestack_manager->Push(new PauseState());
+		return;
+	}
+
 
 	p_physics_world->Integrate();
 	p_physics_world->DetectAndRecordCollisions();
@@ -92,6 +111,12 @@ void PlayState::Update() {
 			enemy_health->Die();
 		}
 	}
+
+	if (p_input_manager->isKeyReleased(SDL_SCANCODE_0)) {
+		p_statestack_manager->Push(new CreditsState());
+		return;
+	}
+
 
 	if (p_input_manager->isKeyTriggered(SDL_SCANCODE_PERIOD)) {
 		p_event_manager->QueueTimedEvent(new TimedEvent(EventID::pickup, true));

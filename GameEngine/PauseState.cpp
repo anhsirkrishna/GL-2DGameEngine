@@ -11,6 +11,7 @@
 #include "StatestackManager.h"
 #include "EditorState.h"
 #include "GameObjectFactory.h"
+#include "AudioManager.h"
 
 #include <SDL.h>
 
@@ -37,6 +38,7 @@ PauseState::~PauseState() {
 */
 void PauseState::Enter() {
 	GameObjectFactory().CreateUI("Pause_menu");
+	
 }
 
 /*Basic update call for the PauseState
@@ -47,6 +49,8 @@ void PauseState::Enter() {
 void PauseState::Update() {
 	p_input_manager->Update();
 	p_control_scheme_manager->Update();
+
+	SDL_ShowCursor(SDL_ENABLE);
 
 	p_lua_manager->Update();
 	p_event_manager->Update();
@@ -75,5 +79,5 @@ void PauseState::Render() {
 * Returns: void
 */
 void PauseState::Exit() {
-
+	
 }

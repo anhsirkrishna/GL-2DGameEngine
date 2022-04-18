@@ -19,6 +19,11 @@ ControlsState::~ControlsState() {
 		delete obj;
 }
 
+void ControlsState::Enter() {
+	SDL_ShowCursor(SDL_ENABLE);
+}
+
+
 void ControlsState::Update() {
 	if (logo_screen.size() == 0) {
 		p_statestack_manager->Pop();

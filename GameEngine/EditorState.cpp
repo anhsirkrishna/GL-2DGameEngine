@@ -28,6 +28,7 @@ EditorState::~EditorState() {
 */
 void EditorState::Enter() {
 	p_editor->NewFrame();
+	SDL_ShowCursor(SDL_ENABLE);
 }
 
 /*Basic update call for the EditorState

@@ -1,10 +1,10 @@
 /******************************************************************************/
 /*!
-/*File   CreditsState.h
+/*File   CreditsMenuState.h
 /*Author Brady Menendez
 /*Email: brady.m@digipen.edu
-/*Date   04/05/2022
-/*  CreditsState header file
+/*Date   04/15/2022
+/*  CreditsMenuState header file
 /* DigiPen Institute of Technology © 2022
 /******************************************************************************/
 
@@ -15,7 +15,7 @@
 class GameObject;
 class LogoScreen;
 
-class CreditsState : public BaseState {
+class CreditsMenuState : public BaseState {
 private:
 	std::vector<GameObject*> logo_screen;
 	std::vector<LogoScreen*> logo_screen_comp;
@@ -25,12 +25,12 @@ public:
 	* Create the level and all the objects
 	* within the level
 	*/
-	CreditsState();
+	CreditsMenuState();
 	/*Deletes the play state by
 	* clearing the level and cleaning
 	* up all the objects
 	*/
-	virtual ~CreditsState();
+	virtual ~CreditsMenuState();
 	/*Enters the state from another state
 	* Doesn't need any special action
 	* Returns: void

@@ -36,7 +36,7 @@ ConfirmState::~ConfirmState() {
 * Returns: void
 */
 void ConfirmState::Enter() {
-	
+	SDL_ShowCursor(SDL_ENABLE);
 }
 
 /*Basic update call for the ConfirmState

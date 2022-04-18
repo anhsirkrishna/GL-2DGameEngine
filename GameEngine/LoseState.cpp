@@ -36,7 +36,7 @@ LoseState::~LoseState() {
 * Returns: void
 */
 void LoseState::Enter() {
-
+	SDL_ShowCursor(SDL_ENABLE);
 }
 
 /*Basic update call for the LoseState

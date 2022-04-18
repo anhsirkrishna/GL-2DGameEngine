@@ -154,6 +154,20 @@ int main(int argc, char* args[])
 	std::string fps_string;
 	while (p_game_manager->Status())
 	{
+
+		if (p_input_manager->isKeyReleased(SDL_SCANCODE_F11))
+		{
+			if (p_graphics_manager->window_mode == 0)
+				p_graphics_manager->EnterFullScreenMode();
+			else
+				p_graphics_manager->EnterWindowedMode();
+		}
+
+		if (p_input_manager->isKeyReleased(SDL_SCANCODE_F10))
+		{
+			p_audio_manager->ToggleMute();
+		}
+
 		p_framerate_controller->start_game_loop();
 
 		p_statestack_manager->Update();

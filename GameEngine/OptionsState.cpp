@@ -36,7 +36,7 @@ OptionsState::~OptionsState() {
 * Returns: void
 */
 void OptionsState::Enter() {
-
+	SDL_ShowCursor(SDL_ENABLE);
 }
 
 /*Basic update call for the OptionsState

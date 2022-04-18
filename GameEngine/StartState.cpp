@@ -36,7 +36,7 @@ StartState::~StartState() {
 * Returns: void
 */
 void StartState::Enter() {
-
+	
 }
 
 /*Basic update call for the StartState

@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="ConfirmState.cpp" />
     <ClCompile Include="ControlsState.cpp" />
+    <ClCompile Include="CreditsMenuState.cpp" />
     <ClCompile Include="CreditsState.cpp" />
     <ClCompile Include="LogoScreen.cpp" />
     <ClCompile Include="LogoState.cpp" />
@@ -231,6 +232,7 @@
   <ItemGroup>
     <ClInclude Include="ConfirmState.h" />
     <ClInclude Include="ControlsState.h" />
+    <ClInclude Include="CreditsMenuState.h" />
     <ClInclude Include="CreditsState.h" />
     <ClInclude Include="LogoScreen.h" />
     <ClInclude Include="LogoState.h" />
